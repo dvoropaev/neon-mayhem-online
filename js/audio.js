@@ -203,7 +203,9 @@ GAME.audio = (function () {
   // comes out the same way twice, and a vowel opens the filter a little
   // wider than a consonant. Nothing at all is made while muted or with the
   // effects off — a silent blip is still three nodes, a line is forty of them.
-  var VOWEL = { a: 1.0, e: 1.35, i: 1.7, o: 0.8, u: 0.65, y: 1.5 };
+  var VOWEL = { a: 1.0, e: 1.35, i: 1.7, o: 0.8, u: 0.65, y: 1.5,
+    'а': 1.0, 'е': 1.35, 'ё': 0.8, 'и': 1.7, 'о': 0.8, 'у': 0.65,
+    'ы': 1.5, 'э': 1.35, 'ю': 0.65, 'я': 1.0 };
   var SCALE = [0, 2, 4, 7, 9, 12, -3, 5];
   var lastBlipT = -9, voiceNodes = 0;
   function babble(v, ch) {
@@ -326,7 +328,7 @@ GAME.audio = (function () {
     var nextTime = 0, step = 0;
     var stations = [
       {
-        name: 'WAVE 84', bpm: 104,
+        name: "ВОЛНА 84", bpm: 104,
         chords: [[57, 60, 64], [53, 57, 60], [55, 59, 62], [52, 55, 59]],
         bass: [45, 41, 43, 40],
         play: function (t, st, bar, chord, bass) {
@@ -344,7 +346,7 @@ GAME.audio = (function () {
         }
       },
       {
-        name: 'RIVIERA FM', bpm: 121,
+        name: "РИВЬЕРА FM", bpm: 121,
         chords: [[60, 64, 67], [57, 60, 64], [62, 65, 69], [55, 59, 62]],
         bass: [48, 45, 50, 43],
         mel: [72, 74, 76, 79, 81, 76, 74, 72],
@@ -362,7 +364,7 @@ GAME.audio = (function () {
         }
       },
       {
-        name: 'NIGHTFALL', bpm: 80,
+        name: "СУМЕРКИ", bpm: 80,
         chords: [[57, 60, 64, 67], [55, 59, 62, 65], [53, 57, 60, 64], [52, 55, 59, 62]],
         bass: [45, 43, 41, 40],
         play: function (t, st, bar, chord, bass) {
@@ -381,7 +383,7 @@ GAME.audio = (function () {
       // tapes is found (tapes.js). Italo: four on the floor, an octave
       // gallop in the bass, a square-wave hook.
       {
-        name: 'TAPE DECK FM', bpm: 124, secret: true,
+        name: "КАССЕТНИК FM", bpm: 124, secret: true,
         chords: [[57, 60, 64], [55, 59, 62], [53, 57, 60], [55, 59, 62]],
         bass: [45, 43, 41, 43],
         mel: [76, 79, 81, 79, 76, 74, 72, 74, 76, 76, 79, 84, 81, 79, 76, 72],
@@ -405,7 +407,7 @@ GAME.audio = (function () {
     // one more click on the dial is OFF: the clock keeps counting (on the
     // first station's tempo) so nothing jumps when it comes back on
     var OFF = stations.length;
-    function nameOf(i) { return i === OFF ? 'RADIO OFF' : stations[i].name; }
+    function nameOf(i) { return i === OFF ? "РАДИО ВЫКЛЮЧЕНО" : stations[i].name; }
     function retune(i) {
       current = i;
       step = 0;

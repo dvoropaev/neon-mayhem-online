@@ -759,7 +759,7 @@ GAME.isla = (function () {
     if (open) return false;
     if (!earned()) return false;
     setOpen(true);
-    GAME.hud.message('THE BRIDGES ARE OPEN — Isla Verde is east across the channel.', 6);
+    GAME.hud.message("МОСТЫ ОТКРЫТЫ — Исла-Верде на востоке, за проливом.", 6);
     GAME.audio.sting('win');
     GAME.track('isla-unlocked');
     GAME.haptics.win();
@@ -767,13 +767,13 @@ GAME.isla = (function () {
     // the message above carries the news
     if (!GAME.shareOpen) GAME.share.show({
       slug: 'isla-open',
-      eyebrow: 'COSTA ROSA · 1986',
-      title: 'BRIDGES OPEN',
-      subtitle: 'Isla Verde is yours to explore',
+      eyebrow: "КОСТА-РОСА · 1986",
+      title: "МОСТЫ ОТКРЫТЫ",
+      subtitle: "Исла-Верде ждёт тебя",
       accent: '#8de8b0',
-      stats: [{ label: 'Missions', value: stuntsDone() && missionsDone() < REQUIRED ? 'ALL JUMPS' : String(missionsDone()) },
-        { label: 'Bridges', value: '2' },
-        { label: 'Next', value: 'Head east' }]
+      stats: [{ label: "Миссии", value: stuntsDone() && missionsDone() < REQUIRED ? "ВСЕ ПРЫЖКИ" : String(missionsDone()) },
+        { label: "Мосты", value: '2' },
+        { label: "Дальше", value: "На восток" }]
     });
     return true;
   }
@@ -812,8 +812,8 @@ GAME.isla = (function () {
       pts: [[352, 150], [sB[0], sB[1]]],
       half: 7, h: 9, flatIn: 40, rampIn: 78, rampOut: 130
     });
-    north.id = 'north'; north.name = 'North Bridge';
-    south.id = 'south'; south.name = 'South Bridge';
+    north.id = 'north'; north.name = "Северный мост";
+    south.id = 'south'; south.name = "Южный мост";
 
     for (var i = 0; i < NET.length; i++) prep(NET[i]);
     buildIndex();
@@ -823,7 +823,7 @@ GAME.isla = (function () {
     south.endY = groundY(sB[0], sB[1]);
 
     city.addIsland({
-      id: 'isla', name: 'Isla Verde', contains: contains,
+      id: 'isla', name: "Исла-Верде", contains: contains,
       centre: { x: C.cx, z: C.cz }, groundY: groundY, shorePoint: shorePoint,
       onRoad: onRoad, nearestRoadPoint: nearestRoadPoint
     });
@@ -2207,7 +2207,7 @@ GAME.isla = (function () {
     var py = P.inCar && P.car ? P.car.pos.y : P.pos.y;
     if (!arrived && contains(px, pz)) {
       arrived = true;
-      GAME.hud.message('ISLA VERDE — hill roads, a working port, and a factory that makes ice cream.', 5);
+      GAME.hud.message("ИСЛА-ВЕРДЕ — горные дороги, работающий порт и фабрика мороженого.", 5);
       GAME.track('isla-first-arrival');
     }
     if (open || !gates.length) return;
@@ -2242,17 +2242,17 @@ GAME.isla = (function () {
     // "jobs" pointed players at taxi shifts and repeats, which don't add
     var p = unlockProgress();
     var left = p.need - p.done;
-    GAME.hud.message('BRIDGE CLOSED — finish ' + left + ' more marked mission' + (left === 1 ? '' : 's') +
-      ' in Costa Rosa (races, rampages, deliveries — each counts once; taxi-style shifts don’t), or find every stunt jump.', 4.5);
+    GAME.hud.message("МОСТ ЗАКРЫТ — осталось выполнить заданий: " + left + " на карте" +
+      " в Коста-Росе (гонки, погромы и доставки считаются по одному разу; рабочие смены не считаются) или пройти все уникальные прыжки.", 4.5);
   }
 
   // the island's own district names, so the HUD reads the same over here
   function districtName(x, z) {
     var a = (x - C.cx) / GROW + AX, b = (z - C.cz) / GROW + AZ;
-    if (b < -100) return 'Alta Verde';
-    if (a > 1090) return 'Mirador';
-    if (b > 230) return 'Costa Sur';
-    return 'Puerto Dorado';
+    if (b < -100) return "Альта-Верде";
+    if (a > 1090) return "Мирадор";
+    if (b > 230) return "Коста-Сур";
+    return "Пуэрто-Дорадо";
   }
 
   return {

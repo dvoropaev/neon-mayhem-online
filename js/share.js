@@ -116,7 +116,7 @@ GAME.share = (function () {
     g.fillStyle = 'rgba(190,230,255,0.9)';
     g.font = '700 20px "Segoe UI","Helvetica Neue",Arial,sans-serif';
     g.letterSpacing = '6px';
-    g.fillText((o.eyebrow || 'COSTA ROSA · 1986').toUpperCase(), W / 2, 58);
+    g.fillText((o.eyebrow || "КОСТА-РОСА · 1986").toUpperCase(), W / 2, 58);
     g.letterSpacing = '0px';
 
     // headline
@@ -175,7 +175,7 @@ GAME.share = (function () {
     g.shadowColor = '#ff2f7a'; g.shadowBlur = 18;
     g.fillStyle = '#ffffff';
     g.font = 'italic 900 30px "Segoe UI","Helvetica Neue",Arial,sans-serif';
-    g.fillText('NEON MAYHEM', 34, H - 26);
+    g.fillText("НЕОНОВЫЙ ХАОС", 34, H - 26);
     g.restore();
     g.textAlign = 'right';
     g.fillStyle = 'rgba(180,220,245,0.92)';
@@ -207,32 +207,32 @@ GAME.share = (function () {
   }
   function save() {
     toBlob(function (b) {
-      if (!b) return note('Could not build the image.');
+      if (!b) return note("Не удалось создать изображение.");
       var a = document.createElement('a');
       a.href = URL.createObjectURL(b);
       a.download = fileName();
       a.click();
       setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
-      note('Saved.');
+      note('Сохранено.');
       GAME.track('result-card-saved');
     });
   }
   function copy() {
     toBlob(function (b) {
-      if (!b) return note('Could not build the image.');
+      if (!b) return note("Не удалось создать изображение.");
       try {
         navigator.clipboard.write([new window.ClipboardItem({ 'image/png': b })])
-          .then(function () { note('Copied to the clipboard.'); GAME.track('result-card-copied'); })
-          .catch(function () { note('Copy was blocked — save it instead.'); });
-      } catch (e) { note('Copy was blocked — save it instead.'); }
+          .then(function () { note("Скопировано в буфер обмена."); GAME.track('result-card-copied'); })
+          .catch(function () { note("Копирование заблокировано — сохрани изображение."); });
+      } catch (e) { note("Копирование заблокировано — сохрани изображение."); }
     });
   }
   function send() {
-    var text = current ? current.title + (current.subtitle ? ' — ' + current.subtitle : '') : 'Neon Mayhem';
+    var text = current ? current.title + (current.subtitle ? ' — ' + current.subtitle : '') : "Неоновый хаос";
     toBlob(function (b) {
       var file = null;
       try { file = new File([b], fileName(), { type: 'image/png' }); } catch (e) { }
-      var payload = { title: 'NEON MAYHEM', text: text, url: 'https://' + shareUrl() };
+      var payload = { title: "НЕОНОВЫЙ ХАОС", text: text, url: 'https://' + shareUrl() };
       if (file && navigator.canShare && navigator.canShare({ files: [file] })) payload.files = [file];
       navigator.share(payload).then(function () { note(''); GAME.track('result-card-shared'); }).catch(function () { });
     });

@@ -13,10 +13,10 @@
 // one race in five, less the house's cut, and pays the stake back and four
 // times over. The running is then drawn to that result.
 GAME.derby = (function () {
-  var NAMES = ['NEON DANCER', 'GULL\'S REVENGE', 'PINK FLAMINGO', 'BAY BREEZE', 'ROSA ROCKET', 'PALM READER',
-    'LAST ORDERS', 'CASH COW', 'SLOW MOTION', 'OFFSHORE BOB', 'TUESDAY\'S CHILD', 'HOT SAUCE',
-    'MIDNIGHT TAXI', 'SALT N VINEGAR', 'BACK TAXES', 'DOG FOOD', 'ISLA DREAM', 'SUNBURN', 'NO REFUNDS',
-    'LUCKY BREAK', 'TIDE\'S OUT', 'GLITTERBALL', 'SECOND WIFE', 'UNDERCOVER'];
+  var NAMES = ["НЕОНОВЫЙ ТАНЦОР", "МЕСТЬ ЧАЙКИ", "РОЗОВЫЙ ФЛАМИНГО", "БРИЗ ЗАЛИВА", "РАКЕТА РОСЫ", "ГАДАЛКА",
+    "ПОСЛЕДНИЙ ЗАКАЗ", "ДОЙНАЯ КОРОВА", "ЗАМЕДЛЕНИЕ", "ОФШОРНЫЙ БОБ", "ДИТЯ ВТОРНИКА", "ОСТРЫЙ СОУС",
+    "ПОЛНОЧНОЕ ТАКСИ", "СОЛЬ И УКСУС", "НАЛОГОВЫЙ ДОЛГ", "СОБАЧИЙ КОРМ", "ОСТРОВНАЯ МЕЧТА", "СОЛНЕЧНЫЙ ОЖОГ", "БЕЗ ВОЗВРАТА",
+    "СЧАСТЛИВЫЙ СЛУЧАЙ", "ОТЛИВ", "ДИСКО-ШАР", "ВТОРАЯ ЖЕНА", "ПОД ПРИКРЫТИЕМ"];
   // saddle cloths by number, as on any racecourse: red, white, blue, yellow,
   // green, black — and the number on each in a colour that reads on it
   var CLOTH = ['#d8282c', '#f4f4f4', '#2a56d8', '#f2d22a', '#2a9a48', '#18181c'];
@@ -29,7 +29,7 @@ GAME.derby = (function () {
   var BOARD_IDLE = 20;     // seconds the board is up when nobody has bet
   var BOARD_BET = 3;       // ...and once somebody has
   var RESULT_HOLD = 6;
-  var LOC = { id: 'derby0', kind: 'derby', name: 'GULL DOWNS', tag: 'Six runners. Pick one.', color: 0x6fe08a, at: { x: 0, z: 0 } };
+  var LOC = { id: 'derby0', kind: 'derby', name: "ИППОДРОМ «ЧАЙКА»", tag: "Шесть лошадей. Выбери одну.", color: 0x6fe08a, at: { x: 0, z: 0 } };
   var STAKES = [100, 500, 2000];
 
   var W = 512, H = 256;
@@ -54,7 +54,7 @@ GAME.derby = (function () {
       })
     };
   }
-  function oddsText(o) { return o === 1 ? 'EVENS' : o + '/1'; }
+  function oddsText(o) { return o === 1 ? "1 К 1" : o + '/1'; }
   function upcoming() { return state === 'board' ? field : next; }
 
   // the result, drawn at the off: a winner by the odds, then the places
@@ -86,7 +86,7 @@ GAME.derby = (function () {
     order = fin;
     state = 'running'; clock = 0;
     next = newField(raceNo + 1);
-    say('AND THEY\'RE OFF!');
+    say("СТАРТ!");
     if (here()) GAME.audio.chime();
   }
   function say(s) { if (s !== said) { said = s; saidT = 0; } }
@@ -115,11 +115,11 @@ GAME.derby = (function () {
     clock = RESULT_HOLD;                         // on to the next race's board
   }
   function holdHint() {
-    var key = GAME.isTouch ? 'JUMP' : GAME.controls ? GAME.controls.label('Space') : 'Space';
-    if (!mine) return 'THE RESULT IS IN';
+    var key = GAME.isTouch ? "ПРОПУСТИТЬ" : GAME.controls ? GAME.controls.label('Space') : 'Space';
+    if (!mine) return "РЕЗУЛЬТАТ ГОТОВ";
     var now = mine.race === field.no;
-    return (now ? (state === 'board' ? 'YOUR RACE IS OFF IN A MOMENT' : 'YOUR RACE IS ON') : 'YOUR RACE IS NEXT') +
-      ' — ' + key + ' skips ahead';
+    return (now ? (state === 'board' ? "ТВОЯ СКАЧКА СКОРО НАЧНЁТСЯ" : "ТВОЯ СКАЧКА ИДЁТ") : "ТВОЯ СКАЧКА СЛЕДУЮЩАЯ") +
+      ' — ' + key + " — пропустить ожидание";
   }
 
   function settle() {
@@ -132,16 +132,16 @@ GAME.derby = (function () {
       var pay = bet.stake * (horse.odds + 1);
       GAME.addCash(pay);
       GAME.audio.sting('win'); GAME.haptics.win();
-      GAME.hud.message(bet.n + ' ' + horse.name + ' WINS!  You collect $' + pay.toLocaleString(), 4);
+      GAME.hud.message(bet.n + ' ' + horse.name + " ПОБЕЖДАЕТ!  Ты получаешь $" + pay.toLocaleString('ru-RU'), 4);
       GAME.track('derby-win');
     } else {
       GAME.audio.crash(0.15); GAME.haptics.deny();
-      GAME.hud.message('Race ' + field.no + ': ' + win.n + ' ' + win.name + ' won it. ' + bet.n + ' ' + horse.name + ' came in ' + place(order.indexOf(horse) + 1) + '.', 4);
+      GAME.hud.message("Скачка " + field.no + ': ' + win.n + ' ' + win.name + " победил. " + bet.n + ' ' + horse.name + " занял место " + place(order.indexOf(horse) + 1) + '.', 4);
       GAME.track('derby-loss');
     }
     if (GAME.save) GAME.save();
   }
-  function place(k) { return k + (k === 1 ? 'st' : k === 2 ? 'nd' : k === 3 ? 'rd' : 'th'); }
+  function place(k) { return k + '-е'; }
 
   // ---------- the clock ----------
   function update(dt) {
@@ -175,9 +175,9 @@ GAME.derby = (function () {
         last = Math.max(last, h.fin);
       });
       var front = order.slice().sort(function (a, b) { return b.x - a.x; })[0];
-      if (clock > order[0].fin) say(order[0].n + ' ' + order[0].name + ' WINS IT!');
-      else if (lead > 0.8) say('INTO THE LAST FURLONG — ' + front.n + ' ' + front.name + '!');
-      else if (lead > 0.25 && saidT > 2.5) say(front.n + ' ' + front.name + ' LEADS');
+      if (clock > order[0].fin) say(order[0].n + ' ' + order[0].name + " ПОБЕЖДАЕТ!");
+      else if (lead > 0.8) say("ПОСЛЕДНИЙ ОТРЕЗОК — " + front.n + ' ' + front.name + '!');
+      else if (lead > 0.25 && saidT > 2.5) say(front.n + ' ' + front.name + " ЛИДИРУЕТ");
       if (clock > last + 0.8) {
         state = 'result'; clock = 0;
         settle();
@@ -243,7 +243,7 @@ GAME.derby = (function () {
   }
   function paintBoard() {
     ctx.fillStyle = '#0b1f16'; ctx.fillRect(0, 0, W, H);
-    header('GULL DOWNS', 'RACE ' + field.no);
+    header("ИППОДРОМ «ЧАЙКА»", "СКАЧКА " + field.no);
     ctx.textBaseline = 'middle';
     field.runners.forEach(function (h, i) {
       var y = 38 + i * 30;
@@ -251,15 +251,15 @@ GAME.derby = (function () {
       cloth(14, y + 4, h.n, 22);
       var yours = mine && mine.race === field.no && mine.n === h.n;
       ctx.fillStyle = yours ? '#ffd24a' : '#e8f4ec'; ctx.font = 'bold 17px sans-serif'; ctx.textAlign = 'left';
-      ctx.fillText(h.name + (yours ? '  ◀ YOURS' : ''), 48, y + 16);
+      ctx.fillText(h.name + (yours ? "  ◀ ТВОЯ" : ''), 48, y + 16);
       ctx.fillStyle = '#6fe08a'; ctx.textAlign = 'right'; ctx.font = 'bold 19px sans-serif';
       ctx.fillText(oddsText(h.odds), W - 16, y + 16);
     });
     ctx.fillStyle = '#ff2d95'; ctx.fillRect(0, H - 34, W, 34);
     ctx.fillStyle = '#fff'; ctx.font = 'bold 15px sans-serif'; ctx.textAlign = 'center';
     var left = Math.max(0, Math.ceil((mine ? BOARD_BET : BOARD_IDLE) - clock));
-    var line = mine ? 'YOUR $' + mine.stake.toLocaleString() + ' ON ' + mine.n + ' ' + field.runners[mine.n - 1].name + '  ·  OFF IN ' + left
-      : 'BETS AT THE TERMINALS  ·  NEXT OFF IN 0:' + (left < 10 ? '0' : '') + left;
+    var line = mine ? "ТВОИ $" + mine.stake.toLocaleString('ru-RU') + " НА " + mine.n + ' ' + field.runners[mine.n - 1].name + "  ·  СТАРТ ЧЕРЕЗ " + left
+      : "СТАВКИ В ТЕРМИНАЛАХ  ·  СЛЕДУЮЩИЙ СТАРТ ЧЕРЕЗ 0:" + (left < 10 ? '0' : '') + left;
     ctx.fillText(line, W / 2, H - 16);
   }
   function paintRace() {
@@ -305,7 +305,7 @@ GAME.derby = (function () {
     if (wx > -30 && wx < W + 30) {
       for (var k = 0; k < 10; k++) { ctx.fillStyle = k % 2 ? '#fff' : '#c02020'; ctx.fillRect(wx - 3, 74 + k * 15, 6, 15); }
       ctx.fillStyle = '#c02020'; ctx.fillRect(wx - 30, 40, 60, 16);
-      ctx.fillStyle = '#fff'; ctx.font = 'bold 12px sans-serif'; ctx.fillText('FINISH', wx, 48);
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 12px sans-serif'; ctx.fillText("ФИНИШ", wx, 48);
     }
     // the field, back lane first so the near horses overlap the far ones
     for (i = 0; i < runners.length; i++) {
@@ -316,18 +316,18 @@ GAME.derby = (function () {
     var now = state === 'result' ? order : runners.slice().sort(function (a, b) { return b.x - a.x; });
     ctx.fillStyle = 'rgba(10,4,20,.78)'; ctx.fillRect(0, 0, W, 26);
     ctx.fillStyle = '#ffd24a'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-    ctx.fillText('RACE ' + field.no, 8, 13);
+    ctx.fillText("СКАЧКА " + field.no, 8, 13);
     for (i = 0; i < 6; i++) cloth(W - 6 - (6 - i) * 24, 3, now[i].n, 20);
     ctx.fillStyle = 'rgba(10,4,20,.82)'; ctx.fillRect(0, H - 28, W, 28);
     ctx.fillStyle = '#fff'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText(state === 'result' ? 'RESULT: 1st ' + order[0].n + ' ' + order[0].name + '  ·  2nd ' + order[1].n + '  ·  3rd ' + order[2].n + '  ·  WON AT ' + oddsText(order[0].odds)
+    ctx.fillText(state === 'result' ? "РЕЗУЛЬТАТ: 1-е " + order[0].n + ' ' + order[0].name + "  ·  2-е " + order[1].n + "  ·  3-е " + order[2].n + "  ·  КОЭФФИЦИЕНТ " + oddsText(order[0].odds)
       : said, W / 2, H - 14);
     if (state === 'result') {
       ctx.fillStyle = 'rgba(10,4,20,.8)'; ctx.fillRect(W / 2 - 150, 92, 300, 66);
       ctx.strokeStyle = '#ffd24a'; ctx.lineWidth = 2; ctx.strokeRect(W / 2 - 150, 92, 300, 66);
       cloth(W / 2 - 138, 104, order[0].n, 40);
       ctx.fillStyle = '#ffd24a'; ctx.font = 'bold 16px sans-serif'; ctx.textAlign = 'left';
-      ctx.fillText('WINNER', W / 2 - 88, 112);
+      ctx.fillText("ПОБЕДИТЕЛЬ", W / 2 - 88, 112);
       ctx.fillStyle = '#fff'; ctx.font = 'bold 18px sans-serif';
       ctx.fillText(order[0].name, W / 2 - 88, 138);
     }
@@ -382,12 +382,12 @@ GAME.derby = (function () {
     if (!f) return rows;
     // the stake first, one row that steps through the three: on a phone the
     // bottom of a list of six horses is a long way down
-    rows.push({ id: 'stake', name: 'YOUR STAKE · $' + stake.toLocaleString(), price: 0, noPrice: true, chip: 'CHANGE', idle: 'CHANGE',
-      ds: STAKES.map(function (s) { return s === stake ? '[$' + s.toLocaleString() + ']' : '$' + s.toLocaleString(); }).join('  ·  ') });
+    rows.push({ id: 'stake', name: "ТВОЯ СТАВКА · $" + stake.toLocaleString('ru-RU'), price: 0, noPrice: true, chip: "ИЗМЕНИТЬ", idle: "ИЗМЕНИТЬ",
+      ds: STAKES.map(function (s) { return s === stake ? '[$' + s.toLocaleString('ru-RU') + ']' : '$' + s.toLocaleString('ru-RU'); }).join('  ·  ') });
     f.runners.forEach(function (h) {
-      var row = { id: 'horse' + h.n, name: h.n + ' · ' + h.name + ' · ' + oddsText(h.odds), price: stake, sw: CLOTH_HEX[h.n - 1], verb: 'BET',
-        ds: 'Wins you $' + (stake * (h.odds + 1)).toLocaleString() + ' back on a $' + stake.toLocaleString() + ' stake.' };
-      if (mine) { row.off = true; row.ds = mine.n === h.n ? 'Your $' + mine.stake.toLocaleString() + ' is on this one.' : 'One bet a race — yours is on.'; }
+      var row = { id: 'horse' + h.n, name: h.n + ' · ' + h.name + ' · ' + oddsText(h.odds), price: stake, sw: CLOTH_HEX[h.n - 1], verb: "СТАВКА",
+        ds: "Выигрыш $" + (stake * (h.odds + 1)).toLocaleString('ru-RU') + " при ставке $" + stake.toLocaleString('ru-RU') + "." };
+      if (mine) { row.off = true; row.ds = mine.n === h.n ? "Твои $" + mine.stake.toLocaleString('ru-RU') + " поставлены на эту лошадь." : "Одна ставка на скачку. Твоя уже принята."; }
       rows.push(row);
     });
     return rows;
@@ -407,7 +407,7 @@ GAME.derby = (function () {
     choose: choose,
     hint: function () {
       var f = upcoming();
-      return f ? 'Race ' + f.no + (state === 'board' ? '' : ' — off when this one\'s in') : '';
+      return f ? "Скачка " + f.no + (state === 'board' ? '' : " — старт после текущей") : '';
     },
     get state() { return state; },
     get race() { return field ? field.no : 0; },

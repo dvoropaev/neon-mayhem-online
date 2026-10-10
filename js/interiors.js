@@ -18,16 +18,16 @@
 GAME.interiors = (function () {
   var ROOM_X = -3400, ROOM_GAP = 80, FADE = 0.45;
   var ROOMS = [
-    { id: 'home_dock', name: 'DOCKSIDE FLAT', kind: 'home', layout: 'flat', w: 9, d: 8, h: 3.0,
+    { id: 'home_dock', name: "КВАРТИРА В ДОКАХ", kind: 'home', layout: 'flat', w: 9, d: 8, h: 3.0,
       floor: 0x7a6248, wall: 0xa59a86, trim: 0x5a4a3a, accent: 0x38b8c8, sofa: 0x6a7a8a,
-      where: 'the bed is at the back, your wardrobe on the left' },
-    { id: 'home_condo', name: 'STRIP CONDO', kind: 'home', layout: 'condo', w: 14, d: 11, h: 3.2,
+      where: "кровать в глубине, гардероб слева" },
+    { id: 'home_condo', name: "КВАРТИРА НА БУЛЬВАРЕ", kind: 'home', layout: 'condo', w: 14, d: 11, h: 3.2,
       floor: 0x2e2440, wall: 0xe8dff0, trim: 0x8a6ab0, accent: 0xff4fa3, sofa: 0xf0f0f4,
-      where: 'the bedroom is through the door at the back, your wardrobe in it' },
-    { id: 'home_villa', name: 'MARINA VILLA', kind: 'home', layout: 'villa', w: 18, d: 14, h: 7.2, upper: 3.6,
+      where: "спальня за дверью в глубине, гардероб внутри" },
+    { id: 'home_villa', name: "ВИЛЛА У МАРИНЫ", kind: 'home', layout: 'villa', w: 18, d: 14, h: 7.2, upper: 3.6,
       floor: 0xd8c8a8, wall: 0xf6f1e6, trim: 0xb8a888, accent: 0x38b8c8, sofa: 0x3a8a9a,
-      where: 'the bedroom is up the stairs, your wardrobe with it' },
-    { id: 'casino0', name: 'THE LUCKY GULL', kind: 'casino', w: 24, d: 18, h: 5.5,
+      where: "спальня наверху, гардероб там же" },
+    { id: 'casino0', name: "СЧАСТЛИВАЯ ЧАЙКА", kind: 'casino', w: 24, d: 18, h: 5.5,
       floor: 0x6a1428, wall: 0x2a1236, trim: 0xffd24a, accent: 0xff4fa3, music: true }
   ];
   // Every business has a room too: walk in through the door, do your
@@ -38,15 +38,15 @@ GAME.interiors = (function () {
   // (shops.js builds it; the halls below keep the camera under its roof).
   var SHOP_ROOMS = {
     hardware: { w: 12, d: 10, h: 3.4, floor: 0x45464c, wall: 0x7a7a62, trim: 0x2a2a22, accent: 0xffd24a,
-      hello: ' — guns on the wall, the counter at the back.' },
+      hello: " — оружие на стене, стойка в глубине." },
     dress: { w: 12, d: 10, h: 3.4, floor: 0xe6dce6, wall: 0xf6e6ee, trim: 0xd86aa8, accent: 0xff8fd0,
-      hello: ' — the racks are on the walls, the mirror at the back.' },
+      hello: " — вешалки у стен, зеркало в глубине." },
     barber: { w: 10, d: 9, h: 3.2, floor: 0xeeeeee, wall: 0xdcecf4, trim: 0x3a6a8a, accent: 0x8fd0ff,
-      hello: ' — take the empty chair.' },
+      hello: " — садись в свободное кресло." },
     bribe: { w: 12, d: 10, h: 3.6, floor: 0x5c6272, wall: 0xb4bccc, trim: 0x22305a, accent: 0x4da3ff,
-      hello: ' — the sergeant is at the desk.' },
+      hello: " — сержант за столом." },
     bank: { w: 18, d: 14, h: 4.6, floor: 0xd8d2c4, wall: 0xece4d0, trim: 0x2e4a3a, accent: 0xe8c86a,
-      hello: ' — the tellers are at the back, the vault behind the rope.' }
+      hello: " — кассиры в глубине, сейф за ограждением." }
   };
   var byId = {};
   var cur = null;            // { room, loc, door: {x,y,z}, heading }
@@ -119,7 +119,7 @@ GAME.interiors = (function () {
     // the way you came in, and the mat that takes you back out
     box(b, ox, 1.15, oz - d / 2 + 0.04, 1.4, 2.3, 0.08, room.kind === 'casino' ? 0x3a2410 : room.trim);
     box(b, ox + 0.5, 1.1, oz - d / 2 + 0.1, 0.08, 0.08, 0.08, 0xffd24a);
-    ring(room, ox, oz - d / 2 + 1.0, 0x8de8b0, 'EXIT — step on to go back out', exitRoom);
+    ring(room, ox, oz - d / 2 + 1.0, 0x8de8b0, "ВЫХОД — встань сюда, чтобы выйти", exitRoom);
     if (room.kind === 'home') furnishHome(b, room);
     else if (room.kind === 'shop') furnishShop(b, room);
     else furnishCasino(b, room);
@@ -151,7 +151,7 @@ GAME.interiors = (function () {
       glow(nx, y0 + 0.78, bz + 0.9, 0.26, 0.3, 0.26, 0xffe2a8);
       solidAt(nx, bz + 0.9, 0.5, 0.5, 0.6, y0);
     }
-    ring(room, bx + side * 1.75, bz - 0.5, room.accent, 'YOUR BED — step on to sleep it off', openHome, y0, via);
+    ring(room, bx + side * 1.75, bz - 0.5, room.accent, "ТВОЯ КРОВАТЬ — встань сюда, чтобы поспать", openHome, y0, via);
   }
   // a wardrobe against a side wall; face is the way its doors open (+1: +x)
   function wardrobe(b, room, wx, wz, y0, face, via) {
@@ -162,7 +162,7 @@ GAME.interiors = (function () {
     box(b, wx + face * 0.33, y0 + 1.1, wz - 0.06, 0.04, 0.16, 0.04, 0xffd24a);
     box(b, wx + face * 0.33, y0 + 1.1, wz + 0.06, 0.04, 0.16, 0.04, 0xffd24a);
     solidAt(wx, wz, 0.6, 1.3, 2.1, y0);
-    ring(room, wx + face * 1.25, wz, room.accent, 'YOUR WARDROBE — step on to change', function () {
+    ring(room, wx + face * 1.25, wz, room.accent, "ТВОЙ ГАРДЕРОБ — встань сюда, чтобы переодеться", function () {
       if (GAME.shops) GAME.shops.open(WARDROBE);
     }, y0, via);
   }
@@ -415,7 +415,7 @@ GAME.interiors = (function () {
     box(b, ox, wy + 2.25, wz - 0.1, 0.3, 0.5, 0.2, 0xffd24a);   // the pointer
     room.anim.push({ wheel: wheel });
     var stage = oz + d / 2 - 2.6;
-    ring(room, ox, stage, 0xffd24a, 'THE WHEEL — step on to place a bet', function () {
+    ring(room, ox, stage, 0xffd24a, "РУЛЕТКА — встань сюда, чтобы сделать ставку", function () {
       if (GAME.shops && cur && cur.loc) GAME.shops.open(cur.loc);
     });
     // the sign
@@ -437,7 +437,7 @@ GAME.interiors = (function () {
       box(b, bx + 1.0, 0.76, bz - 2.6 + st * 1.3, 0.55, 0.08, 0.55, 0xc02848);
     }
     room.anim.push({ fig: figure(ox - w / 2 + 1.0, bz + 0.5, Math.PI / 2, { look: { shirt: 0xf4f4f8, pants: 0x14141a, skin: 0xc89870, hair: 'slick', hairCol: 0x1a1210 } }), sway: 0.5 });
-    ring(room, bx + 2.2, bz, 0xff8fc8, 'THE BAR — step on for a drink', function () {
+    ring(room, bx + 2.2, bz, 0xff8fc8, "БАР — встань сюда, чтобы выпить", function () {
       if (GAME.shops) GAME.shops.open(BAR);
     });
     // Gull Downs (derby.js): race terminals down the right wall, every one
@@ -469,7 +469,7 @@ GAME.interiors = (function () {
     room.screen = { x: ox + w / 2 - 0.16, y: 3.75, z: bigZ };
     glow(ox + w / 2 - 0.12, 2.0, bigZ, 0.06, 0.08, 6.8, 0x6fe08a);
     // the free terminal in the middle is yours
-    ring(room, ox + w / 2 - 1.8, oz - d / 2 + 9, 0x6fe08a, 'GULL DOWNS — step up to bet on the horses', function () {
+    ring(room, ox + w / 2 - 1.8, oz - d / 2 + 9, 0x6fe08a, "ИППОДРОМ «ЧАЙКА» — подойди, чтобы поставить на лошадь", function () {
       if (!GAME.shops || !GAME.derby) return;
       GAME.shops.open(GAME.derby.loc);
     });
@@ -511,7 +511,7 @@ GAME.interiors = (function () {
   }
   function furnishHardware(b, room, ox, oz, w, d, h, back) {
     counter(b, room, ox, back, 5, 0x1a1a14, 0x5a4a32, { look: { shirt: 0x6a7a4a, pants: 0x2a2a22, skin: 0xb08060, hair: 'crew', hairCol: 0x2a2018 } },
-      'THE COUNTER — step up to buy');
+      "СТОЙКА — подойди за покупками");
     // the gun wall: pegboard, and what hangs on it
     box(b, ox, 1.9, back - 0.06, w - 2, 1.8, 0.06, 0x6a5a3a);
     for (var g = 0; g < 7; g++) {
@@ -559,7 +559,7 @@ GAME.interiors = (function () {
     box(b, ox + 3, 1.3, back - 0.9, 0.06, 2.6, 1.6, 0xff8fd0);
     box(b, ox - 3, 1.3, back - 0.9, 0.06, 2.6, 1.6, 0xff8fd0);
     room.anim.push({ fig: figure(ox + 4.4, back - 1.2, Math.PI, { look: { shirt: 0x23242e, pants: 0x23242e, skin: 0xd8a888, hair: 'ponytail', hairCol: 0x6a2a4a } }), sway: 0.7 });
-    counterRing(room, ox, back - 1.6, 'THE MIRROR — step on to try things on');
+    counterRing(room, ox, back - 1.6, "ЗЕРКАЛО — встань сюда для примерки");
   }
   function furnishBarber(b, room, ox, oz, w, d, h, back) {
     // the checkerboard
@@ -592,10 +592,10 @@ GAME.interiors = (function () {
     // the waiting bench
     box(b, ox - w / 2 + 0.6, 0.4, oz - 0.5, 0.7, 0.12, 3.0, 0x5a3a28);
     solid(ox - w / 2 + 0.6, oz - 0.5, 0.7, 3.0, 0.5);
-    counterRing(room, ox + 2, back - 2.7, 'THE CHAIR — sit down for a cut');
+    counterRing(room, ox + 2, back - 2.7, "КРЕСЛО — садись для стрижки");
   }
   function furnishDesk(b, room, ox, oz, w, d, h, back) {
-    counter(b, room, ox, back, 5, 0x22305a, 0x3a4a6a, { cop: true }, 'THE DESK — a word with the sergeant');
+    counter(b, room, ox, back, 5, 0x22305a, 0x3a4a6a, { cop: true }, "СТОЛ — поговори с сержантом");
     // the badge on the wall behind him, and a WANTED board
     glow(ox, 2.5, back - 0.06, 1.0, 1.0, 0.04, 0xffd24a);
     glow(ox, 2.5, back - 0.08, 0.6, 0.6, 0.04, 0x22305a);
@@ -632,8 +632,8 @@ GAME.interiors = (function () {
       room.anim.push({ fig: fig, sway: 0.3 + k * 0.2 });
       tellers.push(fig);
     });
-    ring(room, cx, cz - 1.5, room.accent, 'THE TELLER — step up', function () {
-      GAME.hud.message(GAME.heist && GAME.heist.busy ? '"Can I help — oh."' : '"Good afternoon! Deposits at any window. We close at six."', 2.5);
+    ring(room, cx, cz - 1.5, room.accent, "КАССИР — подойди", function () {
+      GAME.hud.message(GAME.heist && GAME.heist.busy ? "«Чем могу помочь… ой»." : "«Добрый день! Вклады в любом окошке. Закрываемся в шесть».", 2.5);
     });
     // the vault: a frame in the back wall, the dark of the strongroom in it,
     // and the door — a pivot at its hinge, so it swings
@@ -707,9 +707,9 @@ GAME.interiors = (function () {
   }
 
   // the counter at the bar is a shop like any other (shops.js, kind 'bar')
-  var BAR = { id: 'bar0', kind: 'bar', name: 'THE GULL BAR', tag: 'Drinks that put you back together', color: 0xff8fc8, at: { x: 0, z: 0 } };
+  var BAR = { id: 'bar0', kind: 'bar', name: "БАР «ЧАЙКА»", tag: "Напитки, которые поставят на ноги", color: 0xff8fc8, at: { x: 0, z: 0 } };
   // and so is the wardrobe at home (kind 'wardrobe')
-  var WARDROBE = { id: 'wardrobe0', kind: 'wardrobe', name: 'YOUR WARDROBE', tag: 'Everything you own, on hangers', color: 0xff8fd0, at: { x: 0, z: 0 } };
+  var WARDROBE = { id: 'wardrobe0', kind: 'wardrobe', name: "ТВОЙ ГАРДЕРОБ", tag: "Все твои вещи на вешалках", color: 0xff8fd0, at: { x: 0, z: 0 } };
 
   function build() {
     if (built) return;
@@ -756,8 +756,8 @@ GAME.interiors = (function () {
     var L = GAME.city.towerLift;
     if (!L) return;
     lift = [];
-    [['street', 'roof', 'ELEVATOR — step on to ride up to the helipad'],
-      ['roof', 'street', 'ELEVATOR — step on to go down to the street']].forEach(function (s) {
+    [['street', 'roof', "ЛИФТ — встань сюда, чтобы подняться на вертолётную площадку"],
+      ['roof', 'street', "ЛИФТ — встань сюда, чтобы спуститься на улицу"]].forEach(function (s) {
       var at = L[s[0]];
       var m = new THREE.Mesh(new THREE.RingGeometry(0.75, 1.0, 32), new THREE.MeshBasicMaterial({
         color: 0x8fb4ff, transparent: true, opacity: 0.7, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false }));
@@ -883,7 +883,7 @@ GAME.interiors = (function () {
     GAME.cam.yaw = P.heading; GAME.cam.pitch = 0.25; GAME.cam.x = GAME.cam.y = GAME.cam.z = 0;
     for (var i = 0; i < lift.length; i++) lift[i].armed = false;
     if (GAME.audio.ding) GAME.audio.ding();
-    GAME.hud.message(up ? 'HELIPAD — seventy metres up. Mind the edge.' : 'Street level.', 2.5);
+    GAME.hud.message(up ? "ВЕРТОЛЁТНАЯ ПЛОЩАДКА — высота семьдесят метров. Осторожно у края." : "Уровень улицы.", 2.5);
     GAME.track('lift-' + R.s.toId);
   }
 
@@ -900,11 +900,11 @@ GAME.interiors = (function () {
     if (!room || cur || pending) return false;
     // (a shop can be popped into mid-job, the way its doormat always could)
     if (GAME.missions && GAME.missions.active && room.kind !== 'shop') {
-      GAME.hud.message('Not now — you are on a job.', 2.2);
+      GAME.hud.message("Сейчас нельзя — ты на задании.", 2.2);
       return true;
     }
     if (room.kind === 'casino' && GAME.police.wanted > 0) {
-      GAME.hud.message('The doorman takes one look at you — not with the law on your tail.', 3);
+      GAME.hud.message("Швейцар посмотрел и не впустил. С полицией на хвосте сюда нельзя.", 3);
       return true;
     }
     var heading = P.heading;
@@ -917,10 +917,10 @@ GAME.interiors = (function () {
       GAME.cam.yaw = 0; GAME.cam.pitch = 0.2; GAME.cam.x = 0;
       for (var i = 0; i < room.rings.length; i++) room.rings[i].armed = false;
       GAME.hud.message(room.name + (room.kind === 'home'
-        ? (GAME.police.wanted > 0 ? ' — nobody can see you in here. ' + room.where.charAt(0).toUpperCase() + room.where.slice(1) + '.'
-          : ' — ' + room.where + '. The mat by the door takes you out.')
-        : room.kind === 'shop' ? room.hello + (GAME.police.wanted > 0 && room.shop !== 'bribe' ? ' The law is waiting outside.' : '')
-          : ' — the wheel is at the back, the bar on the left. The mat by the door takes you out.'), 4);
+        ? (GAME.police.wanted > 0 ? " — здесь тебя никто не видит. " + room.where.charAt(0).toUpperCase() + room.where.slice(1) + '.'
+          : ' — ' + room.where + ". Коврик у двери выведет наружу.")
+        : room.kind === 'shop' ? room.hello + (GAME.police.wanted > 0 && room.shop !== 'bribe' ? " Полиция ждёт снаружи." : '')
+          : " — рулетка в глубине, бар слева. Коврик у двери выведет наружу."), 4);
       if (room.music && GAME.audio.radio && !GAME.audio.muted) GAME.audio.radio.setVolume(0.45);
       GAME.applyTimeOfDay(GAME.timeOfDay);   // the room's own light (main.js)
       GAME.track('interior-' + room.id);

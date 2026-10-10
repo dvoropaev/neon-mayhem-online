@@ -630,13 +630,13 @@ GAME.peds = (function () {
               ped.yankT = (ped.yankT || 0) + dt;
               if (mine && !ped.yankWarned && ped.yankT > 0.7) {
                 ped.yankWarned = true;
-                GAME.hud.message('He’s got the door handle — floor it or lose the seat.', 2);
+                GAME.hud.message("Он схватился за ручку двери — газуй или потеряешь место.", 2);
                 GAME.audio.yelp(ped.pos.x, ped.pos.z);
               }
               if (ped.yankT > 1.7) {
                 if (mine) {
                   GAME.exitCar();
-                  GAME.hud.message('He wants his ride back.', 2.5);
+                  GAME.hud.message("Он хочет вернуть свой транспорт.", 2.5);
                   GAME.audio.yelp(ped.pos.x, ped.pos.z);
                   ped.yankT = 0;
                   ped.yankWarned = false;

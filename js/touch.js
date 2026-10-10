@@ -111,7 +111,7 @@ GAME.touch = (function () {
     applySettings(TOUCH_BUDGET, 320);
     if (!GAME.started) {
       var pe = document.getElementById('press-enter');
-      if (pe && !pe.classList.contains('loading')) pe.textContent = 'TAP TO START';
+      if (pe && !pe.classList.contains('loading')) pe.textContent = "КОСНИСЬ ДЛЯ НАЧАЛА";
     }
     // the radar moves to the top-left on touch: the bottom-left corner is the
     // virtual stick's zone, and the two were fighting for the same thumb.
@@ -152,7 +152,7 @@ GAME.touch = (function () {
     restoreCorner(document.getElementById('fs-btn'));
     if (!GAME.started) {
       var pe = document.getElementById('press-enter');
-      if (pe && !pe.classList.contains('loading')) pe.textContent = 'PRESS ENTER';
+      if (pe && !pe.classList.contains('loading')) pe.textContent = "НАЖМИ ENTER";
     }
     // (the controls bar comes back on the HUD's own refresh)
     if (GAME.hud && GAME.hud.refreshFsBtn) GAME.hud.refreshFsBtn();
@@ -174,27 +174,27 @@ GAME.touch = (function () {
     // secondary controls step up and inboard from there. Buttons show/hide by
     // context in update(). ----
     // on foot
-    btns.fire = mkBtn('FIRE', 24, 24, 96, { flag: 'fire', press: function () { T.firePressed = true; } });
-    btns.jump = mkBtn('JUMP', 134, 24, 82, { flag: 'jump' });
-    btns.aim = mkBtn('AIM', 34, 132, 68, { flag: 'aim', toggle: true });
-    btns.enter = mkBtn('ENTER', 122, 122, 62, { flag: 'enter' });
-    btns.run = mkBtn('RUN', 228, 30, 62, { flag: 'run', toggle: true });
+    btns.fire = mkBtn("ОГОНЬ", 24, 24, 96, { flag: 'fire', press: function () { T.firePressed = true; } });
+    btns.jump = mkBtn("ПРЫЖОК", 134, 24, 82, { flag: 'jump' });
+    btns.aim = mkBtn("ПРИЦЕЛ", 34, 132, 68, { flag: 'aim', toggle: true });
+    btns.enter = mkBtn("СЕСТЬ", 122, 122, 62, { flag: 'enter' });
+    btns.run = mkBtn("БЕГ", 228, 30, 62, { flag: 'run', toggle: true });
     // a tap steps to the next weapon; held, it is the weapon wheel (arsenal.js)
-    btns.wpn = mkBtn('WPN', 116, 200, 54, { flag: 'wpnHeld', press: function () { T.wpnTap = true; } });
+    btns.wpn = mkBtn("ОРУЖИЕ", 116, 200, 54, { flag: 'wpnHeld', press: function () { T.wpnTap = true; } });
     footBtns.push(btns.fire, btns.jump, btns.aim, btns.enter, btns.run, btns.wpn);
     // in car: GAS in the corner, BRAKE right next to it (never stacked above)
-    btns.gas = mkBtn('GAS', 24, 24, 96, { flag: 'gas' });
-    btns.brake = mkBtn('BRAKE', 134, 24, 86, { flag: 'brake' });
+    btns.gas = mkBtn("ГАЗ", 24, 24, 96, { flag: 'gas' });
+    btns.brake = mkBtn("ТОРМОЗ", 134, 24, 86, { flag: 'brake' });
     btns.handbrake = mkBtn('⇋', 34, 132, 68, { flag: 'handbrake' });
-    btns.exit = mkBtn('EXIT', 122, 124, 62, { flag: 'enter' });
-    btns.driveby = mkBtn('FIRE', 232, 30, 68, { flag: 'driveByAuto' });
-    btns.job = mkBtn('JOB', 116, 200, 54, { press: function () { T.job = true; } });
+    btns.exit = mkBtn("ВЫЙТИ", 122, 124, 62, { flag: 'enter' });
+    btns.driveby = mkBtn("ОГОНЬ", 232, 30, 68, { flag: 'driveByAuto' });
+    btns.job = mkBtn("РАБОТА", 116, 200, 54, { press: function () { T.job = true; } });
     btns.radio = mkBtn('♪', 200, 200, 50, { press: function () { GAME.switchRadio(1); } });
     btns.horn = mkBtn('📢', 232, 112, 56, { flag: 'hornHeld', press: function () { T.horn = true; } });
     // the TALON's arsenal: chin gun and rockets, shown only in the gunship
     // (they drive the same fire/aim flags the gunship reads in aircraft.js)
-    btns.gsGun = mkBtn('GUN', 232, 30, 68, { flag: 'fire' });
-    btns.gsRkt = mkBtn('RKT', 232, 112, 62, { flag: 'aim' });
+    btns.gsGun = mkBtn("ПУШКА", 232, 30, 68, { flag: 'fire' });
+    btns.gsRkt = mkBtn("РАКЕТЫ", 232, 112, 62, { flag: 'aim' });
     // the plane's barrel roll, which Q/E and a pad's bumpers had and a
     // touchscreen did not; they take the slots the horn and handbrake leave
     // empty in the air
@@ -203,7 +203,7 @@ GAME.touch = (function () {
     carBtns.push(btns.gas, btns.brake, btns.handbrake, btns.driveby, btns.exit, btns.radio, btns.job, btns.gsGun, btns.gsRkt, btns.horn,
       btns.rollL, btns.rollR);
     // a failed run's retry offer, on foot or at the wheel (missions.js)
-    btns.retry = mkBtn('RETRY', 24, 236, 62, { press: function () { T.retry = true; } });
+    btns.retry = mkBtn("ПОВТОР", 24, 236, 62, { press: function () { T.retry = true; } });
 
     // the radar (moved top-left by enable()) opens the full map on a tap
     var mm = document.getElementById('minimap-wrap');
@@ -446,8 +446,8 @@ GAME.touch = (function () {
       var air = heli || plane;
       show(btns.gas, true); show(btns.brake, true); show(btns.exit, true);
       // aircraft repurpose GAS/BRAKE; hide ground-only buttons
-      setText(btns.gas, heli ? '▲ UP' : plane ? 'THR+' : 'GAS');
-      setText(btns.brake, heli ? '▼ DN' : plane ? 'THR−' : 'BRAKE');
+      setText(btns.gas, heli ? "▲ ВВЕРХ" : plane ? "ТЯГА+" : "ГАЗ");
+      setText(btns.brake, heli ? "▼ ВНИЗ" : plane ? "ТЯГА−" : "ТОРМОЗ");
       show(btns.handbrake, !air);
       // the radio plays in the air too (, and . work there on a keyboard):
       // its slot is free in every aircraft, so the button stays
@@ -460,7 +460,7 @@ GAME.touch = (function () {
       // touchscreen had no way to clock off but stepping out
       var onShift = !!(GAME.missions && GAME.missions.active && GAME.missions.active.def.job);
       show(btns.job, !air && (onShift || !!GAME.jobAvailable));
-      setText(btns.job, onShift ? 'END' : 'JOB');
+      setText(btns.job, onShift ? "КОНЕЦ" : "РАБОТА");
       // the gunship gets its own trigger pair — before this, the TALON had
       // no way to fire on touch at all (FIRE/AIM live in the foot cluster)
       show(btns.gsGun, gunship);

@@ -118,7 +118,7 @@
       if (code === 'KeyH') GAME.hud.toggleControlsBar();
       if (code === 'KeyM') {
         var m = GAME.hud.toggleMute();
-        GAME.hud.message(m ? 'Muted' : 'Sound on', 1.2);
+        GAME.hud.message(m ? "Без звука" : "Звук включён", 1.2);
       }
       if (code === 'KeyT') GAME.hud.toggleCRT();
       if (code === 'KeyN') GAME.setDaytime();
@@ -158,13 +158,13 @@
   // reads as a broken game, when it is the browser saying no.
   GAME.enterFullscreen = function (asked) {
     function refused(why) {
-      if (asked && GAME.hud) GAME.hud.message('The browser would not go full screen' + (why ? ' (' + why + ')' : '') +
-        '. Close this tab and open the game in a fresh one — that clears it.', 7);
+      if (asked && GAME.hud) GAME.hud.message("Браузер не смог включить полный экран" + (why ? ' (' + why + ')' : '') +
+        ". Закрой вкладку и открой игру в новой — это сбросит ограничение.", 7);
     }
     try {
       var std = docEl.requestFullscreen, req = std || docEl.webkitRequestFullscreen;
       if (GAME.fullscreenEl() || !req) return;
-      if (document.fullscreenEnabled === false && document.webkitFullscreenEnabled !== true) { refused('not allowed on this page'); return; }
+      if (document.fullscreenEnabled === false && document.webkitFullscreenEnabled !== true) { refused("нет разрешения на этой странице"); return; }
       // navigationUI 'hide' asks Android to fold the system bars away too
       // (the old webkit call takes a flags number, not options)
       var pr = std ? std.call(docEl, { navigationUI: 'hide' }) : req.call(docEl);
@@ -186,7 +186,7 @@
   var fsRestore = false, fsManual = false;
   GAME.toggleFullscreen = function () {
     if (!GAME.canFullscreen) {
-      GAME.hud.message('This browser has no full screen for web pages — Share ▸ Add to Home Screen plays it full screen.', 6);
+      GAME.hud.message("Этот браузер не поддерживает полный экран для страниц. Выбери «Поделиться ▸ На экран Домой», чтобы играть на весь экран.", 6);
       return;
     }
     if (GAME.fullscreenEl()) {
@@ -225,11 +225,11 @@
     if (title) title.style.display = 'none';
     var wrap = document.createElement('div');
     wrap.id = 'import-screen';
-    wrap.innerHTML = '<div id="import-card"><div id="import-title">IMPORT SAVE</div>' +
-      '<div id="import-body">Pick the save you exported (neon-mayhem-save.json). It replaces the progress on this device.</div>' +
-      '<button id="import-pick" class="ibtn danger">CHOOSE SAVE FILE</button>' +
+    wrap.innerHTML = "<div id=\"import-card\"><div id=\"import-title\">ИМПОРТ СОХРАНЕНИЯ</div>" +
+      "<div id=\"import-body\">Выбери экспортированное сохранение (neon-mayhem-save.json). Оно заменит прогресс на этом устройстве.</div>" +
+      "<button id=\"import-pick\" class=\"ibtn danger\">ВЫБРАТЬ СОХРАНЕНИЕ</button>" +
       '<div id="import-msg"></div>' +
-      '<button id="import-back" class="ibtn">BACK TO THE GAME</button></div>';
+      "<button id=\"import-back\" class=\"ibtn\">НАЗАД В ИГРУ</button></div>";
     document.body.appendChild(wrap);
     var input = document.getElementById('save-file'), msg = document.getElementById('import-msg');
     function toGame() { location.replace(location.pathname + location.search); }
@@ -244,10 +244,10 @@
         var r = GAME.importSave(String(rd.result));
         if (!r.ok) { msg.textContent = r.why; msg.className = 'bad'; return; }
         GAME.track('save-imported');
-        msg.textContent = 'Imported. Loading your game…'; msg.className = 'good';
+        msg.textContent = "Импортировано. Загружаем игру…"; msg.className = 'good';
         setTimeout(toGame, 600);
       };
-      rd.onerror = function () { msg.textContent = 'Could not read that file.'; msg.className = 'bad'; };
+      rd.onerror = function () { msg.textContent = "Не удалось прочитать файл."; msg.className = 'bad'; };
       rd.readAsText(f);
     });
   }
@@ -369,7 +369,7 @@
     // ride on: without this the mouse did nothing until an unexplained second
     // click into the canvas
     GAME.regainPointer();
-    GAME.hud.message(home ? 'Back at ' + home.name + '.' : 'Welcome to Costa Rosa. Steal a ride and see the strip.', 4);
+    GAME.hud.message(home ? "С возвращением! Твой дом: " + home.name + '.' : "Добро пожаловать в Коста-Росу. Угони транспорт и осмотрись на бульваре.", 4);
   };
 
   // attract mode: the live city plays behind the title with spectator cuts

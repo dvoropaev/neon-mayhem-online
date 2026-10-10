@@ -44,8 +44,8 @@ GAME.robbery = (function () {
     job = { room: r, fig: fig, id: id, took: 0, owed: 0, cap: HAUL[r.shop], t: 0 };
     fig.userData.pose = 'up';
     GAME.audio.yelp(fig.position.x, fig.position.z);
-    GAME.hud.message('HANDS UP! — keep the gun on him and the till empties.', 3);
-    GAME.hud.missionStart('STORE ROBBERY', '');
+    GAME.hud.message("РУКИ ВВЕРХ! Держи продавца на мушке, чтобы опустошить кассу.", 3);
+    GAME.hud.missionStart("ОГРАБЛЕНИЕ МАГАЗИНА", '');
     if (GAME.lola && !tipped) { tipped = true; GAME.lola.first('robbery'); }
     if (GAME.track) GAME.track('robbery-' + r.shop);
   }
@@ -59,7 +59,7 @@ GAME.robbery = (function () {
     // the alarm went the moment their hands did: the law is outside
     var stars = j.took >= j.cap * 0.6 ? 3 : 2;
     if (GAME.police.wanted < stars) GAME.police.setWanted(stars);
-    GAME.hud.message((why === 'emptied' ? 'TILL EMPTIED' : 'STORE ROBBED') + '  +$' + Math.round(j.took) + '  ·  the alarm\'s gone — get out of here', 4);
+    GAME.hud.message((why === 'emptied' ? "КАССА ОПУСТОШЕНА" : "МАГАЗИН ОГРАБЛЕН") + '  +$' + Math.round(j.took) + "  ·  тревога сработала — уходи", 4);
     GAME.audio.sting('win');
     if (GAME.save) GAME.save();
   }
@@ -79,8 +79,8 @@ GAME.robbery = (function () {
       if (!aimed) return;
       // (not in the middle of somebody else's job)
       if ((GAME.missions && GAME.missions.active) || (GAME.strangers && GAME.strangers.busy) || (GAME.heist && GAME.heist.busy)) return;
-      if (ownsIt(id)) { if (GAME.frame % 90 === 0) GAME.hud.message('It\'s your own till, kid. Take it from THE COUNTER.', 2.5); return; }
-      if (restocking(id)) { if (GAME.frame % 90 === 0) GAME.hud.message('Cleaned out — this till won\'t be worth it until tomorrow.', 2.5); return; }
+      if (ownsIt(id)) { if (GAME.frame % 90 === 0) GAME.hud.message("Это твоя касса, парень. Забери выручку у СТОЙКИ.", 2.5); return; }
+      if (restocking(id)) { if (GAME.frame % 90 === 0) GAME.hud.message("Пусто. До завтра эту кассу грабить бессмысленно.", 2.5); return; }
       begin(r, fig, id);
       return;
     }
@@ -90,7 +90,7 @@ GAME.robbery = (function () {
     job.took += more; job.owed += more;
     // over the counter twenty dollars at a time
     if (job.owed >= 20) { GAME.addCash(Math.floor(job.owed)); job.owed -= Math.floor(job.owed); GAME.audio.cashTick(); }
-    GAME.hud.missionObjective('Keep the gun on him  ·  $' + Math.floor(job.took) + ' / $' + job.cap);
+    GAME.hud.missionObjective("Держи продавца на мушке  ·  $" + Math.floor(job.took) + ' / $' + job.cap);
     if (job.took >= job.cap) end('emptied');
   }
 

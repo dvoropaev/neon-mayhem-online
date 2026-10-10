@@ -18,6 +18,11 @@ function mulberry32(seed) {
 }
 
 var U = {
+  // Russian nouns after counts: 1, 21; 2–4, 22–24; 0, 5–20.
+  ruPlural: function (n, forms) {
+    var count = Math.abs(Math.trunc(n)), last = count % 10, teen = count % 100;
+    return forms[teen >= 11 && teen <= 14 ? 2 : last === 1 ? 0 : last >= 2 && last <= 4 ? 1 : 2];
+  },
   clamp: function (v, a, b) { return v < a ? a : (v > b ? b : v); },
   lerp: function (a, b, t) { return a + (b - a) * t; },
   damp: function (a, b, lambda, dt) { return U.lerp(a, b, 1 - Math.exp(-lambda * dt)); },

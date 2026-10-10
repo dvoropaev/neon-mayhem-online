@@ -1,5 +1,7 @@
 # NEON MAYHEM
 
+**Русская версия:** [запуск, управление и сохранения](README-ru.md).
+
 **Costa Rosa, 1986.** A neon open world you play in your browser. Steal a ride, outrun the heat, take a job, buy a condo with the takings. Or just cruise the beachfront at night with the radio on.
 
 <p align="center">

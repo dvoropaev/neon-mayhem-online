@@ -5,8 +5,8 @@
 // Fill a list and the buyer pays a bonus on top.
 GAME.exporter = (function () {
   var LISTS = [
-    { name: 'LIST ONE', bonus: 4000, cars: ['sedan', 'taxi', 'van', 'sports', 'motorcycle', 'police'] },
-    { name: 'LIST TWO', bonus: 8000, cars: ['ambulance', 'pickup', 'limo', 'buggy', 'icecream', 'superbike'] }
+    { name: "СПИСОК ПЕРВЫЙ", bonus: 4000, cars: ['sedan', 'taxi', 'van', 'sports', 'motorcycle', 'police'] },
+    { name: "СПИСОК ВТОРОЙ", bonus: 8000, cars: ['ambulance', 'pickup', 'limo', 'buggy', 'icecream', 'superbike'] }
   ];
   var PAY = { sedan: 600, taxi: 700, van: 800, sports: 1500, motorcycle: 900, police: 1800,
     ambulance: 1400, pickup: 1100, limo: 2200, buggy: 1000, icecream: 1600, superbike: 3000 };
@@ -69,12 +69,12 @@ GAME.exporter = (function () {
     c.fillStyle = '#10141c'; c.fillRect(0, 0, 256, 256);
     c.strokeStyle = '#ffb35a'; c.lineWidth = 4; c.strokeRect(2, 2, 252, 252);
     c.fillStyle = '#ffb35a'; c.font = '900 20px "Segoe UI", Arial, sans-serif'; c.textAlign = 'center';
-    c.fillText('EXPORT — WANTED', 128, 26);
+    c.fillText("ЭКСПОРТ — НУЖНЫ МАШИНЫ", 128, 26);
     c.textAlign = 'left'; c.font = '700 13px "Segoe UI", Arial, sans-serif';
     var y = 48;
     LISTS.forEach(function (L) {
       c.fillStyle = done(L) ? '#7dff6a' : '#9fd8ff';
-      c.fillText(L.name + (done(L) ? ' — DONE' : ''), 12, y); y += 16;
+      c.fillText(L.name + (done(L) ? " — ГОТОВО" : ''), 12, y); y += 16;
       L.cars.forEach(function (t) {
         var got = !!prefs()[t];
         c.fillStyle = got ? '#5a6a5a' : '#f4ecff';
@@ -96,10 +96,10 @@ GAME.exporter = (function () {
     ring.visible = d2 < 300 * 300;
     if (d2 > 40 * 40 || P.state !== 'alive') { hint = ''; return; }
     var car = P.inCar && P.car;
-    if (!car) { hint = 'EXPORT — bring a car off the board into the ring'; return; }
-    if (!wanted(car.type)) { hint = prefs()[car.type] ? 'EXPORT — already shipped one of those' : 'EXPORT — nobody wants a ' + label(car.type); return; }
-    if (car.hp < car.spec.hp * MIN_HP) { hint = 'EXPORT — they want it in one piece. Fix it up first.'; return; }
-    hint = 'EXPORT — ' + label(car.type) + ' wanted: drive into the ring and stop';
+    if (!car) { hint = "ЭКСПОРТ — привези машину из списка в кольцо"; return; }
+    if (!wanted(car.type)) { hint = prefs()[car.type] ? "ЭКСПОРТ — такая уже отправлена" : "ЭКСПОРТ — покупателю не нужен " + label(car.type); return; }
+    if (car.hp < car.spec.hp * MIN_HP) { hint = "ЭКСПОРТ — покупателю нужна целая машина. Сначала отремонтируй её."; return; }
+    hint = "ЭКСПОРТ — " + label(car.type) + " нужен: заедь в кольцо и остановись";
     if (d2 < RING_R * RING_R && Math.abs(car.speed) < 1.5 && !(GAME.missions && GAME.missions.active)) ship(car);
   }
   function ship(car) {
@@ -112,12 +112,12 @@ GAME.exporter = (function () {
     GAME.vehicles.stow(car, site.hook || { x: car.pos.x, y: car.pos.y + 9, z: car.pos.z }, 4.5);
     GAME.addCash(pay);
     GAME.audio.sting('win');
-    GAME.hud.message('EXPORTED: ' + label(type) + '  +$' + pay, 4);
+    GAME.hud.message("ЭКСПОРТИРОВАНО: " + label(type) + '  +$' + pay, 4);
     var finished = L && done(L);
     if (finished) {
       GAME.addCash(L.bonus);
-      GAME.hud.message(L.name + ' COMPLETE — the buyer pays a bonus: +$' + L.bonus, 5);
-      if (GAME.hud.pager) GAME.hud.pager('LOLA', 'Heard you filled a whole list down at the docks. The buyer wants to know who you are. I said nobody.', 7);
+      GAME.hud.message(L.name + " ВЫПОЛНЕН — покупатель платит бонус: +$" + L.bonus, 5);
+      if (GAME.hud.pager) GAME.hud.pager("ЛОЛА", "Слышала, ты закрыл целый список в доках. Покупатель спрашивает, кто ты. Я сказала — никто.", 7);
     }
     paint();
     if (GAME.track) GAME.track('export-' + type);

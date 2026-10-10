@@ -56,7 +56,7 @@ GAME.rc = (function () {
       var c = GAME.vehicles.spawnCar('rc', x, z, h, { occupied: 'ai', ai: { mode: 'race' }, mission: true, color: g[2] });
       if (c) { c.cpIndex = 0; c.rcSkill = 0.7 + Math.random() * 0.15; run.rivals.push(c); }
     });
-    GAME.hud.missionStart('MINI MAYHEM RACE', 'Two laps round the cones');
+    GAME.hud.missionStart("ГОНКА МИНИ-ХАОСА", "Два круга вокруг конусов");
     GAME.audio.pickup();
     if (GAME.track) GAME.track('rc-started');
     return true;
@@ -81,11 +81,11 @@ GAME.rc = (function () {
       if (best) pr.best = t;
       GAME.addCash(pay);
       GAME.audio.sting('win');
-      GAME.hud.message('RC RACE WON  ·  ' + t.toFixed(1) + 's  ·  +$' + pay + (best ? '  ·  NEW BEST' : ''), 4.5);
+      GAME.hud.message("РАДИОГОНКА ВЫИГРАНА  ·  " + t.toFixed(1).replace('.', ',') + " с  ·  +$" + pay + (best ? "  ·  НОВЫЙ РЕКОРД" : ''), 4.5);
       if (GAME.save) GAME.save();
     } else {
       GAME.audio.sting('wasted');
-      GAME.hud.message('RC RACE LOST — ' + why, 3.5);
+      GAME.hud.message("РАДИОГОНКА ПРОИГРАНА — " + why, 3.5);
     }
   }
   // the toys steer for the next cone, flat out, and lift for the turns
@@ -100,16 +100,16 @@ GAME.rc = (function () {
   }
   function step(dt) {
     var r = run, P = GAME.player, s = site, n = s.cps.length;
-    if (P.state !== 'alive') { end(false, 'you went down.'); return; }
-    if (r.car.dead || r.car.gone) { end(false, 'your buggy is in bits.'); return; }
-    if (!P.inCar || P.car !== r.car) { end(false, 'you put the controller down.'); return; }
+    if (P.state !== 'alive') { end(false, "ты погиб."); return; }
+    if (r.car.dead || r.car.gone) { end(false, "твой багги разбит."); return; }
+    if (!P.inCar || P.car !== r.car) { end(false, "ты отложил пульт."); return; }
     if (r.state === 'count') {
       r.count -= dt;
       r.car.controls.throttle = 0; r.car.speed = 0;
       r.rivals.forEach(function (c) { c.controls = { throttle: 0, steer: 0, handbrake: true }; });
       var num = Math.max(1, Math.ceil(r.count));
       if (num !== r.lastNum) { r.lastNum = num; GAME.audio.cashTick(); }
-      GAME.hud.bigCount(r.count > 0 ? num : 'GO!');
+      GAME.hud.bigCount(r.count > 0 ? num : "ВПЕРЁД!");
       if (r.count <= 0) { r.state = 'run'; GAME.audio.pickup(); }
       return;
     }
@@ -120,7 +120,7 @@ GAME.rc = (function () {
       if (c.dead || c.gone) continue;
       var ct = s.cps[c.cpIndex];
       if (ct && U.dist2(c.pos.x, c.pos.z, ct.x, ct.z) < 2.2 * 2.2) c.cpIndex++;
-      if (c.cpIndex >= n) { end(false, 'one of theirs got home first.'); return; }
+      if (c.cpIndex >= n) { end(false, "один из соперников финишировал первым."); return; }
       c.controls = rivalControls(c);
     }
     var cp = s.cps[r.cp];
@@ -136,7 +136,7 @@ GAME.rc = (function () {
     var lap = Math.min(LAPS, Math.floor(r.cp / COURSE.length) + 1);
     var place = 1;
     r.rivals.forEach(function (c) { if (c.cpIndex > r.cp) place++; });
-    if (GAME.frame % 10 === 0) GAME.hud.missionObjective('Lap ' + lap + ' / ' + LAPS + '   ·   ' + ['1st', '2nd', '3rd', '4th'][place - 1] + ' / 4');
+    if (GAME.frame % 10 === 0) GAME.hud.missionObjective("Круг " + lap + ' / ' + LAPS + '   ·   ' + ['1st', '2nd', '3rd', '4th'][place - 1] + ' / 4');
   }
 
   function update(dt) {
@@ -150,7 +150,7 @@ GAME.rc = (function () {
     hint = '';
     if (d2 > (RING_R + 1.5) * (RING_R + 1.5)) armed = true;
     if (P.inCar || P.state !== 'alive' || d2 > 30 * 30) return;
-    hint = 'MINI MAYHEM RACE — step into the ring' + (prefs().best ? '  ·  best ' + prefs().best.toFixed(1) + 's' : '');
+    hint = "ГОНКА МИНИ-ХАОСА — войди в кольцо" + (prefs().best ? "  ·  рекорд " + prefs().best.toFixed(1).replace('.', ',') + ' с' : '');
     if (armed && d2 < RING_R * RING_R && !busy() && GAME.police.wanted === 0) begin();
   }
 
@@ -159,8 +159,8 @@ GAME.rc = (function () {
     get hint() { return hint; },
     get running() { return run ? { cp: run.cp, state: run.state, rivals: run.rivals.length, t: run.t } : null; },
     get site() { return stadium(); },
-    end: function () { if (run) end(false, 'called off'); },
+    end: function () { if (run) end(false, "отменено"); },
     get enabled() { return enabled; },
-    set enabled(v) { enabled = !!v; if (!enabled && run) end(false, 'called off'); }
+    set enabled(v) { enabled = !!v; if (!enabled && run) end(false, "отменено"); }
   };
 })();

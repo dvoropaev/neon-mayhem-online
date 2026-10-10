@@ -336,7 +336,7 @@ GAME.police = (function () {
   function airspaceStrike() {
     if (stars() < 5) {
       setWanted(5);
-      GAME.hud.message('RESTRICTED AIRSPACE VIOLATION — air units scrambled.', 3);
+      GAME.hud.message("НАРУШЕНИЕ ВОЗДУШНОЙ ГРАНИЦЫ — авиация поднята по тревоге.", 3);
     } else setWanted(5);   // keep the heat pegged while the line is pressed
   }
   function spawnAirUnit() {
@@ -382,7 +382,7 @@ GAME.police = (function () {
     var want = s >= 5 ? 2 : s >= 4 ? 1 : up ? 1 : 0;
     if (up && airUnits.length === 0 && GAME.time - perchToldAt > 60) {
       perchToldAt = GAME.time;
-      GAME.hud.message('Nobody can climb up after you — air support is on its way.', 3);
+      GAME.hud.message("Сюда никто не заберётся. Воздушная поддержка уже в пути.", 3);
     }
     // compacted in place: this runs every tick, birds or no birds
     var keep = 0;
@@ -874,7 +874,7 @@ GAME.police = (function () {
       pc.pitT = 0.65; pc.pitDir = across > 0 ? 1 : -1;
       c.pitCool = 6; c.tactic = 'chase';   // (one go each, then it follows)
       GAME.audio.crash(0.6, pc.pos.x, pc.pos.z);
-      GAME.hud.message('PIT! They\'ve spun you round.', 2);
+      GAME.hud.message("ПОЛИЦЕЙСКИЙ РАЗВОРОТ! Тебя развернули.", 2);
       if (GAME.haptics && GAME.haptics.hit) GAME.haptics.hit();
       return;
     }
@@ -1162,7 +1162,7 @@ GAME.police = (function () {
     // the army, at six (army.js sends its tank)
     if (s >= 6 && !announcedArmy) {
       announcedArmy = true;
-      GAME.hud.message('SIX STARS — THE ARMY HAS BEEN CALLED IN', 4);
+      GAME.hud.message("ШЕСТЬ ЗВЁЗД — ВЫЗВАНА АРМИЯ", 4);
     } else if (s < 6) announcedArmy = false;
     // roadblocks
     if (s >= 3) {
@@ -1185,7 +1185,7 @@ GAME.police = (function () {
           for (var tb = 0; tb < 4; tb++) GAME.vehicles.burstTyre(P.car, tb);
           GAME.fx.spawn(P.car.pos.x, 0.4, P.car.pos.z, { count: 10, color: 0xffe0a0, spread: 3, life: 0.4 });
           GAME.audio.crash(0.5, P.car.pos.x, P.car.pos.z);
-          GAME.hud.message('Tires shredded!', 2);
+          GAME.hud.message("Шины разорваны!", 2);
         }
       }
     }

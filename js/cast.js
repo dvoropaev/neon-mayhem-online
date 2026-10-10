@@ -17,14 +17,14 @@ GAME.cast = (function () {
   //          formant (the filter's centre — the vowel colour), q
   var CAST = {
     lola: {
-      name: 'LOLA', full: 'Lola Reyes', color: '#ff6fb8',
+      name: "ЛОЛА", full: "Лола Рейес", color: '#ff6fb8',
       face: { bg: ['#ff5fa8', '#4a1478'], sun: '#ffd36e', rim: '#ff9ad8', skin: '#c8916a', hair: 'big', hairCol: '#24160f',
         eyes: 'lashes', eyeCol: '#5a3518', lips: '#ff2d7a', brows: 'arch', outfit: 'blazer', col: '#ff4fa3', col2: '#1a1022', extras: ['hoops'] },
       voice: { base: 290, wave: 'triangle', cps: 34, spread: 8, formant: 1500, q: 1.6 },
       fig: { shirt: 0xff4fa3, pants: 0xf2eee4, skin: 0xc8916a, hair: 'afro', hairCol: 0x24160f, hoops: true, lips: 0xff2d7a }
     },
     rico: {
-      name: 'RICO', full: 'Rico Salazar', color: '#ffd24a',
+      name: "РИКО", full: "Рико Салазар", color: '#ffd24a',
       face: { bg: ['#19c8bc', '#161236'], sun: '#ffcf5a', rim: '#6ff8ea', skin: '#b98260', hair: 'slick', hairCol: '#120e10',
         eyes: 'aviators', brows: 'mean', mouth: 'smirk', outfit: 'suit', col: '#f4f1e8', col2: '#2a1830', extras: ['stubble', 'tash', 'chain'] },
       voice: { base: 112, wave: 'sawtooth', cps: 25, spread: 5, formant: 760, q: 2.2 },
@@ -32,14 +32,14 @@ GAME.cast = (function () {
     },
     // the player: nobody in town ever got a name (herald.js), so YOU
     you: {
-      name: 'YOU', full: 'You', color: '#5ff0ff',
+      name: "ВЫ", full: "Вы", color: '#5ff0ff',
       face: { bg: ['#38e8ff', '#2a1460'], sun: '#ff8a3d', rim: '#9ff6ff', skin: '#e2b48e', hair: 'short', hairCol: '#4a2c18',
         eyes: 'plain', eyeCol: '#3a5a7a', brows: 'flat', outfit: 'crockett', col: '#f4f4f8', col2: '#4fd6c8', extras: ['stubble'] },
       voice: { base: 168, wave: 'square', cps: 38, spread: 6, formant: 1100, q: 1.8 }
     },
     // Rico's driver, at his elbow on the marina
     manny: {
-      name: 'MANNY', full: 'Manny', color: '#b48cff',
+      name: "МЭННИ", full: "Мэнни", color: '#b48cff',
       face: { bg: ['#8a4cff', '#140c2a'], sun: '#ff5f8a', rim: '#c8a8ff', skin: '#9a6a48', hair: 'slick', hairCol: '#0e0c0c',
         eyes: 'shades', brows: 'mean', outfit: 'shirt', col: '#3a2a5a', col2: '#c8b8e8', extras: ['chain', 'stubble'] },
       voice: { base: 96, wave: 'sawtooth', cps: 30, spread: 4, formant: 640, q: 2.4 },
@@ -47,57 +47,57 @@ GAME.cast = (function () {
     },
     // the heist crew (heist.js)
     benny: {
-      name: 'BENNY', full: 'Benny "the Ear"', color: '#ffb35a',
+      name: "БЕННИ", full: "Бенни «Ухо»", color: '#ffb35a',
       face: { bg: ['#ffb35a', '#3a1a50'], sun: '#fff0a0', rim: '#ffd8a0', skin: '#d8a888', hair: 'pomp', hairCol: '#c0c0c8',
         eyes: 'glasses', eyeCol: '#4a4a3a', brows: 'arch', outfit: 'cardigan', col: '#6a5a8a', col2: '#f0e8d0' },
       voice: { base: 150, wave: 'triangle', cps: 27, spread: 10, formant: 980, q: 1.4 }
     },
     // the strangers with a favour to ask (strangers.js), keyed by their id
-    ray: { name: 'RAY', color: '#8fd0f0',
+    ray: { name: "РЭЙ", color: '#8fd0f0',
       face: { bg: ['#8fd0f0', '#24204a'], sun: '#ffe08a', rim: '#c8f0ff', skin: '#eac8a8', hair: 'short', hairCol: '#6a5040',
         eyes: 'glasses', brows: 'worry', outfit: 'tie', col: '#c8c0b0', col2: '#a8482a' },
       voice: { base: 160, wave: 'square', cps: 44, spread: 7, formant: 1300, q: 1.6 } },
-    dani: { name: 'DANI', color: '#ff8a6a',
+    dani: { name: "ДАНИ", color: '#ff8a6a',
       face: { bg: ['#ff8a6a', '#3a1040'], sun: '#ffe0a0', rim: '#ffc0a8', skin: '#f0d8c0', hair: 'bob', hairCol: '#a8482a',
         eyes: 'lashes', eyeCol: '#3a6a4a', lips: '#e8406a', brows: 'arch', outfit: 'shirt', col: '#e86a8a', col2: '#fff0f4', extras: ['studs'] },
       voice: { base: 270, wave: 'triangle', cps: 36, spread: 7, formant: 1600, q: 1.8 } },
-    tito: { name: 'TITO', color: '#ffe14f',
+    tito: { name: "ТИТО", color: '#ffe14f',
       face: { bg: ['#ffe14f', '#2a1460'], sun: '#ff5fa8', rim: '#fff4a0', skin: '#8a6848', hair: 'cap', hairCol: '#1c1a18', col3: '#e83a3a',
         eyes: 'plain', eyeCol: '#2a1a10', brows: 'worry', outfit: 'tee', col: '#38b8c8', col2: '#38b8c8' },
       voice: { base: 330, wave: 'square', cps: 40, spread: 9, formant: 1800, q: 1.5 } },
-    rosa: { name: 'MRS. ALBESCU', color: '#d8b8ff',
+    rosa: { name: "ГОСПОЖА АЛБЕСКУ", color: '#d8b8ff',
       face: { bg: ['#d8b8ff', '#3a2a5a'], sun: '#fff0c8', rim: '#f0e0ff', skin: '#f0d8c0', hair: 'bun', hairCol: '#b8b8c0',
         eyes: 'glasses', eyeCol: '#5a6a8a', lips: '#c86a8a', brows: 'arch', outfit: 'cardigan', col: '#a888c8', col2: '#f4f0f8', extras: ['pearls'] },
       voice: { base: 240, wave: 'triangle', cps: 24, spread: 11, formant: 1200, q: 1.3 } },
-    vince: { name: 'VINCE', color: '#ff5f5f',
+    vince: { name: "ВИНС", color: '#ff5f5f',
       face: { bg: ['#ff5f5f', '#1a0c24'], sun: '#ffd060', rim: '#ffa0a0', skin: '#c89878', hair: 'mullet', hairCol: '#5a3c22',
         eyes: 'shades', brows: 'mean', mouth: 'smirk', outfit: 'tee', col: '#1c1a22', col2: '#1c1a22', extras: ['stubble', 'chain'] },
       voice: { base: 120, wave: 'sawtooth', cps: 34, spread: 5, formant: 820, q: 2 } },
-    marco: { name: 'MARCO', color: '#ff9ad8',
+    marco: { name: "МАРКО", color: '#ff9ad8',
       face: { bg: ['#ff9ad8', '#2a1a4a'], sun: '#a8f0ff', rim: '#ffd0f0', skin: '#e2b48e', hair: 'pomp', hairCol: '#1c1a18',
         eyes: 'plain', eyeCol: '#4a3018', brows: 'worry', outfit: 'bowtie', col: '#f0f0e8', col2: '#d0306a' },
       voice: { base: 190, wave: 'square', cps: 42, spread: 10, formant: 1250, q: 1.7 } },
-    nina: { name: 'NINA', color: '#60e8b0',
+    nina: { name: "НИНА", color: '#60e8b0',
       face: { bg: ['#60e8b0', '#14284a'], sun: '#ffb0d8', rim: '#b0ffd8', skin: '#6a4c34', hair: 'curly', hairCol: '#1c1410',
         eyes: 'lashes', eyeCol: '#2a1a10', lips: '#c8406a', brows: 'arch', outfit: 'tee', col: '#ffe14f', col2: '#ffe14f', extras: ['band', 'hoops'] },
       voice: { base: 250, wave: 'triangle', cps: 36, spread: 7, formant: 1450, q: 1.8 } },
-    sal: { name: 'SAL', color: '#a8b8ff',
+    sal: { name: "СЭЛ", color: '#a8b8ff',
       face: { bg: ['#4a5aa8', '#0c0a20'], sun: '#f0f0ff', rim: '#c8d8ff', skin: '#d8a888', hair: 'bald', hairCol: '#8a8a90',
         eyes: 'glasses', eyeCol: '#3a3a5a', brows: 'arch', outfit: 'cardigan', col: '#5a6a4a', col2: '#e8e0c8', extras: ['beard'] },
       voice: { base: 130, wave: 'triangle', cps: 26, spread: 6, formant: 900, q: 1.6 } },
-    cookie: { name: 'COOKIE', color: '#ffc0d8',
+    cookie: { name: "КУКИ", color: '#ffc0d8',
       face: { bg: ['#ffc0d8', '#3a1a3a'], sun: '#a8fff0', rim: '#fff0f8', skin: '#eac8a8', hair: 'paper', hairCol: '#d8b86a', col3: '#e84a6a',
         eyes: 'plain', eyeCol: '#3a5a7a', brows: 'worry', outfit: 'shirt', col: '#f8f4f0', col2: '#e84a6a' },
       voice: { base: 210, wave: 'square', cps: 46, spread: 9, formant: 1500, q: 1.6 } },
-    gus: { name: 'GUS', color: '#60c8f0',
+    gus: { name: "ГАС", color: '#60c8f0',
       face: { bg: ['#60c8f0', '#10283a'], sun: '#ffd88a', rim: '#a8e8ff', skin: '#c89878', hair: 'beanie', hairCol: '#8a8a90', col3: '#2a5a8a',
         eyes: 'plain', eyeCol: '#2a3a4a', brows: 'flat', outfit: 'shirt', col: '#e8c84a', col2: '#c8a83a', extras: ['beard'] },
       voice: { base: 108, wave: 'sawtooth', cps: 24, spread: 5, formant: 700, q: 1.8 } },
-    lupe: { name: 'LUPE', color: '#fff0a0',
+    lupe: { name: "ЛУПЕ", color: '#fff0a0',
       face: { bg: ['#ffd27a', '#5a1a5a'], sun: '#fff8e0', rim: '#fff4c0', skin: '#e8c0a0', hair: 'long', hairCol: '#f0d890',
         eyes: 'aviators', lips: '#e8203a', brows: 'arch', outfit: 'blazer', col: '#f8f4ec', col2: '#e8203a', extras: ['hoops'] },
       voice: { base: 310, wave: 'triangle', cps: 32, spread: 9, formant: 1700, q: 2 } },
-    walt: { name: 'WALT', color: '#c8a888',
+    walt: { name: "УОЛТ", color: '#c8a888',
       face: { bg: ['#c87a5a', '#1a1424'], sun: '#ffe0a0', rim: '#ffc8a8', skin: '#eac8a8', hair: 'bald', hairCol: '#5a4a40',
         eyes: 'plain', eyeCol: '#3a3a3a', brows: 'mean', outfit: 'shirt', col: '#5a7a9a', col2: '#3a5a7a', extras: ['tash', 'stubble'] },
       voice: { base: 124, wave: 'sawtooth', cps: 30, spread: 6, formant: 860, q: 1.9 } }
@@ -273,7 +273,7 @@ GAME.cast = (function () {
   // the cast member a pager's sender is, by name ('LOLA', '🗣 RAY')
   function idFor(from) {
     if (!from) return null;
-    var k = String(from).replace(/^[^A-Za-z]+/, '').toUpperCase();
+    var k = String(from).replace(/^[^A-Za-zА-Яа-яЁё]+/, '').toUpperCase();
     for (var id in CAST) if (CAST[id].name === k || id.toUpperCase() === k) return id;
     return null;
   }
@@ -295,7 +295,7 @@ GAME.cast = (function () {
     var v = voice(id);
     if (!v || !GAME.audio || !GAME.audio.ctx) return;
     stopTalking();
-    var letters = String(text).replace(/[^A-Za-z]/g, '').slice(0, Math.round((maxSec || 1.8) * v.cps));
+    var letters = String(text).replace(/[^A-Za-zА-Яа-яЁё]/g, '').slice(0, Math.round((maxSec || 1.8) * v.cps));
     var i = 0;
     talk = setInterval(function () {
       if (i >= letters.length) { stopTalking(); return; }

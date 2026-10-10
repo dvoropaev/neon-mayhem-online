@@ -52,14 +52,14 @@ GAME.hud = (function () {
     var beaten = 0;
     for (var di = 0; di < defs.length; di++) if (bests[defs[di].id] !== undefined) beaten++;
     if (beaten) {
-      var bl = 'Missions beaten: ' + beaten + ' of ' + defs.length;
+      var bl = "Миссий пройдено: " + beaten + " из " + defs.length;
       if (GAME.isla && !GAME.isla.isOpen()) {
         var need = GAME.isla.required || 4;
-        bl += '  ·  ' + Math.min(beaten, need) + ' of ' + need + ' toward the bridges';
+        bl += '  ·  ' + Math.min(beaten, need) + " из " + need + " до открытия мостов";
       }
-      el['title-best'].textContent = bl + '  ·  Cash: $' + GAME.player.cash;
+      el['title-best'].textContent = bl + "  ·  Деньги: $" + GAME.player.cash;
     } else if (GAME.player.cash !== 250) {
-      el['title-best'].textContent = 'Cash: $' + GAME.player.cash;
+      el['title-best'].textContent = "Деньги: $" + GAME.player.cash;
     }
 
     el['press-enter'].addEventListener('click', function () { GAME.startGame(); });
@@ -134,13 +134,13 @@ GAME.hud = (function () {
       var b = $('pause-abandon'), a = GAME.missions && (GAME.missions.active || (GAME.strangers && GAME.strangers.activeJob) || (GAME.heist && GAME.heist.activeJob));
       b.style.display = a ? '' : 'none';
       if (!a) return;
-      var what = a.def.job ? 'CLOCK OFF' : 'ABANDON MISSION';
-      b.textContent = abandonSure ? '✖ ' + what + ' — SURE?' : '✖ ' + what;
+      var what = a.def.job ? "ЗАКОНЧИТЬ СМЕНУ" : "ОТМЕНИТЬ МИССИЮ";
+      b.textContent = abandonSure ? '✖ ' + what + " — ТОЧНО?" : '✖ ' + what;
       b.classList.toggle('danger', abandonSure);
     }
     api.paintAbandon = function (reset) { if (reset) abandonSure = false; paintAbandon(); };
     // Lola's first-time tips (lola.js), off for anybody who knows the town
-    function paintTips() { $('pause-tips').textContent = (GAME.lola && !GAME.lola.tips) ? '💬 LOLA\'S TIPS: OFF' : '💬 LOLA\'S TIPS: ON'; }
+    function paintTips() { $('pause-tips').textContent = (GAME.lola && !GAME.lola.tips) ? "💬 СОВЕТЫ ЛОЛЫ: ВЫКЛ." : "💬 СОВЕТЫ ЛОЛЫ: ВКЛ."; }
     pauseBtn('pause-tips', function () { if (GAME.lola) GAME.lola.setTips(!GAME.lola.tips); paintTips(); });
     paintTips();
     pauseBtn('pause-abandon', function () {
@@ -153,7 +153,7 @@ GAME.hud = (function () {
     // Mute is one switch however you reach it — the button here or M — and it
     // is remembered like the others. M used to flip the sound behind this
     // label's back (it still said SOUND) and nothing kept it past a reload.
-    function paintMute() { $('pause-mute').textContent = GAME.audio.muted ? '🔇 MUTED' : '🔊 SOUND'; }
+    function paintMute() { $('pause-mute').textContent = GAME.audio.muted ? "🔇 БЕЗ ЗВУКА" : "🔊 ЗВУК"; }
     api.toggleMute = function () {
       var m = GAME.audio.toggleMute();
       if (GAME.prefs) { GAME.prefs.muted = m; GAME.save(); }
@@ -164,8 +164,8 @@ GAME.hud = (function () {
     // music and effects are separate taps: kill the radio and keep the crashes,
     // or the other way round. The choice is remembered.
     function paintAudioBtns() {
-      $('pause-music').textContent = GAME.audio.musicOn ? '🎵 MUSIC: ON' : '🎵 MUSIC: OFF';
-      $('pause-sfx').textContent = GAME.audio.sfxOn ? '💥 SFX: ON' : '💥 SFX: OFF';
+      $('pause-music').textContent = GAME.audio.musicOn ? "🎵 МУЗЫКА: ВКЛ." : "🎵 МУЗЫКА: ВЫКЛ.";
+      $('pause-sfx').textContent = GAME.audio.sfxOn ? "💥 ЭФФЕКТЫ: ВКЛ." : "💥 ЭФФЕКТЫ: ВЫКЛ.";
     }
     pauseBtn('pause-music', function () {
       GAME.audio.setMusicOn(!GAME.audio.musicOn);
@@ -189,7 +189,7 @@ GAME.hud = (function () {
     // API. Desktop Chrome has navigator.vibrate and no motor to run it, and a
     // switch for something that cannot occur is worse than no switch.
     function paintHapticBtn() {
-      $('pause-haptic').textContent = GAME.haptics.on ? '📳 RUMBLE: ON' : '📳 RUMBLE: OFF';
+      $('pause-haptic').textContent = GAME.haptics.on ? "📳 ВИБРАЦИЯ: ВКЛ." : "📳 ВИБРАЦИЯ: ВЫКЛ.";
     }
     if (GAME.isTouch && GAME.haptics.available) {
       pauseBtn('pause-haptic', function () {
@@ -210,13 +210,13 @@ GAME.hud = (function () {
     // reads fine as one. It is on every platform: unlike rumble there is
     // nothing device-specific about wanting a quieter street.
     function paintChaosBtn() {
-      $('pause-chaos').textContent = '🌆 CITY: ' + GAME.chaos.name;
+      $('pause-chaos').textContent = "🌆 ГОРОД: " + GAME.chaos.name;
     }
     pauseBtn('pause-chaos', function () {
       GAME.chaos.cycle();
       if (GAME.prefs) { GAME.prefs.chaos = GAME.chaos.level; GAME.save(); }
       paintChaosBtn();
-      GAME.hud.message('City set to ' + GAME.chaos.name + '.', 2);
+      GAME.hud.message("Режим города: " + GAME.chaos.name + '.', 2);
     });
     if (GAME.prefs && GAME.prefs.chaos !== undefined) GAME.chaos.set(GAME.prefs.chaos);
     paintChaosBtn();
@@ -225,7 +225,7 @@ GAME.hud = (function () {
     // is read, so the stored choice can only be applied from here — the same
     // reason the rumble switch above reads its pref at this point.
     function paintLeftyBtn() {
-      $('pause-lefty').textContent = GAME.touch.lefty ? '🎮 CONTROLS: LEFT' : '🎮 CONTROLS: RIGHT';
+      $('pause-lefty').textContent = GAME.touch.lefty ? "🎮 УПРАВЛЕНИЕ: СЛЕВА" : "🎮 УПРАВЛЕНИЕ: СПРАВА";
     }
     if (GAME.isTouch) {
       pauseBtn('pause-lefty', function () {
@@ -246,7 +246,7 @@ GAME.hud = (function () {
       var b = $('pause-hintbar');
       if (!b) return;
       b.style.display = GAME.isTouch ? 'none' : '';
-      b.textContent = GAME.prefs && GAME.prefs.hideCtl ? '💡 HINT BAR: OFF' : '💡 HINT BAR: ON';
+      b.textContent = GAME.prefs && GAME.prefs.hideCtl ? "💡 ПОДСКАЗКИ: ВЫКЛ." : "💡 ПОДСКАЗКИ: ВКЛ.";
     }
     pauseBtn('pause-hintbar', function () { api.toggleControlsBar(); });
     // Full screen from the pause screen, which is the only way a controller
@@ -260,7 +260,7 @@ GAME.hud = (function () {
       var ua = navigator.userActivation;
       if (!GAME.fullscreenEl() && GAME.canFullscreen && GAME.controls && GAME.controls.usingPad() && ua && !ua.isActive) {
         GAME.fullscreenOnNextGesture();
-        GAME.hud.message('This browser goes full screen only for a click, a key or a tap — the next one you make takes it there.', 5);
+        GAME.hud.message("Этот браузер включает полный экран только по щелчку, клавише или касанию. Следующее действие откроет полный экран.", 5);
         return;
       }
       GAME.toggleFullscreen();
@@ -268,7 +268,7 @@ GAME.hud = (function () {
     api.paintHintBar = paintHintBar;
     paintHintBar();
     // camera shake, for anyone it makes ill (remembered like the rest)
-    function paintShakeBtn() { $('pause-shake').textContent = GAME.prefs && GAME.prefs.noShake ? '🎥 SHAKE: OFF' : '🎥 SHAKE: ON'; }
+    function paintShakeBtn() { $('pause-shake').textContent = GAME.prefs && GAME.prefs.noShake ? "🎥 ТРЯСКА КАМЕРЫ: ВЫКЛ." : "🎥 ТРЯСКА КАМЕРЫ: ВКЛ."; }
     pauseBtn('pause-shake', function () {
       GAME.prefs = GAME.prefs || {};
       GAME.prefs.noShake = !GAME.prefs.noShake;
@@ -277,7 +277,7 @@ GAME.hud = (function () {
     });
     paintShakeBtn();
     // graphics: resolution, draw distance and crowd, in three steps (main.js)
-    function paintGfxBtn() { $('pause-gfx').textContent = '🖥 GFX: ' + GAME.quality.toUpperCase(); }
+    function paintGfxBtn() { $('pause-gfx').textContent = "🖥 ГРАФИКА: " + ({ high: 'ВЫСОКАЯ', medium: 'СРЕДНЯЯ', low: 'НИЗКАЯ' })[GAME.quality]; }
     pauseBtn('pause-gfx', function () {
       var order = ['high', 'medium', 'low'];
       GAME.setQuality(order[(order.indexOf(GAME.quality) + 1) % order.length]);
@@ -286,7 +286,7 @@ GAME.hud = (function () {
     if (GAME.prefs && GAME.prefs.quality) GAME.setQuality(GAME.prefs.quality, true);
     paintGfxBtn();
     pauseBtn('pause-day', function () { api.refreshTimeBtn(GAME.cycleTimeMode()); });
-    function paintWeatherBtn() { $('pause-weather').textContent = '🌧 WEATHER: ' + GAME.weather.mode.toUpperCase(); }
+    function paintWeatherBtn() { $('pause-weather').textContent = "🌧 ПОГОДА: " + ({ auto: 'АВТО', clear: 'ЯСНО', rain: 'ДОЖДЬ' })[GAME.weather.mode]; }
     pauseBtn('pause-weather', function () { GAME.weather.cycle(); paintWeatherBtn(); });
     if (GAME.prefs && GAME.prefs.weather) GAME.weather.setMode(GAME.prefs.weather, true);
     paintWeatherBtn();
@@ -306,9 +306,9 @@ GAME.hud = (function () {
       // an import is an overwrite: make sure the player knows the life they
       // are living right now is about to be replaced, and offer the way out
       dialog({
-        title: 'IMPORT SAVE',
-        body: 'Importing REPLACES your current progress — cash, property, garage, your look, everything.\nWant to keep this life? Cancel and use EXPORT SAVE first.',
-        ok: 'IMPORT & OVERWRITE', danger: true,
+        title: "ИМПОРТ СОХРАНЕНИЯ",
+        body: "Импорт ЗАМЕНИТ текущий прогресс: деньги, недвижимость, гараж, внешность — всё.\nХочешь сохранить нынешнюю жизнь? Отмени и сначала выбери «ЭКСПОРТ СОХРАНЕНИЯ».",
+        ok: "ИМПОРТИРОВАТЬ И ЗАМЕНИТЬ", danger: true,
         onOk: function () {
           // a phone picks the file on a page with no city behind it (main.js
           // importScreen): the picker sends the tab to the background, where
@@ -322,14 +322,14 @@ GAME.hud = (function () {
       // a reset is the import warning with no way back — so it points at the
       // way out first, then asks once more before burning it all down
       dialog({
-        title: 'RESET PROGRESS',
-        body: 'This erases EVERYTHING — cash, missions, stunt jumps, property, garage, your look. There is no undo.\nWant a backup? Cancel and use EXPORT SAVE first.',
-        ok: 'ERASE EVERYTHING', danger: true,
+        title: "СБРОС ПРОГРЕССА",
+        body: "Будет стёрто ВСЁ: деньги, миссии, уникальные прыжки, недвижимость, гараж, внешность. Отменить удаление нельзя.\nНужна резервная копия? Отмени и сначала выбери «ЭКСПОРТ СОХРАНЕНИЯ».",
+        ok: "СТЕРЕТЬ ВСЁ", danger: true,
         onOk: function () {
           dialog({
-            title: 'LAST CHANCE',
-            body: 'Wipe the save and start Costa Rosa from nothing?',
-            ok: 'WIPE THE SAVE', danger: true,
+            title: "ПОСЛЕДНИЙ ШАНС",
+            body: "Стереть сохранение и начать жизнь в Коста-Росе с нуля?",
+            ok: "СТЕРЕТЬ СОХРАНЕНИЕ", danger: true,
             onOk: function () {
               GAME.track('progress-reset');
               try { localStorage.clear(); } catch (e) { }
@@ -347,7 +347,7 @@ GAME.hud = (function () {
       rd.onload = function () {
         var r = GAME.importSave(String(rd.result));
         if (r.ok) { GAME.track('save-imported'); location.reload(); }
-        else dialog({ title: 'IMPORT FAILED', body: r.why, ok: 'OK', cancel: false });
+        else dialog({ title: "ОШИБКА ИМПОРТА", body: r.why, ok: "ОК", cancel: false });
       };
       rd.readAsText(f);
     });
@@ -428,17 +428,17 @@ GAME.hud = (function () {
   // ---------- toggleable legend ----------
   var HOSPITAL_HEX = '#f2f4f8', DEST_HEX = '#c6ff3d', DEPOT_HEX = '#ffe9b0';
   var LEGEND = [
-    ['#ff8a3d', 'Race', 'race'], ['#38e8ff', 'Courier', 'courier'], ['#ff4fa3', 'Rampage', 'rampage'], ['#ff3b3b', 'Takedown', 'takedown'],
+    ['#ff8a3d', "Гонка", 'race'], ['#38e8ff', "Доставка", 'courier'], ['#ff4fa3', "Погром", 'rampage'], ['#ff3b3b', "Устранение", 'takedown'],
     // no two families a near-match: armour was the courier's cyan, and the
     // hospital, the destination and the depot were three more pinks beside
     // the rampage's
-    ['#c86bff', 'S — Respray', 'respray'], [HOSPITAL_HEX, 'H — Hospital', 'hospital'], ['#5aa0ff', 'P — Police', 'police'],
-    ['#eef0ff', 'Weapon', 'weapon'], ['#ff4d6a', 'Health', 'health'], ['#4a6cff', 'Armor', 'armor'],
-    ['#8de0ff', '✈ Airport · Ⓗ Helipad · ⚓ Boats', 'airport'],
+    ['#c86bff', "S — Перекраска", 'respray'], [HOSPITAL_HEX, "H — Больница", 'hospital'], ['#5aa0ff', "P — Полиция", 'police'],
+    ['#eef0ff', "Оружие", 'weapon'], ['#ff4d6a', "Здоровье", 'health'], ['#4a6cff', "Броня", 'armor'],
+    ['#8de0ff', "✈ Аэропорт · Ⓗ Вертолётная площадка · ⚓ Лодки", 'airport'],
     // (the ice cream depot is a place of business like the rest: one family,
     // and one less row in the legend)
-    ['#8de8b0', '$ Shops & property · ☀ Depot', 'shops'], ['#5dff9e', '⌂ Your safehouse', 'home'],
-    [DEST_HEX, 'Destination', 'dest'], ['#ffe14f', 'Objective', 'objective']
+    ['#8de8b0', "$ Магазины и недвижимость · ☀ Депо", 'shops'], ['#5dff9e', "⌂ Твоё убежище", 'home'],
+    [DEST_HEX, "Пункт назначения", 'dest'], ['#ffe14f', "Цель", 'objective']
   ];
   // Tap-to-SOLO, like muting a mixing desk: tap a legend and everything ELSE
   // is struck — only that category (plus navigation) stays on the map. Tap it
@@ -519,8 +519,8 @@ GAME.hud = (function () {
   // and nothing in between. The left stick moves this; A routes to it.
   var mapCur = null;
   // where each district's name is written on the big map
-  var DISTRICT_LABELS = [['OCEAN STRIP', 262, -230], ['CENTRO ALTO', -100, -150], ['PUERTO VIEJO', -330, 330],
-    ['LAS COLINAS', 40, 330], ['LAS COLINAS', -340, -320]];
+  var DISTRICT_LABELS = [["ОКЕАНСКИЙ БУЛЬВАР", 262, -230], ["СЕНТРО-АЛЬТО", -100, -150], ["ПУЭРТО-ВЬЕХО", -330, 330],
+    ["ЛАС-КОЛИНАС", 40, 330], ["ЛАС-КОЛИНАС", -340, -320]];
   // Isla Verde's districts, named on the map the way Costa Rosa's are. They
   // were only ever named on the HUD as you drove through; the map left the
   // island blank. Found once by sampling the island's land and labelling the
@@ -782,11 +782,11 @@ GAME.hud = (function () {
     g.font = '800 11px "Segoe UI", Arial, sans-serif';
     g.textAlign = 'center'; g.textBaseline = 'middle';
     g.fillStyle = '#9df3ff';
-    g.fillText('N', rcx, rcy - RR + 2);
+    g.fillText('С', rcx, rcy - RR + 2);
     g.fillStyle = 'rgba(207,230,255,.75)';
-    g.fillText('E', rcx + RR - 2, rcy);
-    g.fillText('S', rcx, rcy + RR - 1);
-    g.fillText('W', rcx - RR + 2, rcy);
+    g.fillText('В', rcx + RR - 2, rcy);
+    g.fillText('Ю', rcx, rcy + RR - 1);
+    g.fillText('З', rcx - RR + 2, rcy);
   }
 
   function onMapClick(e) {
@@ -818,7 +818,7 @@ GAME.hud = (function () {
     if (!h) return;
     if (h.getAttribute('data-keys') === null) h.setAttribute('data-keys', h.innerHTML);
     h.innerHTML = GAME.controls && GAME.controls.usingPad()
-      ? '<b>Left stick</b> move the cursor &nbsp;·&nbsp; <b>A</b> set a destination there &nbsp;·&nbsp; <b>X</b> clear &nbsp;·&nbsp; <b>LB / RB</b> zoom &nbsp;·&nbsp; <b>D-pad ← →</b> show one kind &nbsp;·&nbsp; <b>BACK</b> or <b>B</b> close'
+      ? "<b>Левый стик</b> перемещение курсора &nbsp;·&nbsp; <b>A</b> задать цель &nbsp;·&nbsp; <b>X</b> очистить &nbsp;·&nbsp; <b>LB / RB</b> масштаб &nbsp;·&nbsp; <b>Крестовина ← →</b> показать одну категорию &nbsp;·&nbsp; <b>BACK</b> или <b>B</b> закрыть"
       : h.getAttribute('data-keys');
   }
   function pickMapAt(wx, wz) {
@@ -842,22 +842,22 @@ GAME.hud = (function () {
   function K(code) { return GAME.controls ? GAME.controls.label(code) : code; }
   function onPad() { return !!(GAME.controls && GAME.controls.usingPad && GAME.controls.usingPad()); }
   function titleText() {
-    el['press-enter'].textContent = GAME.isTouch ? 'TAP TO START' : onPad() ? 'PRESS A' : 'PRESS ENTER';
+    el['press-enter'].textContent = GAME.isTouch ? "КОСНИСЬ ДЛЯ НАЧАЛА" : onPad() ? "НАЖМИ A" : "НАЖМИ ENTER";
   }
   // the same help for a controller, while one is what you are playing with
-  var PAD_HELP = '<b>Left stick</b> move / steer &nbsp;·&nbsp; <b>Right stick</b> camera &nbsp;·&nbsp; <b>LT</b> aim lock-on &nbsp;·&nbsp; <b>RT</b> fire ' +
-    '(in a vehicle <b>RT / LT</b> are throttle and brake)<br>' +
-    '<b>LB / RB</b> cycle target · drive-by · plane roll &nbsp;·&nbsp; <b>A</b> jump · climb / handbrake &nbsp;·&nbsp; <b>Y</b> enter / exit car &nbsp;·&nbsp; <b>B</b> sprint<br>' +
-    '<b>D-pad ↓</b> weapons &nbsp;·&nbsp; <b>D-pad ← / →</b> radio &nbsp;·&nbsp; <b>R3</b> horn / siren &nbsp;·&nbsp; <b>X</b> job &nbsp;·&nbsp; <b>D-pad ↑</b> retry &nbsp;·&nbsp; ' +
-    '<b>L3</b> photo &nbsp;·&nbsp; <b>BACK</b> map &nbsp;·&nbsp; <b>START</b> pause — Lola, abandon, sound, full screen and the rest are there';
+  var PAD_HELP = "<b>Левый стик</b> движение / поворот &nbsp;·&nbsp; <b>Правый стик</b> камера &nbsp;·&nbsp; <b>LT</b> захват цели &nbsp;·&nbsp; <b>RT</b> огонь " +
+    "(в транспорте <b>RT / LT</b> — газ и тормоз)<br>" +
+    "<b>LB / RB</b> выбор цели · стрельба из машины · крен самолёта &nbsp;·&nbsp; <b>A</b> прыжок · подъём / ручник &nbsp;·&nbsp; <b>Y</b> сесть / выйти &nbsp;·&nbsp; <b>B</b> бег<br>" +
+    "<b>Крестовина ↓</b> оружие &nbsp;·&nbsp; <b>Крестовина ← / →</b> радио &nbsp;·&nbsp; <b>R3</b> гудок / сирена &nbsp;·&nbsp; <b>X</b> работа &nbsp;·&nbsp; <b>Крестовина ↑</b> повтор &nbsp;·&nbsp; " +
+    "<b>L3</b> фото &nbsp;·&nbsp; <b>BACK</b> карта &nbsp;·&nbsp; <b>START</b> пауза — Лола, отмена задания, звук, полный экран и другие настройки";
   var PAD_BAR = {
-    car: '<b>RT / LT</b> drive · <b>stick</b> steer · <b>A</b> handbrake · <b>LB / RB</b> drive-by · <b>Y</b> exit · <b>R3</b> horn · <b>D-pad ← →</b> radio · <b>BACK</b> map',
-    foot: '<b>stick</b> move · <b>B</b> sprint · <b>A</b> jump · <b>LT</b> aim · <b>RT</b> fire · <b>D-pad ↓</b> weapons · <b>Y</b> enter car · <b>BACK</b> map',
-    heli: '<b>RT</b> up · <b>LT</b> down · <b>stick</b> forward / yaw · <b>Y</b> exit / bail out · <b>BACK</b> map',
-    plane: '<b>RT / LT</b> throttle · <b>stick</b> pitch / turn · <b>A</b> climb · <b>B</b> dive · <b>LB / RB</b> barrel roll · <b>Y</b> bail out',
-    chute: '<b>stick</b> steer your descent · glide down to land',
-    swim: '<b>stick</b> swim · <b>B</b> faster stroke · climb out at a beach, pier or low edge · <b>Y</b> board a boat · <b>BACK</b> map',
-    boat: '<b>RT / LT</b> throttle · <b>stick</b> steer · <b>A</b> slide · <b>Y</b> step off · <b>R3</b> horn · <b>D-pad ← →</b> radio · <b>BACK</b> map'
+    car: "<b>RT / LT</b> вождение · <b>стик</b> поворот · <b>A</b> ручник · <b>LB / RB</b> стрельба из машины · <b>Y</b> выйти · <b>R3</b> гудок · <b>Крестовина ← →</b> радио · <b>BACK</b> карта",
+    foot: "<b>стик</b> движение · <b>B</b> бег · <b>A</b> прыжок · <b>LT</b> прицел · <b>RT</b> огонь · <b>Крестовина ↓</b> оружие · <b>Y</b> сесть в машину · <b>BACK</b> карта",
+    heli: "<b>RT</b> вверх · <b>LT</b> вниз · <b>стик</b> вперёд / поворот · <b>Y</b> выйти / выпрыгнуть · <b>BACK</b> карта",
+    plane: "<b>RT / LT</b> газ · <b>стик</b> тангаж / поворот · <b>A</b> подъём · <b>B</b> снижение · <b>LB / RB</b> бочка · <b>Y</b> выпрыгнуть",
+    chute: "<b>стик</b> управление спуском · планируй к земле",
+    swim: "<b>стик</b> плавание · <b>B</b> ускорение · выходи на пляж, пирс или низкий край · <b>Y</b> сесть в лодку · <b>BACK</b> карта",
+    boat: "<b>RT / LT</b> газ · <b>стик</b> поворот · <b>A</b> скольжение · <b>Y</b> выйти · <b>R3</b> гудок · <b>Крестовина ← →</b> радио · <b>BACK</b> карта"
   };
   function paintKeyHelp() {
     if (onPad()) {
@@ -866,9 +866,9 @@ GAME.hud = (function () {
       if (el['pause-controls']) el['pause-controls'].innerHTML = PAD_HELP;
       return;
     }
-    var h = '<b>' + K('KeyW') + K('KeyA') + K('KeyS') + K('KeyD') + '</b> move / drive &nbsp;·&nbsp; <b>Mouse</b> camera &nbsp;·&nbsp; <b>RMB / ' + K('Tab') + '</b> aim lock-on &nbsp;·&nbsp; <b>LMB</b> fire<br>' +
-      '<b>' + K('KeyQ') + ' / ' + K('KeyE') + '</b> cycle target · drive-by · plane roll &nbsp;·&nbsp; <b>' + K('Space') + '</b> jump · climb / handbrake &nbsp;·&nbsp; <b>' + K('KeyF') + '</b> enter / exit car &nbsp;·&nbsp; <b>' + K('ShiftLeft') + '</b> sprint<br>' +
-      '<b>1–5</b> weapons &nbsp;·&nbsp; <b>' + K('Comma') + ' / ' + K('Period') + '</b> radio &nbsp;·&nbsp; <b>' + K('KeyG') + '</b> horn / siren &nbsp;·&nbsp; <b>' + K('KeyJ') + '</b> job &nbsp;·&nbsp; <b>' + K('KeyX') + '</b> abandon mission &nbsp;·&nbsp; <b>' + K('KeyC') + '</b> photo · <b>' + K('KeyV') + '</b> see it &nbsp;·&nbsp; <b>' + K('KeyL') + '</b> Lola &nbsp;·&nbsp; <b>' + K('KeyP') + '</b> map &nbsp;·&nbsp; <b>' + K('KeyM') + '</b> mute &nbsp;·&nbsp; <b>' + K('KeyH') + '</b> hide help &nbsp;·&nbsp; <b>Esc</b> pause';
+    var h = '<b>' + K('KeyW') + K('KeyA') + K('KeyS') + K('KeyD') + "</b> движение / вождение &nbsp;·&nbsp; <b>Мышь</b> камера &nbsp;·&nbsp; <b>ПКМ / " + K('Tab') + "</b> захват цели &nbsp;·&nbsp; <b>ЛКМ</b> огонь<br>" +
+      '<b>' + K('KeyQ') + ' / ' + K('KeyE') + "</b> выбор цели · стрельба из машины · крен самолёта &nbsp;·&nbsp; <b>" + K('Space') + "</b> прыжок · подъём / ручник &nbsp;·&nbsp; <b>" + K('KeyF') + "</b> сесть / выйти &nbsp;·&nbsp; <b>" + K('ShiftLeft') + "</b> бег<br>" +
+      "<b>1–5</b> оружие &nbsp;·&nbsp; <b>" + K('Comma') + ' / ' + K('Period') + "</b> радио &nbsp;·&nbsp; <b>" + K('KeyG') + "</b> гудок / сирена &nbsp;·&nbsp; <b>" + K('KeyJ') + "</b> работа &nbsp;·&nbsp; <b>" + K('KeyX') + "</b> отмена миссии &nbsp;·&nbsp; <b>" + K('KeyC') + "</b> фото · <b>" + K('KeyV') + "</b> посмотреть &nbsp;·&nbsp; <b>" + K('KeyL') + "</b> Лола &nbsp;·&nbsp; <b>" + K('KeyP') + "</b> карта &nbsp;·&nbsp; <b>" + K('KeyM') + "</b> без звука &nbsp;·&nbsp; <b>" + K('KeyH') + "</b> скрыть подсказки &nbsp;·&nbsp; <b>Esc</b> пауза";
     var card = document.getElementById('controls-card');
     if (card) card.innerHTML = h;
     if (el['pause-controls']) el['pause-controls'].innerHTML = h;
@@ -886,13 +886,13 @@ GAME.hud = (function () {
     ctlMode = mode;
     var wasd = K('KeyW') + K('KeyA') + K('KeyS') + K('KeyD');
     var txt = {
-      car: '<b>' + wasd + '</b> drive · <b>' + K('Space') + '</b> handbrake · <b>' + K('KeyQ') + '/' + K('KeyE') + '</b> drive-by · <b>' + K('KeyF') + '</b> exit · <b>' + K('KeyG') + '</b> horn · <b>' + K('Comma') + '/' + K('Period') + '</b> radio · <b>' + K('KeyP') + '</b> map · <b>' + K('KeyH') + '</b> hide',
-      foot: '<b>' + wasd + '</b> move · <b>' + K('ShiftLeft') + '</b> sprint · <b>' + K('Space') + '</b> jump · <b>RMB</b> aim · <b>LMB</b> fire · <b>1-9</b> · <b>' + K('KeyZ') + '</b> (hold) weapons · <b>' + K('KeyF') + '</b> enter car · <b>' + K('KeyP') + '</b> map · <b>' + K('KeyH') + '</b> hide',
-      heli: '<b>' + K('Space') + '</b> up · <b>' + K('ShiftLeft') + '</b> down · <b>' + K('KeyW') + '/' + K('KeyS') + '</b> forward · <b>' + K('KeyA') + '/' + K('KeyD') + '</b> yaw · <b>' + K('KeyF') + '</b> exit / bail out · <b>' + K('KeyP') + '</b> map',
-      plane: '<b>' + K('KeyW') + '/' + K('KeyS') + '</b> throttle · <b>' + K('Space') + '</b> climb · <b>' + K('ShiftLeft') + '</b> dive · <b>' + K('KeyA') + '/' + K('KeyD') + '</b> turn · <b>' + K('KeyQ') + '/' + K('KeyE') + '</b> barrel roll · <b>' + K('KeyF') + '</b> bail out',
-      chute: '<b>' + wasd + '</b> steer your descent · glide down to land',
-      swim: '<b>' + wasd + '</b> swim · <b>' + K('ShiftLeft') + '</b> faster stroke · climb out at a beach, pier or low edge · <b>' + K('KeyF') + '</b> board a boat · <b>' + K('KeyP') + '</b> map',
-      boat: '<b>' + K('KeyW') + '/' + K('KeyS') + '</b> throttle · <b>' + K('KeyA') + '/' + K('KeyD') + '</b> steer · <b>' + K('Space') + '</b> slide · <b>' + K('KeyF') + '</b> step off · <b>' + K('KeyG') + '</b> horn · <b>' + K('Comma') + '/' + K('Period') + '</b> radio · <b>' + K('KeyP') + '</b> map'
+      car: '<b>' + wasd + "</b> вождение · <b>" + K('Space') + "</b> ручник · <b>" + K('KeyQ') + '/' + K('KeyE') + "</b> стрельба из машины · <b>" + K('KeyF') + "</b> выйти · <b>" + K('KeyG') + "</b> гудок · <b>" + K('Comma') + '/' + K('Period') + "</b> радио · <b>" + K('KeyP') + "</b> карта · <b>" + K('KeyH') + "</b> скрыть",
+      foot: '<b>' + wasd + "</b> движение · <b>" + K('ShiftLeft') + "</b> бег · <b>" + K('Space') + "</b> прыжок · <b>ПКМ</b> прицел · <b>ЛКМ</b> огонь · <b>1-9</b> · <b>" + K('KeyZ') + "</b> оружие (удерживать) · <b>" + K('KeyF') + "</b> сесть в машину · <b>" + K('KeyP') + "</b> карта · <b>" + K('KeyH') + "</b> скрыть",
+      heli: '<b>' + K('Space') + "</b> вверх · <b>" + K('ShiftLeft') + "</b> вниз · <b>" + K('KeyW') + '/' + K('KeyS') + "</b> вперёд · <b>" + K('KeyA') + '/' + K('KeyD') + "</b> поворот · <b>" + K('KeyF') + "</b> выйти / выпрыгнуть · <b>" + K('KeyP') + "</b> карта",
+      plane: '<b>' + K('KeyW') + '/' + K('KeyS') + "</b> газ · <b>" + K('Space') + "</b> подъём · <b>" + K('ShiftLeft') + "</b> снижение · <b>" + K('KeyA') + '/' + K('KeyD') + "</b> поворот · <b>" + K('KeyQ') + '/' + K('KeyE') + "</b> бочка · <b>" + K('KeyF') + "</b> выпрыгнуть",
+      chute: '<b>' + wasd + "</b> управление спуском · планируй к земле",
+      swim: '<b>' + wasd + "</b> плавание · <b>" + K('ShiftLeft') + "</b> ускорение · выходи на пляж, пирс или низкий край · <b>" + K('KeyF') + "</b> сесть в лодку · <b>" + K('KeyP') + "</b> карта",
+      boat: '<b>' + K('KeyW') + '/' + K('KeyS') + "</b> газ · <b>" + K('KeyA') + '/' + K('KeyD') + "</b> поворот · <b>" + K('Space') + "</b> скольжение · <b>" + K('KeyF') + "</b> выйти · <b>" + K('KeyG') + "</b> гудок · <b>" + K('Comma') + '/' + K('Period') + "</b> радио · <b>" + K('KeyP') + "</b> карта"
     };
     el['controls-bar'].innerHTML = onPad() ? PAD_BAR[mode] : txt[mode];
     el['controls-bar'].style.display = 'block';
@@ -994,7 +994,7 @@ GAME.hud = (function () {
     g.font = 'italic 700 17px "Segoe UI", Arial, sans-serif';
     g.textAlign = 'center'; g.textBaseline = 'middle';
     g.fillStyle = 'rgba(150,200,240,0.85)';
-    g.fillText('ISLA ROSA', mx(-70), my(542));
+    g.fillText("ИСЛА-РОСА", mx(-70), my(542));
     if (GAME.city.isla) {
       // just under the island's own southernmost point, wherever that is
       var southZ = -1e9, cxIsla = 0, n = 0;
@@ -1002,7 +1002,7 @@ GAME.hud = (function () {
         var q = GAME.city.isla.ringPt(la, 1);
         southZ = Math.max(southZ, q[1]); cxIsla += q[0]; n++;
       }
-      g.fillText('ISLA VERDE', mx(cxIsla / n), my(Math.min(southZ + 26, 545)));
+      g.fillText("ИСЛА-ВЕРДЕ", mx(cxIsla / n), my(Math.min(southZ + 26, 545)));
     }
   }
 
@@ -1185,7 +1185,7 @@ GAME.hud = (function () {
     g.fillStyle = '#ffd9f2';
     g.font = '800 10px "Segoe UI", Arial, sans-serif';
     g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.fillText('N', nx2, ny2 + 0.5);
+    g.fillText('С', nx2, ny2 + 0.5);
   }
 
   function updateCashText() {
@@ -1236,7 +1236,7 @@ GAME.hud = (function () {
       if (apct !== lastAirPct || acol !== lastAirCol) {
         lastAirPct = apct; lastAirCol = acol;
         if (av) {
-          vl.textContent = 'AIRFRAME ' + apct + '%';
+          vl.textContent = "КОРПУС " + apct + '%';
           vl.style.color = acol;
           vl.style.display = 'block';
         } else vl.style.display = 'none';
@@ -1352,11 +1352,11 @@ GAME.hud = (function () {
   // the only guidance there was.
   var tipT = 0, TIPS = [
     { at: 7, text: function () {
-      return 'The coloured rings are missions — races, deliveries, rampages and takedowns. Stop in one to start it. ' +
-        (GAME.isTouch ? 'Tap the radar for the map.' : 'P opens the map.');
+      return "Цветные кольца — миссии: гонки, доставки, погромы и устранение целей. Остановись в кольце, чтобы начать. " +
+        (GAME.isTouch ? "Коснись радара, чтобы открыть карту." : "P открывает карту.");
     } },
     { at: 17, text: function () {
-      return GAME.isla && !GAME.isla.isOpen() ? 'Pass any 4 of them and the bridges east to Isla Verde open.' : '';
+      return GAME.isla && !GAME.isla.isOpen() ? "Пройди любые 4 задания — и мосты на востоке, на Исла-Верде, откроют." : '';
     } }
   ];
   function stepTips(dt) {
@@ -1447,7 +1447,7 @@ GAME.hud = (function () {
     $('game-modal-title').textContent = opts.title || '';
     $('game-modal-body').textContent = opts.body || '';
     var ok = $('game-modal-ok'), cancel = $('game-modal-cancel');
-    ok.textContent = opts.ok || 'CONFIRM';
+    ok.textContent = opts.ok || "ПОДТВЕРДИТЬ";
     ok.className = 'mbtn' + (opts.danger ? ' danger' : '');
     cancel.style.display = opts.cancel === false ? 'none' : '';
     $('game-modal').style.display = 'flex';
@@ -1558,7 +1558,7 @@ GAME.hud = (function () {
     cine: function (on, onSkip) {
       document.body.classList.toggle('cine', !!on);
       var c = $('cine'), sk = $('cine-skip');
-      if (sk) sk.textContent = GAME.isTouch ? 'TAP TO SKIP' : 'SPACE OR CLICK TO SKIP';
+      if (sk) sk.textContent = GAME.isTouch ? "КОСНИСЬ ДЛЯ ПРОПУСКА" : "ПРОБЕЛ ИЛИ ЩЕЛЧОК — ПРОПУСТИТЬ";
       if (c) c.onpointerdown = on && onSkip ? function (e) { e.preventDefault(); onSkip(); } : null;
     },
     pager: pager,
@@ -1623,14 +1623,14 @@ GAME.hud = (function () {
       var pf = $('pause-fs');
       if (pf) {
         pf.style.display = GAME.isStandalone && GAME.isStandalone() ? 'none' : '';
-        pf.textContent = GAME.fullscreenEl && GAME.fullscreenEl() ? '⛶ FULL SCREEN: ON' : '⛶ FULL SCREEN: OFF';
+        pf.textContent = GAME.fullscreenEl && GAME.fullscreenEl() ? "⛶ ПОЛНЫЙ ЭКРАН: ВКЛ." : "⛶ ПОЛНЫЙ ЭКРАН: ВЫКЛ.";
       }
     },
     // AUTO runs the day/night cycle; DAY / NIGHT pin it
     refreshTimeBtn: function (mode) {
       var e = $('pause-day');
       if (!e) return;
-      e.textContent = mode === 'day' ? '☀ TIME: DAY' : mode === 'night' ? '🌙 TIME: NIGHT' : '🕓 TIME: AUTO';
+      e.textContent = mode === 'day' ? "☀ ВРЕМЯ: ДЕНЬ" : mode === 'night' ? "🌙 ВРЕМЯ: НОЧЬ" : "🕓 ВРЕМЯ: АВТО";
     },
     // names the POI you're near ('' hides it)
     setPoiHint: function (text) {
@@ -1647,7 +1647,7 @@ GAME.hud = (function () {
       scr.style.display = 'flex';
       scr.querySelector('.big-sub').textContent = sub || '';
       var hint = scr.querySelector('.big-hint');
-      if (hint) hint.textContent = GAME.isTouch ? 'TAP TO CONTINUE' : 'PRESS ' + K('KeyR') + ' TO CONTINUE';
+      if (hint) hint.textContent = GAME.isTouch ? "КОСНИСЬ ДЛЯ ПРОДОЛЖЕНИЯ" : "НАЖМИ " + K('KeyR') + " ДЛЯ ПРОДОЛЖЕНИЯ";
     },
     hideBig: function () {
       el['wasted-screen'].style.display = 'none';
@@ -1683,15 +1683,15 @@ GAME.hud = (function () {
       var ph = $('pause-hint');
       if (p && ph) {
         if (ph.__mouse === undefined) ph.__mouse = ph.innerHTML;
-        if (GAME.isTouch) ph.textContent = 'Tap RESUME, or anywhere off the buttons, to carry on';
+        if (GAME.isTouch) ph.textContent = "Коснись «ПРОДОЛЖИТЬ» или места вне кнопок, чтобы вернуться в игру";
         else ph.innerHTML = ph.__mouse;
       }
       var sj = $('pause-stunts');
       if (sj && GAME.stunts) {
         var ST = GAME.stunts, isOpen = !GAME.isla || GAME.isla.isOpen();
-        sj.textContent = 'STUNT JUMPS  ' + ST.found + ' / ' + ST.total + (ST.complete ? ' ✓' : '') +
-          (isOpen && ST.islaTotal ? '   ·   ISLA  ' + ST.islaFound + ' / ' + ST.islaTotal + (ST.islaComplete ? ' ✓' : '') : '') +
-          (GAME.tapes && GAME.tapes.total ? '   ·   LOST TAPES  ' + GAME.tapes.found + ' / ' + GAME.tapes.total : '');
+        sj.textContent = "УНИКАЛЬНЫЕ ПРЫЖКИ  " + ST.found + ' / ' + ST.total + (ST.complete ? ' ✓' : '') +
+          (isOpen && ST.islaTotal ? "   ·   ОСТРОВ  " + ST.islaFound + ' / ' + ST.islaTotal + (ST.islaComplete ? ' ✓' : '') : '') +
+          (GAME.tapes && GAME.tapes.total ? "   ·   ПОТЕРЯННЫЕ КАССЕТЫ  " + GAME.tapes.found + ' / ' + GAME.tapes.total : '');
       }
       // missions alongside the jumps: distinct marked missions finished, and
       // what the count is FOR while the bridges are still shut
@@ -1700,8 +1700,8 @@ GAME.hud = (function () {
         var defs = GAME.missions.DEFS, bests = GAME.bests || {}, done = 0;
         for (var mi = 0; mi < defs.length; mi++) if (bests[defs[mi].id] !== undefined) done++;
         var open = !GAME.isla || GAME.isla.isOpen();
-        pm.textContent = 'MISSIONS  ' + done + ' / ' + defs.length +
-          (open ? (done >= defs.length ? '   ·   ALL DONE' : '') : '   ·   ' + Math.min(done, 4) + ' / 4 TO OPEN THE BRIDGES TO ISLA VERDE');
+        pm.textContent = "МИССИИ  " + done + ' / ' + defs.length +
+          (open ? (done >= defs.length ? "   ·   ВСЁ ПРОЙДЕНО" : '') : '   ·   ' + Math.min(done, 4) + " / 4 ДО ОТКРЫТИЯ МОСТОВ НА ИСЛА-ВЕРДЕ");
       }
       api.refreshFsBtn();
     },
@@ -1850,7 +1850,7 @@ GAME.nav = (function () {
     setDest: function (x, z) {
       dest = { x: x, z: z };
       computePath();
-      GAME.hud.message('Destination set — follow the route.', 2);
+      GAME.hud.message("Цель задана — следуй по маршруту.", 2);
     },
     clear: function () { dest = null; path = []; },
     update: function (dt) {
@@ -1869,7 +1869,7 @@ GAME.nav = (function () {
       var dRoad = dest.rx !== undefined ? U.dist2(px, pz, dest.rx, dest.rz) : 1e18;
       if (dNow < R2 || (dRoad < R2 && dNow < 55 * 55)) {
         dest = null; path = [];
-        GAME.hud.message('You have arrived.', 2.5);
+        GAME.hud.message("Ты на месте.", 2.5);
         GAME.audio.pickup();
         GAME.haptics.checkpoint();
       }

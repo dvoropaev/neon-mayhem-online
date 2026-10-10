@@ -130,44 +130,44 @@ GAME.fx = (function () {
 // these numbers once did — a few fender-benders had a car smoking and a few
 // more had it on fire, before the first proper chase. Aircraft are as they were.
 var VEHICLES = {
-  sports: { label: 'Vulture GT', maxSpeed: 40, accel: 17, grip: 3.6, turn: 2.7, hp: 210, l: 4.3, w: 1.95, cabinH: 0.5, bodyH: 0.5, colors: [0xff2f7a, 0x38e8ff, 0xffe14f, 0xffffff, 0xb040ff] },
-  sedan: { label: 'Cadenza', maxSpeed: 29, accel: 10, grip: 5.2, turn: 2.1, hp: 245, l: 4.5, w: 1.9, cabinH: 0.62, bodyH: 0.55, colors: [0x9fb4c8, 0xc0a0d8, 0x88c8a8, 0xd8d0c0, 0x8090b0] },
-  taxi: { label: 'Taxi', maxSpeed: 30, accel: 10.5, grip: 5.2, turn: 2.2, hp: 245, l: 4.5, w: 1.9, cabinH: 0.62, bodyH: 0.55, colors: [0xf0c020], cab: true },
+  sports: { label: "Стервятник GT", maxSpeed: 40, accel: 17, grip: 3.6, turn: 2.7, hp: 210, l: 4.3, w: 1.95, cabinH: 0.5, bodyH: 0.5, colors: [0xff2f7a, 0x38e8ff, 0xffe14f, 0xffffff, 0xb040ff] },
+  sedan: { label: "Каденца", maxSpeed: 29, accel: 10, grip: 5.2, turn: 2.1, hp: 245, l: 4.5, w: 1.9, cabinH: 0.62, bodyH: 0.55, colors: [0x9fb4c8, 0xc0a0d8, 0x88c8a8, 0xd8d0c0, 0x8090b0] },
+  taxi: { label: "Такси", maxSpeed: 30, accel: 10.5, grip: 5.2, turn: 2.2, hp: 245, l: 4.5, w: 1.9, cabinH: 0.62, bodyH: 0.55, colors: [0xf0c020], cab: true },
   // VERDE CABS' own (shops.js): cab yellow in black tiger
   // stripes. A little quicker, surer and tougher than the fleet's, never in
   // traffic — it is in the middle bay of the firm's garage once the firm is
   // yours, and it takes fares like any cab
-  tiger: { label: 'Tiger Cab', maxSpeed: 35, accel: 13, grip: 5.6, turn: 2.4, hp: 300, l: 4.5, w: 1.9, cabinH: 0.62, bodyH: 0.55, colors: [0xf2c21a], cab: true },
-  van: { label: 'Cargo Van', maxSpeed: 23, accel: 7, grip: 6, turn: 1.7, hp: 360, l: 5.1, w: 2.1, cabinH: 1.0, bodyH: 0.9, colors: [0x9a8a78, 0x7888a0, 0xa87868] },
-  police: { label: 'Cruiser', maxSpeed: 35, accel: 13.5, grip: 5.0, turn: 2.4, hp: 280, l: 4.6, w: 1.95, cabinH: 0.6, bodyH: 0.55, colors: [0xe8ecf2] },
-  ambulance: { label: 'Ambulance', maxSpeed: 27, accel: 8.5, grip: 5.6, turn: 1.8, hp: 335, l: 5.3, w: 2.15, cabinH: 1.15, bodyH: 1.0, colors: [0xf2f2f6] },
-  motorcycle: { label: 'Neon Streak', maxSpeed: 46, accel: 22, grip: 2.9, turn: 3.1, hp: 180, l: 2.2, w: 0.7, cabinH: 0.0, bodyH: 0.45, colors: [0xff2f7a, 0x38e8ff, 0x20242e, 0xffe14f], bike: true },
+  tiger: { label: "Тигр-такси", maxSpeed: 35, accel: 13, grip: 5.6, turn: 2.4, hp: 300, l: 4.5, w: 1.9, cabinH: 0.62, bodyH: 0.55, colors: [0xf2c21a], cab: true },
+  van: { label: "Грузовой фургон", maxSpeed: 23, accel: 7, grip: 6, turn: 1.7, hp: 360, l: 5.1, w: 2.1, cabinH: 1.0, bodyH: 0.9, colors: [0x9a8a78, 0x7888a0, 0xa87868] },
+  police: { label: "Полицейская машина", maxSpeed: 35, accel: 13.5, grip: 5.0, turn: 2.4, hp: 280, l: 4.6, w: 1.95, cabinH: 0.6, bodyH: 0.55, colors: [0xe8ecf2] },
+  ambulance: { label: "Скорая помощь", maxSpeed: 27, accel: 8.5, grip: 5.6, turn: 1.8, hp: 335, l: 5.3, w: 2.15, cabinH: 1.15, bodyH: 1.0, colors: [0xf2f2f6] },
+  motorcycle: { label: "Неоновая стрела", maxSpeed: 46, accel: 22, grip: 2.9, turn: 3.1, hp: 180, l: 2.2, w: 0.7, cabinH: 0.0, bodyH: 0.45, colors: [0xff2f7a, 0x38e8ff, 0x20242e, 0xffe14f], bike: true },
   // showroom exclusive: never in traffic, never parked on a verge — the only
   // way onto one is to pay GRAN ROSA MOTORS for it
-  superbike: { label: 'Cormorán GT', maxSpeed: 55, accel: 27, grip: 3.5, turn: 3.3, hp: 210, l: 2.3, w: 0.72, cabinH: 0.0, bodyH: 0.5, colors: [0x101018], bike: true, trim: 0x38e8ff },
-  helicopter: { label: 'Pelicano', maxSpeed: 34, accel: 12, grip: 4, turn: 2, hp: 130, l: 8.5, w: 2.4, cabinH: 1.4, bodyH: 1.5, colors: [0x2a2e3a, 0xf0f0f0, 0xff2f7a], heli: true },
+  superbike: { label: "Баклан GT", maxSpeed: 55, accel: 27, grip: 3.5, turn: 3.3, hp: 210, l: 2.3, w: 0.72, cabinH: 0.0, bodyH: 0.5, colors: [0x101018], bike: true, trim: 0x38e8ff },
+  helicopter: { label: "Пеликан", maxSpeed: 34, accel: 12, grip: 4, turn: 2, hp: 130, l: 8.5, w: 2.4, cabinH: 1.4, bodyH: 1.5, colors: [0x2a2e3a, 0xf0f0f0, 0xff2f7a], heli: true },
   // the big bird: guns and rockets — granted by finishing everything, or
   // bought over the showroom counter by anyone with the money
-  gunship: { label: 'Talon', maxSpeed: 42, accel: 12, grip: 4, turn: 2, hp: 420, l: 8.5, w: 2.4, cabinH: 1.4, bodyH: 1.5, colors: [0x3a4632, 0x2c3626, 0x46523a], heli: true, gunship: true },
-  monster: { label: 'Sledgehammer', maxSpeed: 33, accel: 15, grip: 5.8, turn: 2.3, hp: 590, l: 5.2, w: 2.6, cabinH: 1.1, bodyH: 1.2, colors: [0x7a3ad8, 0x38e8ff, 0xff2f7a], monster: true },
+  gunship: { label: "Коготь", maxSpeed: 42, accel: 12, grip: 4, turn: 2, hp: 420, l: 8.5, w: 2.4, cabinH: 1.4, bodyH: 1.5, colors: [0x3a4632, 0x2c3626, 0x46523a], heli: true, gunship: true },
+  monster: { label: "Кувалда", maxSpeed: 33, accel: 15, grip: 5.8, turn: 2.3, hp: 590, l: 5.2, w: 2.6, cabinH: 1.1, bodyH: 1.2, colors: [0x7a3ad8, 0x38e8ff, 0xff2f7a], monster: true },
   // wheelH is the real gear length: the mesh reaches 0.5 below its origin, and
   // at 1.1 the whole plane taxied and parked six tenths of a metre in the air
-  airplane: { label: 'Skywhistle', maxSpeed: 72, accel: 20, grip: 4, turn: 2, hp: 150, l: 11, w: 3, cabinH: 1.4, bodyH: 1.4, colors: [0xf0f0f4, 0xff2f7a, 0x38e8ff], plane: true, stall: 17, wheelH: 0.5 },
+  airplane: { label: "Небесный свист", maxSpeed: 72, accel: 20, grip: 4, turn: 2, hp: 150, l: 11, w: 3, cabinH: 1.4, bodyH: 1.4, colors: [0xf0f0f4, 0xff2f7a, 0x38e8ff], plane: true, stall: 17, wheelH: 0.5 },
   // Isla Verde's own stock. The buggy is for the cove, the pickup for the
   // villa lanes, the limo for the resort — and the truck sells ice cream.
-  buggy: { label: 'Dune Hopper', maxSpeed: 33, accel: 15, grip: 4.2, turn: 3.0, hp: 155, l: 3.4, w: 1.85, cabinH: 0.0, bodyH: 0.42, colors: [0xffb03a, 0x6ae8a0, 0xff6a8a, 0xf0f0f4], buggy: true },
-  pickup: { label: 'Sierra 4x4', maxSpeed: 30, accel: 10, grip: 6.0, turn: 2.0, hp: 335, l: 5.0, w: 2.05, cabinH: 0.78, bodyH: 0.78, colors: [0x7a8a68, 0xa8683a, 0x486888, 0xd0c0a0], pickup: true },
-  limo: { label: 'Vista Royale', maxSpeed: 31, accel: 8.5, grip: 5.4, turn: 1.5, hp: 295, l: 7.2, w: 2.0, cabinH: 0.62, bodyH: 0.55, colors: [0x14141a, 0xf0ece0] },
-  icecream: { label: 'Sunny Scoops', maxSpeed: 21, accel: 6.2, grip: 5.8, turn: 1.7, hp: 280, l: 5.2, w: 2.2, cabinH: 0, bodyH: 0.55, colors: [0xfdf6ec], icecream: true },
+  buggy: { label: "Дюнный прыгун", maxSpeed: 33, accel: 15, grip: 4.2, turn: 3.0, hp: 155, l: 3.4, w: 1.85, cabinH: 0.0, bodyH: 0.42, colors: [0xffb03a, 0x6ae8a0, 0xff6a8a, 0xf0f0f4], buggy: true },
+  pickup: { label: "Сьерра 4x4", maxSpeed: 30, accel: 10, grip: 6.0, turn: 2.0, hp: 335, l: 5.0, w: 2.05, cabinH: 0.78, bodyH: 0.78, colors: [0x7a8a68, 0xa8683a, 0x486888, 0xd0c0a0], pickup: true },
+  limo: { label: "Королевский вид", maxSpeed: 31, accel: 8.5, grip: 5.4, turn: 1.5, hp: 295, l: 7.2, w: 2.0, cabinH: 0.62, bodyH: 0.55, colors: [0x14141a, 0xf0ece0] },
+  icecream: { label: "Солнечные шарики", maxSpeed: 21, accel: 6.2, grip: 5.8, turn: 1.7, hp: 280, l: 5.2, w: 2.2, cabinH: 0, bodyH: 0.55, colors: [0xfdf6ec], icecream: true },
   // the only thing that goes on the water: moored off the piers and at the
   // marina, never on a road. Grip is how fast the hull's way swings round to
   // where the bow points — low, so it carries through a turn and slides.
-  boat: { label: 'Squalo', maxSpeed: 31, accel: 11, grip: 1.7, turn: 1.55, hp: 250, l: 6.2, w: 2.0, cabinH: 0, bodyH: 0.7, colors: [0x38e8ff, 0xff2f7a, 0xffe14f, 0x2a2e3a], boat: true },
+  boat: { label: "Акула", maxSpeed: 31, accel: 11, grip: 1.7, turn: 1.55, hp: 250, l: 6.2, w: 2.0, cabinH: 0, bodyH: 0.7, colors: [0x38e8ff, 0xff2f7a, 0xffe14f, 0x2a2e3a], boat: true },
   // A jet ski: quicker off the mark and on the turn than the Squalo and a
   // little faster flat out, but a sit-on toy — light, and it gives up a lot
   // less punishment. One is moored on the north side of the northern pier,
   // and they buzz about the bay with somebody on board.
-  jetski: { label: 'Wave Rider', maxSpeed: 34, accel: 17, grip: 2.0, turn: 2.3, hp: 130, l: 3.1, w: 1.2, cabinH: 0, bodyH: 0.5, colors: [0xffe14f, 0xff2f7a, 0x38e8ff, 0xf0f0f4], boat: true, jetski: true },
+  jetski: { label: "Наездник волны", maxSpeed: 34, accel: 17, grip: 2.0, turn: 2.3, hp: 130, l: 3.1, w: 1.2, cabinH: 0, bodyH: 0.5, colors: [0xffe14f, 0xff2f7a, 0x38e8ff, 0xf0f0f4], boat: true, jetski: true },
   // the harbour patrol: a heavier launch in police white, a light bar on the
   // console, sent after you once you are wanted out on the water
   // The army, at six stars (army.js), and nowhere else: a canvas-backed
@@ -176,10 +176,10 @@ var VEHICLES = {
   // your aim and a cannon on LMB. Take one off them and it is yours.
   // a toy: the MINI MAYHEM RACE's buggy (rc.js), a fifth the size of the real
   // thing, driven from the controller at the stadium gate
-  rc: { label: 'Mini Mayhem', maxSpeed: 15, accel: 20, grip: 6.5, turn: 3.6, hp: 45, l: 0.72, w: 0.42, cabinH: 0, bodyH: 0.12, colors: [0x38e8ff], rc: true },
-  tank: { label: 'Mastodon', maxSpeed: 17, accel: 7, grip: 7.5, turn: 1.45, hp: 4200, l: 6.6, w: 3.3, cabinH: 0, bodyH: 1.0, colors: [0x4a5a36], tank: true, army: true },
-  armytruck: { label: 'Quartermaster', maxSpeed: 26, accel: 8, grip: 5.8, turn: 1.6, hp: 650, l: 6.4, w: 2.5, cabinH: 0.9, bodyH: 0.9, colors: [0x55603e], army: true },
-  policeboat: { label: 'Harbour Patrol', maxSpeed: 32, accel: 12.5, grip: 1.8, turn: 1.6, hp: 340, l: 6.6, w: 2.2, cabinH: 0, bodyH: 0.7, colors: [0xf2f4f8], boat: true, police: true }
+  rc: { label: "Мини-хаос", maxSpeed: 15, accel: 20, grip: 6.5, turn: 3.6, hp: 45, l: 0.72, w: 0.42, cabinH: 0, bodyH: 0.12, colors: [0x38e8ff], rc: true },
+  tank: { label: "Мастодонт", maxSpeed: 17, accel: 7, grip: 7.5, turn: 1.45, hp: 4200, l: 6.6, w: 3.3, cabinH: 0, bodyH: 1.0, colors: [0x4a5a36], tank: true, army: true },
+  armytruck: { label: "Квартирмейстер", maxSpeed: 26, accel: 8, grip: 5.8, turn: 1.6, hp: 650, l: 6.4, w: 2.5, cabinH: 0.9, bodyH: 0.9, colors: [0x55603e], army: true },
+  policeboat: { label: "Портовый патруль", maxSpeed: 32, accel: 12.5, grip: 1.8, turn: 1.6, hp: 340, l: 6.6, w: 2.2, cabinH: 0, bodyH: 0.7, colors: [0xf2f4f8], boat: true, police: true }
 };
 
 // Merged bodies are keyed by everything that shapes their vertices — type
@@ -1000,16 +1000,16 @@ GAME.vehicles = (function () {
     if (isPlayer && airT > 0.45 && dist > 7) {
       var spins = Math.floor(Math.abs(car.jumpSpin || 0) / (Math.PI * 2));
       var cash = Math.round(airT * 120 + dist * 6 + spins * 400);
-      var label = spins > 0 ? (spins > 1 ? spins + 'x SPIN!' : '360 SPIN!')
-        : airT > 1.6 ? 'INSANE JUMP!' : airT > 1.0 ? 'BIG AIR!' : 'NICE JUMP!';
-      var stats = label + '   ' + airT.toFixed(1) + 's · ' + Math.round(dist) + 'm';
+      var label = spins > 0 ? (spins > 1 ? spins + "× ВРАЩЕНИЕ!" : "ВРАЩЕНИЕ НА 360°!")
+        : airT > 1.6 ? "БЕЗУМНЫЙ ПРЫЖОК!" : airT > 1.0 ? "ВЫСОКИЙ ПОЛЁТ!" : "ХОРОШИЙ ПРЫЖОК!";
+      var stats = label + '   ' + airT.toFixed(1).replace('.', ',') + " с · " + Math.round(dist) + ' м';
       // The same jump pays once per cooldown. Every repeat used to pay in
       // full, so going round one ramp again and again out-earned all thirteen
       // missions put together.
       var key = jumpKey(car), last = jumpPaidAt[key];
       var wait = last === undefined ? 0 : JUMP_COOLDOWN - (GAME.time - last);
       if (wait > 0) {
-        GAME.hud.message(stats + ' · paid out — again in ' + clockText(wait), 3);
+        GAME.hud.message(stats + " · оплачено — снова через " + clockText(wait), 3);
       } else {
         jumpPaidAt[key] = GAME.time;
         GAME.addCash(cash);
@@ -1688,12 +1688,12 @@ GAME.vehicles = (function () {
       // stepping out was a death nobody saw coming.
       if (car.stage >= 2 && car.stageWarn !== 2) {
         car.stageWarn = 2;
-        GAME.hud.message('YOUR RIDE IS ON FIRE — get out before it blows!', 4);
+        GAME.hud.message("ТРАНСПОРТ ГОРИТ — выходи до взрыва!", 4);
         GAME.audio.sting('busted');
         GAME.haptics.onFire();
       } else if (car.stage === 1 && !car.stageWarn && !car.spec.heli && !car.spec.plane) {
         car.stageWarn = 1;
-        GAME.hud.message('Your ride is smoking — it won\'t take much more.', 3);
+        GAME.hud.message("Транспорт дымится — долго не протянет.", 3);
         GAME.haptics.smoking();
       }
     }
@@ -1709,7 +1709,7 @@ GAME.vehicles = (function () {
         car.stage = 2;
         if (car.stageWarn !== 2) {
           car.stageWarn = 2;
-          GAME.hud.message('YOUR RIDE IS ON FIRE — get out before it blows!', 4);
+          GAME.hud.message("ТРАНСПОРТ ГОРИТ — выходи до взрыва!", 4);
           GAME.audio.sting('busted');
           GAME.haptics.onFire();
         }

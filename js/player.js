@@ -119,11 +119,11 @@ GAME.exportSave = function () {
 };
 GAME.importSave = function (text) {
   var o;
-  try { o = JSON.parse(text); } catch (e) { return { ok: false, why: 'That file is not a save.' }; }
+  try { o = JSON.parse(text); } catch (e) { return { ok: false, why: "Этот файл не является сохранением." }; }
   try {
     if (o && o.game === 'neon-mayhem' && o.storage && typeof o.storage === 'object') {
       // v2: the full storage dump
-      if (typeof o.storage.neonMayhemSave !== 'string') return { ok: false, why: 'That save file is missing its game data.' };
+      if (typeof o.storage.neonMayhemSave !== 'string') return { ok: false, why: "В сохранении нет игровых данных." };
       JSON.parse(o.storage.neonMayhemSave);   // must at least be JSON
       for (var k in o.storage) {
         if (typeof o.storage[k] === 'string') localStorage.setItem(k, o.storage[k]);
@@ -133,11 +133,11 @@ GAME.importSave = function (text) {
     // v1 wrapped a single save object; a bare save object is also accepted
     var s = o && o.game === 'neon-mayhem' ? o.save : o;
     if (!s || typeof s !== 'object' || (s.cash === undefined && !s.prefs && !s.bests)) {
-      return { ok: false, why: 'That file is not a Neon Mayhem save.' };
+      return { ok: false, why: "Этот файл не является сохранением «Неонового хаоса»." };
     }
     localStorage.setItem('neonMayhemSave', JSON.stringify(s));
     return { ok: true };
-  } catch (e) { return { ok: false, why: 'Could not write the save.' }; }
+  } catch (e) { return { ok: false, why: "Не удалось записать сохранение." }; }
 };
 
 // `fromX`/`fromZ`, when the caller knows them, are where it came from: the
@@ -195,10 +195,10 @@ GAME.playerWasted = function (cause) {
   var ownsElsewhere = !home && GAME.shops && GAME.shops.ownsAny();
   var kept = GAME.jumpArsenal || GAME.unlimitedAmmo;   // the arsenal goes where you go
   var body = home
-    ? 'You wake up at your place. Cash and weapons intact.'
+    ? "Ты просыпаешься дома. Деньги и оружие на месте."
     : ownsElsewhere
-      ? 'You wake up at the local hospital — your bed is on the other island. ' + (kept ? 'Cash and weapons intact.' : 'Weapons gone, cash intact.')
-      : 'You wake up at the hospital. ' + (kept ? 'Cash and weapons intact.' : 'Weapons gone, cash intact.');
+      ? "Ты просыпаешься в местной больнице — твоя кровать на другом острове. " + (kept ? "Деньги и оружие на месте." : "Оружие пропало, деньги на месте.")
+      : "Ты просыпаешься в больнице. " + (kept ? "Деньги и оружие на месте." : "Оружие пропало, деньги на месте.");
   // An explosion death gets its beat: the banner used to slam on in the very
   // frame the blast spawned, so dying in a burning car read as "I suddenly
   // died" — the fireball was behind the card. Let the slow-mo blast play,
@@ -211,7 +211,7 @@ GAME.playerWasted = function (cause) {
     GAME.hud.showBig('wasted', body);
   };
   if (delay) setTimeout(show, delay); else show();
-  GAME.missions.failActive('You got wasted.');
+  GAME.missions.failActive("Ты погиб.");
 };
 
 GAME.playerBusted = function () {
@@ -226,9 +226,9 @@ GAME.playerBusted = function () {
   GAME.haptics.busted();
   var fine = Math.min(P.cash, 200);
   P.pendingFine = fine;
-  GAME.hud.showBig('busted', 'Released with a $' + fine + ' fine. ' +
-    (GAME.jumpArsenal || GAME.unlimitedAmmo ? 'Your guns come back with you.' : 'Weapons confiscated.'));
-  GAME.missions.failActive('You got busted.');
+  GAME.hud.showBig('busted', "Ты освобождён со штрафом $" + fine + ". " +
+    (GAME.jumpArsenal || GAME.unlimitedAmmo ? "Оружие возвращено." : "Оружие конфисковано."));
+  GAME.missions.failActive("Тебя арестовали.");
 };
 
 GAME.playerDrown = function () {
@@ -247,7 +247,7 @@ GAME.playerDrown = function () {
     var ic = (isl && isl.centre) || { x: -70, z: 0 };
     P.heading = Math.atan2(ic.x - sh.x, ic.z - sh.z);
     P.drowning = false;
-    GAME.hud.message('You wash up on the beach, soaked.');
+    GAME.hud.message("Тебя вынесло на пляж. Ты мокрый насквозь.");
   });
 };
 
@@ -442,7 +442,7 @@ function stepEnter(dt) {
 // The pad, for the prompts said on climbing in: they named keys a
 // controller does not have (controls.js says which device is in hand).
 function promptOnPad() { return !!(GAME.controls && GAME.controls.usingPad && GAME.controls.usingPad()); }
-function jobKey() { return promptOnPad() ? 'X' : 'J (or JOB)'; }
+function jobKey() { return promptOnPad() ? 'X' : "J или «РАБОТА»"; }
 
 // In the seat: the end of the walk to the door, and all of a mission retry,
 // which hands you the wheel on the start line behind a fade.
@@ -468,18 +468,18 @@ function sitIn(car) {
     car.radioStation = R.index;
   }
   var pad = promptOnPad();
-  if (car.spec.gunship) GAME.hud.message(pad ? 'TALON — RT up · LT down · stick fly · RB chin gun · LB rockets · Y to exit'
-    : 'TALON — Space up · Shift down · WASD fly · LMB/GUN chin gun · RMB/RKT rockets · F to exit', 5);
-  else if (car.spec.plane) GAME.hud.message(pad ? 'Plane — RT throttle up the runway, pull back on the stick to climb once fast · stick turns · Y to bail out'
-    : 'Plane — W throttle up the runway, Space to climb once fast · A/D turn · F to bail out', 4.5);
-  else if (car.spec.heli) GAME.hud.message(pad ? 'Heli — RT up · LT down · stick fly · Y to exit (bail with a chute if high up)'
-    : 'Heli — Space up · Shift down · WASD fly · F to exit (bail with a chute if high up)', 4);
-  else if (car.spec.cab) GAME.hud.message((car.type === 'tiger' ? 'The Tiger Cab' : 'Cab') + ' — press ' + jobKey() + ' to start a fare', 3);
-  else if (car.type === 'ambulance') GAME.hud.message('Ambulance — press ' + jobKey() + ' for a paramedic run', 3);
-  else if (car.type === 'icecream') GAME.hud.message('Ice cream truck — press ' + jobKey() + ' to start a round', 3);
-  else if (car.type === 'police') GAME.hud.message('Cruiser — G for lights and siren, J (or JOB) for vigilante work', 3.5);
-  else if (car.spec.boat) GAME.hud.message(pad ? 'Boat — RT/LT throttle · stick steers · A to slide it round · Y to step off (onto a pier, or over the side)'
-    : 'Boat — W/S throttle · A/D steer · Space to slide it round · F to step off (onto a pier, or over the side)', 4.5);
+  if (car.spec.gunship) GAME.hud.message(pad ? "КОГОТЬ — RT: вверх · LT: вниз · стик: полёт · RB: пушка · LB: ракеты · Y: выйти"
+    : "КОГОТЬ — Пробел: вверх · Shift: вниз · WASD: полёт · ЛКМ/«ПУШКА»: пушка · ПКМ/«РАКЕТЫ»: ракеты · F: выйти", 5);
+  else if (car.spec.plane) GAME.hud.message(pad ? "Самолёт — RT: газ на полосе · набери скорость и потяни стик на себя для взлёта · стик: поворот · Y: выпрыгнуть"
+    : "Самолёт — W: газ на полосе · набери скорость и нажми Пробел для взлёта · A/D: поворот · F: выпрыгнуть", 4.5);
+  else if (car.spec.heli) GAME.hud.message(pad ? "Вертолёт — RT: вверх · LT: вниз · стик: полёт · Y: выйти (на высоте — с парашютом)"
+    : "Вертолёт — Пробел: вверх · Shift: вниз · WASD: полёт · F: выйти (на высоте — с парашютом)", 4);
+  else if (car.spec.cab) GAME.hud.message((car.type === 'tiger' ? "Тигр-такси" : "Такси") + " — нажми " + jobKey() + " для начала поездки", 3);
+  else if (car.type === 'ambulance') GAME.hud.message("Скорая — нажми " + jobKey() + " для смены парамедика", 3);
+  else if (car.type === 'icecream') GAME.hud.message("Фургон мороженого — нажми " + jobKey() + " для начала раунда", 3);
+  else if (car.type === 'police') GAME.hud.message("Полицейская машина — G: мигалки и сирена · J или «РАБОТА»: задания линчевателя", 3.5);
+  else if (car.spec.boat) GAME.hud.message(pad ? "Лодка — RT/LT: газ · стик: поворот · A: скольжение · Y: выйти на пирс или за борт"
+    : "Лодка — W/S: газ · A/D: поворот · Пробел: скольжение · F: выйти на пирс или за борт", 4.5);
 }
 
 // a turn of the dial is this car's from now on (sitIn tunes back to it)
@@ -622,7 +622,7 @@ GAME.ejectBike = function (impact) {
   GAME.fx.spawn(P.pos.x, P.pos.y + 0.6, P.pos.z, { count: 6, color: 0xffd890, spread: 3, life: 0.5 });
   GAME.cameraShake = 0.8;
   GAME.playerDamage(Math.min(35, 10 + impact * 1.2), 'crash');
-  GAME.hud.message('Thrown off the bike!', 2);
+  GAME.hud.message("Тебя сбросило с мотоцикла!", 2);
 };
 
 // ---------- one too many ----------
@@ -668,8 +668,8 @@ function stepDrunk(dt) {
   var lv = drunkLevel();
   paintDrunk(lv);
   // said once as it takes hold, and once as it lets go
-  if (lv > 0 && !drunkSaid) { drunkSaid = 1; GAME.hud.message('One too many — the night has started to swim.', 3); }
-  else if (lv === 0 && drunkSaid) { drunkSaid = 0; if (GAME.player.state === 'alive') GAME.hud.message('Your head clears.', 2.5); }
+  if (lv > 0 && !drunkSaid) { drunkSaid = 1; GAME.hud.message("Лишний стакан — ночь поплыла.", 3); }
+  else if (lv === 0 && drunkSaid) { drunkSaid = 0; if (GAME.player.state === 'alive') GAME.hud.message("В голове прояснилось.", 2.5); }
 }
 
 GAME.updatePlayer = function (dt) {
@@ -729,7 +729,7 @@ function enterHint(dt) {
   if (car === enterHintCar) return;
   enterHintCar = car;
   GAME.hud.enterHint(car ? (GAME.controls ? GAME.controls.label('KeyF') : 'F') + ' — ' +
-    (car.occupied === 'ai' ? 'take the ' : 'get in the ') + car.spec.label : '');
+    (car.occupied === 'ai' ? "взять " : "сесть в ") + car.spec.label : '');
 }
 
 // The roof height of a car at a point in its own frame — what your feet
@@ -904,8 +904,8 @@ GAME.startSwim = function () {
   GAME.fx.spawn(P.pos.x, sea + 0.2, P.pos.z, SWIM_SPLASH);
   if (!P.swimTold) {
     P.swimTold = true;
-    var fast = GAME.isTouch ? 'RUN' : (GAME.controls ? GAME.controls.label('ShiftLeft') : 'Shift');
-    GAME.hud.message('Swimming — ' + fast + ' for a faster stroke. Climb out at a beach, a pier or a low edge.', 4.5);
+    var fast = GAME.isTouch ? "БЕГ" : (GAME.controls ? GAME.controls.label('ShiftLeft') : 'Shift');
+    GAME.hud.message("Плавание — " + fast + " для ускорения. Выбирайся на пляж, пирс или низкий край.", 4.5);
   }
 };
 function stopSwim() {
@@ -926,7 +926,7 @@ GAME.swimOutOf = function (car) {
   if (!P.inCar || P.car !== car) return;
   forceExitCar(true);
   P.airborne = false; P.velY = 0;
-  GAME.hud.message('Out through the window — swim for it!', 2.2);
+  GAME.hud.message("Через окно наружу — выплывай!", 2.2);
   if (GAME.city.isInWater(P.pos.x, P.pos.z, P.pos.y)) GAME.startSwim();
 };
 
@@ -1303,7 +1303,7 @@ function hornAndSiren(car, dt, T) {
   if (car.isPolice) {
     if (press) {
       car.sirenOn = !car.sirenOn;
-      GAME.hud.message(car.sirenOn ? 'Lights and siren on — traffic will pull over.' : 'Lights and siren off.', 1.8);
+      GAME.hud.message(car.sirenOn ? "Мигалки и сирена включены — машины уступают дорогу." : "Мигалки и сирена выключены.", 1.8);
     }
   } else if (car.type === 'icecream') {
     // one jingle at a time: it runs a little over a second

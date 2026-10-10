@@ -39,7 +39,7 @@ GAME.business = (function () {
   function cap(id) { return rate(id) * KEEP_DAYS; }
   function dayLen() { return GAME.DAY_SECONDS || 720; }
   function nameOf(id) {
-    if (id === 'bar0') return 'THE GULL BAR';
+    if (id === 'bar0') return "БАР «ЧАЙКА»";
     var l = GAME.shops && GAME.shops.locations().filter(function (q) { return q.id === id; })[0];
     return l ? l.name : id;
   }
@@ -49,16 +49,16 @@ GAME.business = (function () {
     var d = loc && DEFS[loc.id];
     if (!d) return [];
     if (!owns(loc.id)) {
-      return [{ id: 'biz_buy', name: 'BUY THE BUSINESS', price: d.price,
+      return [{ id: 'biz_buy', name: "КУПИТЬ БИЗНЕС", price: d.price,
         ds: d.perFare
-          ? 'Yours outright. It takes about $' + d.day.toLocaleString() + ' a day to start with, and every fare you drive puts $' + d.perFare +
-            ' a day more on the board, up to $' + (d.day + d.perFare * d.fares).toLocaleString() + ' — come by and empty the till (it holds three days).'
-          : 'Yours outright. It takes about $' + d.day.toLocaleString() + ' a day into the till — come by and empty it (it holds three days).' }];
+          ? "Полностью твой. Начальная выручка — около $" + d.day.toLocaleString('ru-RU') + " в день. Каждая поездка добавляет $" + d.perFare +
+            " в день к выручке, максимум $" + (d.day + d.perFare * d.fares).toLocaleString('ru-RU') + ". Заходи за деньгами: касса вмещает выручку за три дня."
+          : "Полностью твой. Выручка — около $" + d.day.toLocaleString('ru-RU') + " в день. Заходи за деньгами: касса вмещает выручку за три дня." }];
     }
     var t = till(loc.id);
-    var board = d.perFare ? '  Fares on the board: ' + Math.min(d.fares, prefs().fares) + ' of ' + d.fares + ' — $' + rate(loc.id).toLocaleString() + ' a day.' : '';
-    return [{ id: 'biz_till', name: 'THE TILL', price: 0, noPrice: true, chip: 'TAKE', off: t < 1,
-      ds: (t < 1 ? 'Empty. It fills through the day.' : '$' + t.toLocaleString() + ' waiting' + (t >= cap(loc.id) ? ' — full.' : '.')) + board }];
+    var board = d.perFare ? "  Поездок на табло: " + Math.min(d.fares, prefs().fares) + " из " + d.fares + ' — $' + rate(loc.id).toLocaleString('ru-RU') + " в день." : '';
+    return [{ id: 'biz_till', name: "КАССА", price: 0, noPrice: true, chip: "ЗАБРАТЬ", off: t < 1,
+      ds: (t < 1 ? "Пусто. Наполняется в течение дня." : '$' + t.toLocaleString('ru-RU') + " ждут" + (t >= cap(loc.id) ? " — заполнена." : '.')) + board }];
   }
   // what a row does (shops.js has already taken the price)
   function act(loc, id) {
@@ -66,7 +66,7 @@ GAME.business = (function () {
     if (id === 'biz_buy') {
       s.owned[loc.id] = true;
       s.till[loc.id] = 0;
-      GAME.hud.message(nameOf(loc.id) + ' is yours. The till fills through the day — come by and empty it.', 4);
+      GAME.hud.message(nameOf(loc.id) + " — теперь твой бизнес. Касса наполняется в течение дня, заходи за деньгами.", 4);
       if (GAME.track) GAME.track('business-bought');
       if (GAME.lola) GAME.lola.first('business');
     } else if (id === 'biz_till') {
@@ -75,7 +75,7 @@ GAME.business = (function () {
       GAME.addCash(t);
       s.till[loc.id] = 0;
       s.told[loc.id] = false;
-      GAME.hud.message('The takings: +$' + t.toLocaleString(), 3);
+      GAME.hud.message("Выручка: +$" + t.toLocaleString('ru-RU'), 3);
     }
     GAME.save();
     return true;
@@ -93,7 +93,7 @@ GAME.business = (function () {
       s.till[id] = Math.min(c, was + rate(id) * dt / dayLen());
       if (s.till[id] >= c && was < c && !s.told[id]) {
         s.told[id] = true;
-        GAME.hud.pager('LOLA', 'The till at ' + nameOf(id) + ' is full, kid. Money sat on a counter is money somebody else is looking at.', 7);
+        GAME.hud.pager("ЛОЛА", "Касса заведения «" + nameOf(id) + "» полна, парень. Деньги на стойке привлекают чужие взгляды.", 7);
       }
     }
     // (kept, a few times a minute, rather than every tick)
@@ -106,7 +106,7 @@ GAME.business = (function () {
     if (!owns('cabs0')) return;
     var s = prefs(), was = s.fares, top = DEFS.cabs0.fares;
     s.fares = was + (n || 1);
-    if (was < top && s.fares >= top) GAME.hud.message('VERDE CABS is the busiest firm on the island — $' + rate('cabs0').toLocaleString() + ' a day.', 4);
+    if (was < top && s.fares >= top) GAME.hud.message("«ВЕРДЕ-ТАКСИ» — самая загруженная фирма острова. Выручка $" + rate('cabs0').toLocaleString('ru-RU') + " в день.", 4);
   }
 
   // a thief at one of yours runs with the till (streetlife.js)

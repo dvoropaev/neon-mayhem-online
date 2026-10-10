@@ -42,11 +42,11 @@ GAME.guide = (function () {
   function onPad() { return !!(GAME.controls && GAME.controls.usingPad && GAME.controls.usingPad()); }
   function K(code) { return GAME.controls ? GAME.controls.label(code) : code.replace(/^Key/, ''); }
   // the buttons as whatever you are playing on calls them
-  function getIn() { return touch() ? 'ENTER' : K('KeyF'); }
-  function mapKey() { return touch() ? 'a tap on the radar' : K('KeyP'); }
-  function callMe() { return touch() ? 'ASK LOLA on the pause screen' : onPad() ? 'START, then ASK LOLA' : K('KeyL'); }
-  function retryKey() { return touch() ? 'RETRY' : K('KeyY'); }
-  function say(text, dur) { if (GAME.hud && GAME.hud.pager) GAME.hud.pager('LOLA', text, dur); }
+  function getIn() { return touch() ? "СЕСТЬ" : K('KeyF'); }
+  function mapKey() { return touch() ? "касание радара" : K('KeyP'); }
+  function callMe() { return touch() ? "«СПРОСИТЬ ЛОЛУ» в меню паузы" : onPad() ? "START, затем «СПРОСИТЬ ЛОЛУ»" : K('KeyL'); }
+  function retryKey() { return touch() ? "ПОВТОР" : K('KeyY'); }
+  function say(text, dur) { if (GAME.hud && GAME.hud.pager) GAME.hud.pager("ЛОЛА", text, dur); }
 
   function courierDef() {
     var M = GAME.missions;
@@ -135,11 +135,11 @@ GAME.guide = (function () {
   // Paid: she comes to you and says so, face to face (scenes.js — the
   // pager in the corner undersold your first job), then marks the barber.
   var FIRST_PAY = { id: 'guide-paid', shots: [{ set: 'here', cast: ['lola', 'you'], lines: [
-    ['lola', 'Three drops, on the clock, and not a scratch on the merchandise. You did good, kid.'],
-    ['you', 'Easiest money I ever made.'],
-    ['lola', 'Don\'t get used to easy. And no offence — you look like you got off the bus this morning.'],
-    ['lola', 'Go get yourself a new look. Whatever you like, your money. CORTES CUTS does a good cut, up in Las Colinas by the hospital.'],
-    ['lola', 'I\'ve marked it on your map. Walk in off the mat at the door.']
+    ['lola', "Три доставки, всё вовремя, и товар без единой царапины. Молодец, парень."],
+    ['you', "Самые лёгкие деньги в моей жизни."],
+    ['lola', "Не привыкай. И без обид — выглядишь так, будто только утром сошёл с автобуса."],
+    ['lola', "Смени имидж. На свой вкус и за свои деньги. В «СТРИЖКАХ КОРТЕСА» отлично стригут — это в Лас-Колинас, рядом с больницей."],
+    ['lola', "Я отметила место на карте. Встань на светящийся коврик у двери и заходи."]
   ] }] };
   function toBarber() {
     go('barber');
@@ -151,7 +151,7 @@ GAME.guide = (function () {
     // tip would say it again on the way in
     var pr = prefs(); pr.lolaSeen = pr.lolaSeen || {}; pr.lolaSeen.shop = true;
     if (GAME.scenes && GAME.scenes.play(FIRST_PAY)) return;
-    say('That\'s your first pay. You did good, kid. Now — no offence — you look like you got off the bus this morning. Get yourself a new look: CORTES CUTS does a good cut, up in Las Colinas by the hospital. I\'ve marked it. Walk in off the mat at the door.', 9);
+    say("Вот твоя первая зарплата. Молодец, парень. Теперь — без обид — выглядишь ты так, будто утром сошёл с автобуса. Смени имидж: в «СТРИЖКАХ КОРТЕСА» отлично стригут, это в Лас-Колинас у больницы. Место на карте. Заходи через коврик у двери.", 9);
   }
   function threadsLoc() {
     return GAME.shops ? GAME.shops.locations().filter(function (l) { return l.kind === 'dress'; })[0] : null;
@@ -161,11 +161,11 @@ GAME.guide = (function () {
   function outro(bought) {
     go('outro');
     clearHud();
-    var first = bought === true ? 'Now you look like you belong on the strip.' : bought === false ? 'Your money, your call.' : 'Not today? Your call.';
+    var first = bought === true ? "Теперь на бульваре ты свой." : bought === false ? "Твои деньги — твой выбор." : "Не сегодня? Как скажешь.";
     var lines = [
       ['lola', first],
-      ['lola', 'Same goes for the clothes. THREADS, on Centro Alto, will dress you head to toe — and what you buy hangs in your wardrobe at home.'],
-      ['lola', 'Want me to mark it for you, or are you finding your own way from here?']
+      ['lola', "С одеждой так же. «НИТКИ» в Сентро-Альто оденут с головы до ног. Всё купленное появится в домашнем гардеробе."],
+      ['lola', "Отметить магазин или дальше сам найдёшь дорогу?"]
     ];
     var ask = function () { askThreads(); };
     if (GAME.scenes && GAME.scenes.play({ id: 'guide-threads', shots: [{ set: 'here', cast: ['lola', 'you'], lines: lines }] }, ask)) return;
@@ -175,16 +175,16 @@ GAME.guide = (function () {
   function askThreads() {
     var th = threadsLoc();
     var ok = th && GAME.lola && GAME.lola.offer && GAME.lola.offer({
-      say: 'THREADS, for the clothes — shall I mark it, or do you want to find your own way from here?',
+      say: "За одеждой — в «НИТКИ». Отметить магазин или дальше сам разберёшься?",
       top: true,
-      escSays: 'to find your own way',
+      escSays: "найти дорогу самостоятельно",
       list: [
-        { label: '🧭 MARK THREADS FOR ME', fn: function () {
+        { label: "🧭 ОТМЕТЬ «НИТКИ» НА КАРТЕ", fn: function () {
           GAME.lola.close();
           route(th.at.x, th.at.z);
-          wrap('Marked. Walk in off the mat, same as the barber\'s.');
+          wrap("Готово. Заходи через коврик у двери, как в парикмахерской.");
         } },
-        { label: '🗺 I\'LL EXPLORE ON MY OWN', fn: function () { GAME.lola.close(); wrap(null); } }
+        { label: "🗺 ДАЛЬШЕ Я САМ", fn: function () { GAME.lola.close(); wrap(null); } }
       ],
       // closing her without an answer is exploring on your own
       onClose: function () { if (step === 'outro') wrap(null); }
@@ -194,22 +194,22 @@ GAME.guide = (function () {
   // the island, while it is still shut: mentioned, and no more than that
   function islandTease(lead) {
     if (GAME.isla && GAME.isla.isOpen()) return '';
-    return lead + 'Isla Verde. The bridges are shut for now — stick with me and that changes.';
+    return lead + "Исла-Верде. Мосты пока закрыты. Держись меня — и это изменится.";
   }
   function islandLine() {
-    if (GAME.isla && GAME.isla.isOpen()) return 'The bridges to Isla Verde are open — my rings over there are waiting too.';
-    return 'Win any four of them and the bridges to Isla Verde open — or clear every stunt jump in town, and they open for that too.';
+    if (GAME.isla && GAME.isla.isOpen()) return "Мосты на Исла-Верде открыты. Мои задания там тоже тебя ждут.";
+    return "Выполни любые четыре задания — и мосты на Исла-Верде откроют. Или пройди все уникальные прыжки в городе — это тоже сработает.";
   }
   // the end of it: the wider picture, and that she is a call away
   function wrap(first) {
     if (first) say(first, 6);
-    say('From here, it\'s your town. The other rings on my map are races, rampages and takedowns. ' + islandLine() + ' Need me? ' + callMe() + '.', 10);
+    say("Теперь город твой. Остальные кольца на карте — гонки, погромы и устранение целей. " + islandLine() + " Нужна помощь? " + callMe() + '.', 10);
     finishUp('done');
     if (GAME.track) GAME.track('guide-done');
   }
   // walked off part way: let them go, with the way back
   function leave(line) {
-    say(line + ' I\'m on ' + callMe() + ' when you want me — SHOW ME THE ROPES picks this up again.', 8);
+    say(line + " Я на связи через " + callMe() + ". Выбери «ОБУЧИ МЕНЯ» — и продолжим знакомство с городом.", 8);
     finishUp('left');
     if (GAME.track) GAME.track('guide-left');
   }
@@ -228,12 +228,12 @@ GAME.guide = (function () {
     var pr = prefs();
     if (pr.guide || !fresh() || !GAME.lola || !GAME.lola.offer) return false;
     var ok = GAME.lola.offer({
-      say: 'Welcome to Costa Rosa, kid. I\'m Lola — I run the strip. You look new. I can put you to work and show you how things go round here, or you can find your own feet. Your call.',
+      say: "Добро пожаловать в Коста-Росу, парень. Я Лола, этот бульвар мой. Ты здесь новенький. Могу дать работу и показать, как тут всё устроено. Или разбирайся сам. Решай.",
       top: true,
-      escSays: 'to find your own way',
+      escSays: "найти дорогу самостоятельно",
       list: [
-        { label: '🧭 SHOW ME AROUND', fn: function () { GAME.lola.close(); begin(); } },
-        { label: '🗺 I\'LL FIND MY OWN WAY', fn: function () { GAME.lola.close(); skip(); } }
+        { label: "🧭 ПОКАЖИ МНЕ ГОРОД", fn: function () { GAME.lola.close(); begin(); } },
+        { label: "🗺 Я РАЗБЕРУСЬ САМ", fn: function () { GAME.lola.close(); skip(); } }
       ],
       // closing her without an answer is finding your own way
       onClose: function () { skip(); }
@@ -248,8 +248,8 @@ GAME.guide = (function () {
     // (and if she was part way through, that is over too)
     if (step) finishUp('skipped');
     else { prefs().guide = 'skipped'; save(); }
-    say('Suit yourself. The rings on your map are my jobs — ' + mapKey() + ' opens it. ' +
-      islandTease('That island across the water, by the way? ') + (GAME.isla && GAME.isla.isOpen() ? '' : ' ') + 'Need me? ' + callMe() + '.', 10);
+    say("Как скажешь. Кольца на карте — мои задания. Клавиша " + mapKey() + " открывает карту. " +
+      islandTease("Кстати, остров на той стороне воды? ") + (GAME.isla && GAME.isla.isOpen() ? '' : ' ') + "Нужна помощь? " + callMe() + '.', 10);
     if (GAME.track) GAME.track('guide-skipped');
   }
   function begin() {
@@ -260,12 +260,12 @@ GAME.guide = (function () {
     var P = GAME.player;
     if (P.inCar && landCar(P.car)) {
       toRing();
-      say('Good, you\'ve got wheels. I have a delivery for you — the ring\'s on your map. Follow the line, pull in and stop.', 7);
+      say("Хорошо, транспорт у тебя есть. Нужна доставка — кольцо на карте. Следуй по линии, заезжай и остановись.", 7);
     } else {
       toRide();
-      say('Good. First, wheels. See the arrow? That bike\'s yours for the day — ' + getIn() + ' to get on.', 7);
+      say("Хорошо. Сначала транспорт. Видишь стрелку? Этот мотоцикл на сегодня твой. Нажми " + getIn() + ", чтобы сесть.", 7);
     }
-    var tease = islandTease('And that island across the water? ');
+    var tease = islandTease("А остров на той стороне воды? ");
     if (tease) say(tease, 7);
     if (GAME.track) GAME.track('guide-begun');
   }
@@ -286,10 +286,10 @@ GAME.guide = (function () {
   function finished(d, win, quit) {
     if (step !== 'job' || (d.orig || d).id !== COURIER) return;
     if (win) { go('paid'); waitT = 1.5; return; }
-    if (quit) { leave('Fine — the ring\'s there when you want it.'); return; }
+    if (quit) { leave("Ладно. Кольцо никуда не денется — приезжай, когда захочешь."); return; }
     // a failed first run: go again, no lecture
     toRing();
-    say('Happens to everybody. ' + retryKey() + ' runs it again right away — or drive back to the ring.', 7);
+    say("С кем не бывает. Клавиша " + retryKey() + " сразу начнёт заново. Или вернись к кольцу.", 7);
   }
 
   // ---------- every tick ----------
@@ -303,15 +303,15 @@ GAME.guide = (function () {
     if (step === 'ride') {
       if (P.inCar && landCar(P.car)) {
         toRing();
-        say('Now we\'re moving. I have a delivery for you — the ring\'s on your map, a few blocks in off the strip by the Neon Tide. Follow the line, pull in and stop.', 7);
+        say("Вот теперь поехали. Нужна доставка — кольцо на карте, в нескольких кварталах от бульвара, у «Неонового прилива». Следуй по линии, заезжай и остановись.", 7);
         return;
       }
-      if (P.inCar && !saidWrongRide) { saidWrongRide = true; say('Something with wheels, kid — this job\'s on the road.', 5); }
+      if (P.inCar && !saidWrongRide) { saidWrongRide = true; say("Нужны колёса, парень. Эта работа на дороге.", 5); }
       if (!car || car.dead || GAME.world.cars.indexOf(car) < 0 || car.occupied === 'ai' ||
         U.dist2(car.pos.x, car.pos.z, f.x, f.z) > 140 * 140) car = pickCar();
       if (car && !P.interior) showArrow(car); else hideArrow();
-      objective('FIRST DAY', 'Get on the bike under the arrow — ' + getIn());
-      if (a) leave('Already on something? Good.');
+      objective("ПЕРВЫЙ ДЕНЬ", "Сядь на мотоцикл под стрелкой — " + getIn());
+      if (a) leave("Уже на транспорте? Отлично.");
       return;
     }
 
@@ -319,7 +319,7 @@ GAME.guide = (function () {
       if (a) {
         // straight back in through a retry: the same gentler run
         if ((a.def.orig || a.def).id === COURIER) { go('job'); return; }
-        leave('Already found yourself something? Good.');
+        leave("Уже нашёл транспорт? Отлично.");
         return;
       }
       if (!P.inCar) {
@@ -327,17 +327,17 @@ GAME.guide = (function () {
         if (stepT > 1.5) { toRide(); }
         return;
       }
-      objective('FIRST DAY', 'Drive into the delivery ring on your map and stop');
-      if (GAME.police.wanted > 0 && !saidHeat) { saidHeat = true; say('Lose the stars first — nobody starts a job with the heat on you.', 6); }
+      objective("ПЕРВЫЙ ДЕНЬ", "Заедь в кольцо доставки на карте и остановись");
+      if (GAME.police.wanted > 0 && !saidHeat) { saidHeat = true; say("Сначала сбрось розыск. С полицией на хвосте работу не начинают.", 6); }
       if (ringAt && GAME.nav && !GAME.nav.dest && U.dist2(f.x, f.z, ringAt.x, ringAt.z) > 30 * 30) route(ringAt.x, ringAt.z);
-      if (walkedOff(ringAt, 550)) leave('Changed your mind? No problem — the job\'s on your map whenever you want it.');
+      if (walkedOff(ringAt, 550)) leave("Передумал? Без проблем. Задание на карте, берись когда захочешь.");
       return;
     }
 
     if (step === 'job') {
       if (a && a.state === 'run' && !saidGo) {
         saidGo = true;
-        say('Follow the line on your radar to each drop and stop in the ring. The clock\'s at the top — you\'ve got time.', 7);
+        say("Следуй по линии на радаре к каждой доставке и останавливайся в кольце. Таймер наверху — время ещё есть.", 7);
       }
       return;
     }
@@ -353,10 +353,10 @@ GAME.guide = (function () {
     if (step === 'barber') {
       if (P.interior && P.interior.shop === 'barber') {
         go('counter');
-        say('Take a seat. A cut, a colour — your money, your look.', 5);
+        say("Присаживайся. Стрижка, цвет — твои деньги, твой образ.", 5);
         return;
       }
-      objective('A NEW LOOK', 'Walk in at CORTES CUTS — it\'s on your map');
+      objective("НОВЫЙ ОБРАЗ", "Зайди в «СТРИЖКИ КОРТЕСА» — место на карте");
       if (barberAt && GAME.nav && !GAME.nav.dest && U.dist2(f.x, f.z, barberAt.x, barberAt.z) > 30 * 30) route(barberAt.x, barberAt.z);
       if (a || stepT > 300 || walkedOff(barberAt, 700)) wrap(null);
       return;
@@ -370,7 +370,7 @@ GAME.guide = (function () {
       }
       // out of the chair: she waits for you on the pavement
       if (P.interior || (GAME.interiors && GAME.interiors.busy)) {
-        if (shopCash === null) objective('A NEW LOOK', 'Step up to the counter at the back');
+        if (shopCash === null) objective("НОВЫЙ ОБРАЗ", "Подойди к стойке в глубине помещения");
         else clearHud();
         return;
       }
@@ -394,13 +394,13 @@ GAME.guide = (function () {
     // what she would tell you to do right now (her WHAT NEXT answer)
     now: function () {
       return {
-        ride: 'Get on the bike under the arrow — ' + getIn() + '.',
-        ring: 'Drive into the delivery ring on your map and stop in it.',
-        job: 'Get the deliveries done — follow the line on your radar.',
-        paid: 'Nice work. Hang on a second.',
-        barber: 'Get yourself to CORTES CUTS — it\'s on your map — and walk in off the mat.',
-        counter: 'Step up to the counter at the back and pick a look.',
-        outro: 'THREADS does the clothes — want it marked on your map?'
+        ride: "Сядь на мотоцикл под стрелкой — " + getIn() + '.',
+        ring: "Заедь в кольцо доставки на карте и остановись в нём.",
+        job: "Развези посылки — следуй по линии на радаре.",
+        paid: "Отличная работа. Погоди секунду.",
+        barber: "Езжай в «СТРИЖКИ КОРТЕСА» — место на карте. Заходи через коврик.",
+        counter: "Подойди к стойке в глубине и выбери новый образ.",
+        outro: "За одеждой — в «НИТКИ». Отметить на карте?"
       }[step] || '';
     },
     get step() { return step; },

@@ -1,87 +1,87 @@
-# Controls
+# Управление
 
-Every action, on all three: keyboard and mouse, a controller (standard layout — Xbox names; on a PlayStation pad A is ✕, B is ○, X is □, Y is △), and a touchscreen. Touch buttons appear only when they apply. Back to the [README](../README.md).
+Клавиши, геймпад и сенсорный экран. Для геймпада указаны кнопки Xbox: на PlayStation A — ✕, B — ○, X — □, Y — △. Сенсорные кнопки появляются, когда соответствующее действие доступно. [К описанию игры](../README-ru.md).
 
-**On foot**
+## Пешком
 
-| Action | Keyboard & mouse | Controller | Touch |
+| Действие | Клавиатура и мышь | Геймпад | Сенсорный экран |
 |---|---|---|---|
-| Move | `W A S D` | left stick | stick (under the left thumb) |
-| Look | mouse | right stick | drag the right of the screen |
-| Sprint | `Shift` (hold) | B (hold) | RUN (toggle) |
-| Jump · climb a ledge | `Space` | A | JUMP |
-| Aim (lock-on) | RMB (hold) · `Tab` (toggle) | LT | AIM (toggle, with a gun drawn) |
-| Fire · punch | LMB | RT | FIRE |
-| Switch lock target | `Q` / `E` · wheel · a flick of the camera | LB / RB · a flick of the camera | a flick of the camera |
-| Weapon · the weapon wheel | `1`–`9`, mouse wheel · hold `Z` (tap: next) | D-pad ↓ (tap: next, hold: wheel) | WPN (tap: next, hold: wheel) |
-| Get in · jack a car · climb into a boat | `F` | Y | ENTER (in reach) |
+| Движение | `W A S D` | Левый стик | Стик под левым пальцем |
+| Камера | Мышь | Правый стик | Провести по правой части экрана |
+| Бег | Удерживать `Shift` | Удерживать B | «БЕГ», переключатель |
+| Прыжок, подъём на уступ | `Пробел` | A | «ПРЫЖОК» |
+| Прицел, захват цели | Удерживать ПКМ или нажать `Tab` | LT | «ПРИЦЕЛ», если оружие в руках |
+| Стрельба, удар | ЛКМ | RT | «ОГОНЬ» |
+| Сменить захваченную цель | `Q` / `E`, колесо мыши или поворот камеры | LB / RB или поворот камеры | Поворот камеры |
+| Сменить оружие, открыть колесо | `1`–`9`, колесо мыши; удерживать `Z` для колеса, нажать для следующего оружия | Крестовина ↓: нажать — следующее, удерживать — колесо | «ОРУЖИЕ»: нажать — следующее, удерживать — колесо |
+| Сесть, угнать машину, забраться в лодку | `F` | Y | «СЕСТЬ» рядом с транспортом |
 
-**Cars, bikes and boats** (the jet ski too)
+## Машины, мотоциклы, лодки и гидроциклы
 
-| Action | Keyboard & mouse | Controller | Touch |
+| Действие | Клавиатура и мышь | Геймпад | Сенсорный экран |
 |---|---|---|---|
-| Throttle / brake & reverse | `W` / `S` | RT / LT | GAS / BRAKE |
-| Steer | `A` / `D` | left stick | stick |
-| Handbrake · slide a boat · the monster truck's hop | `Space` | A | ⇋ |
-| Drive-by (with an SMG) | `Q` / `E` (left / right) · LMB (the side you look) | LB / RB | FIRE (the nearer side) |
-| Horn (sounds while held) · a cruiser's siren · the ice cream chimes | `G` | R3 | 📢 |
-| Radio station (and off) | `,` / `.` | D-pad ← / → | ♪ (next) |
-| Start · end a shift | `J` | X | JOB / END |
-| Get out · step off a boat | `F` | Y | EXIT |
+| Газ, тормоз и задний ход | `W` / `S` | RT / LT | «ГАЗ» / «ТОРМОЗ» |
+| Поворот | `A` / `D` | Левый стик | Стик |
+| Ручник, скольжение лодки, подскок монстр-трака | `Пробел` | A | ⇋ |
+| Стрельба из машины с пистолетом-пулемётом | `Q` / `E` — влево / вправо; ЛКМ — в сторону взгляда | LB / RB | «ОГОНЬ» — в ближайшую сторону |
+| Гудок, полицейская сирена, мелодия мороженщика | `G` | R3 | 📢 |
+| Радиостанция, включая выключение | `,` / `.` | Крестовина ← / → | ♪ — следующая |
+| Начать или закончить рабочую смену | `J` | X | «РАБОТА» / «КОНЕЦ» |
+| Выйти, сойти с лодки | `F` | Y | «ВЫЙТИ» |
 
-**In the air**
+## Полёт
 
-| Action | Keyboard & mouse | Controller | Touch |
+| Действие | Клавиатура и мышь | Геймпад | Сенсорный экран |
 |---|---|---|---|
-| Helicopter: climb / descend | `Space` / `Shift` (or `Ctrl`) | RT / LT (or A / B) | ▲ UP / ▼ DN |
-| Helicopter: fly · yaw | `W` `S` · `A` `D` | left stick | stick |
-| TALON: chin gun / rockets | LMB / RMB | RB / LB | GUN / RKT |
-| Plane: throttle | `W` / `S` | RT / LT | THR+ / THR− |
-| Plane: climb / dive | `Space` / `Shift` | stick back / forward (or A / B) | stick back / forward |
-| Plane: turn | `A` / `D` | left stick | stick |
-| Plane: barrel roll | `Q` / `E` | LB / RB | ⟲ / ⟳ |
-| Get out · bail out (a chute, up high) | `F` | Y | EXIT |
-| Steer the parachute | `W A S D` | left stick | stick |
+| Вертолёт: подняться / снизиться | `Пробел` / `Shift` или `Ctrl` | RT / LT или A / B | ▲ «ВВЕРХ» / ▼ «ВНИЗ» |
+| Вертолёт: движение и поворот | `W` `S`, `A` `D` | Левый стик | Стик |
+| «Коготь»: пушка / ракеты | ЛКМ / ПКМ | RB / LB | «ПУШКА» / «РАКЕТЫ» |
+| Самолёт: тяга | `W` / `S` | RT / LT | «ТЯГА+» / «ТЯГА−» |
+| Самолёт: подъём / снижение | `Пробел` / `Shift` | Стик на себя / от себя или A / B | Стик на себя / от себя |
+| Самолёт: поворот | `A` / `D` | Левый стик | Стик |
+| Самолёт: бочка | `Q` / `E` | LB / RB | ⟲ / ⟳ |
+| Выйти или выпрыгнуть с парашютом на высоте | `F` | Y | «ВЫЙТИ» |
+| Управление парашютом | `W A S D` | Левый стик | Стик |
 
-A plane rolls down the runway on throttle and climbs once it's fast; airborne, the elevator is unrestricted — pull hard enough and it loops.
+Для взлёта самолёта разгонись на полосе и потяни вверх. В воздухе можно выполнить петлю, продолжая подъём.
 
-**In the water:** swim with `W A S D` / the left stick / the stick; the faster stroke is `Shift` / B / RUN; `F` / Y / ENTER climbs into a boat alongside. You climb out yourself at a beach, a pier or any low edge.
+**Плавание:** `W A S D`, левый стик или сенсорный стик. Ускорение — `Shift`, B или «БЕГ». Чтобы забраться в лодку рядом, нажми `F`, Y или «СЕСТЬ». На пляж, пирс и низкий край персонаж выбирается сам.
 
-**Everywhere**
+## Общие действия
 
-| Action | Keyboard & mouse | Controller | Touch |
+| Действие | Клавиатура и мышь | Геймпад | Сенсорный экран |
 |---|---|---|---|
-| Pause | `Esc` | START | ❚❚ |
-| Resume | `Esc` · RESUME · a click anywhere off the buttons | START · RESUME | RESUME · a tap anywhere off the buttons |
-| Map | `P` | BACK | tap the radar |
-| Photo | `C` | L3 | 📷 |
-| See a photo full size | `V` (the last one) · click it in PHOTOS | START → PHOTOS → A | tap the print · tap it in PHOTOS |
-| Call Lola | `L` | START → 📟 ASK LOLA | 📟 beside the camera (while her tips are on) · ❚❚ → 📟 ASK LOLA |
-| Retry a failed run | `Y` | D-pad ↑ | RETRY |
-| Abandon a mission, a favour or a part of the big score · clock off | `X` twice · pause → ABANDON | START → ABANDON | ❚❚ → ABANDON (JOB → END for a shift) |
-| Carry on after WASTED / BUSTED | `R` or `Enter` | A | tap |
-| Skip the glass lift's ride | `Space`, `F` or `Enter` | A or Y | tap |
-| A scene: next line · skip it | `Space` or `Enter`, click · `Esc` | A · B or START | tap · SKIP |
-| Skip ahead in a race you bet on | `Space` or `Enter` | A | JUMP |
-| Mute · CRT · day/night | `M` · `T` · `N` | pause → SOUND · CRT · TIME | pause → SOUND · CRT · TIME |
-| Hide the hint bar | `H` | pause → HINT BAR | (no bar on touch) |
-| Fullscreen | ⛶ · pause → FULL SCREEN | START → FULL SCREEN ¹ | ⛶ · pause → FULL SCREEN |
+| Пауза | `Esc` | START | ❚❚ |
+| Продолжить | `Esc`, «ПРОДОЛЖИТЬ» или щелчок вне кнопок | START или «ПРОДОЛЖИТЬ» | «ПРОДОЛЖИТЬ» или касание вне кнопок |
+| Карта | `P` | BACK | Коснуться радара |
+| Фото | `C` | L3 | 📷 |
+| Посмотреть фото | `V` — последнее; щелчок в разделе «ФОТО» | START → «ФОТО» → A | Коснуться снимка или фото в альбоме |
+| Позвонить Лоле | `L` | START → «СПРОСИТЬ ЛОЛУ» | 📟 рядом с камерой, если советы включены; или ❚❚ → «СПРОСИТЬ ЛОЛУ» |
+| Повторить проваленное задание | `Y` | Крестовина ↑ | «ПОВТОР» |
+| Отменить миссию, просьбу, этап ограбления или смену | Дважды `X` или пауза → отмена | START → отмена | ❚❚ → отмена; для смены «РАБОТА» → «КОНЕЦ» |
+| Продолжить после гибели или ареста | `R` или `Enter` | A | Коснуться экрана |
+| Пропустить поездку на лифте | `Пробел`, `F` или `Enter` | A или Y | Коснуться экрана |
+| Диалог: следующая реплика / пропуск сцены | `Пробел`, `Enter` или щелчок / `Esc` | A / B или START | Касание / «ПРОПУСТИТЬ» |
+| Пропустить ожидание скачки со своей ставкой | `Пробел` или `Enter` | A | «ПРЫЖОК» |
+| Звук, ЭЛТ-фильтр, день / ночь | `M`, `T`, `N` | Пауза → «ЗВУК», «ЭЛТ», «ВРЕМЯ» | Пауза → те же настройки |
+| Скрыть панель подсказок | `H` | Пауза → «ПОДСКАЗКИ» | На сенсорном экране панели нет |
+| Полный экран | ⛶ или пауза → «ПОЛНЫЙ ЭКРАН» | START → «ПОЛНЫЙ ЭКРАН» | ⛶ или пауза → «ПОЛНЫЙ ЭКРАН» |
 
-¹ Every button on a controller already has a job, and the one left over — the Xbox / PS / Home button — is taken by the system before a web page sees it, so full screen lives on the pause screen. A browser goes full screen only for a gesture, and not every browser counts a controller's press as one: where it does, FULL SCREEN goes straight there; where it does not, it says so and the next click, key or tap does it.
+Браузер включает полный экран только после действия пользователя. Если нажатие на геймпаде не подходит, игра сообщит об этом: следующее нажатие клавиши, щелчок или касание включит полный экран.
 
-**Menus**
+## Меню
 
-| Screen | Keyboard & mouse | Controller | Touch |
+| Экран | Клавиатура и мышь | Геймпад | Сенсорный экран |
 |---|---|---|---|
-| Title | `Enter` | A | tap |
-| Pause, Lola, shops, photos | arrows (`W`/`S` in lists) · `Enter` · `Esc` back — `1`–`9` pick Lola's options | D-pad · A · B back | tap |
-| Map | click to route · wheel or `+`/`−` zoom · drag · `C` clear · `←` `→` (or a legend tap) show one kind · `P`/`Esc` close | stick moves a cursor · A routes there · LB / RB zoom · X clear · D-pad ← → one kind · BACK or B close | tap to route · pinch · drag · legend tap · CLEAR ROUTE · CLOSE |
-| A question (buy? sure?) | `Enter` or `E` · `Esc` | A · B | tap |
-| The result card | `Esc`, `Enter` or `Space` | A or B | tap |
-| CONTROLS | click a key to rebind · arrows and `Enter` for the settings | D-pad · A · B | tap |
+| Главное меню | `Enter` | A | Касание |
+| Пауза, Лола, магазины, фото | Стрелки, в списках `W` / `S`; `Enter` — выбрать; `Esc` — назад; `1`–`9` — варианты ответа Лоле | Крестовина; A — выбрать; B — назад | Касание |
+| Карта | Щелчок — маршрут; колесо или `+` / `−` — масштаб; перетаскивание; `C` — очистить; ← / → или легенда — категория; `P` / `Esc` — закрыть | Стик — курсор; A — маршрут; LB / RB — масштаб; X — очистить; крестовина ← / → — категория; BACK или B — закрыть | Касание — маршрут; щипок — масштаб; перетаскивание; легенда; «ОЧИСТИТЬ МАРШРУТ»; «ЗАКРЫТЬ» |
+| Подтверждение покупки или действия | `Enter` или `E` — подтвердить; `Esc` — отмена | A / B | Касание |
+| Карточка результата | `Esc`, `Enter` или `Пробел` | A или B | Касание |
+| Настройки управления | Щелчок по клавише — переназначить; стрелки и `Enter` — настройки | Крестовина; A / B | Касание |
 
-**Your keys, your way.** Every keyboard action can be moved to another key from **CONTROLS** on the pause screen (click the action, press the new key; a key already in use swaps over). The same screen sets look sensitivity (mouse and right stick), inverted look and field of view, and all of it is remembered. `Esc` always pauses. A controller's layout is fixed, and listed on that screen.
+**Переназначение клавиш.** В меню паузы открой «УПРАВЛЕНИЕ», щёлкни по действию и нажми новую клавишу. Если она уже занята, действия поменяются клавишами. Там же задаются чувствительность мыши и правого стика, инверсия Y и угол обзора. Настройки сохраняются. `Esc` всегда открывает паузу. Раскладка геймпада фиксирована.
 
-🎮 **Controllers** work as soon as one is plugged in and a button is pressed. Whichever you last touched — the pad or the keyboard and mouse — is what the prompts, the hint bar and the help name.
+**Геймпад** работает сразу после подключения и нажатия любой кнопки. Подсказки автоматически переключаются на устройство, которым пользовались последним.
 
-📱 **On phones and tablets** touch controls appear automatically: a floating stick under the left thumb, a context-sensitive action cluster under the right — buttons appear only when they apply — with the radar, PAUSE, the camera and ⛶ (while windowed) along the top. Starting the game enters fullscreen and asks for landscape (on an iPhone, where Safari has no fullscreen for pages, add it to the home screen instead — it runs full screen from there); if the browser ever refuses, ⛶ says so. **IMPORT SAVE** on a phone opens a page of its own with no city loaded, so the file picker can't get the game's tab reclaimed by the phone mid-import. **Left-handed?** One tap on the pause screen mirrors the whole cluster — stick to the right thumb, buttons to the left, and the camera drag swaps sides to match — and it is remembered.
+**Телефоны и планшеты.** Сенсорное управление появляется автоматически. Стик возникает под левым пальцем, справа доступны кнопки текущего действия. Вверху — радар, пауза, камера и кнопка полного экрана. Игра просит горизонтальную ориентацию. В Safari на iPhone добавь страницу на экран «Домой» через меню «Поделиться», чтобы играть на весь экран. Импорт сохранения открывается на отдельной странице без загруженного города. В меню паузы можно включить управление для левши: стик, кнопки и область камеры поменяются сторонами. Выбор сохраняется.

@@ -9,12 +9,12 @@
 GAME.controls = (function () {
   // the actions you can rebind, by the key the game asks for, in screen order
   var ACTIONS = [
-    ['KeyW', 'Forward / throttle'], ['KeyS', 'Back / brake'], ['KeyA', 'Left'], ['KeyD', 'Right'],
-    ['Space', 'Jump · climb · handbrake'], ['ShiftLeft', 'Sprint · descend'], ['KeyF', 'Enter / exit vehicle'],
-    ['KeyQ', 'Target left · drive-by left'], ['KeyE', 'Target right · drive-by right'], ['Tab', 'Aim lock (toggle)'],
-    ['KeyJ', 'Start a job'], ['KeyX', 'Abandon the mission (twice)'], ['KeyZ', 'Weapon wheel (hold) · next weapon (tap)'], ['KeyC', 'Take a photo'], ['KeyV', 'View your last photo'], ['KeyL', 'Call Lola'], ['KeyG', 'Horn · siren'], ['Comma', 'Radio back'], ['Period', 'Radio next'],
-    ['KeyY', 'Retry a failed run'], ['KeyP', 'Map'], ['KeyM', 'Mute'], ['KeyH', 'Hide the hints'], ['KeyT', 'CRT filter'],
-    ['KeyR', 'Continue after WASTED / BUSTED']
+    ['KeyW', "Вперёд / газ"], ['KeyS', "Назад / тормоз"], ['KeyA', "Влево"], ['KeyD', "Вправо"],
+    ['Space', "Прыжок · подъём · ручник"], ['ShiftLeft', "Бег · снижение"], ['KeyF', "Сесть / выйти из транспорта"],
+    ['KeyQ', "Цель слева · стрельба влево из машины"], ['KeyE', "Цель справа · стрельба вправо из машины"], ['Tab', "Захват цели (переключатель)"],
+    ['KeyJ', "Начать работу"], ['KeyX', "Отменить миссию (дважды)"], ['KeyZ', "Колесо оружия (удерживать) · следующее оружие (нажать)"], ['KeyC', "Сделать фото"], ['KeyV', "Посмотреть последнее фото"], ['KeyL', "Позвонить Лоле"], ['KeyG', "Гудок · сирена"], ['Comma', "Предыдущая радиостанция"], ['Period', "Следующая радиостанция"],
+    ['KeyY', "Повторить проваленное задание"], ['KeyP', "Карта"], ['KeyM', "Без звука"], ['KeyH', "Скрыть подсказки"], ['KeyT', "ЭЛТ-фильтр"],
+    ['KeyR', "Продолжить после гибели / ареста"]
   ];
   var IS_ACTION = {};
   ACTIONS.forEach(function (a) { IS_ACTION[a[0]] = true; });
@@ -53,7 +53,7 @@ GAME.controls = (function () {
   // the key an action is on, for the keyboard's own screens
   function keyLabel(code) {
     var c = physicalFor(code);
-    var NAMES = { Space: 'Space', ShiftLeft: 'Shift', ShiftRight: 'R-Shift', ControlLeft: 'Ctrl', ControlRight: 'R-Ctrl',
+    var NAMES = { Space: 'Пробел', ShiftLeft: 'Shift', ShiftRight: 'R-Shift', ControlLeft: 'Ctrl', ControlRight: 'R-Ctrl',
       AltLeft: 'Alt', Tab: 'Tab', Comma: ',', Period: '.', Slash: '/', Semicolon: ';', Quote: "'", BracketLeft: '[',
       BracketRight: ']', Backquote: '`', Minus: '-', Equal: '=', Enter: 'Enter', Backspace: 'Bksp',
       ArrowUp: '↑', ArrowDown: '↓', ArrowLeft: '←', ArrowRight: '→', CapsLock: 'Caps' };
@@ -67,7 +67,7 @@ GAME.controls = (function () {
   // or null where the pad reaches it some other way (Lola, abandon, mute and
   // the rest are on the pause screen).
   var PAD_NAME = { Space: 'A', ShiftLeft: 'B', KeyJ: 'X', KeyF: 'Y', KeyQ: 'LB', KeyE: 'RB', KeyP: 'BACK',
-    Escape: 'START', KeyC: 'L3', KeyG: 'R3', KeyY: 'D-PAD ↑', KeyZ: 'D-PAD ↓', Comma: 'D-PAD ←', Period: 'D-PAD →',
+    Escape: 'START', KeyC: 'L3', KeyG: 'R3', KeyY: 'Крестовина ↑', KeyZ: 'Крестовина ↓', Comma: 'Крестовина ←', Period: 'Крестовина →',
     KeyR: 'A', Tab: 'LT', Enter: 'A' };
   function padName(code) { return PAD_NAME[code] || null; }
   // What a prompt calls an action: the button in your hands while you are
@@ -169,7 +169,7 @@ GAME.controls = (function () {
     }
     if (!pad.on) {
       pad.on = true;
-      if (!toldPad && GAME.started) { toldPad = true; GAME.hud.message('Controller connected — sticks to move and look, RT/LT throttle and brake (fire and aim on foot), A jump, Y vehicle, Start pause.', 6); }
+      if (!toldPad && GAME.started) { toldPad = true; GAME.hud.message("Геймпад подключён: стики — движение и камера, RT/LT — газ и тормоз (огонь и прицел пешком), A — прыжок, Y — транспорт, START — пауза.", 6); }
     }
     var ax = g.axes || [], bt = g.buttons || [];
     pad.lx = axis(ax[0] || 0); pad.ly = axis(ax[1] || 0);
@@ -235,22 +235,22 @@ GAME.controls = (function () {
     box.innerHTML = ACTIONS.map(function (a) {
       var w = waiting === a[0];
       return '<div class="crow"><span>' + a[1] + '</span><span class="mbtn ckey' + (w ? ' wait' : '') + '" data-a="' + a[0] + '">' +
-        (w ? 'press a key…' : keyLabel(a[0])) + '</span></div>';
+        (w ? "нажми клавишу…" : keyLabel(a[0])) + '</span></div>';
     }).join('');
     Array.prototype.forEach.call(box.querySelectorAll('.ckey'), function (el) {
       el.addEventListener('click', function (e) { e.stopPropagation(); waiting = el.getAttribute('data-a'); render(); });
     });
-    $('ctl-sens').textContent = 'MOUSE: ' + sens.toFixed(2) + '×';
-    $('ctl-invert').textContent = 'INVERT Y: ' + (invertY ? 'ON' : 'OFF');
-    $('ctl-fov').textContent = 'FIELD OF VIEW: ' + fov + '°';
-    $('ctl-pad').textContent = pad.on ? '🎮 Controller connected — ' + PAD_LAYOUT
-      : '🎮 Plug in a controller and press a button — it works straight away';
+    $('ctl-sens').textContent = "МЫШЬ: " + sens.toFixed(2).replace('.', ',') + '×';
+    $('ctl-invert').textContent = "ИНВЕРСИЯ Y: " + (invertY ? "ВКЛ." : "ВЫКЛ.");
+    $('ctl-fov').textContent = "УГОЛ ОБЗОРА: " + fov + '°';
+    $('ctl-pad').textContent = pad.on ? "🎮 Геймпад подключён — " + PAD_LAYOUT
+      : "🎮 Подключи геймпад и нажми любую кнопку — можно сразу играть";
     paintSel();
   }
   // the whole pad, said once where the keys are listed (it is not rebindable)
-  var PAD_LAYOUT = 'left stick move · right stick look · RT fire / throttle · LT aim / brake · A jump, handbrake · ' +
-    'B sprint · X job · Y get in / out · LB / RB target, drive-by · L3 photo · R3 horn · D-pad ↑ retry, ↓ weapon (hold for the wheel), ← → radio · ' +
-    'BACK map · START pause (Lola, abandon, full screen and the rest are there).';
+  var PAD_LAYOUT = "левый стик — движение · правый — камера · RT — огонь / газ · LT — прицел / тормоз · A — прыжок, ручник · " +
+    "B — бег · X — работа · Y — сесть / выйти · LB / RB — выбор цели, стрельба из машины · L3 — фото · R3 — гудок · крестовина ↑ — повтор, ↓ — оружие (удерживать для колеса), ← → — радио · " +
+    "BACK — карта · START — пауза (Лола, отмена задания, полный экран и другие настройки).";
   // The screen's own buttons, for the arrows and a pad's D-pad: a pad could
   // open this screen and not change a thing on it — invert-Y and the look
   // speed (the right stick turns at it too) were out of reach.

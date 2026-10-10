@@ -20,7 +20,7 @@
 // A job that goes wrong is tried again from that part, not from the camera.
 GAME.heist = (function () {
   var PAY = 25000, CRACK = 32, REACH = 4.5;
-  var STEPS = ['CASE IT', 'THE EAR', 'THE WHEELS', 'THE JOB'];
+  var STEPS = ["РАЗВЕДКА", "УХО", "КОЛЁСА", "ДЕЛО"];
   var LOCKUP = { x: -140, z: 206 };
   var job = null, enabled = true, route = null, routeT = 0, ring = null, abandonAsk = 0;
   var bankRoom = null, bankLoc = null, shed = null, benny = null;
@@ -29,7 +29,7 @@ GAME.heist = (function () {
   function prefs() { GAME.prefs = GAME.prefs || {}; var h = GAME.prefs.heist; if (!h) h = GAME.prefs.heist = { step: 0 }; return h; }
   function step() { return prefs().step || 0; }
   function say(t, s) { GAME.hud.message(t, s || 3.5); }
-  function lola(t, s) { GAME.hud.pager('LOLA', t, s || 7); }
+  function lola(t, s) { GAME.hud.pager("ЛОЛА", t, s || 7); }
   function dist(a, x, z) { return Math.sqrt(U.dist2(a.x, a.z, x, z)); }
   function open() { return !GAME.isla || GAME.isla.isOpen(); }
   // up for it: the bridges open (the strip knows your name by then)
@@ -112,16 +112,16 @@ GAME.heist = (function () {
   // has been saving you for (scenes.js). Once said, a second go — after a
   // part that went wrong — goes straight in.
   var PITCH = { id: 'bigscore', shots: [{ set: 'lockup', cast: ['lola', 'you'], lines: [
-    ['lola', 'Every job you did for me was practice for this one.'],
-    ['you', 'Which one?'],
-    ['lola', 'The Costa Rosa Savings & Loan. A Mosler vault, a door nobody ever opened, and twenty-five thousand behind it.'],
-    ['you', 'Nobody walks out of a bank with that.'],
-    ['lola', 'So we walk in first. Take a camera and case it: the front from across the street, then the vault, as a customer.']] }] };
+    ['lola', "Все мои задания были подготовкой к этому делу."],
+    ['you', "К какому?"],
+    ['lola', "Сберегательный банк Коста-Росы. Сейф «Мослер», дверь, которую никто ещё не вскрывал, и двадцать пять тысяч за ней."],
+    ['you', "С такой суммой из банка не выйти."],
+    ['lola', "Поэтому сначала зайдём. Возьми камеру и разведай: фасад с другой стороны улицы, потом сейф изнутри. Притворись клиентом."]] }] };
   // and Benny, the first time he gets in your car: no cut, just his say
   var BENNY = { id: 'benny', shots: [{ set: null, lines: [
-    ['benny', 'Lola\'s friend? Nice car. Don\'t talk while I\'m thinking.'],
-    ['you', 'I didn\'t say anything.'],
-    ['benny', 'You were thinking about it. Drive.']] }] };
+    ['benny', "Друг Лолы? Хорошая машина. Не болтай, когда я думаю."],
+    ['you', "Я ничего не говорил."],
+    ['benny', "Но собирался. Поехали."]] }] };
   function begin() {
     if (job || !offered()) return false;
     var p = P(), M = GAME.missions;
@@ -130,7 +130,7 @@ GAME.heist = (function () {
     if (n === 0 && !prefs().pitched && GAME.scenes &&
         GAME.scenes.play(PITCH, function () { prefs().pitched = true; GAME.save(); begin(); })) return true;
     job = { step: n, t: 0, phase: '', target: null, bits: [], t0: GAME.time };
-    GAME.hud.missionStart('THE BIG SCORE — ' + STEPS[n], '');
+    GAME.hud.missionStart("БОЛЬШОЙ КУШ — " + STEPS[n], '');
     GAME.audio.pickup();
     if (GAME.track) GAME.track('heist-' + n);
     [caseBegin, earBegin, wheelsBegin, jobBegin][n](job);
@@ -156,25 +156,25 @@ GAME.heist = (function () {
     s.step = n + 1;
     GAME.audio.sting('win');
     if (GAME.haptics && GAME.haptics.win) GAME.haptics.win();
-    say('THE BIG SCORE — ' + STEPS[n] + ': DONE' + (line ? '  ·  ' + line : ''), 5);
+    say("БОЛЬШОЙ КУШ — " + STEPS[n] + ": ГОТОВО" + (line ? '  ·  ' + line : ''), 5);
     GAME.save();
     tidy();
     var next = [
-      'Nice pictures. That vault is a Mosler — and the man who can open a Mosler is Benny "the Ear", at the marina on Isla Verde. Call me when you want him.',
-      'Benny\'s settled in at the lock-up. He says no getaway car of his is going to be a colour anybody has seen. Call me.',
-      'Under the tarp, and pretty. That\'s everything. When you\'re ready — and I mean ready — call me, and we go.'
+      "Хорошие снимки. Этот сейф — «Мослер». А вскрыть «Мослер» может Бенни «Ухо», он в марине на Исла-Верде. Позвони, когда будешь готов его забрать.",
+      "Бенни устроился в гараже. Говорит, машина для побега должна быть такого цвета, какого никто ещё не видел. Позвони мне.",
+      "Под брезентом, как новенькая. Всё готово. Когда будешь готов — по-настоящему готов — звони. И поедем."
     ][n];
     if (next) lola(next, 9);
   }
   function fail(reason) {
     GAME.audio.sting('wasted');
-    say('THE BIG SCORE — ' + STEPS[job.step] + ' is off: ' + reason + '  ·  call Lola to go again', 4.5);
+    say("БОЛЬШОЙ КУШ — " + STEPS[job.step] + " отменено: " + reason + "  ·  позвони Лоле, чтобы начать снова", 4.5);
     tidy();
   }
   function abandon() {
     if (!job) return false;
     abandonAsk = 0;
-    fail('you walked away from it');
+    fail("ты отказался от дела");
     return true;
   }
 
@@ -182,7 +182,7 @@ GAME.heist = (function () {
   function caseBegin(j) {
     j.snap0 = GAME.photo ? GAME.photo.lastSnap : 0;
     j.front = false; j.vault = false;
-    objective('Two pictures (' + photoKey() + '): the Savings & Loan from across the street, and its vault from inside.');
+    objective("Два снимка (" + photoKey() + "): банк с другой стороны улицы и его сейф изнутри.");
     var b = bank();
     target(b.at.x, b.at.z);
   }
@@ -197,19 +197,19 @@ GAME.heist = (function () {
       var tx = v.x - cam.position.x, ty = 1.75 - cam.position.y, tz = v.z - cam.position.z, tl = Math.hypot(tx, ty, tz) || 1;
       var dot = (fwd.x * tx + fwd.y * ty + fwd.z * tz) / tl;
       if (d < 13 && dot > 0.85) {
-        if (!j.vault) { j.vault = true; say('The vault. Benny will want to see that.', 3); }
-      } else say('Not much use — the vault is the round door at the back.', 2.5);
+        if (!j.vault) { j.vault = true; say("Сейф. Бенни захочет это увидеть.", 3); }
+      } else say("Не то. Сейф — круглая дверь в глубине.", 2.5);
     } else {
       var F = bankFront(), c = GAME.cameraObj.position, cd = dist(c, F.x, F.z), gy = GAME.city.groundY(F.x, F.z);
-      if (cd < 12) say('Too close — from across the street.', 2.5);
-      else if (cd > 95) say('Too far — she wants the bank, not the block.', 2.5);
-      else if (!GAME.inPlainView(F.x + F.nx * 0.8, gy + 5, F.z + F.nz * 0.8)) say('No bank in that one. Try again.', 2.5);
-      else if (!j.front) { j.front = true; say('The front. Doors, windows, the way out.', 3); }
+      if (cd < 12) say("Слишком близко. Снимай с другой стороны улицы.", 2.5);
+      else if (cd > 95) say("Слишком далеко. Ей нужен банк, а не весь квартал.", 2.5);
+      else if (!GAME.inPlainView(F.x + F.nx * 0.8, gy + 5, F.z + F.nz * 0.8)) say("Банка в кадре нет. Попробуй ещё раз.", 2.5);
+      else if (!j.front) { j.front = true; say("Фасад. Двери, окна, пути отхода.", 3); }
     }
-    if (j.front && j.vault) done('"Nice pictures," says Lola.');
-    else objective(j.front ? 'Now the vault, from inside (' + photoKey() + ') — walk in like a customer.'
-      : j.vault ? 'Now the front, from across the street (' + photoKey() + ').'
-        : 'Two pictures (' + photoKey() + '): the Savings & Loan from across the street, and its vault from inside.');
+    if (j.front && j.vault) done("«Хорошие снимки», — говорит Лола.");
+    else objective(j.front ? "Теперь сейф изнутри (" + photoKey() + "). Заходи как обычный клиент."
+      : j.vault ? "Теперь фасад с другой стороны улицы (" + photoKey() + ').'
+        : "Два снимка (" + photoKey() + "): банк с другой стороны улицы и его сейф изнутри.");
   }
 
   // ---------- 2. THE EAR ----------
@@ -218,7 +218,7 @@ GAME.heist = (function () {
     var M = GAME.city.islaPois.marina;
     j.spot = kerb(M.x + 30, M.z + 8);
     j.phase = 'find';
-    objective('Pick up Benny "the Ear" at the marina on Isla Verde — in something with four wheels.');
+    objective("Забери Бенни «Ухо» из марины на Исла-Верде. Нужна машина с четырьмя колёсами.");
     target(j.spot.x, j.spot.z);
   }
   function earStep(j, dt) {
@@ -233,9 +233,9 @@ GAME.heist = (function () {
       if (j.ped && car && land(car) && dist(car.pos, j.ped.pos.x, j.ped.pos.z) < 12 && Math.abs(car.speed) < 2) {
         j.phase = 'board'; j.car = car;
         if (!prefs().bennyMet && GAME.scenes && GAME.scenes.play(BENNY)) prefs().bennyMet = true;
-        else say('BENNY: "Lola\'s friend? Nice car. Don\'t talk while I\'m thinking."', 3.5);
+        else say("БЕННИ: «Друг Лолы? Хорошая машина. Не болтай, когда я думаю».", 3.5);
       } else if (j.ped && car && !land(car) && dist(car.pos, j.ped.pos.x, j.ped.pos.z) < 20 && !j.told) {
-        j.told = true; say('BENNY: "In that? Four wheels, kid."', 2.5);
+        j.told = true; say("БЕННИ: «На этом? Четыре колеса, парень».", 2.5);
       }
       return;
     }
@@ -247,7 +247,7 @@ GAME.heist = (function () {
       if (dd < 2.2) {
         GAME.peds.removePed(ped2); j.ped = null;
         j.phase = 'ride';
-        objective('Get Benny to Lola\'s lock-up by the harbour.');
+        objective("Отвези Бенни в гараж Лолы у гавани.");
         target(LOCKUP.x, LOCKUP.z);
         return;
       }
@@ -258,14 +258,14 @@ GAME.heist = (function () {
     }
     if (j.phase === 'ride') {
       var rc = p.inCar && p.car;
-      if (rc && dist(rc.pos, LOCKUP.x, LOCKUP.z) < 10 && Math.abs(rc.speed) < 3) done('Benny is at the lock-up.');
-      else if (!rc && dist(p.pos, LOCKUP.x, LOCKUP.z) < 6) done('Benny is at the lock-up.');
+      if (rc && dist(rc.pos, LOCKUP.x, LOCKUP.z) < 10 && Math.abs(rc.speed) < 3) done("Бенни в гараже.");
+      else if (!rc && dist(p.pos, LOCKUP.x, LOCKUP.z) < 6) done("Бенни в гараже.");
     }
   }
 
   // ---------- 3. THE WHEELS ----------
   function wheelsBegin(j) {
-    objective('A Vulture GT — the sports car — through the paint shop, then into the lock-up.');
+    objective("Спорткар «Стервятник GT»: сначала перекраска, потом в гараж.");
     target(null);
   }
   function nearestSpray(x, z) {
@@ -279,11 +279,11 @@ GAME.heist = (function () {
   function wheelsStep(j) {
     var p = P(), car = p.inCar && p.car;
     if (!car) {
-      if (j.phase !== 'foot') { j.phase = 'foot'; objective('A Vulture GT — the sports car — through the paint shop, then into the lock-up.'); target(null); }
+      if (j.phase !== 'foot') { j.phase = 'foot'; objective("Спорткар «Стервятник GT»: сначала перекраска, потом в гараж."); target(null); }
       return;
     }
     if (car.type !== 'sports') {
-      if (j.phase !== 'wrong') { j.phase = 'wrong'; objective('Not that. A Vulture GT — the sports car.'); target(null); }
+      if (j.phase !== 'wrong') { j.phase = 'wrong'; objective("Не эта. Нужен «Стервятник GT» — спорткар."); target(null); }
       return;
     }
     var fresh = car.resprayT >= j.t0;
@@ -291,12 +291,12 @@ GAME.heist = (function () {
       if (j.phase !== 'paint') {
         j.phase = 'paint';
         var sp = nearestSpray(car.pos.x, car.pos.z);
-        objective('That\'ll do. Now a fresh colour on it — the paint shop.');
+        objective("Подойдёт. Теперь новый цвет — в мастерскую перекраски.");
         if (sp) target(sp.x, sp.z);
       }
       return;
     }
-    if (j.phase !== 'home') { j.phase = 'home'; objective('Fresh paint. Into the lock-up with it.'); target(LOCKUP.x, LOCKUP.z); }
+    if (j.phase !== 'home') { j.phase = 'home'; objective("Свежая краска. Вези в гараж."); target(LOCKUP.x, LOCKUP.z); }
     if (dist(car.pos, LOCKUP.x, LOCKUP.z) < 9 && Math.abs(car.speed) < 2) {
       prefs().car = { type: car.type, color: car.color };
       GAME.exitCar();
@@ -304,14 +304,14 @@ GAME.heist = (function () {
       // street in front of you), till you are well off
       coverUp(car);
       GAME.vehicles.removeCar(car);
-      done('It goes under a tarp.');
+      done("Машину накрывают брезентом.");
     }
   }
 
   // ---------- 4. THE JOB ----------
   function jobBegin(j) {
     j.phase = 'lockup';
-    objective('To the lock-up: the car and Benny are waiting.');
+    objective("В гараж: машина и Бенни ждут.");
     target(LOCKUP.x, LOCKUP.z);
   }
   function spawnRide(j) {
@@ -329,20 +329,20 @@ GAME.heist = (function () {
       if (!j.car && dist(f, LOCKUP.x, LOCKUP.z) < 60) j.car = spawnRide(j);
       if (j.car && p.inCar && p.car === j.car) {
         j.phase = 'drive';
-        say('BENNY: "Bags are in the back. So am I. Drive normal."', 3);
-        objective('To the Savings & Loan. Park out front.');
+        say("БЕННИ: «Сумки сзади. Я тоже. Езжай спокойно».", 3);
+        objective("К сберегательному банку. Припаркуйся у входа.");
         target(b.at.x, b.at.z);
-      } else if (j.car && dist(f, LOCKUP.x, LOCKUP.z) < 30) objective('Get in. Benny\'s in the back.');
+      } else if (j.car && dist(f, LOCKUP.x, LOCKUP.z) < 30) objective("Садись. Бенни на заднем сиденье.");
       return;
     }
-    if (j.car && (j.car.dead || j.car.gone) && (j.phase === 'drive' || j.phase === 'lockup')) return fail('the car is gone, and Benny with it.');
+    if (j.car && (j.car.dead || j.car.gone) && (j.phase === 'drive' || j.phase === 'lockup')) return fail("машина пропала, вместе с Бенни.");
     if (j.phase === 'drive' || j.phase === 'walk') {
       var c = j.car;
       // (parked out front or not, through the door is through the door)
       if (inBank()) { holdUp(j); return; }
       if (j.phase === 'drive' && p.inCar && p.car === c && dist(c.pos, b.at.x, b.at.z) < 16 && Math.abs(c.speed) < 2) {
         j.phase = 'walk';
-        objective('Out, and in through the door. Benny\'s behind you.');
+        objective("Выходи и заходи в дверь. Бенни идёт за тобой.");
       }
       return;
     }
@@ -352,14 +352,14 @@ GAME.heist = (function () {
       // out the door: the street, and what is coming down it
       j.phase = 'run';
       GAME.police.setWanted(j.alarm ? 4 : 3);
-      say(j.alarm ? 'They were waiting for you. GO!' : 'The alarm\'s ringing all down the strip. GO!', 3);
-      objective('Lose the heat, then back to the lock-up.');
+      say(j.alarm ? "Они вас ждали. ГАЗУ!" : "Сигнализация слышна на всём бульваре. ГАЗУ!", 3);
+      objective("Сбрось розыск, потом возвращайся в гараж.");
       target(LOCKUP.x, LOCKUP.z);
       return;
     }
     if (j.phase === 'run') {
       var hot = GAME.police.wanted > 0;
-      if (GAME.frame % 20 === 0) objective(hot ? 'Lose the heat, then back to the lock-up.' : 'Clean. Back to the lock-up.');
+      if (GAME.frame % 20 === 0) objective(hot ? "Сбрось розыск, потом возвращайся в гараж." : "Чисто. Возвращайся в гараж.");
       if (!hot && dist(f, LOCKUP.x, LOCKUP.z) < 12) payday(j);
     }
   }
@@ -377,8 +377,8 @@ GAME.heist = (function () {
     benny.position.set(R.vault.x, 0, R.vault.z + 0.8);
     benny.rotation.y = 0;
     GAME.scene.add(benny);
-    say('EVERYBODY DOWN! — Benny goes for the dial. Keep the floor.', 3.5);
-    objective('Keep the floor while Benny works the dial.');
+    say("ВСЕМ НА ПОЛ! Бенни берётся за замок. Держи зал под контролем.", 3.5);
+    objective("Держи зал под контролем, пока Бенни вскрывает замок.");
     GAME.hud.missionTimer(j.crack, false);
   }
   function handsUp(up) {
@@ -389,7 +389,7 @@ GAME.heist = (function () {
   }
   function floorStep(j, dt) {
     var R = room().bank, p = P();
-    if (!inBank()) return fail(j.phase === 'floor' ? 'you walked out on Benny.' : 'you left the bags.');
+    if (!inBank()) return fail(j.phase === 'floor' ? "ты бросил Бенни." : "ты бросил сумки.");
     if (j.phase === 'floor') {
       j.crack -= dt;
       GAME.hud.missionTimer(Math.max(0, j.crack), false);
@@ -409,7 +409,7 @@ GAME.heist = (function () {
           GAME.scene.add(m);
           j.reach = { e: e, x: sx, z: sz, t: REACH, mesh: m };
           e.fig.userData.pose = 'reach';
-          say(e.guard ? 'The guard is going for his radio — get over there!' : 'A teller is reaching for the alarm — stop her!', 2.5);
+          say(e.guard ? "Охранник тянется к рации — подойди к нему!" : "Кассирша тянется к тревожной кнопке — останови её!", 2.5);
           break;
         }
       }
@@ -418,13 +418,13 @@ GAME.heist = (function () {
         rr.t -= dt;
         rr.mesh.material.opacity = 0.5 + 0.4 * Math.abs(Math.sin(GAME.time * 8));
         if (U.dist2(p.pos.x, p.pos.z, rr.x, rr.z) < 1.4 * 1.4) {
-          say(rr.e.guard ? '"Easy, easy." He puts it down.' : 'She thinks better of it.', 2);
+          say(rr.e.guard ? "«Тихо, тихо». Он убирает рацию." : "Она передумала.", 2);
           rr.e.fig.userData.pose = 'up';
           GAME.scene.remove(rr.mesh); rr.mesh.geometry.dispose(); rr.mesh.material.dispose();
           j.reach = null;
         } else if (rr.t <= 0) {
           j.alarm = true;
-          say(rr.e.guard ? 'He got a word out on the radio — they know.' : 'The silent alarm\'s gone — they\'ll be outside when you come out.', 3.5);
+          say(rr.e.guard ? "Он успел вызвать подмогу — они в курсе." : "Тихая тревога сработала — на выходе вас будут ждать.", 3.5);
           GAME.scene.remove(rr.mesh); rr.mesh.geometry.dispose(); rr.mesh.material.dispose();
           j.reach = null;
         }
@@ -441,8 +441,8 @@ GAME.heist = (function () {
         j.bits.push({ kind: 'mesh', o: bm });
         GAME.hud.missionTimer(null);
         if (GAME.audio.ding) GAME.audio.ding();
-        say('BENNY: "And... open." — get the bags.', 3);
-        objective('The bags, on the trolley in the vault.');
+        say("БЕННИ: «И… открыто». Забирай сумки.", 3);
+        objective("Сумки на тележке внутри сейфа.");
       }
       return;
     }
@@ -453,8 +453,8 @@ GAME.heist = (function () {
     if (R.trolley.visible && j.swing > 0.85 && U.dist2(p.pos.x, p.pos.z, R.vault.x, R.vault.z) < 1.6 * 1.6) {
       R.trolley.visible = false;
       j.phase = 'out';
-      say('Bags in hand. OUT — the car is at the door.', 3);
-      objective('Out the door.');
+      say("Сумки взял. НАРУЖУ — машина у двери.", 3);
+      objective("Выходи через дверь.");
     }
   }
   // the bank put back the way it was, for the next customer
@@ -472,23 +472,23 @@ GAME.heist = (function () {
     prefs().car = null;
     GAME.audio.sting('win');
     if (GAME.haptics && GAME.haptics.win) GAME.haptics.win();
-    say('THE BIG SCORE  +$' + PAY.toLocaleString() + '  ·  Benny counts it twice.', 6);
+    say("БОЛЬШОЙ КУШ  +$" + PAY.toLocaleString('ru-RU') + "  ·  Бенни пересчитывает дважды.", 6);
     GAME.save();
     if (GAME.herald) GAME.herald.front('heist', { alarm: j.alarm });
     if (GAME.share && GAME.share.show) {
       GAME.share.show({
-        slug: 'big-score', eyebrow: 'Costa Rosa · 1986', title: 'THE BIG SCORE', subtitle: 'The Savings & Loan, cleaned out',
+        slug: 'big-score', eyebrow: "Коста-Роса · 1986", title: "БОЛЬШОЙ КУШ", subtitle: "Сберегательный банк опустошён",
         accent: '#e8c86a',
         stats: [
-          { label: 'Take', value: '$' + PAY.toLocaleString() },
-          { label: 'Alarm', value: j.alarm ? 'Tripped' : 'Quiet' },
-          { label: 'Time', value: Math.floor(took / 60) + ':' + ('0' + (took % 60)).slice(-2) }
+          { label: "Добыча", value: '$' + PAY.toLocaleString('ru-RU') },
+          { label: "Тревога", value: j.alarm ? "Сработала" : "Тихо" },
+          { label: "Время", value: Math.floor(took / 60) + ':' + ('0' + (took % 60)).slice(-2) }
         ]
       });
     }
     if (GAME.track) GAME.track('heist-done');
     tidy();
-    lola('Kid. I\'ve been in this town thirty years and nobody ever did that. Go somewhere warm for a while.', 9);
+    lola("Парень. Я тридцать лет в этом городе, и такого ещё никто не делал. Уезжай пока куда-нибудь в тёплые края.", 9);
   }
 
   // ---------- each tick ----------
@@ -517,16 +517,16 @@ GAME.heist = (function () {
     if (enabled && !nudged && offered() && !prefs().told && !job && P().state === 'alive' && !(GAME.missions && GAME.missions.active) &&
         !(GAME.strangers && GAME.strangers.busy) && GAME.police.wanted === 0) {
       nudged = true; prefs().told = true; GAME.save();
-      lola('Kid — call me when you have a minute. I\'ve got something bigger than a ring on a map.', 8);
+      lola("Парень, позвони, когда будет минутка. Есть дело покрупнее колец на карте.", 8);
     }
     if (!job) return;
     job.t += dt;
-    if (P().state !== 'alive') return fail(P().state === 'busted' ? 'you got busted.' : 'you went down.');
+    if (P().state !== 'alive') return fail(P().state === 'busted' ? "тебя арестовали." : "ты погиб.");
     // X twice walks away from it, as from a favour
     if (GAME.keyPressed('KeyX')) {
       if (GAME.time < abandonAsk) { abandon(); return; }
       abandonAsk = GAME.time + 3;
-      say((GAME.controls ? GAME.controls.label('KeyX') : 'X') + ' again to walk away from THE BIG SCORE', 3);
+      say((GAME.controls ? GAME.controls.label('KeyX') : 'X') + " ещё раз, чтобы отказаться от БОЛЬШОГО КУША", 3);
     }
     [caseStep, earStep, wheelsStep, jobStep][job.step](job, dt);
     stepRoute(dt);
@@ -559,11 +559,11 @@ GAME.heist = (function () {
   // what Lola says about it, and what comes next
   function board() {
     var n = step(), lines = STEPS.map(function (s, i) { return (i < n ? '✓ ' : i === n ? '▶ ' : '· ') + s; }).join('   ');
-    if (n >= STEPS.length) return { say: 'We did it, kid. The Savings & Loan is still trying to work out how.', next: null };
-    var why = GAME.police.wanted > 0 ? ' Not with the law on you, though — lose them first.' : '';
+    if (n >= STEPS.length) return { say: "Мы справились, парень. В банке до сих пор не понимают, как это случилось.", next: null };
+    var why = GAME.police.wanted > 0 ? " Но с полицией на хвосте не приходи. Сначала оторвись." : '';
     var say0 = n === 0
-      ? 'The Costa Rosa Savings & Loan, on the strip. Rico banked there; so does everybody. I want it — and I want it done properly. First, pictures: the front from across the street, and the vault from inside. ' + lines + why
-      : 'Where we are: ' + lines + '. Next is ' + STEPS[n] + '.' + why;
+      ? "Сберегательный банк Коста-Росы, на бульваре. Рико держал там деньги, как и все. Хочу его обчистить — и хочу сделать всё как надо. Сначала снимки: фасад с другой стороны улицы и сейф изнутри. " + lines + why
+      : "Сейчас мы на этапе: " + lines + ". Дальше — " + STEPS[n] + '.' + why;
     return { say: say0, next: GAME.police.wanted > 0 ? null : STEPS[n] };
   }
 
