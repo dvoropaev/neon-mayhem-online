@@ -639,7 +639,7 @@ function withTimeout(p, ms) {
   check('parachute: real respawn completed', revived);
   check('parachute: still stowed after a real respawn', respawn.parachuting === false);
   check('parachute: no glide step ran at the hospital ("Feet dry.")',
-    !respawn.msgs.some(function (m) { return m.indexOf('Feet dry') >= 0; }),
+    !respawn.msgs.some(function (m) { return m.indexOf("Ноги на суше") >= 0; }),
     JSON.stringify(respawn.msgs.slice(-3)));
 
   // ---------- 3b: a canopy over the sea has not landed in it ----------
@@ -687,7 +687,7 @@ function withTimeout(p, ms) {
     sea.down && sea.down.para === false && sea.down.wet === true,
     'at the end: ' + JSON.stringify(sea.down));
   check('parachute: and it never claimed feet dry over open water',
-    !(sea.msgs || []).some(function (m) { return m.indexOf('Feet dry') >= 0; }),
+    !(sea.msgs || []).some(function (m) { return m.indexOf("Ноги на суше") >= 0; }),
     JSON.stringify((sea.msgs || []).slice(-3)));
 
   // The sea is not a fade back to the beach any more: you come down in it
@@ -1199,7 +1199,7 @@ function withTimeout(p, ms) {
   check('audit: out of a car parked against a wall, you stay in the street',
     foot.exitTop < 1, 'highest point ' + (foot.exitTop || 0).toFixed(1) + ' m (roof at ' + (foot.roofH || 0).toFixed(1) + ')');
   check('audit: and pinned against one by a car, you are not lifted onto the roof',
-    foot.pinTop < 1, 'highest point ' + (foot.pinTop || 0).toFixed(1) + ' m');
+    foot.pinTop < 1, 'highest point ' + (foot.pinTop || 0).toFixed(1) + " м");
   check('audit: back to the wall, the camera is never inside the building',
     foot.camInside === 0, foot.camInside + ' of 16 angles inside');
   check('audit: nor inside your own head',
@@ -1426,7 +1426,7 @@ function withTimeout(p, ms) {
     return r;
   });
   check('audit: M mutes, says so on the pause screen, and is remembered',
-    mute.muted === true && mute.label.indexOf('MUTED') >= 0 && mute.pref === true, JSON.stringify(mute));
+    mute.muted === true && mute.label.indexOf("БЕЗ ЗВУКА") >= 0 && mute.pref === true, JSON.stringify(mute));
   check('audit: and M again undoes all three', mute.back === true && mute.backPref === false, JSON.stringify(mute));
 
   // The closed bridge explains itself once per approach, up on the deck — not
@@ -1449,7 +1449,7 @@ function withTimeout(p, ms) {
     // the deck runs along the barrier's short side; take the mainland end
     var ax = (g.maxX - g.minX) < (g.maxZ - g.minZ) ? 1 : 0, az = 1 - ax;
     var sgn = U.dist2(gx + ax * 10, gz + az * 10, -70, 0) < U.dist2(gx - ax * 10, gz - az * 10, -70, 0) ? 1 : -1;
-    var told = function () { return window.__msgs.filter(function (m) { return m.indexOf('BRIDGE CLOSED') >= 0; }).length; };
+    var told = function () { return window.__msgs.filter(function (m) { return m.indexOf("МОСТ ЗАКРЫТ") >= 0; }).length; };
     // underneath, on the sand
     window.__msgs = [];
     var ux = gx + ax * sgn * 3, uz = gz + az * sgn * 3;
@@ -1713,7 +1713,7 @@ function withTimeout(p, ms) {
     // the night passes behind a real fade, so wait for morning rather than a clock
     try {
       await page.waitForFunction(function () {
-        return window.__msgs.some(function (m) { return m.indexOf('Eight hours later') >= 0; });
+        return window.__msgs.some(function (m) { return m.indexOf("Восемь часов спустя") >= 0; });
       }, null, { timeout: 8000 });
     } catch (e) { /* reported below as an unchanged level */ }
     var woke = await page.evaluate(function () {
@@ -1858,7 +1858,7 @@ function withTimeout(p, ms) {
       }
       o.copShots = copShots;
       o.heliAt = heliAt;
-      o.told = window.__msgs.some(function (m) { return m.indexOf('air support') >= 0; });
+      o.told = window.__msgs.some(function (m) { return m.indexOf("Воздушная поддержка") >= 0; });
       o.stillUp = P.pos.y > pick.h - 0.5;
       return o;
     }
@@ -1916,14 +1916,14 @@ function withTimeout(p, ms) {
     M.failActive('test');
     GAME.test.fastForward(1 / 60);
     r.far = Math.round(line());
-    r.offered = window.__msgs.some(function (m) { return m.indexOf('Y to retry') >= 0; });
+    r.offered = window.__msgs.some(function (m) { return m.indexOf("Y, чтобы повторить") >= 0; });
     r.button = GAME.retryAvailable === true;
     // not with the heat on
     GAME.test.setWanted(1);
     window.__msgs = [];
     pressY();
     GAME.test.fastForward(1);
-    r.hotRefused = !M.active && window.__msgs.some(function (m) { return m.indexOf('Lose the stars') >= 0; });
+    r.hotRefused = !M.active && window.__msgs.some(function (m) { return m.indexOf("Сначала сбрось розыск") >= 0; });
     GAME.police.clearWanted();
     pressY();
     GAME.test.fastForward(1.2);
@@ -1961,7 +1961,7 @@ function withTimeout(p, ms) {
     var def = M.DEFS.filter(function (d) { return d.id === 'race0'; })[0];
     GAME.test.fastForward(0.2);
     r.alive = P.state === 'alive';
-    r.offered = window.__msgs.some(function (m) { return m.indexOf('Y to retry: ' + def.name) >= 0; });
+    r.offered = window.__msgs.some(function (m) { return m.indexOf("Y, чтобы повторить: " + def.name) >= 0; });
     r.onFoot = !P.inCar;
     GAME.test.pressKey('KeyY'); GAME.test.fastForward(1 / 60); GAME.test.pressKey('KeyY', false);
     GAME.test.fastForward(1.2);
@@ -2208,7 +2208,7 @@ function withTimeout(p, ms) {
     var beaten = GAME.missions.DEFS.filter(function (d) { return GAME.bests[d.id] !== undefined; }).map(function (d) { return d.name; });
     r.blips = { named: blips.length, done: blips.filter(function (b) { return b.done; }).map(function (b) { return b.name; }) };
     r.blips.match = blips.every(function (b) { return b.done === (beaten.indexOf(b.name) >= 0); }) &&
-      r.blips.done.indexOf('STRIP SPRINT') >= 0 && r.blips.done.length < r.blips.named;
+      r.blips.done.indexOf("СПРИНТ ПО БУЛЬВАРУ") >= 0 && r.blips.done.length < r.blips.named;
     if (bestKeep === undefined) delete GAME.bests.race0; else GAME.bests.race0 = bestKeep;
     H.toggleMap(true);
     H.mapZoom(1.5); H.mapZoom(1.5);
@@ -2298,7 +2298,7 @@ function withTimeout(p, ms) {
     GAME.canFullscreen = false;
     window.__msgs = [];
     GAME.toggleFullscreen();
-    r.iphone = window.__msgs.some(function (t) { return t.indexOf('Add to Home Screen') >= 0; });
+    r.iphone = window.__msgs.some(function (t) { return t.indexOf("На экран Домой") >= 0; });
     GAME.canFullscreen = can0;
     GAME.test.fastForward(1);
     return r;
@@ -2311,7 +2311,7 @@ function withTimeout(p, ms) {
     ux.fonts.every(function (f) { return /Arial|Segoe|Helvetica/.test(f); }), JSON.stringify(ux.fonts));
   check('ux: the controls hint is at least 13 px', ux.hintPx >= 13, ux.hintPx + ' px');
   check('ux: the title says LOADING until it can answer, then asks for a press',
-    /id="press-enter" class="loading"/.test(html) && ux.title.cls.indexOf('loading') < 0 && /PRESS ENTER|TAP TO START/.test(ux.title.text),
+    /id="press-enter" class="loading"/.test(html) && ux.title.cls.indexOf('loading') < 0 && /НАЖМИ ENTER|КОСНИСЬ ДЛЯ НАЧАЛА/.test(ux.title.text),
     JSON.stringify(ux.title));
   check('ux: a click just beside a pause button does not resume', ux.stillPaused);
   check('ux: a click or a tap on the empty pause screen resumes, a scrolling drag does not',
@@ -2327,7 +2327,7 @@ function withTimeout(p, ms) {
   check('ux: no two map families share a colour (armour was the courier cyan)',
     ux.legendUnique && ux.colours.armor !== ux.colours.courier, JSON.stringify(ux.colours));
   check('ux: the radio has an OFF, and a car keeps its own dial',
-    ux.offName === 'RADIO OFF' && ux.otherCar !== 'RADIO OFF' && ux.backInA === 'RADIO OFF',
+    ux.offName === "РАДИО ВЫКЛЮЧЕНО" && ux.otherCar !== "РАДИО ВЫКЛЮЧЕНО" && ux.backInA === "РАДИО ВЫКЛЮЧЕНО",
     'set ' + ux.offName + ', other car ' + ux.otherCar + ', back in the first ' + ux.backInA);
   check('ux: a save with a bed starts at that bed, one without on the strip',
     ux.noHome === null && ux.home && ux.home.near, JSON.stringify([ux.noHome, ux.home]));
@@ -2519,7 +2519,7 @@ function withTimeout(p, ms) {
     for (var i = 0; i < 60 * 10; i++) { GAME.test.fastForward(1 / 60); minX = Math.min(minX, h.pos.x); }
     GAME.test.pressKey('KeyW', false);
     r.heli = { minX: +minX.toFixed(1), endX: +h.pos.x.toFixed(1), facing: +Math.sin(h.heading).toFixed(2) };
-    r.toldEdge = window.__msgs.some(function (m) { return m.indexOf('Edge of the map') >= 0; });
+    r.toldEdge = window.__msgs.some(function (m) { return m.indexOf("Край карты") >= 0; });
     // the ceiling, climbing flat out for a minute
     window.__msgs = [];
     h = board('helicopter', 0, 0, 150, 0);
@@ -2528,7 +2528,7 @@ function withTimeout(p, ms) {
     for (var j = 0; j < 60 * 40; j++) { GAME.test.fastForward(1 / 60); top = Math.max(top, h.pos.y); }
     GAME.test.pressKey('Space', false);
     r.heliTop = +top.toFixed(1);
-    r.toldCeiling = window.__msgs.some(function (m) { return m.indexOf('too thin') >= 0; });
+    r.toldCeiling = window.__msgs.some(function (m) { return m.indexOf("слишком разрежённый") >= 0; });
     // a plane, flying at the north edge
     var pl = board('airplane', 0, E.closed.minZ + 54, 120, Math.PI);
     pl.speed = 45; pl.pitch = 0; pl.roll = 0;
@@ -2557,7 +2557,7 @@ function withTimeout(p, ms) {
   check('fly: so is a plane', fly.plane.alive && fly.plane.endZ > fly.plane.minZ + 30, JSON.stringify(fly.plane));
   check('fly: a helicopter stops climbing at its ceiling, and says why',
     fly.heliTop <= 201 && fly.heliTop > 190 && fly.toldCeiling, 'topped out at ' + fly.heliTop + ' m, told=' + fly.toldCeiling);
-  check('fly: so does a plane', fly.planeTop <= 242, 'topped out at ' + fly.planeTop + ' m');
+  check('fly: so does a plane', fly.planeTop <= 242, 'topped out at ' + fly.planeTop + " м");
 
   // On foot: the lock re-picked on any camera turn of three degrees and never
   // turned the view after its target; and nothing over a jump's 1.2 m could
@@ -2685,8 +2685,8 @@ function withTimeout(p, ms) {
     return r;
   });
   check('pop-in: the street refills (anchor sanity)', pop.cars >= 10 && pop.peds >= 10, JSON.stringify(pop));
-  check('pop-in: no car appears where you are looking', pop.carsSeen === 0, pop.carsSeen + ' of ' + pop.cars + ' new cars appeared in view');
-  check('pop-in: nor does anybody on foot', pop.pedsSeen === 0, pop.pedsSeen + ' of ' + pop.peds + ' new people appeared in view');
+  check('pop-in: no car appears where you are looking', pop.carsSeen === 0, pop.carsSeen + " из " + pop.cars + ' new cars appeared in view');
+  check('pop-in: nor does anybody on foot', pop.pedsSeen === 0, pop.pedsSeen + " из " + pop.peds + ' new people appeared in view');
 
   // Traffic was passive: it sat behind anything stopped in its lane for as
   // long as it stayed there, never sounded a horn, and drove on as if nothing
@@ -2848,7 +2848,7 @@ function withTimeout(p, ms) {
       Cs.bind('KeyQ', 'KeyK');
       r.swap = { f: Cs.label('KeyF'), q: Cs.label('KeyQ') };
       GAME.test.fastForward(0.3);
-      r.barSaysIt = (document.getElementById('controls-bar').innerHTML.indexOf('<b>Q</b> enter car') >= 0);
+      r.barSaysIt = (document.getElementById('controls-bar').innerHTML.indexOf("<b>Q</b> сесть в машину") >= 0);
       Cs.reset();
       r.resetF = Cs.label('KeyF');
       // the mouse: twice the speed turns twice as far, and invert flips up
@@ -3027,7 +3027,7 @@ function withTimeout(p, ms) {
     r.run = { speed: +b.speed.toFixed(1), sinking: b.sinking, afloat: Math.abs(b.pos.y - C.seaY(b.pos.x, b.pos.z)) < 0.05 };
     GAME.test.fastForward(12);
     r.channel = { x: Math.round(b.pos.x), speed: +b.speed.toFixed(1), stars: GAME.test.getState().wanted,
-      told: window.__msgs.some(function (m) { return m.indexOf('channel is closed') >= 0; }) };
+      told: window.__msgs.some(function (m) { return m.indexOf("Пролив закрыт") >= 0; }) };
     // straight at the beach: it stops dead on the water
     b.pos.set(C.shoreline(window.__beachZ()) + 40, -0.35, window.__beachZ());
     b.heading = -Math.PI / 2; b.vx = b.vz = 0; b.speed = 0;
@@ -3102,7 +3102,7 @@ function withTimeout(p, ms) {
       GAME.prefs.storyIntro = true;
       for (var w = 0; w < 30 && GAME.hud.pagerText; w++) GAME.test.fastForward(0.5);
       GAME.test.fastForward(0.6);
-      GAME.hud.pager('LOLA', 'test page', 2);
+      GAME.hud.pager("ЛОЛА", 'test page', 2);
       GAME.test.fastForward(0.1);
       var pe = document.getElementById('pager');
       r.pagerOn = pe.classList.contains('on') && getComputedStyle(pe).display !== 'none' && GAME.hud.pagerText === 'test page';
@@ -3191,11 +3191,11 @@ function withTimeout(p, ms) {
       // the DJ's station: not on the dial until it is earned
       var R = GAME.audio.radio, names = [];
       for (var s = 0; s < 6; s++) names.push(R.switchStation(1));
-      r.lockedOut = names.indexOf('TAPE DECK FM') < 0;
+      r.lockedOut = names.indexOf("КАССЕТНИК FM") < 0;
       GAME.prefs.tapeDeck = true;
       names = [];
       for (s = 0; s < 6; s++) names.push(R.switchStation(1));
-      r.unlocked = names.indexOf('TAPE DECK FM') >= 0;
+      r.unlocked = names.indexOf("КАССЕТНИК FM") >= 0;
       delete GAME.prefs.tapeDeck;
       R.tune(0);
       // a hundred per cent now means the island jumps and the tapes too
@@ -3209,11 +3209,11 @@ function withTimeout(p, ms) {
   });
   check('story: the pager is a card on screen, and it goes again', con.pagerOn && con.pagerOff);
   // (her word on it is the last of HERS: Rico has his say after it, about his collector)
-  var lolaPages = con.pages.filter(function (p) { return /^LOLA: /.test(p); });
+  var lolaPages = con.pages.filter(function (p) { return /^ЛОЛА: /.test(p); });
   check('story: Lola pages a line when a job starts and another when it is done the first time',
-    lolaPages.length >= 2 && /^LOLA: /.test(con.pages[0]) && con.pages.indexOf(lolaPages[lolaPages.length - 1]) > 0, JSON.stringify(con.pages));
+    lolaPages.length >= 2 && /^ЛОЛА: /.test(con.pages[0]) && con.pages.indexOf(lolaPages[lolaPages.length - 1]) > 0, JSON.stringify(con.pages));
   check('story: and Rico pages back, after her, the first time a job costs him',
-    /^RICO: /.test(con.pages[con.pages.length - 1]) && con.pages.length >= 3, JSON.stringify(con.pages));
+    /^РИКО: /.test(con.pages[con.pages.length - 1]) && con.pages.length >= 3, JSON.stringify(con.pages));
   check('takedown: there are takedown jobs on both islands', con.defs >= 3, con.defs);
   check('takedown: pulling up in the ring starts one, with an armoured target out in the traffic',
     con.started === 'hit0' && con.target && con.far > 100 && con.marked, JSON.stringify({ started: con.started, target: con.target, far: con.far, marked: con.marked }));
@@ -3258,7 +3258,7 @@ function withTimeout(p, ms) {
       GAME.test.teleport(condo.x + 8, condo.z);
       GAME.test.fastForward(0.4);
       walkTo(condo.x, condo.z);
-      r.forSale = GAME.shopOpen && /BUY/.test(document.getElementById('shop-items').textContent) && !P.interior;
+      r.forSale = GAME.shopOpen && /КУПИТЬ/.test(document.getElementById('shop-items').textContent) && !P.interior;
       if (GAME.shopOpen) GAME.shops.close();
       // own it, and the same mat takes you in — wanted or not
       GAME.prefs.safehouses = ['condo'];
@@ -3298,7 +3298,7 @@ function withTimeout(p, ms) {
         var bed = room.rings[1];
         (bed.via || []).forEach(function (p) { walkTo(p.x, p.z, 8); });
         walkTo(bed.x, bed.z, 8);
-        r.bed = GAME.shopOpen && /SLEEP IT OFF/.test(document.getElementById('shop-items').textContent);
+        r.bed = GAME.shopOpen && /ПОСПАТЬ/.test(document.getElementById('shop-items').textContent);
         if (GAME.shopOpen) GAME.shops.close();
         // and the mat by the door takes you back out, and stays shut
         var ex = room.rings[0];
@@ -3314,7 +3314,7 @@ function withTimeout(p, ms) {
       GAME.test.setWanted(1);
       window.__msgs = [];
       walkTo(cas.x, cas.z);
-      r.doorman = !P.interior && window.__msgs.some(function (m) { return /doorman/.test(m); });
+      r.doorman = !P.interior && window.__msgs.some(function (m) { return /Швейцар/.test(m); });
       GAME.police.clearWanted();
       GAME.test.teleport(cas.x, cas.z - 8);
       GAME.test.fastForward(0.4);
@@ -3326,12 +3326,12 @@ function withTimeout(p, ms) {
         P.health = 40;
         var bar = cr.rings[2];
         walkTo(bar.x, bar.z, 12);
-        r.barOpen = GAME.shopOpen && document.getElementById('shop-title').textContent === 'THE GULL BAR';
+        r.barOpen = GAME.shopOpen && document.getElementById('shop-title').textContent === "БАР «ЧАЙКА»";
         if (GAME.shopOpen) { GAME.addCash(200); GAME.shops.buy('cuba'); GAME.shops.close(); }
         r.healed = P.health >= 75;
         // and the wheel is the wheel
         walkTo(cr.rings[1].x, cr.rings[1].z, 12);
-        r.wheel = GAME.shopOpen && /SPIN THE WHEEL/.test(document.getElementById('shop-items').textContent);
+        r.wheel = GAME.shopOpen && /КРУТИТЬ РУЛЕТКУ/.test(document.getElementById('shop-items').textContent);
         if (GAME.shopOpen) GAME.shops.close();
         I.reset();
       }
@@ -3408,7 +3408,7 @@ function withTimeout(p, ms) {
     P.pos.set(100, 0, -100 + 3.1);
     GAME.test.fastForward(0.3);
     var hint = document.getElementById('enter-hint');
-    r.prompt = !!hint && hint.style.opacity === '1' && /get in the Cadenza/.test(hint.textContent);
+    r.prompt = !!hint && hint.style.opacity === '1' && /сесть в Каденца/.test(hint.textContent);
     GAME.test.pressKey('KeyF', true); GAME.test.pressKey('KeyF', false);
     GAME.test.fastForward(1.2);
     r.tapped = P.inCar && P.car === car;
@@ -3546,13 +3546,13 @@ function withTimeout(p, ms) {
     r.raceOn = !!(M.active && M.active.def === race);
     window.__msgs = [];
     tapX();
-    r.asked = !!(M.active && M.active.def === race) && window.__msgs.some(function (m) { return /again to abandon/.test(m); });
+    r.asked = !!(M.active && M.active.def === race) && window.__msgs.some(function (m) { return /ещё раз, чтобы отменить/.test(m); });
     GAME.test.fastForward(3.5);
     tapX();
     r.strayKept = !!(M.active && M.active.def === race);     // the ask lapsed: that was a fresh ask
     tapX();
     GAME.test.fastForward(0.2);
-    r.walked = !M.active && window.__msgs.some(function (m) { return /MISSION ABANDONED/.test(m); });
+    r.walked = !M.active && window.__msgs.some(function (m) { return /МИССИЯ ОТМЕНЕНА/.test(m); });
     r.retryOffered = GAME.retryAvailable === true;
     GAME.exitCar();
     GAME.test.fastForward(0.3);
@@ -3570,9 +3570,9 @@ function withTimeout(p, ms) {
     var btn = document.getElementById('pause-abandon');
     r.btnHidden = btn.style.display === 'none';   // (paused below, so it has been painted)
     GAME.togglePause();
-    r.btnShown = btn.style.display !== 'none' && /CLOCK OFF/.test(btn.textContent);
+    r.btnShown = btn.style.display !== 'none' && /ЗАКОНЧИТЬ СМЕНУ/.test(btn.textContent);
     btn.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-    r.btnAsks = GAME.paused && !!M.active && /SURE/.test(btn.textContent);
+    r.btnAsks = GAME.paused && !!M.active && /ТОЧНО/.test(btn.textContent);
     btn.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     GAME.test.fastForward(0.2);
     r.btnDone = !GAME.paused && !M.active;
@@ -3600,7 +3600,7 @@ function withTimeout(p, ms) {
       GAME.test.teleport(st.x, st.z + 9);
       GAME.test.fastForward(0.4);
       walkTo(st.x, st.z + 6, 3);
-      r.liftHint = /ELEVATOR/.test(document.getElementById('poi-hint').textContent) && document.getElementById('poi-hint').style.opacity === '1';
+      r.liftHint = /ЛИФТ/.test(document.getElementById('poi-hint').textContent) && document.getElementById('poi-hint').style.opacity === '1';
       walkTo(st.x, st.z);
       GAME.test.fastForward(11);     // the ride up the glass (5l)
       r.up = { y: +P.pos.y.toFixed(1), d: +Math.hypot(P.pos.x - rf.x, P.pos.z - rf.z).toFixed(1), alive: P.state === 'alive' };
@@ -3859,7 +3859,7 @@ function withTimeout(p, ms) {
   });
   try {
     await page.waitForFunction(function () {
-      return window.__msgs.some(function (m) { return m.indexOf('Eight hours later') >= 0; });
+      return window.__msgs.some(function (m) { return m.indexOf("Восемь часов спустя") >= 0; });
     }, null, { timeout: 8000 });
   } catch (e) { /* reported below */ }
   var bedCalls = await page.evaluate(function () {
@@ -4058,7 +4058,7 @@ function withTimeout(p, ms) {
     }
     ['KeyW', 'KeyA', 'KeyD', 'Space'].forEach(function (c) { key(c, false); });
     r.t = +t.toFixed(1);
-    r.won = window.__msgs.some(function (m) { return /RACE WON/.test(m); });
+    r.won = window.__msgs.some(function (m) { return /ГОНКА ВЫИГРАНА/.test(m); });
     r.field = A ? A.racers.map(function (c) { return { cp: c.cpIndex, aboard: c.occupied === 'ai' }; }) : [];
     if (M.active) M.failActive('test');
     GAME.test.fastForward(0.5);
@@ -4096,8 +4096,8 @@ function withTimeout(p, ms) {
         GAME.test.fastForward(0.2);
       });
       r.tapes = T[0].taken && T[1].taken;
-      r.tapePages = pages.filter(function (p) { return /lost tape/i.test(p); }).length;
-      r.tapeSays = pages.filter(function (p) { return /lost tape/i.test(p); })[0] || '';
+      r.tapePages = pages.filter(function (p) { return /потерянная кассета/i.test(p); }).length;
+      r.tapeSays = pages.filter(function (p) { return /потерянная кассета/i.test(p); })[0] || '';
       // the first star, once
       pages.length = 0;
       GAME.police.reportCrime('steal_police', P.pos);
@@ -4105,7 +4105,7 @@ function withTimeout(p, ms) {
       GAME.police.clearWanted();
       GAME.police.reportCrime('steal_police', P.pos);
       GAME.test.fastForward(0.2);
-      r.starPages = pages.filter(function (p) { return /law's eye/.test(p); }).length;
+      r.starPages = pages.filter(function (p) { return /внимание полиции/.test(p); }).length;
       GAME.police.clearWanted();
       // with tips off nothing is said, but it still counts as met
       pages.length = 0;
@@ -4117,9 +4117,9 @@ function withTimeout(p, ms) {
       // the pause screen switch says which it is, and flips it
       GAME.togglePause();
       var b = document.getElementById('pause-tips');
-      r.btnOn = /ON/.test(b.textContent);
+      r.btnOn = /ВКЛ\./.test(b.textContent);
       b.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-      r.btnOff = /OFF/.test(b.textContent) && !L.tips;
+      r.btnOff = /ВЫКЛ\./.test(b.textContent) && !L.tips;
       b.dispatchEvent(new MouseEvent('click', { bubbles: true }));
       r.btnBack = L.tips;
       GAME.togglePause();
@@ -4133,7 +4133,7 @@ function withTimeout(p, ms) {
     GAME.test.fastForward(0.3);
     return r;
   });
-  check('tips: Lola says what a lost tape is, the first time', !tips.missing && tips.tapes && tips.tapePages === 1 && /thirty/.test(tips.tapeSays),
+  check('tips: Lola says what a lost tape is, the first time', !tips.missing && tips.tapes && tips.tapePages === 1 && /тридцать/.test(tips.tapeSays),
     JSON.stringify({ tapes: tips.tapes, pages: tips.tapePages, says: tips.tapeSays }));
   check('tips: and the first star, once', tips.starPages === 1, 'pages=' + tips.starPages);
   check('tips: with them switched off she stays quiet, but it still counts as met',
@@ -4295,7 +4295,7 @@ function withTimeout(p, ms) {
       r.inside = !!room && room.id === id && room.kind === 'shop' && room.shop === loc.kind && P.interior === room;
       r.menuAtDoor = GAME.shopOpen;
       if (room) {
-        var c = room.rings.filter(function (x) { return !/EXIT/.test(x.label); })[0];
+        var c = room.rings.filter(function (x) { return !/ВЫХОД/.test(x.label); })[0];
         r.counter = c && c.label;
         if (c) walkTo(c.x, c.z);
         r.opens = GAME.shopOpen && S.current === loc;
@@ -4365,14 +4365,14 @@ function withTimeout(p, ms) {
       var room = I.current;
       r.home = !!room && room.kind === 'home';
       if (!r.home) r.why = { st: P.state, inCar: P.inCar, busy: I.busy, shop: GAME.shopOpen, d: Math.round(Math.hypot(P.pos.x - condo.x, P.pos.z - condo.z)) };
-      var ring = room && room.rings.filter(function (x) { return /WARDROBE/.test(x.label); })[0];
+      var ring = room && room.rings.filter(function (x) { return /ГАРДЕРОБ/.test(x.label); })[0];
       r.ring = !!ring;
       // not on the way in from the door
       r.clear = !!ring && Math.hypot(ring.x - room.entry.x, ring.z - room.entry.z) > 2.5;
       if (ring) { (ring.via || []).forEach(function (p) { walkTo(p.x, p.z); }); walkTo(ring.x, ring.z); }
       r.opens = GAME.shopOpen && S.current && S.current.kind === 'wardrobe';
       var rows = r.opens ? document.getElementById('shop-items').innerText : '';
-      r.lists = /Club White/.test(rows) && /Banana Cream/.test(rows) && /Teal Classics/.test(rows) && /Sand Chinos/.test(rows) && !/Hot Pink|Midnight/.test(rows);
+      r.lists = /Клубный белый/.test(rows) && /Банановый крем/.test(rows) && /Бирюзовая классика/.test(rows) && /Песочные чиносы/.test(rows) && !/Ярко-розовый|Полночный/.test(rows);
       var cash = P.cash;
       S.buy('shirt_banana');
       r.changed = GAME.prefs.outfit.shirt === 'banana' && P.cash === cash;
@@ -4385,7 +4385,7 @@ function withTimeout(p, ms) {
       GAME.test.teleport(th.at.x + 8, th.at.z);
       GAME.test.fastForward(0.4);
       walkTo(th.at.x, th.at.z);
-      var counter = I.current && I.current.rings.filter(function (x) { return /MIRROR/.test(x.label); })[0];
+      var counter = I.current && I.current.rings.filter(function (x) { return /ЗЕРКАЛО/.test(x.label); })[0];
       if (counter) walkTo(counter.x, counter.z);
       r.threads = GAME.shopOpen && S.current === th;
       cash = P.cash;
@@ -4400,7 +4400,7 @@ function withTimeout(p, ms) {
       GAME.test.teleport(condo.x + 8, condo.z);
       GAME.test.fastForward(0.4);
       walkTo(condo.x, condo.z);
-      ring = I.current && I.current.rings.filter(function (x) { return /WARDROBE/.test(x.label); })[0];
+      ring = I.current && I.current.rings.filter(function (x) { return /ГАРДЕРОБ/.test(x.label); })[0];
       if (ring) { (ring.via || []).forEach(function (p) { walkTo(p.x, p.z); }); walkTo(ring.x, ring.z); }
       r.hangs = GAME.shopOpen && document.getElementById('shop-items').innerText.indexOf(fresh.name) >= 0;
       r.fresh = fresh.name;
@@ -4466,17 +4466,17 @@ function withTimeout(p, ms) {
     f.runners.forEach(function (h) { sum += h.p; });
     r.book = Math.abs(sum - 1) < 1e-6 && f.runners.every(function (h) { return h.p * (h.odds + 1) < 1 && h.p > 0; });
     // the free terminal: a horse menu with the stakes underneath
-    var ring = room.rings.filter(function (x) { return /GULL DOWNS/.test(x.label); })[0];
+    var ring = room.rings.filter(function (x) { return /ИППОДРОМ «ЧАЙКА»/.test(x.label); })[0];
     r.ring = !!ring;
     if (ring) walkTo(ring.x, ring.z);
     r.opens = GAME.shopOpen && S.current && S.current.kind === 'derby';
     var rows = r.opens ? document.getElementById('shop-items').innerText : '';
-    r.rows = f.runners.every(function (h) { return rows.indexOf(h.name) >= 0; }) && /^YOUR STAKE · \$100/.test(rows) && /\$2,000/.test(rows);
-    r.chip = /BET · \$100/.test(rows);
+    r.rows = f.runners.every(function (h) { return rows.indexOf(h.name) >= 0; }) && /^ТВОЯ СТАВКА · \$100/.test(rows) && /\$2[\s\u00a0]000/.test(rows);
+    r.chip = /СТАВКА · \$100/.test(rows);
     // a $500 stake on number 2, rigged to win: the stake goes, then odds+1 times it comes back
     P.cash = 5000;
     S.buy('stake');
-    r.stake = D.stake === 500 && P.cash === 5000 && /YOUR STAKE · \$500/.test(document.getElementById('shop-items').innerText);
+    r.stake = D.stake === 500 && P.cash === 5000 && /ТВОЯ СТАВКА · \$500/.test(document.getElementById('shop-items').innerText);
     var odds = f.runners[1].odds;
     D.rig(2);
     S.buy('horse2');
@@ -4497,7 +4497,7 @@ function withTimeout(p, ms) {
     var c1 = P.cash;
     S.open(D.loc);
     var again = S.buy('horse3');
-    r.oneBet = again === false && P.cash === c1 && /One bet a race/.test(document.getElementById('shop-items').innerText);
+    r.oneBet = again === false && P.cash === c1 && /Одна ставка на скачку/.test(document.getElementById('shop-items').innerText);
     if (S.isOpen) S.close();
     for (k = 0; k < 40 && D.bet; k++) GAME.test.fastForward(1);
     r.lost = !D.bet && D.order()[0] === 5 && P.cash === c1;
@@ -4558,7 +4558,7 @@ function withTimeout(p, ms) {
       var condo = homeLoc('condo');
       GAME.test.teleport(condo.at.x + 8, condo.at.z); GAME.test.fastForward(0.3);
       walkTo(condo.at.x, condo.at.z);
-      r.forSale = GAME.shopOpen && /BUY STRIP CONDO/.test(document.getElementById('shop-items').textContent);
+      r.forSale = GAME.shopOpen && /КУПИТЬ · КВАРТИРА НА БУЛЬВАРЕ/.test(document.getElementById('shop-items').textContent);
       S.buy('buy');
       r.menuGone = !GAME.shopOpen;
       GAME.test.fastForward(1.2);
@@ -4570,7 +4570,7 @@ function withTimeout(p, ms) {
       var flat = goIn('dock'), fb = flat.rings[1];
       r.flatOneRoom = !fb.via;
       walkTo(fb.x, fb.z);
-      r.flatBed = GAME.shopOpen && /SLEEP IT OFF/.test(document.getElementById('shop-items').textContent);
+      r.flatBed = GAME.shopOpen && /ПОСПАТЬ/.test(document.getElementById('shop-items').textContent);
       if (GAME.shopOpen) S.close();
       // the condo: straight at the bed from the door, you meet the bedroom wall
       var cr = goIn('condo'), cb = cr.rings[1];
@@ -4580,7 +4580,7 @@ function withTimeout(p, ms) {
       I.reset(); cr = goIn('condo');
       cb.via.forEach(function (p) { walkTo(p.x, p.z); });
       walkTo(cb.x, cb.z);
-      r.condoBed = GAME.shopOpen && /SLEEP IT OFF/.test(document.getElementById('shop-items').textContent);
+      r.condoBed = GAME.shopOpen && /ПОСПАТЬ/.test(document.getElementById('shop-items').textContent);
       if (GAME.shopOpen) S.close();
       // the villa: up the stairs to the bed
       var v = goIn('villa'), vb = v.rings[1];
@@ -4592,9 +4592,9 @@ function withTimeout(p, ms) {
       GAME.test.fastForward(0.6);
       r.camAbove = GAME.cameraObj.position.y > v.slab.y + 0.3;
       walkTo(vb.x, vb.z);
-      r.villaBed = GAME.shopOpen && /SLEEP IT OFF/.test(document.getElementById('shop-items').textContent);
+      r.villaBed = GAME.shopOpen && /ПОСПАТЬ/.test(document.getElementById('shop-items').textContent);
       if (GAME.shopOpen) S.close();
-      var vw = v.rings.filter(function (x) { return /WARDROBE/.test(x.label); })[0];
+      var vw = v.rings.filter(function (x) { return /ГАРДЕРОБ/.test(x.label); })[0];
       r.wardrobeUp = vw.y > 3;
       // down again, to the kitchen under the gallery
       walkTo(vb.via[1].x, vb.via[1].z); walkTo(vb.via[0].x, vb.via[0].z);
@@ -4656,7 +4656,7 @@ function withTimeout(p, ms) {
       var a = GAME.missions.active;
       r.onRound = !!a && a.def.id === 'icecream';
       if (!r.onRound) return r;
-      r.hint = /plays the chimes/.test(GAME.missions.objectiveText());
+      r.hint = /включает мелодию/.test(GAME.missions.objectiveText());
       for (var sp = 0; sp < 3; sp++) {
         var extra = GAME.test.spawnPed([11, -9, 7][sp], [0, 7, -10][sp]);
         if (extra) { extra.jobPed = false; extra.iceServed = false; }
@@ -4893,25 +4893,25 @@ function withTimeout(p, ms) {
     r.bindable = GAME.controls.ACTIONS.some(function (a) { return a[0] === 'KeyL'; });
     GAME.onKeyDown('KeyL');
     r.open = GAME.lolaOpen && document.getElementById('lola-screen').style.display === 'flex';
-    r.asks = /What can I do for you/.test(Lo.says);
+    r.asks = /Чем помочь/.test(Lo.says);
     r.menu = Lo.options();
-    Lo.choose(/DO NEXT/);
+    Lo.choose(/ЧТО ДЕЛАТЬ ДАЛЬШЕ/);
     r.next = Lo.says;
     if (GAME.nav && GAME.nav.clear) GAME.nav.clear();
-    r.marked = Lo.choose(/MARK IT/) && !GAME.lolaOpen;
+    r.marked = Lo.choose(/ОТМЕТЬ НА МОЕЙ КАРТЕ/) && !GAME.lolaOpen;
     r.navSet = !!(GAME.nav && GAME.nav.hasDest ? GAME.nav.hasDest() : GAME.hud && true);
     GAME.onKeyDown('KeyL');
-    Lo.choose(/TAKE ME/); Lo.choose(/GUNS/);
+    Lo.choose(/ПОКАЖИ МНЕ ДОРОГУ/); Lo.choose(/ОРУЖИЕ/);
     r.guns = Lo.says;
     GAME.onKeyDown('Escape');
-    r.backToTop = Lo.options().some(function (o) { return /DO NEXT/.test(o); }) && GAME.lolaOpen;
+    r.backToTop = Lo.options().some(function (o) { return /ЧТО ДЕЛАТЬ ДАЛЬШЕ/.test(o); }) && GAME.lolaOpen;
     GAME.onKeyDown('Escape');
     r.closed = !GAME.lolaOpen && !GAME.paused;
     // wanted: the law is the first thing she offers
     GAME.test.setWanted(3);
     GAME.onKeyDown('KeyL');
-    r.lawFirst = /LAW/.test(Lo.options()[0]);
-    Lo.choose(/LAW/); r.law = Lo.says;
+    r.lawFirst = /РОЗЫСК|ПОЛИЦИЯ/.test(Lo.options()[0]);
+    Lo.choose(/РОЗЫСК|ПОЛИЦИЯ/); r.law = Lo.says;
     GAME.onKeyDown('Escape'); GAME.onKeyDown('Escape');
     GAME.police.clearWanted();
     // from the pause screen, the way a phone reaches her
@@ -4931,12 +4931,12 @@ function withTimeout(p, ms) {
   var stillT = await page.evaluate(function () { var d = GAME.time - window.__t0; GAME.lola.close(); return d; });
   check('lola: calling her is an action you can rebind', lola.bindable);
   check('lola: L calls her, and she asks what she can do', lola.open && lola.asks && lola.menu.length >= 6, JSON.stringify(lola.menu));
-  check('lola: she says what to do next, and where', /m (north|south|east|west)/.test(lola.next || ''), lola.next);
+  check('lola: she says what to do next, and where', /м к (северу|югу|востоку|западу)/.test(lola.next || ''), lola.next);
   check('lola: and marks it on your map', lola.marked, JSON.stringify(lola));
-  check('lola: she finds you a shop', /is \d+ m|is [\d.]+ km/.test(lola.guns || ''), lola.guns);
+  check('lola: she finds you a shop', /находится \d+ м|находится [\d.,]+ км/.test(lola.guns || ''), lola.guns);
   check('lola: Esc steps back, then closes', lola.backToTop && lola.closed, JSON.stringify(lola));
   check('lola: with the law on you, that is the first thing she offers, and she says how to lose them',
-    lola.lawFirst && /stars|star/.test(lola.law || ''), lola.law);
+    lola.lawFirst && /звезд|звёзд/.test(lola.law || ''), lola.law);
   check('lola: ASK LOLA on the pause screen reaches her too', lola.fromPause, JSON.stringify(lola));
   check('lola: the world holds still while you talk', Math.abs(stillT) < 0.02, 'game time moved ' + stillT.toFixed(3) + ' s');
 
@@ -5593,7 +5593,7 @@ function withTimeout(p, ms) {
     // at head height for the whole run. It read as a zombie, and it did.
     check('brawl: and his arms swing while he does, rather than locked overhead',
       brawl2.armsUp < brawl2.runFrames * 0.1,
-      brawl2.armsUp + ' of ' + brawl2.runFrames + ' charging frames with the arms up');
+      brawl2.armsUp + " из " + brawl2.runFrames + ' charging frames with the arms up');
     check('brawl: the punches land (anchor sanity)', brawl2.landed, 'the other man was hit');
     // A jab travels 1.05 rad in 0.14 s — 7.5 rad/s, or 0.125 in a step. A
     // step of 1.4 is not a fast punch, it is a teleport, and that is what a
@@ -5922,7 +5922,7 @@ function withTimeout(p, ms) {
   check('paint: the buildings with windows of their own design are found (anchor sanity)',
     dressed.own + dressed.apart >= 4, (dressed.own + dressed.apart) + ' textured materials besides the blocks');
   check('paint: and they still glow from their own walls, as before the blocks were painted',
-    dressed.apart === 0, dressed.apart + ' of ' + (dressed.own + dressed.apart) + ' given a glow apart from their map');
+    dressed.apart === 0, dressed.apart + " из " + (dressed.own + dressed.apart) + ' given a glow apart from their map');
 
   // ---------- 3u: window light after dark ----------
   // After dark every ordinary block used to light the same share of its
@@ -5986,7 +5986,7 @@ function withTimeout(p, ms) {
     return out;
   });
   check('night light: every block carries its own window light (anchor sanity)',
-    wl.meshes === 7 && wl.full === 7, wl.full + ' of ' + wl.meshes + ' block meshes, on every vertex');
+    wl.meshes === 7 && wl.full === 7, wl.full + " из " + wl.meshes + ' block meshes, on every vertex');
   // The check that would have caught the red channel. Declaring the light's
   // roll as `r` inside addBox reused the name of the box's red channel, and
   // every block's walls came out pink, cyan and green — while every paint
@@ -5994,7 +5994,7 @@ function withTimeout(p, ms) {
   // not the colours the mesh ended up wearing. Found by rendering it.
   check('night light: and the walls still wear the colours they were dealt',
     wl.checked > 1000 && wl.foreign === 0,
-    wl.foreign + ' of ' + wl.checked + ' wall colours in the mesh match no pick');
+    wl.foreign + " из " + wl.checked + ' wall colours in the mesh match no pick');
   // Rolled independently, the island's nine port towers once all came up in
   // the middle two shares: no dark tower and no blazing one on its skyline.
   // Dealt round a ring, any seven blocks in a row hold all four.
@@ -6230,7 +6230,7 @@ function withTimeout(p, ms) {
   check('pickups: the world puts some out to be collected (anchor sanity)',
     dryness.n > 10, dryness.n + ' fixed pickups');
   check('pickups: none of them is standing in the sea',
-    dryness.wet === 0, dryness.wet + ' of ' + dryness.n + ' in water');
+    dryness.wet === 0, dryness.wet + " из " + dryness.n + ' in water');
   // 1 m was the measured distance for the island health that prompted this.
   // Six gives room to walk up, turn round and leave again.
   check('pickups: and none close enough that reaching for it is a swim',
@@ -6324,15 +6324,15 @@ function withTimeout(p, ms) {
       'furthest to react was standing ' + blast.car.reachedTo + ' m away, of ' + blast.car.n + ' placed');
     // felt far past where it hurts — the damage radius is 8 m
     check('blast: well past the eight metres it actually hurts within',
-      blast.car.reachedTo > 8 * 3, 'reached ' + blast.car.reachedTo + ' m');
+      blast.car.reachedTo > 8 * 3, 'reached ' + blast.car.reachedTo + " м");
     check('blast: but not the whole city — it does have an edge',
       blast.car.quietFrom !== null && blast.car.quietFrom > blast.car.reachedTo,
-      'nearest untroubled bystander stood at ' + blast.car.quietFrom + ' m');
+      'nearest untroubled bystander stood at ' + blast.car.quietFrom + " м");
   }
   if (blast.car && blast.heli) {
     check('blast: an airframe going up reaches further than a car does',
       blast.heli.reachedTo > blast.car.reachedTo,
-      'helicopter ' + blast.heli.reachedTo + ' m vs sedan ' + blast.car.reachedTo + ' m');
+      'helicopter ' + blast.heli.reachedTo + ' m vs sedan ' + blast.car.reachedTo + " м");
   }
   check('blast: and the group leaves the player standing (anchor sanity)',
     blast.playerAlive, 'player state after four explosions nearby');
@@ -6731,7 +6731,7 @@ function withTimeout(p, ms) {
     check('chaos: one stranger can be set on another at all (anchor sanity)',
       brawl.took === true, 'startFight returned ' + brawl.took);
     check('chaos: and he closes the distance rather than shadow-boxing',
-      brawl.closed < 2.5, 'got within ' + brawl.closed + ' m');
+      brawl.closed < 2.5, 'got within ' + brawl.closed + " м");
     check('chaos: and the punches land on the other man, not on the player',
       brawl.hit, 'his hp went ' + brawl.hp0 + ' -> ' + brawl.hp1 +
       ' (he ended up ' + brawl.bState + ')');
@@ -7404,9 +7404,9 @@ function withTimeout(p, ms) {
       try {
         tap(9);
         var fsb = document.getElementById('pause-fs');
-        r.fsListed = !!fsb && fsb.offsetParent !== null && /FULL SCREEN/.test(fsb.textContent);
+        r.fsListed = !!fsb && fsb.offsetParent !== null && /ПОЛНЫЙ ЭКРАН/.test(fsb.textContent);
         if (fsb) fsb.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-        r.fsWaited = fsCalls === 0 && fsMsgs.some(function (t) { return /next one you make/.test(t); });
+        r.fsWaited = fsCalls === 0 && fsMsgs.some(function (t) { return /Следующее действие/.test(t); });
         tap(9);     // (resuming tries again too, as it always has)
         var fsBefore = fsCalls;
         window.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyZ' }));
@@ -7430,7 +7430,7 @@ function withTimeout(p, ms) {
 
       // a dialog in the world: A answers it
       var okd = false;
-      GAME.hud.dialog({ title: 'CHECK', body: 'pad', ok: 'OK', cancel: false, onOk: function () { okd = true; } });
+      GAME.hud.dialog({ title: 'CHECK', body: 'pad', ok: "ОК", cancel: false, onOk: function () { okd = true; } });
       tap(0);
       r.dialogAnswered = okd && !GAME.hud.dialogOpen();
 
@@ -7717,7 +7717,7 @@ function withTimeout(p, ms) {
     r.inside = !!room && room.kind === 'casino';
     if (!r.inside) return r;
     for (var k = 0; k < 60 && D.bet; k++) ff(1);
-    var ring = room.rings.filter(function (x) { return /GULL DOWNS/.test(x.label); })[0];
+    var ring = room.rings.filter(function (x) { return /ИППОДРОМ «ЧАЙКА»/.test(x.label); })[0];
     walkTo(ring.x - 2.5, ring.z); walkTo(ring.x, ring.z);
     r.opens = GAME.shopOpen && S.current && S.current.kind === 'derby';
     P.cash = Math.max(P.cash, 5000);
@@ -7739,7 +7739,7 @@ function withTimeout(p, ms) {
     return r;
   });
   check('Gull Downs: with money down you stand at the terminal, facing the screen', gh.inside && gh.opens && gh.held && gh.facing && gh.stays, JSON.stringify(gh));
-  check('Gull Downs: the screen says it is your race, and the jump key skips ahead', /YOUR RACE/.test(gh.hint) && gh.skipped, JSON.stringify(gh));
+  check('Gull Downs: the screen says it is your race, and the jump key skips ahead', /ТВОЯ СКАЧКА/.test(gh.hint) && gh.skipped, JSON.stringify(gh));
   check('Gull Downs: the result is read, and then you can walk again', gh.readResult && gh.free && gh.walks, JSON.stringify(gh));
 
   // The beach ended at the water in a sheer face, half a metre of it out of
@@ -8279,20 +8279,20 @@ function withTimeout(p, ms) {
       L.key('Escape');   // closing her without an answer is finding your own way
       ff(8);
       r.skipped = !L.isOpen && GAME.prefs.guide === 'skipped';
-      r.skipLine = pages.filter(function (t) { return /Isla Verde/.test(t) && /shut/.test(t); })[0] || '';
-      r.oldHints = msgs.filter(function (t) { return /coloured rings|bridges east/.test(t); }).length;
+      r.skipLine = pages.filter(function (t) { return /Исла-Верде/.test(t) && /закрыты/.test(t); })[0] || '';
+      r.oldHints = msgs.filter(function (t) { return /Цветные кольца|мосты на востоке/.test(t); }).length;
       // --- a save with a job done is never asked: the old welcome line ---
       GAME.bests = { race0: 40 }; delete GAME.prefs.guide; GAME.prefs.storyIntro = false; pages.length = 0;
       ff(0.5);
-      r.oldSave = { asked: L.isOpen, welcome: pages.some(function (t) { return /Start with a race/.test(t); }) };
+      r.oldSave = { asked: L.isOpen, welcome: pages.some(function (t) { return /Начни с гонки/.test(t); }) };
       settle();
       // --- the way back in: her menu, until it has been seen through ---
       GAME.bests = {}; GAME.prefs.guide = 'skipped';
-      L.open(); r.ropesOnMenu = L.options().some(function (o) { return /SHOW ME THE ROPES/.test(o); });
+      L.open(); r.ropesOnMenu = L.options().some(function (o) { return /ОБУЧИ МЕНЯ/.test(o); });
       pages.length = 0;
-      L.choose(/SHOW ME THE ROPES/); ff(0.3);
+      L.choose(/ОБУЧИ МЕНЯ/); ff(0.3);
       r.ride = { step: G.step, car: !!G.car, bike: !!(G.car && G.car.spec.bike), hud: hud(), near: G.car ? Math.round(Math.hypot(G.car.pos.x - P.pos.x, G.car.pos.z - P.pos.z)) : -1,
-        islandTease: pages.some(function (t) { return /Isla Verde/.test(t) && /shut/.test(t) && !/four/.test(t); }) };
+        islandTease: pages.some(function (t) { return /Исла-Верде/.test(t) && /закрыты/.test(t) && !/четыре/.test(t); }) };
       GAME.isTouch = true; r.touchWords = G.now(); GAME.isTouch = keepTouch;
       // --- in the car: off to the ring, on the map ---
       GAME.test.enterNearestCar(G.car); ff(1.5);
@@ -8310,7 +8310,7 @@ function withTimeout(p, ms) {
       // and fail it a kilometre from the ring: that is not walking off
       P.car.pos.set(-350, C.groundY(-350, 300), 300); P.car.speed = 0; ff(0.2);
       a.timeLeft = 0; ff(0.5);
-      r.failed = { step: G.step, active: !!M.active, line: pages.some(function (t) { return /Happens to everybody/.test(t); }) };
+      r.failed = { step: G.step, active: !!M.active, line: pages.some(function (t) { return /С кем не бывает/.test(t); }) };
       GAME.test.pressKey('KeyY', true); ff(1 / 60); GAME.test.pressKey('KeyY', false); ff(1.5);
       a = M.active;
       r.retry = a ? { drops: a.stops.length, step: G.step } : null;
@@ -8331,7 +8331,7 @@ function withTimeout(p, ms) {
       GAME.share.hide(); ff(2);
       nd = GAME.nav && GAME.nav.dest;
       r.barber = { step: G.step, routed: !!nd && Math.hypot(nd.x - barber.at.x, nd.z - barber.at.z) < 2, hud: hud(),
-        line: pages.some(function (t) { return /CORTES CUTS/.test(t); }) };
+        line: pages.some(function (t) { return /СТРИЖК(?:И|АХ) КОРТЕСА/.test(t); }) };
       // --- in the chair: a cut with the pay, and then the wider picture ---
       settle();
       GAME.test.teleport(barber.at.x + 3, barber.at.z); ff(0.3);
@@ -8347,15 +8347,15 @@ function withTimeout(p, ms) {
       r.waitsInside = G.step === 'counter';
       GAME.interiors.leave(); ff(1.5);
       var threads = S.locations().filter(function (l) { return l.kind === 'dress'; })[0];
-      r.threads = { step: G.step, asked: L.isOpen && L.options().some(function (o) { return /MARK THREADS/.test(o); }) && L.options().some(function (o) { return /EXPLORE/.test(o); }),
-        line: pages.some(function (t) { return /THREADS/.test(t); }) };
-      if (L.isOpen) L.choose(/MARK THREADS/);
+      r.threads = { step: G.step, asked: L.isOpen && L.options().some(function (o) { return /ОТМЕТЬ «НИТКИ»/.test(o); }) && L.options().some(function (o) { return /ДАЛЬШЕ Я САМ/.test(o); }),
+        line: pages.some(function (t) { return /НИТКИ/.test(t); }) };
+      if (L.isOpen) L.choose(/ОТМЕТЬ «НИТКИ»/);
       ff(0.3);
       nd = GAME.nav && GAME.nav.dest;
       r.done = { step: G.step, pref: GAME.prefs.guide, paid: cash0 - P.cash, hud: hud(),
         threadsRouted: !!nd && Math.hypot(nd.x - threads.at.x, nd.z - threads.at.z) < 2,
-        pointers: pages.some(function (t) { return /races, rampages and takedowns/.test(t) && /four/.test(t) && /stunt jump/.test(t); }) };
-      L.open(); r.ropesAfter = L.options().some(function (o) { return /SHOW ME THE ROPES/.test(o); }); L.close();
+        pointers: pages.some(function (t) { return /гонки, погромы и устранение/.test(t) && /четыре/.test(t) && /уникальные прыжки/.test(t); }) };
+      L.open(); r.ropesAfter = L.options().some(function (o) { return /ОБУЧИ МЕНЯ/.test(o); }); L.close();
       settle();
       // --- walking off part way lets you go, with the way back ---
       GAME.prefs.guide = 'left';
@@ -8364,7 +8364,7 @@ function withTimeout(p, ms) {
       GAME.test.enterNearestCar(G.car); ff(1.5);
       pages.length = 0;
       GAME.test.teleport(-300, -300); ff(0.6);
-      r.wandered = { step: G.step, pref: GAME.prefs.guide, line: pages.some(function (t) { return /SHOW ME THE ROPES/.test(t); }) };
+      r.wandered = { step: G.step, pref: GAME.prefs.guide, line: pages.some(function (t) { return /ОБУЧИ МЕНЯ/.test(t); }) };
       settle();
       // --- and so does abandoning the run ---
       GAME.test.teleport(356, 40); ff(0.5);
@@ -8381,10 +8381,10 @@ function withTimeout(p, ms) {
       GAME.isla.setOpen(true);
       GAME.prefs.guide = 'left'; pages.length = 0;
       G.begin(); ff(0.3);
-      r.openIsland = { tease: pages.some(function (t) { return /shut/.test(t); }) };
+      r.openIsland = { tease: pages.some(function (t) { return /закрыты/.test(t); }) };
       settle();
       G.skip(); ff(0.2);
-      r.openIsland.skipTease = pages.some(function (t) { return /shut/.test(t); });
+      r.openIsland.skipTease = pages.some(function (t) { return /закрыты/.test(t); });
     } finally {
       GAME.hud.pager = pg0; GAME.hud.message = ms0;
       if (G.step) G.skip();
@@ -8401,14 +8401,14 @@ function withTimeout(p, ms) {
     return r;
   });
   check('guide: a fresh save is asked — show me around, or find my own way', gd.asked &&
-    gd.choices.length === 2 && /SHOW ME AROUND/.test(gd.choices[0]) && /OWN WAY/.test(gd.choices[1]), JSON.stringify(gd.choices));
+    gd.choices.length === 2 && /ПОКАЖИ МНЕ ГОРОД/.test(gd.choices[0]) && /РАЗБЕРУСЬ САМ/.test(gd.choices[1]), JSON.stringify(gd.choices));
   check('guide: closing her is finding your own way, told the island is shut, and the old hints keep quiet',
     gd.skipped && !!gd.skipLine && gd.oldHints === 0, JSON.stringify({ skipped: gd.skipped, line: gd.skipLine, oldHints: gd.oldHints }));
   check('guide: a save with a job done is not asked, and keeps the old welcome', !gd.oldSave.asked && gd.oldSave.welcome, JSON.stringify(gd.oldSave));
   check('guide: SHOW ME THE ROPES on her menu starts it: a bike marked close by, the button named',
-    gd.ropesOnMenu && gd.ride.step === 'ride' && gd.ride.car && gd.ride.bike && gd.ride.near < 100 && /Get on the bike/.test(gd.ride.hud) && gd.ride.islandTease &&
-    /ENTER/.test(gd.touchWords), JSON.stringify({ menu: gd.ropesOnMenu, ride: gd.ride, touch: gd.touchWords }));
-  check('guide: in the car, the ring is routed on the map', gd.ring.step === 'ring' && gd.ring.routed && /ring/.test(gd.ring.hud), JSON.stringify(gd.ring));
+    gd.ropesOnMenu && gd.ride.step === 'ride' && gd.ride.car && gd.ride.bike && gd.ride.near < 100 && /Сядь на мотоцикл/.test(gd.ride.hud) && gd.ride.islandTease &&
+    /СЕСТЬ/.test(gd.touchWords), JSON.stringify({ menu: gd.ropesOnMenu, ride: gd.ride, touch: gd.touchWords }));
+  check('guide: in the car, the ring is routed on the map', gd.ring.step === 'ring' && gd.ring.routed && /кольцо/.test(gd.ring.hud), JSON.stringify(gd.ring));
   check('guide: the ring starts BEACH RUN made kinder — three drops, 150 s — and leaves the real one alone',
     gd.job && gd.job.id === 'courier2' && gd.job.drops === 3 && gd.job.time === 150 && gd.job.sameJob && gd.job.step === 'job' && gd.realJobUntouched,
     JSON.stringify(gd.job));
@@ -8416,7 +8416,7 @@ function withTimeout(p, ms) {
     gd.failed.step === 'ring' && !gd.failed.active && gd.failed.line && gd.retry && gd.retry.drops === 3 && gd.retry.step === 'job',
     JSON.stringify({ failed: gd.failed, retry: gd.retry }));
   check('guide: paid, she waits out the card, then routes you to CORTES CUTS',
-    gd.won.step === 'paid' && gd.won.best && gd.won.card && gd.waitsForCard && gd.barber.step === 'barber' && gd.barber.routed && gd.barber.line && /CORTES CUTS/.test(gd.barber.hud),
+    gd.won.step === 'paid' && gd.won.best && gd.won.card && gd.waitsForCard && gd.barber.step === 'barber' && gd.barber.routed && gd.barber.line && /СТРИЖК(?:И|АХ) КОРТЕСА/.test(gd.barber.hud),
     JSON.stringify({ won: gd.won, wait: gd.waitsForCard, barber: gd.barber }));
   check('guide: a cut with the pay; out of the door she asks about THREADS, and marks it',
     gd.inside === 'counter' && gd.waitsInside && gd.threads.step === 'outro' && gd.threads.asked && gd.threads.line && gd.done.threadsRouted,
@@ -8527,7 +8527,7 @@ function withTimeout(p, ms) {
       msgs.length = 0;
       var far = 0;
       for (var e = 0; e < 120; e++) { ff(1 / 60); far = Math.max(far, ov.pos.x); }
-      r.held = { far: +far.toFixed(1), edge: edge, told: msgs.filter(function (m) { return /channel/.test(m); }).length };
+      r.held = { far: +far.toFixed(1), edge: edge, told: msgs.filter(function (m) { return /Пролив|пролив/.test(m); }).length };
       // --- a hull nosed onto the sand backs off it ---
       GAME.exitCar(); ff(0.3);
       var sq = GAME.vehicles.spawnCar('boat', C.shoreline(-60) + 2.5, -60, -Math.PI / 2);
@@ -8569,13 +8569,13 @@ function withTimeout(p, ms) {
     sea.fleet.most >= 3 && sea.fleet.types.jetski && sea.fleet.types.boat && sea.fleet.riders && sea.fleet.dry === 0, JSON.stringify(sea.fleet));
   check('sea: they go places, and come through it in one piece',
     sea.fleet.moved >= 2 && sea.fleet.moved >= sea.fleet.still && sea.fleet.worstHull < 0.5, JSON.stringify(sea.fleet));
-  check('sea: nobody out for the day runs you down', sea.fleet.minD > 5, 'closest ' + sea.fleet.minD + ' m');
+  check('sea: nobody out for the day runs you down', sea.fleet.minD > 5, 'closest ' + sea.fleet.minD + " м");
   check('sea: run one down and it is a crime, and they make off', sea.ram.crime && sea.ram.fled, JSON.stringify(sea.ram));
   check('sea: one can be taken off its rider from the water, and is yours', sea.swimmingUp && sea.taken.aboard && !sea.taken.managed, JSON.stringify(sea.taken));
   check('sea: a leisure craft is held at the shut channel, and nobody is told', sea.held.far <= sea.held.edge + 0.01 && sea.held.told === 0, JSON.stringify(sea.held));
   check('sea: a hull nosed onto the sand backs off it', sea.bowDry && sea.backedOff > 1.5, JSON.stringify({ bowDry: sea.bowDry, backedOff: sea.backedOff }));
   check('sea: far inland the bay empties, and nobody new is put out', sea.goneInland === 0 && sea.noneInland === 0, sea.goneInland + ' / ' + sea.noneInland);
-  check('sea: Lola says the harbour patrol has boats', /harbour patrol/.test(sea.tip), sea.tip);
+  check('sea: Lola says the harbour patrol has boats', /портового патруля/.test(sea.tip), sea.tip);
 
   // The harbour patrol. Out on the water a cruiser can only wait on the
   // shore, so wanted at sea brings launches — and they are a real pursuit.
@@ -8846,7 +8846,7 @@ function withTimeout(p, ms) {
       }
       msgs.length = 0;
       for (var t3 = 0; t3 < 70 * 60 && S.racer; t3++) { rc.controls.throttle = 0; ff(1 / 60); }
-      r.raceEnd = msgs.filter(function (m) { return /take|peters/.test(m); })[0] || '';
+      r.raceEnd = msgs.filter(function (m) { return /выиграли|обошёл|сошла|Флаг/.test(m); })[0] || '';
       // --- they crash out mid-race: the flag is still up, and yours ---
       settle();
       if (!rc.gone) GAME.vehicles.removeCar(rc);
@@ -8862,11 +8862,11 @@ function withTimeout(p, ms) {
         var rv = S.racer && S.racer.car;
         if (rv && S.racer.state === 'race') {
           GAME.vehicles.ejectDriver(rv); ff(0.3);
-          r.crashOut = { on: !!S.racer, told: msgs.some(function (m) { return /crashed out/.test(m); }) };
+          r.crashOut = { on: !!S.racer, told: msgs.some(function (m) { return /разбились/.test(m); }) };
           var fin = S.racer && S.racer.fin, c6 = P.cash;
           if (fin) { rc.pos.x = fin[0]; rc.pos.z = fin[1]; rc.speed = 0; ff(0.3); }
           r.crashOut.paid = P.cash - c6;
-          r.crashOut.won = msgs.some(function (m) { return /You take the flag/.test(m); });
+          r.crashOut.won = msgs.some(function (m) { return /Флаг твой/.test(m); });
           r.crashOut.over = !S.racer;
         }
       }
@@ -8938,13 +8938,13 @@ function withTimeout(p, ms) {
     st.vanOn && st.armour >= 3 && st.vanHit.bags === 3 && st.vanHit.wanted >= 3 && st.vanHit.paper, JSON.stringify({ armour: st.armour, hit: st.vanHit }));
   check('street: stopped in a car, a racer pulls up alongside, revs, and the flag is marked',
     st.racerOn && st.alongside && st.alongside.state === 'rev' && st.alongside.d < 4.5 && st.alongside.flag, JSON.stringify(st.alongside));
-  check('street: floor it and it is a race, and they run it to the flag — round your car, stopped on the line', st.raceOn === 'race' && /take it|take them/.test(st.raceEnd), JSON.stringify({ on: st.raceOn, end: st.raceEnd }));
+  check('street: floor it and it is a race, and they run it to the flag — round your car, stopped on the line', st.raceOn === 'race' && /выиграли|обошёл/.test(st.raceEnd), JSON.stringify({ on: st.raceOn, end: st.raceEnd }));
   check('street: and if they crash out mid-race, you are told, and the flag is yours to take',
     st.crashOut && st.crashOut.on && st.crashOut.told && st.crashOut.paid === 300 && st.crashOut.won && st.crashOut.over, JSON.stringify(st.crashOut));
   check('papers: losing a four-star manhunt makes the front page', st.manhunt.cleared && st.manhunt.paper, JSON.stringify(st.manhunt));
   check('papers: a bust or a bribe is not an escape', st.clearedByHand);
   check('papers: the front page shows — the headline, a 1986 date — keeps out of the pause screen, and goes',
-    st.page.on && /ARMORED|VAN/.test(st.page.head) && st.page.date && st.page.pausedHides && st.page.gone, JSON.stringify(st.page));
+    st.page.on && /БРОНЕФУРГОН|ФУРГОН/.test(st.page.head) && st.page.date && st.page.pausedHides && st.page.gone, JSON.stringify(st.page));
   check('papers: a big story runs once', st.once[0] === true && st.once[1] === false, JSON.stringify(st.once));
 
   // The road markings. The yellow centre dashes ran straight through every
@@ -9018,14 +9018,14 @@ function withTimeout(p, ms) {
       r.there = { ped: !!ray.ped, mark: !!ray.mark && ray.mark.visible, blip: K.blips().some(function (b) { return Math.hypot(b.x - ray.at.x, b.z - ray.at.z) < 1; }) };
       GAME.test.teleport(ray.at.x + 2, ray.at.z); ff(0.4);
       r.asks = { open: L.isOpen, from: document.getElementById('lola-from').textContent, opts: L.options() };
-      L.choose(/NOT RIGHT NOW/); ff(0.3);
+      L.choose(/НЕ СЕЙЧАС/); ff(0.3);
       r.declined = { open: L.isOpen, busy: K.busy };
       ff(2);
       r.notAgainYet = !L.isOpen;
       GAME.test.teleport(ray.at.x + 30, ray.at.z); ff(0.5);
       GAME.test.teleport(ray.at.x + 2, ray.at.z); ff(0.4);
       r.asksAgain = L.isOpen;
-      L.choose(/DO IT/); ff(0.3);
+      L.choose(/Я ПОМОГУ/); ff(0.3);
       r.rayCar = { busy: K.busy, phase: K.job && K.job.phase };
       // --- with a favour on, a mission ring does not start, and nothing happens in the street ---
       var ring = M.DEFS.filter(function (d) { return d.type === 'courier' && !d.isla; })[0];
@@ -9036,7 +9036,7 @@ function withTimeout(p, ms) {
       var rc = car('sedan', ray.at.x + 4, ray.at.z + 3); ff(0.5);
       r.rayGo = { phase: K.job && K.job.phase, timer: K.job ? Math.round(K.job.timer) : 0, route: (M.getRoutePoints() || []).length, gone: !ray.ped };
       put(rc, -152, 398); ff(0.5);
-      r.rayDone = { busy: K.busy, done: K.done, msg: last(/FAVOUR/) };
+      r.rayDone = { busy: K.busy, done: K.done, msg: last(/ПРОСЬБА/) };
       off();
       r.rayGoneForGood = (near('ray'), !ray.ped);
       // --- RAY's clock running out, on a second save ---
@@ -9055,7 +9055,7 @@ function withTimeout(p, ms) {
         h = K.job.husband;
         put(dc, h.pos.x - Math.sin(h.heading) * 35, h.pos.z - Math.cos(h.heading) * 35);
       }
-      r.dani = { busy: K.busy, msg: last(/FAVOUR/) };
+      r.dani = { busy: K.busy, msg: last(/ПРОСЬБА/) };
       off();
       // and right on his bumper, he sees you
       GAME.prefs.strangers.dani = false;
@@ -9063,7 +9063,7 @@ function withTimeout(p, ms) {
       h = K.job.husband;
       dc = car('sedan', h.pos.x - Math.sin(h.heading) * 30, h.pos.z - Math.cos(h.heading) * 30); ff(0.5);
       for (var t1 = 0; t1 < 8 * 30 && K.busy; t1++) { h = K.job.husband; put(dc, h.pos.x - Math.sin(h.heading) * 6, h.pos.z - Math.cos(h.heading) * 6); ff(1 / 30); }
-      r.daniSeen = { busy: K.busy, msg: last(/FAVOUR FAILED/), inCar: P.inCar };
+      r.daniSeen = { busy: K.busy, msg: last(/ПРОСЬБА ПРОВАЛЕНА/), inCar: P.inCar };
       off();
       GAME.prefs.strangers.dani = true;
       // --- TITO: knock the thief off, ride it back ---
@@ -9075,7 +9075,7 @@ function withTimeout(p, ms) {
       GAME.test.teleport(bk.pos.x + 1.5, bk.pos.z); ff(0.2);
       GAME.test.enterNearestCar(bk); ff(1.3);
       put(bk, tito.at.x + 4, tito.at.z); ff(0.5);
-      r.tito = { busy: K.busy, msg: last(/FAVOUR/) };
+      r.tito = { busy: K.busy, msg: last(/ПРОСЬБА/) };
       off();
       // --- MRS. ALBESCU: find Biscuit, walk him home; he will not get in a car ---
       var rosa = near('rosa');
@@ -9087,7 +9087,7 @@ function withTimeout(p, ms) {
       GAME.test.enterNearestCar(dc2); ff(1.3);
       var dp0 = { x: dog.position.x, z: dog.position.z };
       put(dc2, P.pos.x + 30, P.pos.z); ff(2);
-      r.rosaCar = { told: /won't get in a car/.test(last(/Biscuit/)), stayed: Math.hypot(dog.position.x - dp0.x, dog.position.z - dp0.z) < 3 };
+      r.rosaCar = { told: /не сядет в машину/.test(last(/Бисквит/)), stayed: Math.hypot(dog.position.x - dp0.x, dog.position.z - dp0.z) < 3 };
       GAME.exitCar(); ff(0.3);
       GAME.test.teleport(dog.position.x + 2, dog.position.z); ff(0.3);
       // home along the streets, at a walk — down the middle of them, so
@@ -9112,7 +9112,7 @@ function withTimeout(p, ms) {
       for (var w2 = 0; w2 < 300 && K.busy; w2++) ff(1 / 60);
       GAME.godMode = false;
       GAME.settings.maxTraffic = traffic0;
-      r.rosa = { busy: K.busy, msg: last(/FAVOUR/), steps: w, legs: wi + '/' + way.length,
+      r.rosa = { busy: K.busy, msg: last(/ПРОСЬБА/), steps: w, legs: wi + '/' + way.length,
         you: Math.round(Math.hypot(P.pos.x - rosa.at.x, P.pos.z - rosa.at.z)), dog: Math.round(Math.hypot(dog.position.x - rosa.at.x, dog.position.z - rosa.at.z)), state: P.state };
       off();
       // --- VINCE: the bank, the wait, the heat, the lock-up — clean ---
@@ -9126,7 +9126,7 @@ function withTimeout(p, ms) {
       put(vc, K.job.lock.x, K.job.lock.z); ff(0.5);
       r.vinceHot = K.busy;
       GAME.police.clearWanted(); ff(0.5);
-      r.vince = { busy: K.busy, msg: last(/FAVOUR/) };
+      r.vince = { busy: K.busy, msg: last(/ПРОСЬБА/) };
       off();
       // --- MARCO: a sedan will not do; a scrape is the end of the date; done right, she smiles ---
       var marco = near('marco');
@@ -9138,16 +9138,16 @@ function withTimeout(p, ms) {
       put(mc, K.job.her.x, K.job.her.z); ff(0.6);
       r.marcoDrive = K.job && K.job.phase;
       GAME.vehicles.damageCar(mc, mc.spec.hp * 0.25, 'wall'); ff(0.3);
-      r.marcoScraped = { busy: K.busy, msg: last(/FAVOUR FAILED/) };
+      r.marcoScraped = { busy: K.busy, msg: last(/ПРОСЬБА ПРОВАЛЕНА/) };
       off();
       near('marco'); K.ask('marco'); ff(0.2);
       mc = car('sports', marco.at.x + 4, marco.at.z + 3); ff(0.5);
       put(mc, K.job.her.x, K.job.her.z); ff(0.6);
       put(mc, 346, 250); ff(0.6);
-      r.marco = { busy: K.busy, msg: last(/FAVOUR/), done: K.done };
+      r.marco = { busy: K.busy, msg: last(/ПРОСЬБА/), done: K.done };
       off();
       // --- all six: Lola's tally — and the papers wait for the island's six ---
-      function tally() { L.open(); L.choose(/HOW AM I/); var t = (L.says.match(/Strangers helped: \d+ of \d+/) || [''])[0]; L.close(); return t; }
+      function tally() { L.open(); L.choose(/КАК МОИ УСПЕХИ/); var t = (L.says.match(/Помощь незнакомцам: \d+ из \d+/) || [''])[0]; L.close(); return t; }
       var keepIsla = GAME.isla.isOpen();
       GAME.isla.setOpen(false);
       r.paper6 = GAME.herald.printed.some(function (p) { return p.kind === 'samaritan'; });
@@ -9162,18 +9162,18 @@ function withTimeout(p, ms) {
       var sc = car('sedan', sal.at.x + 4, sal.at.z + 3); ff(0.5);
       r.salGo = { phase: K.job && K.job.phase, timer: K.job ? Math.round(K.job.timer) : 0 };
       put(sc, K.job.to.x, K.job.to.z); ff(0.5);
-      r.sal = last(/FAVOUR/);
+      r.sal = last(/ПРОСЬБА/);
       off();
       // COOKIE: knock the cooler about and it is soup; carry it gently and it is not
       var ck = near('cookie'); K.ask('cookie'); ff(0.2);
       var cc = car('van', ck.at.x + 4, ck.at.z + 3); ff(0.5);
       GAME.vehicles.damageCar(cc, cc.spec.hp * 0.3, 'wall'); ff(0.3);
-      r.cookieSoup = last(/FAVOUR FAILED/);
+      r.cookieSoup = last(/ПРОСЬБА ПРОВАЛЕНА/);
       off();
       near('cookie'); K.ask('cookie'); ff(0.2);
       cc = car('van', ck.at.x + 4, ck.at.z + 3); ff(0.5);
       put(cc, K.job.to.x, K.job.to.z); ff(0.5);
-      r.cookie = last(/FAVOUR/);
+      r.cookie = last(/ПРОСЬБА/);
       off();
       // NINA: a picture facing away is no use; one with the tower in it is
       near('nina'); K.ask('nina'); ff(0.2);
@@ -9181,13 +9181,13 @@ function withTimeout(p, ms) {
       GAME.test.teleport(vp.x, vp.z); ff(0.3);
       P.heading = Math.atan2(tw.x - P.pos.x, tw.z - P.pos.z) + Math.PI; GAME.cam.yaw = P.heading; ff(0.5);
       GAME.photo.snap(); ff(0.3);
-      r.ninaMiss = { busy: K.busy, msg: last(/lighthouse/) };
+      r.ninaMiss = { busy: K.busy, msg: last(/аяк/) };
       // (the camera develops a picture on the next frame drawn, and takes no
       // other till it has: let one be drawn)
       await new Promise(function (res) { setTimeout(res, 400); });
       P.heading = Math.atan2(tw.x - P.pos.x, tw.z - P.pos.z); GAME.cam.yaw = P.heading; ff(0.5);
       GAME.photo.snap(); ff(0.3);
-      r.nina = last(/FAVOUR/);
+      r.nina = last(/ПРОСЬБА/);
       off();
       // GUS: a boat out to the dinghy, and back to the marina
       near('gus'); K.ask('gus'); ff(0.2);
@@ -9202,19 +9202,19 @@ function withTimeout(p, ms) {
         if (C.isBoatWater(wx, wz)) wet = { x: wx, z: wz };
       }
       put(bt, wet.x, wet.z); bt.pos.y = C.seaY(wet.x, wet.z); ff(0.5);
-      r.gus = last(/FAVOUR/);
+      r.gus = last(/ПРОСЬБА/);
       off();
       // LUPE: sit still and he has his picture; get clear and he has nothing
       var lp = near('lupe'); K.ask('lupe'); ff(0.2);
       var lc = car('sports', lp.at.x + 4, lp.at.z + 3); ff(0.5);
       for (var ls = 0; ls < 20 && K.busy; ls++) ff(1);
-      r.lupeSnapped = last(/FAVOUR FAILED/);
+      r.lupeSnapped = last(/ПРОСЬБА ПРОВАЛЕНА/);
       off();
       near('lupe'); K.ask('lupe'); ff(0.2);
       lc = car('sports', lp.at.x + 4, lp.at.z + 3); ff(0.5);
       var far = C.nearestRoadPoint(lc.pos.x + 260, lc.pos.z);
       put(lc, far.x, far.z); ff(6);
-      r.lupe = last(/FAVOUR/);
+      r.lupe = last(/ПРОСЬБА/);
       off();
       // WALT: he runs; put him down and the money goes back to Walt
       var wt = near('walt'); K.ask('walt'); ff(0.2);
@@ -9223,7 +9223,7 @@ function withTimeout(p, ms) {
       r.waltRan = man.state;
       GAME.peds.kill(man, 'gun', true); ff(0.3);
       GAME.test.teleport(wt.at.x + 3, wt.at.z); ff(0.5);
-      r.walt = last(/FAVOUR/);
+      r.walt = last(/ПРОСЬБА/);
       off();
       GAME.herald.resetCooldown();
       r.paper = GAME.herald.printed.some(function (p) { return p.kind === 'samaritan'; });
@@ -9235,7 +9235,7 @@ function withTimeout(p, ms) {
       GAME.test.pressKey('KeyX', true); ff(1 / 60); GAME.test.pressKey('KeyX', false); ff(0.3);
       r.oneX = K.busy;
       GAME.test.pressKey('KeyX', true); ff(1 / 60); GAME.test.pressKey('KeyX', false); ff(0.3);
-      r.twoX = { busy: K.busy, msg: last(/FAVOUR FAILED/), backOut: !!ray.ped };
+      r.twoX = { busy: K.busy, msg: last(/ПРОСЬБА ПРОВАЛЕНА/), backOut: !!ray.ped };
     } finally {
       GAME.hud.message = ms0;
       off();
@@ -9249,39 +9249,39 @@ function withTimeout(p, ms) {
     sg.spots.length === 12 && sg.spots.every(function (s) { return s.road >= 6.6 && s.clear; }), JSON.stringify(sg.spots));
   check('strangers: come near and one is there, marked, and on the radar', sg.there.ped && sg.there.mark && sg.there.blip, JSON.stringify(sg.there));
   check('strangers: walk up and they ask, in their own name, yes or no',
-    sg.asks.open && /RAY/.test(sg.asks.from) && sg.asks.opts.length === 2, JSON.stringify(sg.asks));
+    sg.asks.open && /РЭЙ/.test(sg.asks.from) && sg.asks.opts.length === 2, JSON.stringify(sg.asks));
   check('strangers: no is no — until you walk off and come back', !sg.declined.open && !sg.declined.busy && sg.notAgainYet && sg.asksAgain,
     JSON.stringify({ d: sg.declined, notYet: sg.notAgainYet, again: sg.asksAgain }));
   check('strangers: a favour under way, no mission ring starts', sg.ringBlocked);
   check('strangers: RAY — in a car, against the clock, routed to the airport, and paid',
-    sg.rayCar.phase === 'car' && sg.rayGo.phase === 'drive' && sg.rayGo.timer >= 70 && sg.rayGo.route > 1 && /AIRPORT RUSH/.test(sg.rayDone.msg) && !sg.rayDone.busy && sg.rayGoneForGood,
+    sg.rayCar.phase === 'car' && sg.rayGo.phase === 'drive' && sg.rayGo.timer >= 70 && sg.rayGo.route > 1 && /СРОЧНО В АЭРОПОРТ/.test(sg.rayDone.msg) && !sg.rayDone.busy && sg.rayGoneForGood,
     JSON.stringify({ car: sg.rayCar, go: sg.rayGo, done: sg.rayDone, gone: sg.rayGoneForGood }));
-  check('strangers: DANI — tail him to the motel', !sg.dani.busy && /FOLLOW THAT CAR/.test(sg.dani.msg), JSON.stringify(sg.dani));
-  check('strangers: and on his bumper, he sees you', !sg.daniSeen.busy && /saw you/.test(sg.daniSeen.msg), JSON.stringify(sg.daniSeen));
-  check('strangers: TITO — knock the thief off, ride the bike back', sg.titoBack === 'back' && !sg.tito.busy && /STOLEN BIKE/.test(sg.tito.msg), JSON.stringify({ back: sg.titoBack, done: sg.tito }));
+  check('strangers: DANI — tail him to the motel', !sg.dani.busy && /СЛЕДИ ЗА МАШИНОЙ/.test(sg.dani.msg), JSON.stringify(sg.dani));
+  check('strangers: and on his bumper, he sees you', !sg.daniSeen.busy && /тебя заметил/.test(sg.daniSeen.msg), JSON.stringify(sg.daniSeen));
+  check('strangers: TITO — knock the thief off, ride the bike back', sg.titoBack === 'back' && !sg.tito.busy && /УКРАДЕННЫЙ МОТОЦИКЛ/.test(sg.tito.msg), JSON.stringify({ back: sg.titoBack, done: sg.tito }));
   check('strangers: BISCUIT — found, walked home; he will not get in a car',
-    sg.rosaFound === 'home' && sg.rosaCar.told && sg.rosaCar.stayed && !sg.rosa.busy && /BISCUIT/.test(sg.rosa.msg), JSON.stringify({ found: sg.rosaFound, car: sg.rosaCar, done: sg.rosa }));
+    sg.rosaFound === 'home' && sg.rosaCar.told && sg.rosaCar.stayed && !sg.rosa.busy && /БИСКВИТ/.test(sg.rosa.msg), JSON.stringify({ found: sg.rosaFound, car: sg.rosaCar, done: sg.rosa }));
   check('strangers: VINCE — wait at the bank, take the heat, and the lock-up only once it is off',
-    sg.vinceWait === 'wait' && sg.vinceRun.phase === 'run' && sg.vinceRun.wanted >= 3 && sg.vinceHot && !sg.vince.busy && /NO-SHOW/.test(sg.vince.msg),
+    sg.vinceWait === 'wait' && sg.vinceRun.phase === 'run' && sg.vinceRun.wanted >= 3 && sg.vinceHot && !sg.vince.busy && /ВОДИТЕЛЬ НЕ ПРИШЁЛ/.test(sg.vince.msg),
     JSON.stringify({ wait: sg.vinceWait, run: sg.vinceRun, hot: sg.vinceHot, done: sg.vince }));
   check('strangers: MARCO — a sedan will not do, and a scrape ends the date',
-    sg.marcoSedan === 'car' && sg.marcoDrive === 'drive' && !sg.marcoScraped.busy && /driving/.test(sg.marcoScraped.msg), JSON.stringify({ sedan: sg.marcoSedan, drive: sg.marcoDrive, scraped: sg.marcoScraped }));
-  check('strangers: and done right, she smiles', !sg.marco.busy && /A DATE IN STYLE/.test(sg.marco.msg) && sg.marco.done === 6, JSON.stringify(sg.marco));
+    sg.marcoSedan === 'car' && sg.marcoDrive === 'drive' && !sg.marcoScraped.busy && /вождение/.test(sg.marcoScraped.msg), JSON.stringify({ sedan: sg.marcoSedan, drive: sg.marcoDrive, scraped: sg.marcoScraped }));
+  check('strangers: and done right, she smiles', !sg.marco.busy && /СВИДАНИЕ С ШИКОМ/.test(sg.marco.msg) && sg.marco.done === 6, JSON.stringify(sg.marco));
   check('strangers: Lola keeps the tally — six while the bridges are shut, and no papers yet',
-    sg.tally === 'Strangers helped: 6 of 6' && !sg.paper6, JSON.stringify({ tally: sg.tally, paper: sg.paper6 }));
-  check('strangers: the bridges open, and six more wait on Isla Verde', sg.tallyOpen === 'Strangers helped: 6 of 12' && sg.isleThere,
+    sg.tally === "Помощь незнакомцам: 6 из 6" && !sg.paper6, JSON.stringify({ tally: sg.tally, paper: sg.paper6 }));
+  check('strangers: the bridges open, and six more wait on Isla Verde', sg.tallyOpen === "Помощь незнакомцам: 6 из 12" && sg.isleThere,
     JSON.stringify({ tally: sg.tallyOpen, there: sg.isleThere }));
-  check('strangers: SAL — up to the observatory against the clock', sg.salGo.phase === 'drive' && sg.salGo.timer >= 70 && /STARGAZER/.test(sg.sal), JSON.stringify({ go: sg.salGo, msg: sg.sal }));
-  check('strangers: COOKIE — knocked about it is soup; carried gently it is not', /soup/.test(sg.cookieSoup) && /MELTDOWN/.test(sg.cookie), JSON.stringify({ soup: sg.cookieSoup, done: sg.cookie }));
+  check('strangers: SAL — up to the observatory against the clock', sg.salGo.phase === 'drive' && sg.salGo.timer >= 70 && /ЗВЕЗДОЧЁТ/.test(sg.sal), JSON.stringify({ go: sg.salGo, msg: sg.sal }));
+  check('strangers: COOKIE — knocked about it is soup; carried gently it is not', /суп/.test(sg.cookieSoup) && /ВСЁ ТАЕТ/.test(sg.cookie), JSON.stringify({ soup: sg.cookieSoup, done: sg.cookie }));
   check('strangers: NINA — a picture facing away is no use; the lighthouse in frame is the cover',
-    sg.ninaMiss.busy && /No lighthouse/.test(sg.ninaMiss.msg) && /LIGHTHOUSE SHOT/.test(sg.nina), JSON.stringify({ miss: sg.ninaMiss, done: sg.nina }));
-  check('strangers: GUS — out to the dinghy in a boat, and his brother back to the marina', sg.gusAboard === 'back' && /MAN OVERBOARD/.test(sg.gus), JSON.stringify({ aboard: sg.gusAboard, done: sg.gus }));
-  check('strangers: LUPE — sit still and he gets his picture; get clear and he has nothing', /his picture/.test(sg.lupeSnapped) && /NO PICTURES/.test(sg.lupe),
+    sg.ninaMiss.busy && /Маяка в кадре нет/.test(sg.ninaMiss.msg) && /СНИМОК МАЯКА/.test(sg.nina), JSON.stringify({ miss: sg.ninaMiss, done: sg.nina }));
+  check('strangers: GUS — out to the dinghy in a boat, and his brother back to the marina', sg.gusAboard === 'back' && /ЧЕЛОВЕК ЗА БОРТОМ/.test(sg.gus), JSON.stringify({ aboard: sg.gusAboard, done: sg.gus }));
+  check('strangers: LUPE — sit still and he gets his picture; get clear and he has nothing', /снимок/.test(sg.lupeSnapped) && /БЕЗ ФОТОГРАФИЙ/.test(sg.lupe),
     JSON.stringify({ snapped: sg.lupeSnapped, done: sg.lupe }));
-  check('strangers: WALT — the man runs; put him down and take the money back', sg.waltRan === 'flee' && /WHAT HE OWES/.test(sg.walt), JSON.stringify({ ran: sg.waltRan, done: sg.walt }));
-  check('strangers: all twelve, both islands, and the papers have heard', sg.tallyAll === 'Strangers helped: 12 of 12' && sg.paper, JSON.stringify({ tally: sg.tallyAll, paper: sg.paper }));
+  check('strangers: WALT — the man runs; put him down and take the money back', sg.waltRan === 'flee' && /СТАРЫЙ ДОЛГ/.test(sg.walt), JSON.stringify({ ran: sg.waltRan, done: sg.walt }));
+  check('strangers: all twelve, both islands, and the papers have heard', sg.tallyAll === "Помощь незнакомцам: 12 из 12" && sg.paper, JSON.stringify({ tally: sg.tallyAll, paper: sg.paper }));
   check('strangers: X twice walks away from a favour, and they are back on the pavement',
-    sg.oneX === true && !sg.twoX.busy && /walked away/.test(sg.twoX.msg) && sg.twoX.backOut, JSON.stringify({ one: sg.oneX, two: sg.twoX }));
+    sg.oneX === true && !sg.twoX.busy && /ты отказался/.test(sg.twoX.msg) && sg.twoX.backOut, JSON.stringify({ one: sg.oneX, two: sg.twoX }));
 
   // ---------- 5t: the big score ----------
   // Lola's job on the Savings & Loan, part by part: the camera, Benny, the
@@ -9311,11 +9311,11 @@ function withTimeout(p, ms) {
       r.shut = { offered: H.offered(), began: H.begin() };
       GAME.isla.setOpen(true);
       GAME.lola.open();
-      r.menu = GAME.lola.options().some(function (o) { return /BIG SCORE/.test(o); });
-      GAME.lola.choose(/BIG SCORE/);
+      r.menu = GAME.lola.options().some(function (o) { return /БОЛЬШОЙ КУШ/.test(o); });
+      GAME.lola.choose(/БОЛЬШОЙ КУШ/);
       r.board = GAME.lola.says;
-      r.boardNext = GAME.lola.options().filter(function (o) { return /CASE IT/.test(o); })[0] || null;
-      GAME.lola.choose(/CASE IT/); ff(0.2);
+      r.boardNext = GAME.lola.options().filter(function (o) { return /РАЗВЕДКА/.test(o); })[0] || null;
+      GAME.lola.choose(/РАЗВЕДКА/); ff(0.2);
       r.caseOn = H.busy && H.step === 0;
       // --- 1. CASE IT: the front from across the street; the vault from inside ---
       var rp = C.nearestRoadPoint(b.at.x, b.at.z), dl = Math.hypot(b.at.x - rp.x, b.at.z - rp.z);
@@ -9323,14 +9323,14 @@ function withTimeout(p, ms) {
       GAME.test.teleport(b.at.x + nx * 32, b.at.z + nz * 32); ff(0.3);
       P.heading = Math.atan2(b.at.x - P.pos.x, b.at.z - P.pos.z) + Math.PI; GAME.cam.yaw = P.heading; GAME.cam.pitch = 0.1; ff(0.5);
       GAME.photo.snap(); ff(0.3);
-      r.caseAway = { front: !!(H.job && H.job.front), msg: last(/bank|front/i) };
+      r.caseAway = { front: !!(H.job && H.job.front), msg: last(/банк|Банка|Фасад|фасад/i) };
       await developed();
       P.heading = Math.atan2(b.at.x - P.pos.x, b.at.z - P.pos.z); GAME.cam.yaw = P.heading; ff(0.5);
       var snapped = GAME.photo.snap(); ff(0.3);
       r.caseFront = !!(H.job && H.job.front);
       if (!r.caseFront) {
         var cp = GAME.cameraObj.position, gyb = C.groundY(b.at.x, b.at.z);
-        r.frontWhy = { snapped: snapped, msg: last(/bank|front|close|far/i), cam: [cp.x, cp.y, cp.z].map(Math.round), P: [P.pos.x, P.pos.z].map(Math.round),
+        r.frontWhy = { snapped: snapped, msg: last(/банк|Банка|Фасад|фасад|близко|далеко/i), cam: [cp.x, cp.y, cp.z].map(Math.round), P: [P.pos.x, P.pos.z].map(Math.round),
           seen: GAME.inPlainView(b.at.x - nx * 0.8, gyb + 5, b.at.z - nz * 0.8), tod: +(GAME.timeOfDay || 0).toFixed(2), weather: GAME.weather && GAME.weather.mode, fog: GAME.scene.fog && Math.round(GAME.scene.fog.far), inCar: P.inCar, state: P.state };
       }
       await developed();
@@ -9338,7 +9338,7 @@ function withTimeout(p, ms) {
       var V = rm.bank.vaultFace;
       P.pos.x = V.x; P.pos.z = V.z - 6; P.heading = 0; GAME.cam.yaw = 0; GAME.cam.pitch = 0.05; ff(0.5);
       GAME.photo.snap(); ff(0.3);
-      r.caseDone = { step: H.step, busy: H.busy, msg: last(/CASE IT/), page: /Benny/.test(pages[pages.length - 1] || '') };
+      r.caseDone = { step: H.step, busy: H.busy, msg: last(/РАЗВЕДКА/), page: /Бенни/.test(pages[pages.length - 1] || '') };
       await developed();
       out();
       onTo(1);
@@ -9361,7 +9361,7 @@ function withTimeout(p, ms) {
       var door = C.pois.resprays[0].door;
       var sd = GAME.vehicles.spawnCar('sedan', door.x + 20, door.z + 4, 0);
       GAME.test.teleport(door.x + 22, door.z + 4); ff(0.3); GAME.test.enterNearestCar(sd); ff(1.3);
-      r.wrongCar = /Not that/.test(H.job.obj || '');
+      r.wrongCar = /Не эта/.test(H.job.obj || '');
       out(); GAME.vehicles.removeCar(sd);
       var sc = GAME.vehicles.spawnCar('sports', door.x + 20, door.z, 0);
       GAME.test.teleport(door.x + 22, door.z); ff(0.3); GAME.test.enterNearestCar(sc); ff(1.3);
@@ -9386,7 +9386,7 @@ function withTimeout(p, ms) {
       GAME.interiors.enter(b); ff(0.8);
       r.handsUp = rm.bank.tellers.every(function (f) { return f.userData.pose === 'up'; });
       GAME.interiors.leave(); ff(0.8);
-      r.walkedOut = { busy: H.busy, step: H.step, msg: last(/is off/), handsDown: rm.bank.tellers.every(function (f) { return !f.userData.pose; }) };
+      r.walkedOut = { busy: H.busy, step: H.step, msg: last(/отменено/), handsDown: rm.bank.tellers.every(function (f) { return !f.userData.pose; }) };
       out();
       // --- and again: one try for the alarm stopped, one let go; the vault; the bags; out ---
       H.begin(); ff(0.2);
@@ -9401,7 +9401,7 @@ function withTimeout(p, ms) {
       for (var t2 = 0; t2 < 40 * 60 && H.job && H.job.phase === 'floor'; t2++) {
         var rr = H.job.reach;
         if (rr && !rr.seen) { rr.seen = true; if (!stopped) { P.pos.x = rr.x; P.pos.z = rr.z; stopped++; } else missed++; }
-        if (stopped === 1 && rr && rr.seen && !r.stopMsg) { ff(1 / 60); r.stopMsg = last(/thinks better|puts it down/); }
+        if (stopped === 1 && rr && rr.seen && !r.stopMsg) { ff(1 / 60); r.stopMsg = last(/передумала|убирает рацию/); }
         ff(1 / 60);
       }
       r.floor = { phase: H.job && H.job.phase, alarm: H.job && H.job.alarm, stopped: stopped, missed: missed };
@@ -9420,7 +9420,7 @@ function withTimeout(p, ms) {
       H.reset(); H.begin(); ff(0.2);
       GAME.test.pressKey('KeyX', true); ff(1 / 60); GAME.test.pressKey('KeyX', false); ff(0.3);
       GAME.test.pressKey('KeyX', true); ff(1 / 60); GAME.test.pressKey('KeyX', false); ff(0.3);
-      r.abandoned = { busy: H.busy, step: H.step, msg: last(/walked away/) };
+      r.abandoned = { busy: H.busy, step: H.step, msg: last(/ты отказался/) };
     } catch (e) {
       r.error = String((e && e.message) || e);
     } finally {
@@ -9438,23 +9438,23 @@ function withTimeout(p, ms) {
   if (hz.error) hz = Object.assign({ shut: {}, caseAway: {}, caseDone: {}, benny: {}, earDone: {}, unpainted: {}, paint: {}, wheelsDone: {}, walkedOut: {}, floor: {}, bags: {}, street: {}, payday: {}, abandoned: {} }, hz);
   check('heist: a Savings & Loan on the strip, with a vault inside', hz.bank.there && hz.bank.room && hz.bank.vault, JSON.stringify(hz.bank));
   check('heist: not before the bridges open', !hz.shut.offered && !hz.shut.began, JSON.stringify(hz.shut));
-  check('heist: then Lola has THE BIG SCORE on her menu, and the first part to go and do', hz.menu && /Savings & Loan/.test(hz.board) && !!hz.boardNext && hz.caseOn, JSON.stringify({ menu: hz.menu, next: hz.boardNext, on: hz.caseOn }));
+  check('heist: then Lola has THE BIG SCORE on her menu, and the first part to go and do', hz.menu && /банк/.test(hz.board) && !!hz.boardNext && hz.caseOn, JSON.stringify({ menu: hz.menu, next: hz.boardNext, on: hz.caseOn }));
   check('heist: CASE IT — a picture of the wrong way is no use; the front, and the vault inside, are',
-    !hz.caseAway.front && hz.caseFront && hz.caseDone.step === 1 && !hz.caseDone.busy && /DONE/.test(hz.caseDone.msg) && hz.caseDone.page, JSON.stringify({ away: hz.caseAway, front: hz.caseFront, why: hz.frontWhy, done: hz.caseDone }));
+    !hz.caseAway.front && hz.caseFront && hz.caseDone.step === 1 && !hz.caseDone.busy && /ГОТОВО/.test(hz.caseDone.msg) && hz.caseDone.page, JSON.stringify({ away: hz.caseAway, front: hz.caseFront, why: hz.frontWhy, done: hz.caseDone }));
   check('heist: THE EAR — Benny waits by the marina on Isla Verde, gets in, and is taken to the lock-up',
     hz.benny.isla && hz.benny.nearMarina && hz.benny.aboard && hz.earDone.step === 2 && !hz.earDone.busy, JSON.stringify({ benny: hz.benny, done: hz.earDone }));
-  check('heist: THE WHEELS — a sedan will not do, nor a Vulture GT nobody has painted', hz.wrongCar && hz.unpainted.step === 2 && /paint/.test(hz.unpainted.obj || ''), JSON.stringify({ wrong: hz.wrongCar, unpainted: hz.unpainted }));
+  check('heist: THE WHEELS — a sedan will not do, nor a Vulture GT nobody has painted', hz.wrongCar && hz.unpainted.step === 2 && /перекраск/.test(hz.unpainted.obj || ''), JSON.stringify({ wrong: hz.wrongCar, unpainted: hz.unpainted }));
   check('heist: the paint shop sends a car out another colour', hz.paint.changed, JSON.stringify(hz.paint));
   check('heist: and the fresh-painted GT goes under the tarp at the lock-up', hz.wheelsDone.step === 3 && hz.wheelsDone.stored && hz.wheelsDone.gone, JSON.stringify(hz.wheelsDone));
   check('heist: THE JOB — the same car waits at the lock-up, and in the bank the hands go up', hz.ride && hz.handsUp, JSON.stringify({ ride: hz.ride, up: hz.handsUp }));
-  check('heist: walking out on Benny ends the try, not the job', !hz.walkedOut.busy && hz.walkedOut.step === 3 && /is off/.test(hz.walkedOut.msg) && hz.walkedOut.handsDown, JSON.stringify(hz.walkedOut));
+  check('heist: walking out on Benny ends the try, not the job', !hz.walkedOut.busy && hz.walkedOut.step === 3 && /отменено/.test(hz.walkedOut.msg) && hz.walkedOut.handsDown, JSON.stringify(hz.walkedOut));
   check('heist: keep the floor — reach one in time and they think better of it; miss one and the alarm goes',
-    hz.floor.stopped === 1 && hz.floor.missed >= 1 && hz.floor.alarm === true && /thinks better|puts it down/.test(hz.stopMsg || ''), JSON.stringify({ floor: hz.floor, stop: hz.stopMsg }));
+    hz.floor.stopped === 1 && hz.floor.missed >= 1 && hz.floor.alarm === true && /передумала|убирает рацию/.test(hz.stopMsg || ''), JSON.stringify({ floor: hz.floor, stop: hz.stopMsg }));
   check('heist: the vault swings, the bags are yours, and outside the alarm has the street waiting — four stars',
     hz.bags.door && hz.bags.phase === 'out' && hz.street.phase === 'run' && hz.street.wanted === 4, JSON.stringify({ bags: hz.bags, street: hz.street }));
   check('heist: lose them, back to the lock-up: $25,000, the front page, a card, and it is done',
     hz.payday.paid === 25000 && hz.payday.step === 4 && !hz.payday.busy && hz.payday.paper && hz.payday.card && !hz.payday.offered && hz.payday.bank, JSON.stringify(hz.payday));
-  check('heist: X twice walks away from a part, which waits to be done again', !hz.abandoned.busy && hz.abandoned.step === 0 && /walked away/.test(hz.abandoned.msg), JSON.stringify(hz.abandoned));
+  check('heist: X twice walks away from a part, which waits to be done again', !hz.abandoned.busy && hz.abandoned.step === 0 && /ты отказался/.test(hz.abandoned.msg), JSON.stringify(hz.abandoned));
 
   // ---------- 5u: businesses that pay ----------
   // Buy the barber outright at its counter, let a day's trade fill the
@@ -9479,7 +9479,7 @@ function withTimeout(p, ms) {
       r.forSale = buyRow && { price: buyRow.price, ds: buyRow.ds };
       var c0 = P.cash;
       SH.buy('biz_buy');
-      r.bought = { owns: B.owns('barber0'), paid: c0 - P.cash, till: row('biz_till') && row('biz_till').off, msg: last(/is yours/) };
+      r.bought = { owns: B.owns('barber0'), paid: c0 - P.cash, till: row('biz_till') && row('biz_till').off, msg: last(/твой|твоё/) };
       SH.close();
       // --- a day's trade, and the till emptied ---
       B.accrue(GAME.DAY_SECONDS);
@@ -9494,7 +9494,7 @@ function withTimeout(p, ms) {
       var p0 = pages.length;
       B.accrue(GAME.DAY_SECONDS * 5);
       B.accrue(GAME.DAY_SECONDS);
-      r.full = { till: B.till('barber0'), cap: B.cap('barber0'), pages: pages.slice(p0).filter(function (t) { return /till at/.test(t); }).length };
+      r.full = { till: B.till('barber0'), cap: B.cap('barber0'), pages: pages.slice(p0).filter(function (t) { return /Касса заведения/.test(t); }).length };
       var at = SH.locations().filter(function (l) { return l.id === 'barber0'; })[0].at;
       r.blip = (SH.blips().filter(function (b) { return Math.abs(b.x - at.x) < 0.1 && Math.abs(b.z - at.z) < 0.1; })[0] || {}).color;
       // --- a hold-up there: he runs with the till; put him down and it is on the pavement ---
@@ -9504,7 +9504,7 @@ function withTimeout(p, ms) {
       var full = B.till('barber0');
       r.robOn = S.start('robbery');
       var ev = S.event;
-      r.rob = ev && { shop: ev.shop.id, stolen: ev.stolen, till: B.till('barber0'), msg: last(/STOP, THIEF/) };
+      r.rob = ev && { shop: ev.shop.id, stolen: ev.stolen, till: B.till('barber0'), msg: last(/ДЕРЖИ ВОРА/) };
       if (ev) {
         ff(2);
         GAME.peds.kill(ev.thief, 'gun', true); ff(0.3);
@@ -9518,8 +9518,8 @@ function withTimeout(p, ms) {
       r.bar = (row('biz_buy') || {}).price;
       SH.close();
       // --- and Lola knows ---
-      GAME.lola.open(); GAME.lola.choose(/WHERE'S THE MONEY/); r.money = GAME.lola.says;
-      GAME.lola.close(); GAME.lola.open(); GAME.lola.choose(/HOW AM I DOING/); r.how = GAME.lola.says; GAME.lola.close();
+      GAME.lola.open(); GAME.lola.choose(/ГДЕ ЗАРАБОТАТЬ/); r.money = GAME.lola.says;
+      GAME.lola.close(); GAME.lola.open(); GAME.lola.choose(/КАК МОИ УСПЕХИ/); r.how = GAME.lola.says; GAME.lola.close();
     } finally {
       GAME.hud.message = ms0; GAME.hud.pager = pg0;
       if (SH.current) SH.close();
@@ -9532,17 +9532,17 @@ function withTimeout(p, ms) {
     return r;
   });
   check('business: the barber is for sale at its own counter, and buying it is $12,000',
-    bz.forSale && bz.forSale.price === 12000 && bz.bought.owns && bz.bought.paid === 12000 && bz.bought.till === true && /is yours/.test(bz.bought.msg), JSON.stringify({ sale: bz.forSale, bought: bz.bought }));
+    bz.forSale && bz.forSale.price === 12000 && bz.bought.owns && bz.bought.paid === 12000 && bz.bought.till === true && /твой|твоё/.test(bz.bought.msg), JSON.stringify({ sale: bz.forSale, bought: bz.bought }));
   check('business: a day\'s trade fills the till, and THE TILL empties it into your pocket',
-    bz.day === 600 && /\$600 waiting/.test(bz.tillRow || '') && bz.took.got === 600 && bz.took.till === 0, JSON.stringify({ day: bz.day, row: bz.tillRow, took: bz.took }));
+    bz.day === 600 && /\$600 ждут/.test(bz.tillRow || '') && bz.took.got === 600 && bz.took.till === 0, JSON.stringify({ day: bz.day, row: bz.tillRow, took: bz.took }));
   check('business: left, it holds three days, and Lola says so once', bz.full.till === bz.full.cap && bz.full.cap === 1800 && bz.full.pages === 1, JSON.stringify(bz.full));
   check('business: a place of yours is green on the radar', bz.blip === '#5dff9e', String(bz.blip));
   check('business: a hold-up at yours takes the till; put the thief down and it is all in the bag',
     // (back in hand is the bag and whatever loose change he dropped beside it)
-    bz.robOn && bz.rob.shop === 'barber0' && bz.rob.stolen === 1800 && bz.rob.till === 0 && /your place/.test(bz.rob.msg) && bz.bag === 1800 && bz.backInHand >= 1800 && bz.backInHand < 1900,
+    bz.robOn && bz.rob.shop === 'barber0' && bz.rob.stolen === 1800 && bz.rob.till === 0 && /твоё заведение/.test(bz.rob.msg) && bz.bag === 1800 && bz.backInHand >= 1800 && bz.backInHand < 1900,
     JSON.stringify({ rob: bz.rob, bag: bz.bag, back: bz.backInHand }));
   check('business: the bar in the Lucky Gull is for sale too', bz.bar === 45000, String(bz.bar));
-  check('business: and Lola counts them, and says where the money is', /business/i.test(bz.money || '') && /Businesses: 1 of 6/.test(bz.how || ''), JSON.stringify({ money: bz.money, how: bz.how }));
+  check('business: and Lola counts them, and says where the money is', /бизнес/i.test(bz.money || '') && /Бизнес: 1 из 6/.test(bz.how || ''), JSON.stringify({ money: bz.money, how: bz.how }));
 
   // ---------- 5v: boats on Isla Verde, and the depot on the legend ----------
   // The island had one speedboat, at the marina, and the map left its anchor
@@ -9622,7 +9622,7 @@ function withTimeout(p, ms) {
   check('isla boats: and the speedboat is there, takes you aboard, and goes',
     iv.spawned === 'boat' && iv.aboard && iv.away > 20 && iv.stillWet, JSON.stringify({ spawned: iv.spawned, aboard: iv.aboard, away: iv.away, wet: iv.stillWet }));
   check('map legend: the depot rides with Shops & property, not a row of its own',
-    iv.legendKeys.indexOf('icecream') < 0 && iv.legendKeys.indexOf('shops') >= 0 && /Depot/.test(iv.shopsRow), JSON.stringify({ keys: iv.legendKeys, shops: iv.shopsRow }));
+    iv.legendKeys.indexOf('icecream') < 0 && iv.legendKeys.indexOf('shops') >= 0 && /Депо/.test(iv.shopsRow), JSON.stringify({ keys: iv.legendKeys, shops: iv.shopsRow }));
   check('map legend: solo Shops and the depot stays; solo Health and it goes',
     iv.inkAll > 20 && iv.inkShops > 20 && iv.inkHealth === 0, JSON.stringify({ all: iv.inkAll, shops: iv.inkShops, health: iv.inkHealth }));
 
@@ -9719,7 +9719,7 @@ function withTimeout(p, ms) {
       GAME.test.teleport(t.pos.x + Math.sin(side) * 2.2, t.pos.z + Math.cos(side) * 2.2);
       P.heading = Math.atan2(t.pos.x - P.pos.x, t.pos.z - P.pos.z);
       GAME.test.pressKey('KeyF', true); ff(0.05); GAME.test.pressKey('KeyF', false); ff(0.6);
-      r.rattled = { inCar: P.inCar, his: t.occupied === 'ai', active: !!M.active, msg: msgs.filter(function (m) { return /Locked/.test(m); })[0] || '' };
+      r.rattled = { inCar: P.inCar, his: t.occupied === 'ai', active: !!M.active, msg: msgs.filter(function (m) { return /Заперто/.test(m); })[0] || '' };
       // --- boxed in: a van across the road in front of him, you in it, once
       // he is going forwards again ---
       for (var gw = 0; gw < 40 && t.speed < 6; gw++) ff(0.1);
@@ -9746,7 +9746,7 @@ function withTimeout(p, ms) {
       GAME.vehicles.damageCar(t, t.hp - a.maxHp * 0.6, 'bullet', true);
       var s0 = shots.length;
       for (var k = 0; k < 40; k++) { van.pos.set(t.pos.x - Math.sin(t.heading) * 15, van.pos.y, t.pos.z - Math.cos(t.heading) * 15); van.heading = t.heading; ff(0.1); }
-      r.hurt = { said: msgs.some(function (m) { return /shooting back/.test(m); }), shots: shots.slice(s0).filter(function (x) { return x === 'perp'; }).length };
+      r.hurt = { said: msgs.some(function (m) { return /стреляет из окна/.test(m); }), shots: shots.slice(s0).filter(function (x) { return x === 'perp'; }).length };
       // --- knocked about till he gives up: on foot, with a gun, and not done ---
       GAME.vehicles.damageCar(t, t.hp - a.maxHp * 0.15, 'bullet', true);
       ff(0.3);
@@ -9806,7 +9806,7 @@ function withTimeout(p, ms) {
   check('loose ends: the bookkeeper is running from the off, flat out, and his car is locked',
     le.started === 'hit1' && le.running && le.running.locked && le.running.bolt && le.running.desired >= 20, JSON.stringify({ started: le.started, running: le.running }));
   check('loose ends: F at his window is a locked door — the car stays his and the job goes on',
-    le.rattled && !le.rattled.inCar && le.rattled.his && le.rattled.active && /Locked/.test(le.rattled.msg), JSON.stringify(le.rattled));
+    le.rattled && !le.rattled.inCar && le.rattled.his && le.rattled.active && /Заперто/.test(le.rattled.msg), JSON.stringify(le.rattled));
   check('loose ends: boxed in by a van across the road, he gets himself out of it',
     le.boxed && le.boxed.clear >= 30, JSON.stringify(le.boxed));
   check('loose ends: hurt, he shoots back out of the window',
@@ -9818,7 +9818,7 @@ function withTimeout(p, ms) {
   check('loose ends: down, the ledger is on him — still not over',
     le.ledger && le.ledger.phase === 'ledger' && le.ledger.there && !le.ledger.passed, JSON.stringify(le.ledger));
   check('loose ends: taken, it goes to Lola\'s lock-up, with time to do it',
-    le.taken && le.taken.phase === 'deliver' && le.taken.held && le.taken.time >= 80 && /lock-up/.test(le.taken.obj), JSON.stringify(le.taken));
+    le.taken && le.taken.phase === 'deliver' && le.taken.held && le.taken.time >= 80 && /гараж/.test(le.taken.obj), JSON.stringify(le.taken));
   check('loose ends: Rico\'s men come for it in a locked car, and close in',
     le.heavies && le.heavies.came && le.heavies.locked && le.heavies.closest < Math.min(60, le.heavies.d0 - 40), JSON.stringify(le.heavies));
   check('loose ends: on foot beside them, they get out with guns',
@@ -9847,7 +9847,7 @@ function withTimeout(p, ms) {
         var built = C.hash.query(bx, bz, 2).some(function (b) { return bx > b.minX && bx < b.maxX && bz > b.minZ && bz < b.maxZ && b.h > 5; });
         return { id: id, district: C.districtName(l.at.x, l.at.z), offRoad: Math.round(dl), built: built };
       });
-      r.onStrip = SH.locations().filter(function (l) { return !l.isla && C.districtName(l.at.x, l.at.z) === 'Ocean Strip' && l.kind !== 'bribe'; }).map(function (l) { return l.id; });
+      r.onStrip = SH.locations().filter(function (l) { return !l.isla && C.districtName(l.at.x, l.at.z) === "Океанский бульвар" && l.kind !== 'bribe'; }).map(function (l) { return l.id; });
       // the plots they left are buildings now
       r.oldPlots = [[332, -64], [332, 92], [332, -120]].map(function (p) {
         return C.hash.query(p[0], p[1], 3).some(function (b) { return b.tag === 'building' && p[0] > b.minX && p[0] < b.maxX && p[1] > b.minZ && p[1] < b.maxZ; });
@@ -9872,7 +9872,7 @@ function withTimeout(p, ms) {
       if (!SH.current) SH.open('cabs0');
       var row = function (id) { return SH.items(cab).filter(function (q) { return q.id === id; })[0] || null; };
       var buyRow = row('biz_buy');
-      r.forSale = buyRow && { price: buyRow.price, says: /every fare you drive/.test(buyRow.ds) };
+      r.forSale = buyRow && { price: buyRow.price, says: /Каждая поездка/.test(buyRow.ds) };
       var c0 = P.cash;
       SH.buy('biz_buy');
       r.bought = { owns: B.owns('cabs0'), paid: c0 - P.cash, rate: B.rate('cabs0') };
@@ -9919,7 +9919,7 @@ function withTimeout(p, ms) {
     return r;
   });
   check('city: the hardware store, the tailor and the barber are each in a district of their own',
-    cy.trades.length === 3 && cy.trades.every(function (t) { return t.district !== 'Ocean Strip'; }) &&
+    cy.trades.length === 3 && cy.trades.every(function (t) { return t.district !== "Океанский бульвар"; }) &&
     cy.trades.map(function (t) { return t.district; }).filter(function (d, i, all) { return all.indexOf(d) === i; }).length === 3, JSON.stringify(cy.trades));
   check('city: and each is a building, its door off the road',
     cy.trades.every(function (t) { return t.built && t.offRoad >= 9; }), JSON.stringify(cy.trades));
@@ -9927,7 +9927,7 @@ function withTimeout(p, ms) {
     cy.onStrip.length === 3 && ['bank0', 'home_condo', 'casino0'].every(function (id) { return cy.onStrip.indexOf(id) >= 0; }), JSON.stringify(cy.onStrip));
   check('city: the plots they left on the strip are built on', cy.oldPlots.every(Boolean), JSON.stringify(cy.oldPlots));
   check('cabs: VERDE CABS is on Isla Verde, in Puerto Dorado: three bays, a cab either side, the middle kept for the Tiger Cab',
-    cy.cabs && cy.cabs.isla && cy.cabs.district === 'Puerto Dorado' && JSON.stringify(cy.cabs.bays) === '["taxi","tiger","taxi"]' &&
+    cy.cabs && cy.cabs.isla && cy.cabs.district === "Пуэрто-Дорадо" && JSON.stringify(cy.cabs.bays) === '["taxi","tiger","taxi"]' &&
     JSON.stringify(cy.cabs.parked) === '["taxi",null,"taxi"]', JSON.stringify(cy.cabs));
   check('cabs: an open garage — you walk in off the street to the dispatch desk, no door, no room',
     cy.walkIn && cy.walkIn.desk === 'cabs0' && !cy.walkIn.room, JSON.stringify(cy.walkIn));
@@ -11478,7 +11478,7 @@ function withTimeout(p, ms) {
       }));
     }
     var run = null, all = document.querySelectorAll('.tbtn');
-    for (var i = 0; i < all.length; i++) if (all[i].textContent === 'RUN') run = all[i];
+    for (var i = 0; i < all.length; i++) if (all[i].textContent === "БЕГ") run = all[i];
     if (!run) return { found: false };
 
     P.health = 100;
@@ -11550,7 +11550,7 @@ function withTimeout(p, ms) {
     }
     function jobBtn() {
       var all = document.querySelectorAll('.tbtn');
-      for (var i = 0; i < all.length; i++) if (/^(JOB|END)$/.test(all[i].textContent)) return all[i];
+      for (var i = 0; i < all.length; i++) if (/^(РАБОТА|КОНЕЦ)$/.test(all[i].textContent)) return all[i];
       return null;
     }
     GAME.police.clearWanted();
@@ -11560,17 +11560,17 @@ function withTimeout(p, ms) {
     var amb = GAME.vehicles.spawnCar('ambulance', 120, -100, 0, {});
     GAME.test.enterNearestCar(amb); GAME.test.fastForward(1.2);
     var b = jobBtn();
-    r.offered = !!b && b.style.display !== 'none' && b.textContent === 'JOB';
+    r.offered = !!b && b.style.display !== 'none' && b.textContent === "РАБОТА";
     if (b) press(b);
     GAME.test.fastForward(0.5);
     r.onShift = !!(M.active && M.active.def.id === 'ambulance');
     b = jobBtn();
-    r.endShown = !!b && b.style.display !== 'none' && b.textContent === 'END';
+    r.endShown = !!b && b.style.display !== 'none' && b.textContent === "КОНЕЦ";
     if (b) press(b);
     GAME.test.fastForward(0.5);
     r.ended = !M.active && P.inCar;
     b = jobBtn();
-    r.backToJob = !!b && b.textContent === 'JOB';
+    r.backToJob = !!b && b.textContent === "РАБОТА";
     GAME.exitCar(); GAME.test.fastForward(0.3);
     GAME.vehicles.removeCar(amb);
     return r;
@@ -11655,9 +11655,9 @@ function withTimeout(p, ms) {
              onSent: sent.slice(), back: GAME.haptics.on, text2: b.textContent };
   });
   check('touch: the rumble switch is offered on a touch device',
-    hapBtn.shown && /RUMBLE/.test(hapBtn.text0), 'shown=' + hapBtn.shown + ' text=' + hapBtn.text0);
+    hapBtn.shown && /ВИБРАЦИЯ/.test(hapBtn.text0), 'shown=' + hapBtn.shown + ' text=' + hapBtn.text0);
   check('touch: pressing it turns rumble off, relabels, and remembers',
-    hapBtn.before === true && hapBtn.mid.on === false && /OFF/.test(hapBtn.mid.text) && hapBtn.mid.pref === true,
+    hapBtn.before === true && hapBtn.mid.on === false && /ВЫКЛ\./.test(hapBtn.mid.text) && hapBtn.mid.pref === true,
     'on=' + hapBtn.mid.on + ' text=' + hapBtn.mid.text + ' pref=' + hapBtn.mid.pref);
   // Switching it on and feeling nothing tells you nothing — the setting reads
   // as a promise rather than as something that happened.
@@ -11670,7 +11670,7 @@ function withTimeout(p, ms) {
     hapBtn.offSent.filter(function (v) { return Array.isArray(v) ? v.length : v > 0; }).length === 0,
     'sent=' + JSON.stringify(hapBtn.offSent));
   check('touch: and pressing it again turns it back on',
-    hapBtn.back === true && /ON/.test(hapBtn.text2), 'on=' + hapBtn.back + ' text=' + hapBtn.text2);
+    hapBtn.back === true && /ВКЛ\./.test(hapBtn.text2), 'on=' + hapBtn.back + ' text=' + hapBtn.text2);
   // Handedness: the buttons, the stick's half and the camera's half all have
   // to move together. Leaving any one behind puts both thumbs on the same side.
   var hand = await tpage.evaluate(function () {
@@ -11729,7 +11729,7 @@ function withTimeout(p, ms) {
     hand.leftyCamLeft !== 0 && hand.leftyCamRight === 0,
     'left=' + hand.leftyCamLeft + ' right=' + hand.leftyCamRight);
   check('touch: the choice is remembered and the label says which hand it is on',
-    hand.pref === true && /LEFT/.test(hand.leftyLabel) && /RIGHT/.test(hand.backLabel),
+    hand.pref === true && /СЛЕВА/.test(hand.leftyLabel) && /СПРАВА/.test(hand.backLabel),
     'pref=' + hand.pref + ' lefty="' + hand.leftyLabel + '" back="' + hand.backLabel + '"');
   check('touch: switching back restores the original layout',
     hand.backOn === false && hand.back.zoneLeft === '0px' && hand.back.btnRight === hand.right.btnRight,
@@ -11763,7 +11763,7 @@ function withTimeout(p, ms) {
       setTimeout(function () {
         GAME.hud.message = m0;
         delete document.documentElement.requestFullscreen;   // the real one again
-        r.said = m.some(function (t) { return /would not go full screen/.test(t); });
+        r.said = m.some(function (t) { return /не смог включить полный экран/.test(t); });
         res(r);
       }, 250);
     });
@@ -11835,7 +11835,7 @@ function withTimeout(p, ms) {
     imp.back = await tpage.evaluate(function () { return { hash: location.hash, cash: GAME.player.cash }; });
   } catch (e) { imp.error = String(e).slice(0, 160); }
   check('touch: IMPORT SAVE opens a page of its own, with no city loaded behind the file picker', imp.light === true, JSON.stringify(imp));
-  check('touch: a file that is not a save is turned away there', /not a Neon Mayhem save/.test(imp.refused || ''), JSON.stringify(imp));
+  check('touch: a file that is not a save is turned away there', /не является сохранением «Неонового хаоса»/.test(imp.refused || ''), JSON.stringify(imp));
   check('touch: and a save comes in and the game loads with it', imp.back && imp.back.hash === '' && imp.back.cash === 13579, JSON.stringify(imp));
   check('touch: zero page errors on the touch layer', touchErrors.length === 0, touchErrors[0]);
   await tctx.close();
@@ -12088,7 +12088,7 @@ function withTimeout(p, ms) {
   check('memory: static geometry is gone from JS once it is on the GPU', mem.released > 50 && mem.heldStatic === 0 && mem.bounded,
     mem.released + ' released, ' + mem.heldStatic + ' still held' + (mem.bounded ? '' : ', some without bounds'));
   check('memory: while the blocks, which the facade checks read, keep theirs (anchor sanity)', mem.blocks > 0 && mem.blocksHeld === mem.blocks,
-    mem.blocksHeld + ' of ' + mem.blocks);
+    mem.blocksHeld + " из " + mem.blocks);
   check('memory: fresh traffic and walkers were made (anchor sanity)', mem.freshCars >= 5 && mem.freshPeds >= 5,
     mem.freshCars + ' cars, ' + mem.freshPeds + ' peds');
   check('memory: and every car has the same shape', mem.carShapes === 1, mem.carShapes + ' shapes');
@@ -12146,7 +12146,7 @@ function withTimeout(p, ms) {
   var pagerFace = await page.evaluate(function () {
     for (var w = 0; w < 40 && GAME.hud.pagerText; w++) GAME.test.fastForward(0.5);
     GAME.test.fastForward(1);
-    GAME.hud.pager('RICO', 'scene test page', 2);
+    GAME.hud.pager("РИКО", 'scene test page', 2);
     var r = { rico: /<svg/.test(GAME.hud.pagerFace), from: GAME.hud.pagerFrom };
     for (var w2 = 0; w2 < 20 && GAME.hud.pagerText; w2++) GAME.test.fastForward(0.5);
     GAME.test.fastForward(1);
@@ -12233,9 +12233,11 @@ function withTimeout(p, ms) {
     for (var k = 0; k < 60 * 30 && S.active; k++) GAME.test.fastForward(1 / 30);
     r.ended = !S.active && !GAME.sceneOpen && !document.body.classList.contains('cine');
     r.started = !!(M.active && M.active.def.id === 'rampage0');
+    // A localized scene can finish on the last substep; gameplay resumes on the next tick.
+    GAME.test.fastForward(0.1);
     r.timeMoves = GAME.time > t0;
     // she said it there, so the pager does not say it again
-    r.noPagerBrief = !/selling on my strip/.test(GAME.hud.pagerText || '');
+    r.noPagerBrief = !/торгует на моём бульваре/.test(GAME.hud.pagerText || '');
     // fail it, and take the retry: straight back in, no scene
     var played1 = S.played;
     if (M.active) M.failActive('test');
@@ -12401,7 +12403,7 @@ function withTimeout(p, ms) {
       var it = M.getObjectivePoint();
       if (it) { GAME.test.teleport(it[0], it[1]); GAME.test.fastForward(0.3); }
       r.h0act2 = M.act && M.act.kind;
-      r.h0lockup = /lock-up/.test(M.objectiveText());
+      r.h0lockup = /гараж/.test(M.objectiveText());
       var to = M.getObjectivePoint();
       if (to) { GAME.test.teleport(to[0], to[1]); GAME.test.fastForward(0.5); }
       r.h0done = !M.active && bests.hit0 !== undefined;
@@ -12844,10 +12846,10 @@ function withTimeout(p, ms) {
       P.health = 30;
       inp.value = 'aspirine';
       inp.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-      r.health = P.health === 100 && /Health/.test(document.getElementById('cheat-said').textContent);
+      r.health = P.health === 100 && /Здоровье/.test(document.getElementById('cheat-said').textContent);
       inp.value = 'NOTACHEAT';
       inp.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-      r.nothing = /Nothing/.test(document.getElementById('cheat-said').textContent);
+      r.nothing = /Ничего/.test(document.getElementById('cheat-said').textContent);
       C.close();
       if (GAME.paused) GAME.togglePause();
       GAME.test.fastForward(0.2);
@@ -12985,9 +12987,9 @@ function withTimeout(p, ms) {
       GAME.test.fastForward(0.2); GAME.test.enterNearestCar(car); GAME.test.fastForward(1.5);
       var j0 = R.jingles;
       var name = R.switchStation(1);
-      if (name === 'RADIO OFF') name = R.switchStation(1);
+      if (name === "РАДИО ВЫКЛЮЧЕНО") name = R.switchStation(1);
       GAME.hud.radioPopup(name);
-      r.dial = /FM|PIRATE/.test(document.getElementById('radio-popup').textContent);
+      r.dial = /FM|ПИРАТСКАЯ/.test(document.getElementById('radio-popup').textContent);
       r.jingle = R.jingles === j0 + 1;
       var seg = D.segment();
       r.talks = !!seg && document.getElementById('radio-talk').classList.contains('on') &&
@@ -13045,7 +13047,7 @@ function withTimeout(p, ms) {
       var c0 = drive('sedan');
       c0.hp = c0.spec.hp * 0.2;
       GAME.test.teleport(s.x, s.z); GAME.test.fastForward(0.5);
-      r.wreck = P.inCar && X.wanted('sedan') && /one piece/.test(X.hint);
+      r.wreck = P.inCar && X.wanted('sedan') && /целая машина/.test(X.hint);
       // a good one ships
       GAME.exitCar(); GAME.test.fastForward(1.5);
       GAME.test.teleport(s.x + 30, s.z); GAME.test.fastForward(0.3);
@@ -13058,7 +13060,7 @@ function withTimeout(p, ms) {
       drive('sedan');
       var cash2 = P.cash;
       GAME.test.teleport(s.x, s.z); GAME.test.fastForward(0.5);
-      r.once = P.inCar && P.cash === cash2 && /already/.test(X.hint);
+      r.once = P.inCar && P.cash === cash2 && /уже отправлена/.test(X.hint);
       // the rest of list one, and its bonus
       ['taxi', 'van', 'sports', 'motorcycle', 'police'].forEach(function (t) { GAME.prefs.exported[t] = true; });
       delete GAME.prefs.exported.police;
@@ -13097,7 +13099,7 @@ function withTimeout(p, ms) {
       var s = R.site;
       r.site = !!s && s.cps.length >= 12;
       GAME.test.teleport(s.ring.x + 6, s.ring.z); GAME.test.fastForward(0.3);
-      r.hint = /MINI MAYHEM/.test(R.hint);
+      r.hint = /МИНИ-ХАОСА/.test(R.hint);
       // not with the law on you
       GAME.police.setWanted(1);
       GAME.test.teleport(s.ring.x, s.ring.z); GAME.test.fastForward(0.3);
@@ -13200,7 +13202,7 @@ function withTimeout(p, ms) {
       G.finished(job, true); ff(2);
       var st = GAME.scenes.stage('here'), on = GAME.scenes.on;
       r.paid = { scene: GAME.scenes.active, cast: on.join(), near: st ? Math.round(Math.hypot(st.x - P.car.pos.x, st.z - P.car.pos.z)) : -1,
-        says: /did good/.test((GAME.scenes.line || {}).text || ''), step: G.step };
+        says: /Молодец/.test((GAME.scenes.line || {}).text || ''), step: G.step };
       for (var i = 0; i < 40 && GAME.scenes.active; i++) { GAME.scenes.advance(); ff(0.3); GAME.scenes.advance(); ff(0.1); }
       var nd = GAME.nav.dest;
       r.paid.after = { over: !GAME.scenes.active, routed: !!nd && Math.hypot(nd.x - barber.at.x, nd.z - barber.at.z) < 2 };
@@ -13211,9 +13213,9 @@ function withTimeout(p, ms) {
       S.open(barber); ff(0.2); S.close(); ff(0.3);
       GAME.interiors.leave(); ff(1.5);
       r.out = { scene: GAME.scenes.active, step: G.step, threads: false };
-      for (var j = 0; j < 40 && GAME.scenes.active; j++) { if (/THREADS/.test((GAME.scenes.line || {}).text || '')) r.out.threads = true; GAME.scenes.advance(); ff(0.3); GAME.scenes.advance(); ff(0.1); }
-      r.out.asked = L.isOpen && L.options().some(function (o) { return /MARK THREADS/.test(o); });
-      if (L.isOpen) L.choose(/EXPLORE/);
+      for (var j = 0; j < 40 && GAME.scenes.active; j++) { if (/НИТКИ/.test((GAME.scenes.line || {}).text || '')) r.out.threads = true; GAME.scenes.advance(); ff(0.3); GAME.scenes.advance(); ff(0.1); }
+      r.out.asked = L.isOpen && L.options().some(function (o) { return /ОТМЕТЬ «НИТКИ»/.test(o); });
+      if (L.isOpen) L.choose(/ДАЛЬШЕ Я САМ/);
       ff(0.3);
       r.out.done = G.step === null && GAME.prefs.guide === 'done';
       settle();
@@ -13225,11 +13227,11 @@ function withTimeout(p, ms) {
       var R = GAME.audio.radio, rnd0 = Math.random;
       Math.random = function () { return 0.01; };   // an ad, if one is allowed
       var seg = D.segment();
-      r.ads = { roaming: D.roaming(), roamAd: !!seg && seg.who === 'AD' };
+      r.ads = { roaming: D.roaming(), roamAd: !!seg && seg.who === "РЕКЛАМА" };
       GAME.test.teleport(courier.start.x + 8, courier.start.z); ff(0.2);
       P.car.pos.set(courier.start.x, C.groundY(courier.start.x, courier.start.z), courier.start.z); P.car.speed = 0; ff(1.5);
       var seg2 = M.active ? D.segment() : null;
-      r.ads.inJob = !!M.active; r.ads.jobRoaming = D.roaming(); r.ads.jobAd = !!seg2 && seg2.who === 'AD';
+      r.ads.inJob = !!M.active; r.ads.jobRoaming = D.roaming(); r.ads.jobAd = !!seg2 && seg2.who === "РЕКЛАМА";
       Math.random = rnd0;
       D.enabled = dj0;
       settle();
@@ -13357,8 +13359,8 @@ function withTimeout(p, ms) {
       GAME.test.pressKey('KeyW', false); ff(0.5);
       r.ask = { scene: Sc.active, cast: Sc.on.join(), hidden: !!ray.ped && !ray.ped.mesh.visible };
       through();
-      r.ask.menu = L.isOpen && L.options().some(function (o) { return /DO IT/.test(o); });
-      if (L.isOpen) L.choose(/NOT RIGHT NOW/);
+      r.ask.menu = L.isOpen && L.options().some(function (o) { return /Я ПОМОГУ/.test(o); });
+      if (L.isOpen) L.choose(/НЕ СЕЙЧАС/);
       ff(0.3);
       r.ask.back = !!ray.ped && ray.ped.mesh.visible;
       // --- Ray in the car to the gate: thanks, then out and in at the gate ---
@@ -13403,7 +13405,7 @@ function withTimeout(p, ms) {
       var dani = person('dani');
       GAME.test.teleport(dani.at.x + 6, dani.at.z); ff(1);
       SG.ask('dani'); ff(0.3);
-      SG.finish('A motel. Of course it is a motel.'); ff(0.6);
+      SG.finish("Мотель. Ну конечно, мотель."); ff(0.6);
       r.dani = { scene: Sc.active, cast: Sc.on.join(), speaks: Sc.line && Sc.line.who };
       through();
       r.dani.over = !SG.busy;

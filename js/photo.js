@@ -213,8 +213,8 @@ GAME.photo = (function () {
     // how to see it full size: tap the print; on a keyboard the mouse is
     // aiming, so a key; on a pad, the album
     var pad = GAME.controls && GAME.controls.usingPad && GAME.controls.usingPad();
-    var see = GAME.isTouch ? 'Tap to view' : pad ? 'START → PHOTOS' : (GAME.controls ? GAME.controls.label('KeyV') : 'V') + ' to view';
-    el.toastText.textContent = (prefs().photoAuto ? 'Saved to your downloads' : 'In your album') + ' · ' + see;
+    var see = GAME.isTouch ? "Коснись для просмотра" : pad ? "START → ФОТО" : (GAME.controls ? GAME.controls.label('KeyV') : 'V') + " — посмотреть";
+    el.toastText.textContent = (prefs().photoAuto ? "Сохранено в загрузки" : "В твоём альбоме") + ' · ' + see;
     el.toast.classList.add('on');
     toastT = 3.2;
   }
@@ -258,15 +258,15 @@ GAME.photo = (function () {
     el.viewImg.src = viewing.url || viewing.thumb;
     el.viewImg.alt = viewing.name;
     var d = new Date(viewing.t);
-    el.viewName.textContent = viewing.name + '  ·  ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + (i >= 0 ? '  ·  ' + (n - i) + ' of ' + n : '');
+    el.viewName.textContent = viewing.name + '  ·  ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + (i >= 0 ? '  ·  ' + (n - i) + " из " + n : '');
     el.viewPrev.style.visibility = i >= 0 && i < n - 1 ? '' : 'hidden';
     el.viewNext.style.visibility = i > 0 ? '' : 'hidden';
   }
   function paintButton() {
-    if (el.btn) el.btn.textContent = '📷 PHOTOS' + (album.length ? ' (' + album.length + ')' : '');
+    if (el.btn) el.btn.textContent = "📷 ФОТО" + (album.length ? ' (' + album.length + ')' : '');
   }
   function paintAuto() {
-    if (el.auto) el.auto.textContent = 'AUTO-DOWNLOAD: ' + (prefs().photoAuto ? 'ON' : 'OFF');
+    if (el.auto) el.auto.textContent = "АВТОЗАГРУЗКА: " + (prefs().photoAuto ? "ВКЛ." : "ВЫКЛ.");
   }
   function renderAlbum() {
     if (!el.grid) return;
@@ -282,7 +282,7 @@ GAME.photo = (function () {
       var dt = new Date(shot.t);
       when.textContent = pad(dt.getHours()) + ':' + pad(dt.getMinutes());
       var save = document.createElement('span');
-      save.className = 'mbtn ph-save'; save.textContent = '⤓ SAVE';
+      save.className = 'mbtn ph-save'; save.textContent = "⤓ СОХРАНИТЬ";
       var del = document.createElement('span');
       del.className = 'mbtn ph-del'; del.textContent = '✕';
       tap(save, function () { download(shot); });

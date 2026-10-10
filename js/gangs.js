@@ -15,9 +15,9 @@
 // with you (hit one and he hits back, like anybody would).
 GAME.gangs = (function () {
   var GANGS = {
-    salazar: { name: 'SALAZAR CREW', shirt: 0x4a2a5a, pants: 0x14141a, hair: ['crew', 'pompadour', 'flattop'], hairCol: 0x0e0c0c,
+    salazar: { name: "БАНДА САЛАЗАРА", shirt: 0x4a2a5a, pants: 0x14141a, hair: ['crew', 'pompadour', 'flattop'], hairCol: 0x0e0c0c,
       car: 'sedan', carColor: 0x1c1428, hp: 45 },
-    lola: { name: 'LOLA\'S PEOPLE', shirt: 0xff4fa3, pants: 0xf2eee4, hair: ['mullet', 'ponytail', 'afro', 'crew'], hairCol: 0x24160f,
+    lola: { name: "ЛЮДИ ЛОЛЫ", shirt: 0xff4fa3, pants: 0xf2eee4, hair: ['mullet', 'ponytail', 'afro', 'crew'], hairCol: 0x24160f,
       car: 'sports', carColor: 0xff6fb8, hp: 40 }
   };
   var SKINS = [0xeac8a8, 0xc89878, 0x8a6848, 0x6a4c34, 0xb98260];
@@ -37,7 +37,7 @@ GAME.gangs = (function () {
     var C = GAME.city;
     if (GAME.isla && GAME.isla.contains(x, z)) {
       if (!GAME.isla.isOpen()) return null;
-      if (C.districtName(x, z) !== 'Puerto Dorado') return null;
+      if (C.districtName(x, z) !== "Пуэрто-Дорадо") return null;
       return beat('hit2') ? 'lola' : 'salazar';
     }
     var d = C.districtAt(x, z);
@@ -128,11 +128,11 @@ GAME.gangs = (function () {
     var pr = prefs();
     if (hostile() && !pr.warned && GAME.hud.pager) {
       pr.warned = true; GAME.save();
-      GAME.hud.pager('LOLA', 'Rico\'s put a price on you, kid. His crew wears plum and black — in his streets they\'ll shoot on sight. Mine wear pink, and they\'ve got your back.', 9);
+      GAME.hud.pager("ЛОЛА", "Рико назначил за тебя награду, парень. Его люди носят сливовое и чёрное. На своих улицах стреляют сразу. Мои носят розовое, они тебя прикроют.", 9);
     }
     if (beat('hit2') && pr.warned && !pr.ended && GAME.hud.pager) {
       pr.ended = true; GAME.save();
-      GAME.hud.pager('LOLA', 'Salazar\'s crew is finished. My people are moving into Puerto Dorado — wave if you see them.', 8);
+      GAME.hud.pager("ЛОЛА", "С бандой Салазара покончено. Мои люди занимают Пуэрто-Дорадо. Увидишь — помаши им.", 8);
     }
     spawnT -= dt;
     if (here && spawnT <= 0) {

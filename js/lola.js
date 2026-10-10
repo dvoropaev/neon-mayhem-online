@@ -13,28 +13,28 @@ GAME.lola = (function () {
   function touch() { return !!GAME.isTouch; }
   // the lines, written as she talks; a function where it names a control
   var TIPS = {
-    tape: 'That\'s a lost tape. A pirate DJ broadcast off the end of the pier till they shut him down, and his mixtapes went everywhere — thirty of them, both islands. Each one pays; the radar glints when you\'re close. Find them all and he\'s back on the air.',
-    stunt: 'Unique stunt jump! Every ramp in town pays the first time you clear it — the faster the better. Find them all and it\'s worth your while.',
-    islaJump: 'Isla Verde keeps its own ten jumps, on a tally of their own — and a prize of its own when you\'ve cleared them all.',
-    star: 'You\'ve caught the law\'s eye. Get out of sight and lie low and it fades. Fresh paint at a respray loses a star or two, and the desk sergeant at the station can lose the paperwork — for a price.',
-    stars3: 'Three stars: they know your face now, so paint won\'t fool them. Break their line of sight and lie low, or go and see the sergeant. A night at home helps too.',
-    wasted: 'You\'ll live. The hospital keeps your cash but your guns are gone. Own a place and you wake up there instead, with everything.',
-    busted: 'Busted. They take a fine and your hardware. Next time lose the stars before they box you in — a car stopped next to a cruiser is a car they can cuff you out of.',
-    boat: 'A boat! No cruiser can follow you out on the water — but the harbour patrol has launches of its own. The bay has work too: look for the rings by the piers.',
-    heli: function () { return touch() ? 'Now you\'re flying. UP and DN take her up and down. The ceiling\'s around two hundred metres — and the law follows up here with a helicopter of its own.'
-      : 'Now you\'re flying. ' + K('Space') + ' takes her up, ' + K('ShiftLeft') + ' down. The ceiling\'s around two hundred metres — and the law follows up here with a helicopter of its own.'; },
-    plane: function () { return 'Runway\'s that way. Build some speed, pull up, and if it all goes wrong, ' + (touch() ? 'EXIT' : K('KeyF')) + ' gets you out with a parachute.'; },
-    swim: 'Swimming? You can\'t hold a gun in the water. Climb out up the sand, onto a pier, or anywhere low enough to grab.',
-    respray: 'Fresh paint, fresh start — up to two stars go with the old colour. From three up they know your face, and paint won\'t help.',
-    job: function () { return 'That ride has work in it. ' + (touch() ? 'Press JOB' : 'Press ' + K('KeyJ')) + ' to start a shift — every run pays, and each level asks a bit more of you.'; },
-    shop: 'Shops are walk-ins: stand on the glowing mat at the door. Guns, clothes, cars, a place to live — if you\'ve got the money.',
-    home: 'Your own place. Sleep it off to skip eight hours and shed some heat, and if you go down nearby you wake up here instead of the hospital.',
-    casino: 'The Lucky Gull. The wheel\'s honest, mostly, the horses run on the screens down the right, and the bar patches you up. Spend what you can afford to lose.',
-    derby: 'Gull Downs! Pick a horse and a stake. The odds are on the board: a 4/1 shot pays four times your stake plus your money back, and the long shots pay big because they mostly lose. Then watch it run.',
-    wardrobe: 'Everything you own hangs in here, and changing is free. Buy something at THREADS and it turns up in every place you own.',
-    robbery: 'Holding up a shop? Keep the gun on him and don\'t blink — the till empties for as long as you do. The alarm went the second his hands did, so have a way out.',
-    business: 'A business of your own. The till fills through the day — three days of it, no more — and sits there till you come and empty it at the counter. Leave it too long and somebody with a mask will empty it for you.',
-    photo: function () { return 'Nice shot. Your photos are kept in the album — ' + (touch() ? 'PAUSE' : 'Esc') + ', then PHOTOS — and you can download the ones you like.'; }
+    tape: "Это потерянная кассета. Пиратский диджей вещал с края пирса, пока его не прикрыли. Его микстейпы разбросаны по обоим островам — всего тридцать. За каждую платят, а радар мерцает рядом с ней. Найди все — и он вернётся в эфир.",
+    stunt: "Уникальный прыжок! Каждый трамплин в городе приносит деньги за первый успешный прыжок. Чем быстрее, тем лучше. Найди все — награда того стоит.",
+    islaJump: "На Исла-Верде десять своих прыжков. Они считаются отдельно, и за все десять дают отдельный приз.",
+    star: "Ты привлёк внимание полиции. Скройся из виду и заляг на дно — розыск спадёт. Перекраска снимает одну-две звезды, а дежурный сержант может потерять документы за плату.",
+    stars3: "Три звезды: теперь тебя знают в лицо, краска не поможет. Скройся из виду и пережди или сходи к сержанту. Ночь дома тоже помогает.",
+    wasted: "Жить будешь. После больницы деньги остаются, но оружие пропадает. Купи жильё — и проснёшься дома со всеми вещами.",
+    busted: "Арест. С тебя берут штраф и отбирают оружие. В следующий раз сбрось звёзды, пока не зажали. Если остановишься рядом с полицейской машиной, тебя могут вытащить и заковать.",
+    boat: "Лодка! Полицейские машины за тобой по воде не поедут, но у портового патруля есть катера. В заливе тоже есть работа — ищи кольца у пирсов.",
+    heli: function () { return touch() ? "Теперь ты летаешь. «ВВЕРХ» и «ВНИЗ» меняют высоту. Потолок около двухсот метров. Полиция и здесь не отстанет — у неё свой вертолёт."
+      : "Теперь ты летаешь. Клавиша " + K('Space') + " поднимает, " + K('ShiftLeft') + " — опускает. Потолок около двухсот метров. Полиция и здесь не отстанет — у неё свой вертолёт."; },
+    plane: function () { return "Взлётная полоса там. Разгонись и тяни вверх. Если что-то пойдёт не так, " + (touch() ? "ВЫЙТИ" : K('KeyF')) + " поможет выпрыгнуть с парашютом."; },
+    swim: "Плаваешь? В воде оружие не удержать. Выбирайся на песок, пирс или достаточно низкий край.",
+    respray: "Свежая краска — свежий старт. Вместе со старым цветом уходят до двух звёзд. При трёх тебя знают в лицо, и краска не поможет.",
+    job: function () { return "В этом транспорте есть работа. " + (touch() ? "Нажми «РАБОТА»" : "Нажми " + K('KeyJ')) + ", чтобы начать смену. Каждый рейс оплачивается, а каждый уровень требует большего."; },
+    shop: "В магазины можно заходить: встань на светящийся коврик у двери. Оружие, одежда, машины, жильё — были бы деньги.",
+    home: "Своё жильё. Поспи — пройдёт восемь часов, а розыск снизится. Если погибнешь поблизости, проснёшься здесь, а не в больнице.",
+    casino: "«Счастливая чайка». Рулетка почти честная, справа на экранах скачки, а в баре можно поправить здоровье. Трать только то, что не жалко проиграть.",
+    derby: "Ипподром «Чайка»! Выбери лошадь и ставку. Коэффициенты на табло: 4/1 приносит четырёхкратную ставку плюс возврат самой ставки. Аутсайдеры платят много, потому что чаще проигрывают. Дальше смотри скачку.",
+    wardrobe: "Здесь висит вся твоя одежда. Переодеваться бесплатно. Покупки из «НИТОК» появляются в каждом твоём доме.",
+    robbery: "Грабишь магазин? Держи продавца на мушке — пока целишься, касса опустошается. Тревога сработала, как только он поднял руки. Продумай отход.",
+    business: "Твой бизнес. Касса наполняется весь день и хранит выручку максимум за три дня. Деньги ждут у стойки, пока не заберёшь. Затянешь — кто-нибудь в маске заберёт их за тебя.",
+    photo: function () { return "Хороший снимок. Фото хранятся в альбоме: " + (touch() ? "ПАУЗА" : 'Esc') + ", затем «ФОТО». Понравившиеся можно скачать."; }
   };
 
   function prefs() { GAME.prefs = GAME.prefs || {}; return GAME.prefs; }
@@ -52,7 +52,7 @@ GAME.lola = (function () {
     s[key] = true;
     if (GAME.save) GAME.save();
     if (!tipsOn() || !GAME.hud || !GAME.hud.pager) return false;
-    GAME.hud.pager('LOLA', typeof line === 'function' ? line() : line);
+    GAME.hud.pager("ЛОЛА", typeof line === 'function' ? line() : line);
     if (GAME.track) GAME.track('tip-' + key);
     return true;
   }
@@ -74,14 +74,14 @@ GAME.lola = (function () {
   function dist(x, z) { var f = F(); return Math.hypot(x - f.x, z - f.z); }
   function far(x, z) {
     var d = dist(x, z);
-    return d < 1000 ? Math.round(d / 10) * 10 + ' m' : (d / 1000).toFixed(1) + ' km';
+    return d < 1000 ? Math.round(d / 10) * 10 + " м" : (d / 1000).toFixed(1).replace('.', ',') + " км";
   }
   // which way, as the map has it: north is up the map (-z), east is right (+x)
   function way(x, z) {
     var f = F(), a = Math.atan2(x - f.x, -(z - f.z)) * 180 / Math.PI;
-    return ['north', 'north-east', 'east', 'south-east', 'south', 'south-west', 'west', 'north-west'][Math.round(((a + 360) % 360) / 45) % 8];
+    return ["к северу", "к северо-востоку", "к востоку", "к юго-востоку", "к югу", "к юго-западу", "к западу", "к северо-западу"][Math.round(((a + 360) % 360) / 45) % 8];
   }
-  function there(x, z) { return far(x, z) + ' ' + way(x, z) + ' of you'; }
+  function there(x, z) { return far(x, z) + ' ' + way(x, z) + " от тебя"; }
   function islaOpen() { return !GAME.isla || GAME.isla.isOpen(); }
   function onIsla(x, z) { return !!(GAME.isla && GAME.isla.contains && GAME.isla.contains(x, z)); }
   function reachable(x, z) { return islaOpen() || !onIsla(x, z); }
@@ -97,10 +97,10 @@ GAME.lola = (function () {
   }
   function locs(kind) { return GAME.shops && GAME.shops.locations ? GAME.shops.locations().filter(function (l) { return l.kind === kind && l.at; }) : []; }
   function mark(x, z, what) {
-    return { label: '📍 MARK IT ON MY MAP', fn: function () {
+    return { label: "📍 ОТМЕТЬ НА МОЕЙ КАРТЕ", fn: function () {
       if (GAME.nav) GAME.nav.setDest(x, z);
       close();
-      if (GAME.hud && GAME.hud.pager) GAME.hud.pager('LOLA', 'Marked: ' + what + '. Follow the line on your radar.');
+      if (GAME.hud && GAME.hud.pager) GAME.hud.pager("ЛОЛА", "Отмечено: " + what + ". Следуй по линии на радаре.");
     } };
   }
 
@@ -109,62 +109,62 @@ GAME.lola = (function () {
     var M = GAME.missions, a = M && M.active;
     if (!a && GAME.guide && GAME.guide.step) return { say: GAME.guide.now() };
     if (a) {
-      return { say: 'You\'re on ' + a.def.name + ' right now: ' + (M.objectiveText() || 'see it through') +
-        '. Finish it — or ' + (touch() || onPad() ? 'ABANDON on the pause screen' : K('KeyX') + ' twice') + ' if you want out.' };
+      return { say: "Сейчас у тебя задание «" + a.def.name + "»: " + (M.objectiveText() || "доведи дело до конца") +
+        ". Закончи или нажми " + (touch() || onPad() ? "«ОТМЕНИТЬ» в меню паузы" : K('KeyX') + " дважды") + ", если хочешь отказаться." };
     }
     var bests = GAME.bests || {};
     var left = M ? M.DEFS.filter(function (d) { return bests[d.id] === undefined && (!d.isla || islaOpen()); }) : [];
     var n = nearest(left, function (d) { return d.start; });
     if (n) {
-      var d = n.it, kind = { race: 'a race', courier: 'a delivery', takedown: 'a takedown', rampage: 'a rampage' }[d.type] || 'a job';
+      var d = n.it, kind = { race: "гонка", courier: "доставка", takedown: "устранение", rampage: "погром" }[d.type] || "задание";
       var won = M.DEFS.filter(function (dd) { return bests[dd.id] !== undefined; }).length, more = Math.max(1, 4 - won);
-      var shut = !islaOpen() ? ' Win ' + (more === 1 ? 'one more' : more + ' more') + ' of my jobs and they open the bridges to Isla Verde.' : '';
-      return { say: d.name + ' — ' + kind + ', ' + there(n.x, n.z) + '. That\'s the closest thing on my list you haven\'t done.' + shut,
+      var shut = !islaOpen() ? " Выполни ещё " + (more === 1 ? "одно" : more + " заданий") + " — и мосты на Исла-Верде откроют." : '';
+      return { say: d.name + ' — ' + kind + ', ' + there(n.x, n.z) + ". Это ближайшее из моих непройденных заданий." + shut,
         acts: [mark(n.x, n.z, d.name)] };
     }
     var ST = GAME.stunts, T = GAME.tapes;
-    if (ST && ST.found < ST.total) return { say: 'Every job on my list is done — nice. There are still stunt jumps you haven\'t cleared (' + ST.found + ' of ' + ST.total + '), and the radar glints near a lost tape.' };
-    return { say: 'Honestly? You\'ve done it all. Go spend some of that money — the casino on the pier would love to see you.' };
+    if (ST && ST.found < ST.total) return { say: "Все мои задания выполнены — отлично. Но ещё остались уникальные прыжки (" + ST.found + " из " + ST.total + "), а рядом с потерянными кассетами радар мерцает." };
+    return { say: "Честно? Ты прошёл всё. Иди потрать деньги — казино на пирсе будет радо тебя видеть." };
   }
   function theLaw() {
     var w = GAME.police.wanted, acts = [];
-    if (w <= 0) return { say: 'You\'re clean. Keep it that way — and remember a cruiser stopped next to you can cuff you out of a car.' };
+    if (w <= 0) return { say: "Ты чист. Так и держи. Помни: если остановишься рядом с полицейской машиной, тебя могут вытащить из салона и арестовать." };
     var rs = nearest(GAME.city.pois.resprays || [], function (r) { return r.door; });
     var desk = nearest(locs('bribe'), function (l) { return l.at; });
     var home = nearest(locs('safehouse').filter(function (l) { return GAME.shops.owns(l.sh.id); }), function (l) { return l.at; });
     var say;
     if (w <= 2) {
-      say = (w === 1 ? 'One star.' : 'Two stars.') + ' Break their line of sight and lie low and it fades. Or fresh paint: ' +
-        (rs ? 'the nearest respray is ' + there(rs.x, rs.z) + '.' : 'any respray will do.');
-      if (rs) acts.push(mark(rs.x, rs.z, 'the respray'));
+      say = (w === 1 ? "Одна звезда." : "Две звезды.") + " Скройся из виду и заляг на дно — розыск спадёт. Или перекрась машину: " +
+        (rs ? "ближайшая мастерская " + there(rs.x, rs.z) + '.' : "подойдёт любая мастерская перекраски.");
+      if (rs) acts.push(mark(rs.x, rs.z, "мастерская перекраски"));
     } else {
-      say = w + ' stars — they know your face, so paint won\'t fool them. Get out of sight and lie low, or have a word with the desk sergeant' +
-        (desk ? ' at the station ' + there(desk.x, desk.z) : '') + ' — he loses paperwork, for a price.' +
-        (home ? ' Or go home and sleep it off: yours is ' + there(home.x, home.z) + '.' : '');
-      if (desk) acts.push(mark(desk.x, desk.z, 'the desk sergeant'));
+      say = w + " звёзд. Тебя знают в лицо, краска не поможет. Скройся и пережди или поговори с дежурным сержантом" +
+        (desk ? " в участке " + there(desk.x, desk.z) : '') + ". Он теряет документы за плату." +
+        (home ? " Или поспи дома. Твоё жильё " + there(home.x, home.z) + '.' : '');
+      if (desk) acts.push(mark(desk.x, desk.z, "дежурный сержант"));
     }
-    if (home && w <= 2) say += ' Your own place is ' + there(home.x, home.z) + ' — nobody sees in.';
-    if (home) acts.push({ label: '🏠 MARK MY PLACE', fn: mark(home.x, home.z, home.it.sh.name).fn });
+    if (home && w <= 2) say += " Твоё жильё " + there(home.x, home.z) + ". Никто не заглянет внутрь.";
+    if (home) acts.push({ label: "🏠 ОТМЕТЬ МОЙ ДОМ", fn: mark(home.x, home.z, home.it.sh.name).fn });
     return { say: say, acts: acts };
   }
   function money() {
     var bests = GAME.bests || {}, M = GAME.missions, ST = GAME.stunts, T = GAME.tapes;
     var left = M ? M.DEFS.filter(function (d) { return bests[d.id] === undefined && (!d.isla || islaOpen()); }).length : 0;
     var lines = [];
-    lines.push('Jobs pay every run: get in a taxi, an ambulance or a police cruiser and press ' + (touch() ? 'JOB' : K('KeyJ')) + '.' + (islaOpen() ? ' The ice cream truck on Isla Verde has rounds too — the horn plays the chimes.' : ''));
-    if (left) lines.push(left + ' of my jobs are still waiting for you, and the first win on each pays best.');
-    if (ST && ST.found < ST.total) lines.push((ST.total - ST.found) + ' stunt jumps still pay their first-time money.');
-    if (T && T.found < T.total) lines.push((T.total - T.found) + ' lost tapes are out there, each worth something.');
+    lines.push("Каждый рейс оплачивается. Сядь в такси, скорую или полицейскую машину и нажми " + (touch() ? "РАБОТА" : K('KeyJ')) + '.' + (islaOpen() ? " У фургона мороженого на Исла-Верде тоже есть работа. Гудок включает мелодию." : ''));
+    if (left) lines.push(left + " моих заданий ещё ждут тебя. Первая победа в каждом оплачивается лучше всего.");
+    if (ST && ST.found < ST.total) lines.push((ST.total - ST.found) + " уникальных прыжков ещё принесут деньги за первое прохождение.");
+    if (T && T.found < T.total) lines.push((T.total - T.found) + " потерянных кассет ещё ждут тебя. Каждая чего-то стоит.");
     var B = GAME.business;
-    if (B && B.count < B.total) lines.push('Or let money come to you: buy a business — the barber, THREADS, a hardware store, the bar in the Lucky Gull, VERDE CABS over the channel — and its till fills every day.');
-    else if (B && B.count) lines.push('Your businesses are taking money for you — go and empty the tills.');
-    lines.push('And there\'s the Lucky Gull, if you feel lucky.');
+    if (B && B.count < B.total) lines.push("Или пусть деньги приходят сами: купи бизнес — парикмахерскую, «НИТКИ», оружейный магазин, бар «Счастливой чайки» или «ВЕРДЕ-ТАКСИ» за проливом. Касса наполняется каждый день.");
+    else if (B && B.count) lines.push("Твой бизнес зарабатывает. Зайди и забери выручку.");
+    lines.push("А если чувствуешь удачу — есть «Счастливая чайка».");
     return { say: lines.join(' ') };
   }
   var PLACES = [
-    ['hardware', '🔫 GUNS & ARMOR', 'the gun shop'], ['dress', '👕 CLOTHES', 'THREADS'], ['barber', '💈 A HAIRCUT', 'the barber'],
-    ['showroom', '🏎 A NEW RIDE', 'the showroom'], ['home', '🏠 MY PLACE', 'your place'], ['casino', '🎰 THE CASINO', 'the Lucky Gull'],
-    ['hospital', '➕ A HOSPITAL', 'the hospital'], ['bribe', '🚔 THE DESK SERGEANT', 'the station desk']
+    ['hardware', "🔫 ОРУЖИЕ И БРОНЯ", "оружейный магазин"], ['dress', "👕 ОДЕЖДА", "НИТКИ"], ['barber', "💈 СТРИЖКА", "парикмахерская"],
+    ['showroom', "🏎 НОВЫЙ ТРАНСПОРТ", "автосалон"], ['home', "🏠 МОЙ ДОМ", "твоё жильё"], ['casino', "🎰 КАЗИНО", "«Счастливая чайка»"],
+    ['hospital', "➕ БОЛЬНИЦА", "больница"], ['bribe', "🚔 ДЕЖУРНЫЙ СЕРЖАНТ", "дежурный в участке"]
   ];
   function placeOf(kind) {
     if (kind === 'hospital') return nearest(GAME.city.pois.hospitals || [], function (h) { return h; });
@@ -175,20 +175,20 @@ GAME.lola = (function () {
     return nearest(locs(kind), function (l) { return l.at; });
   }
   function takeMe() {
-    return { say: 'Where to? I\'ll put it on your map.', list: PLACES.map(function (p) {
+    return { say: "Куда хочешь? Отмечу на карте.", list: PLACES.map(function (p) {
       return { label: p[1], fn: function () {
         var n = placeOf(p[0]);
-        if (!n) { answer({ say: 'Nothing like that I can get you to right now.' }); return; }
-        var name = p[0] === 'home' && n.it.sh ? (GAME.shops.owns(n.it.sh.id) ? n.it.sh.name : n.it.sh.name + ' (for sale)') : n.it.name || p[2];
-        answer({ say: (name || p[2]) + ' is ' + there(n.x, n.z) + '.', acts: [mark(n.x, n.z, name || p[2])] });
+        if (!n) { answer({ say: "Сейчас до такого места не добраться." }); return; }
+        var name = p[0] === 'home' && n.it.sh ? (GAME.shops.owns(n.it.sh.id) ? n.it.sh.name : n.it.sh.name + " (продаётся)") : n.it.name || p[2];
+        answer({ say: (name || p[2]) + " находится " + there(n.x, n.z) + '.', acts: [mark(n.x, n.z, name || p[2])] });
       } };
     }) };
   }
-  var TOPICS = [['tape', 'Lost tapes'], ['stunt', 'Stunt jumps'], ['star', 'The law'], ['job', 'Jobs in a vehicle'],
-    ['shop', 'Shops'], ['home', 'A place of your own'], ['wardrobe', 'Your wardrobe'], ['casino', 'The casino'], ['derby', 'The horses'],
-    ['boat', 'Boats'], ['heli', 'Helicopters'], ['plane', 'Planes'], ['swim', 'Swimming'], ['respray', 'Resprays'], ['photo', 'Your camera']];
+  var TOPICS = [['tape', "Потерянные кассеты"], ['stunt', "Уникальные прыжки"], ['star', "Полиция"], ['job', "Работа на транспорте"],
+    ['shop', "Магазины"], ['home', "Своё жильё"], ['wardrobe', "Гардероб"], ['casino', "Казино"], ['derby', "Скачки"],
+    ['boat', "Лодки"], ['heli', "Вертолёты"], ['plane', "Самолёты"], ['swim', "Плавание"], ['respray', "Перекраска"], ['photo', "Камера"]];
   function explain() {
-    return { say: 'Ask away. What do you want to know about?', list: TOPICS.map(function (t) {
+    return { say: "Спрашивай. Что хочешь узнать?", list: TOPICS.map(function (t) {
       return { label: t[1].toUpperCase(), fn: function () { answer({ say: lineOf(t[0]) }); } };
     }) };
   }
@@ -200,13 +200,13 @@ GAME.lola = (function () {
     var g = GAME.shops && GAME.shops.garage ? GAME.shops.garage().length : 0;
     var pct = Math.round(100 * (done + (ST ? ST.found + (ST.islaFound || 0) : 0) + (T ? T.found : 0)) /
       Math.max(1, (M ? M.DEFS.length : 0) + (ST ? ST.total + (ST.islaTotal || 0) : 0) + (T ? T.total : 0)));
-    return { say: 'Jobs on my list: ' + done + ' of ' + (M ? M.DEFS.length : 0) + '. Stunt jumps: ' + (ST ? ST.found + ' of ' + ST.total : '—') +
-      (ST && ST.islaTotal && islaOpen() ? ', and ' + ST.islaFound + ' of ' + ST.islaTotal + ' on the island' : '') + '. Lost tapes: ' + (T ? T.found + ' of ' + T.total : '—') +
-      (GAME.strangers ? '. Strangers helped: ' + GAME.strangers.done + ' of ' + GAME.strangers.total : '') +
-      (GAME.heist && (GAME.heist.offered() || GAME.heist.step > 0) ? '. The big score: ' + Math.min(GAME.heist.step, 4) + ' of 4 parts' : '') +
-      (GAME.business && GAME.business.count ? '. Businesses: ' + GAME.business.count + ' of ' + GAME.business.total : '') +
-      '. You\'re holding $' + P.cash.toLocaleString() + ', you own ' + homes + ' of 3 places' + (g ? ' and ' + g + ' in the garage' : '') +
-      '. Call it ' + pct + '% of Costa Rosa. ' + (pct < 25 ? 'Plenty left.' : pct < 75 ? 'Getting somewhere.' : 'Nearly there, kid.') };
+    return { say: "Мои задания: " + done + " из " + (M ? M.DEFS.length : 0) + ". Уникальные прыжки: " + (ST ? ST.found + " из " + ST.total : '—') +
+      (ST && ST.islaTotal && islaOpen() ? ", и " + ST.islaFound + " из " + ST.islaTotal + " на острове" : '') + ". Потерянные кассеты: " + (T ? T.found + " из " + T.total : '—') +
+      (GAME.strangers ? ". Помощь незнакомцам: " + GAME.strangers.done + " из " + GAME.strangers.total : '') +
+      (GAME.heist && (GAME.heist.offered() || GAME.heist.step > 0) ? ". Большой куш: " + Math.min(GAME.heist.step, 4) + " из 4 этапов" : '') +
+      (GAME.business && GAME.business.count ? ". Бизнес: " + GAME.business.count + " из " + GAME.business.total : '') +
+      ". У тебя $" + P.cash.toLocaleString('ru-RU') + ", жилья — " + homes + " из 3" + (g ? ", транспорта — " + g + " в гараже" : '') +
+      ". Получается " + pct + "% Коста-Росы. " + (pct < 25 ? "Ещё многое впереди." : pct < 75 ? "Уже неплохо." : "Почти всё, парень.") };
   }
   // the Savings & Loan: where it stands, and the next part to go and do
   function bigScore() {
@@ -214,44 +214,44 @@ GAME.lola = (function () {
     return { say: b.say, list: b.next ? [{ label: '▶ ' + b.next, fn: function () { close(); H.begin(); } }] : [] };
   }
   function controlsHelp() {
-    if (onPad()) return { say: 'Left stick moves, right stick looks. RT fires and LT aims on foot; in anything with an engine they are the throttle and the brake. ' +
-      'A jumps, B sprints, Y gets in and out, X starts a job. LB and RB pick a target or fire out of the window, R3 the horn, L3 a photo, the D-pad weapons and the radio. ' +
-      'BACK is the map. START pauses — and that is where you find me.' };
-    if (touch()) return { say: 'Left thumb: wherever it lands is your stick. Right side: FIRE, JUMP and RUN on foot, the pedals in a car. EXIT gets you in and out, JOB starts a shift, 📢 is the horn, 📷 takes a photo. PAUSE has the map, your settings — and me.' };
-    return { say: K('KeyW') + K('KeyA') + K('KeyS') + K('KeyD') + ' to move, the mouse to look, left click to fire and right click (or ' + K('Tab') + ') to lock on. ' +
-      K('KeyF') + ' gets in and out, ' + K('Space') + ' jumps or climbs, ' + K('ShiftLeft') + ' sprints. ' + K('KeyJ') + ' starts a job, ' + K('KeyG') + ' the horn, ' +
-      K('KeyC') + ' a photo (' + K('KeyV') + ' to see it), ' + K('KeyP') + ' the map, and ' + K('KeyL') + ' gets me. CONTROLS on the pause screen rebinds the lot.' };
+    if (onPad()) return { say: "Левый стик — движение, правый — камера. Пешком RT стреляет, LT целится. В транспорте это газ и тормоз. " +
+      "A — прыжок, B — бег, Y — сесть и выйти, X — работа. LB и RB — выбор цели или стрельба из окна, R3 — гудок, L3 — фото, крестовина — оружие и радио. " +
+      "BACK — карта. START — пауза. Там ты найдёшь и меня." };
+    if (touch()) return { say: "Левый большой палец: где коснёшься, там стик. Справа пешком — «ОГОНЬ», «ПРЫЖОК» и «БЕГ», в машине — педали. «СЕСТЬ» / «ВЫЙТИ» — транспорт, «РАБОТА» — начало смены, 📢 — гудок, 📷 — фото. В «ПАУЗЕ» карта, настройки и я." };
+    return { say: K('KeyW') + K('KeyA') + K('KeyS') + K('KeyD') + " — движение, мышь — камера, левый щелчок — огонь, правый (или " + K('Tab') + ") — захват цели. " +
+      K('KeyF') + " — сесть и выйти, " + K('Space') + " — прыжок или подъём, " + K('ShiftLeft') + " — бег. " + K('KeyJ') + " — начать работу, " + K('KeyG') + " — гудок, " +
+      K('KeyC') + " — фото (" + K('KeyV') + " — посмотреть), " + K('KeyP') + " — карта, " + K('KeyL') + " — позвонить мне. В разделе «УПРАВЛЕНИЕ» меню паузы можно переназначить клавиши." };
   }
 
   function topLevel() {
     var w = GAME.police && GAME.police.wanted > 0, law;
     var list = [
-      { label: '🧭 WHAT SHOULD I DO NEXT?', fn: function () { answer(nextThing()); } },
+      { label: "🧭 ЧТО ДЕЛАТЬ ДАЛЬШЕ?", fn: function () { answer(nextThing()); } },
       // her guided first day (guide.js), for anyone who turned it down or
       // walked off part way, until it has been seen through once
-      GAME.guide && GAME.guide.canStart() ? { label: '🎓 SHOW ME THE ROPES', fn: function () { close(); GAME.guide.begin(); } } : null,
+      GAME.guide && GAME.guide.canStart() ? { label: "🎓 ОБУЧИ МЕНЯ", fn: function () { close(); GAME.guide.begin(); } } : null,
       // her big score, once the bridges are open (heist.js)
-      GAME.heist && GAME.heist.offered() && !GAME.heist.busy ? { label: '💰 THE BIG SCORE', fn: function () { answer(bigScore()); } } : null,
-      law = { label: w ? '🚨 I\'VE GOT THE LAW ON ME' : '🚨 HOW DO I LOSE THE LAW?', fn: function () { answer(theLaw()); } },
-      { label: '💰 WHERE\'S THE MONEY?', fn: function () { answer(money()); } },
-      { label: '📍 TAKE ME SOMEWHERE', fn: function () { answer(takeMe()); } },
-      { label: '📖 TELL ME ABOUT…', fn: function () { answer(explain()); } },
-      { label: '📊 HOW AM I DOING?', fn: function () { answer(howAmI()); } },
-      { label: '🎮 REMIND ME OF THE CONTROLS', fn: function () { answer(controlsHelp()); } },
-      { label: '👋 NOTHING, THANKS', fn: close }
+      GAME.heist && GAME.heist.offered() && !GAME.heist.busy ? { label: "💰 БОЛЬШОЙ КУШ", fn: function () { answer(bigScore()); } } : null,
+      law = { label: w ? "🚨 ПОЛИЦИЯ НА ХВОСТЕ" : "🚨 КАК СБРОСИТЬ РОЗЫСК?", fn: function () { answer(theLaw()); } },
+      { label: "💰 ГДЕ ЗАРАБОТАТЬ?", fn: function () { answer(money()); } },
+      { label: "📍 ПОКАЖИ МНЕ ДОРОГУ", fn: function () { answer(takeMe()); } },
+      { label: "📖 РАССКАЖИ О…", fn: function () { answer(explain()); } },
+      { label: "📊 КАК МОИ УСПЕХИ?", fn: function () { answer(howAmI()); } },
+      { label: "🎮 НАПОМНИ УПРАВЛЕНИЕ", fn: function () { answer(controlsHelp()); } },
+      { label: "👋 НИЧЕГО, СПАСИБО", fn: close }
     ];
     list = list.filter(Boolean);
     // with the law on you, that comes first
     if (w) { list.splice(list.indexOf(law), 1); list.unshift(law); }
-    var h = GAME.timeOfDay !== undefined && GAME.timeOfDay < 0.35 ? 'Up late, kid?' : 'Hey, kid.';
-    return { say: h + (w ? ' Sounds busy where you are.' : '') + ' What can I do for you?', list: list, top: true };
+    var h = GAME.timeOfDay !== undefined && GAME.timeOfDay < 0.35 ? "Не спится, парень?" : "Привет, парень.";
+    return { say: h + (w ? " У тебя там шумно." : '') + " Чем помочь?", list: list, top: true };
   }
 
   // -- the screen --
   function render() {
     var v = view;
     // (somebody else asking — a stranger on the pavement: strangers.js)
-    $('lola-from').textContent = v.from || '📟 LOLA';
+    $('lola-from').textContent = v.from || "📟 ЛОЛА";
     $('lola-say').textContent = v.say;
     // whose face it is: hers, or the stranger asking (cast.js)
     var fc = $('lola-face'), id = v.face || (v.from ? GAME.cast && GAME.cast.idFor(v.from) : 'lola');
@@ -262,8 +262,8 @@ GAME.lola = (function () {
     opts = (v.list || []).slice();
     (v.acts || []).forEach(function (a) { opts.push(a); });
     if (!v.top) {
-      opts.push({ label: '↩ SOMETHING ELSE', fn: function () { show(topLevel()); }, back: true });
-      opts.push({ label: '✓ THANKS, LOLA', fn: close });
+      opts.push({ label: "↩ ДРУГОЙ ВОПРОС", fn: function () { show(topLevel()); }, back: true });
+      opts.push({ label: "✓ СПАСИБО, ЛОЛА", fn: close });
     }
     sel = Math.min(sel, opts.length - 1);
     var box = $('lola-opts');
@@ -277,7 +277,7 @@ GAME.lola = (function () {
     });
     var cur = box.children[sel];
     if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'nearest' });
-    $('lola-hint').textContent = touch() ? 'Tap one' : '↑↓ and Enter, or click  ·  Esc ' + (v.escSays || 'to go back');
+    $('lola-hint').textContent = touch() ? "Коснись варианта" : "↑↓ и Enter или щелчок  ·  Esc — " + (v.escSays || "назад");
   }
   function show(v) {
     view = v; sel = 0; render();

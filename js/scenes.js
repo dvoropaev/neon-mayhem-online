@@ -166,7 +166,7 @@ GAME.scenes = (function () {
     if (GAME.hud.cine) GAME.hud.cine(true, function () { advance(); });
     var sk = $('cine-skip');
     if (sk) {
-      sk.textContent = GAME.isTouch ? 'TAP · NEXT     SKIP ⏭' : 'SPACE · NEXT     ESC · SKIP';
+      sk.textContent = GAME.isTouch ? "КАСАНИЕ · ДАЛЬШЕ     ПРОПУСТИТЬ ⏭" : "ПРОБЕЛ · ДАЛЬШЕ     ESC · ПРОПУСТИТЬ";
       sk.onpointerdown = function (e) { e.preventDefault(); e.stopPropagation(); skip(); };
     }
     var sub = $('scene-sub');
@@ -288,7 +288,7 @@ GAME.scenes = (function () {
         c.typed = Math.min(c.text.length, c.typed + v.cps * dt);
         for (var i = before; i < Math.floor(c.typed); i++) {
           var ch = c.text.charAt(i);
-          if (/[A-Za-z]/.test(ch) && (c.blips++ % 2 === 0)) {
+          if (/[A-Za-zА-Яа-яЁё]/.test(ch) && (c.blips++ % 2 === 0)) {
             if (GAME.audio && GAME.audio.babble) GAME.audio.babble(v, ch);
             c.mouth = 0.075;
           }

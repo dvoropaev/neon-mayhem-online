@@ -19,19 +19,19 @@ GAME.cheats = (function () {
     return GAME.vehicles.spawnCar(type, x, z, h, {});
   }
   var CODES = {
-    ASPIRINE: function () { P().health = 100; return 'Health restored'; },
-    PRECIOUSPROTECTION: function () { P().armor = 100; return 'Armour'; },
-    THUGSTOOLS: function () { arm([['bat'], ['molotov', 10], ['pistol', 100], ['shotgun', 50], ['smg', 200], ['rifle', 50]]); return 'Weapons — the thug\'s set'; },
-    PROFESSIONALTOOLS: function () { arm([['knife'], ['grenade', 10], ['pistol', 100], ['shotgun', 50], ['smg', 200], ['rifle', 50], ['sniper', 30]]); return 'Weapons — the professional\'s set'; },
-    NUTTERTOOLS: function () { arm([['chainsaw'], ['grenade', 10], ['pistol', 100], ['shotgun', 50], ['smg', 200], ['sniper', 30], ['rocket', 10]]); return 'Weapons — the nutter\'s set'; },
-    LEAVEMEALONE: function () { GAME.police.clearWanted(); return 'Wanted level cleared'; },
-    YOUWONTTAKEMEALIVE: function () { GAME.police.setWanted(Math.min(GAME.police.MAX_STARS || 6, GAME.police.wanted + 2)); return 'Wanted level up'; },
-    PANZER: function () { return ride('tank') ? 'Tank' : null; },
-    GETTHEREFAST: function () { return ride('sports') ? 'A fast car' : null; },
-    GETTHEREAMAZINGLYFAST: function () { return ride('superbike') ? 'A very fast bike' : null; },
-    ROCKANDROLLCAR: function () { return ride('limo') ? 'Limousine' : null; },
-    RUBBISHCAR: function () { return ride('van') ? 'A van' : null; },
-    BETTERTHANWALKING: function () { return ride('buggy') ? 'A buggy' : null; },
+    ASPIRINE: function () { P().health = 100; return "Здоровье восстановлено"; },
+    PRECIOUSPROTECTION: function () { P().armor = 100; return "Броня"; },
+    THUGSTOOLS: function () { arm([['bat'], ['molotov', 10], ['pistol', 100], ['shotgun', 50], ['smg', 200], ['rifle', 50]]); return "Оружие — набор бандита"; },
+    PROFESSIONALTOOLS: function () { arm([['knife'], ['grenade', 10], ['pistol', 100], ['shotgun', 50], ['smg', 200], ['rifle', 50], ['sniper', 30]]); return "Оружие — набор профессионала"; },
+    NUTTERTOOLS: function () { arm([['chainsaw'], ['grenade', 10], ['pistol', 100], ['shotgun', 50], ['smg', 200], ['sniper', 30], ['rocket', 10]]); return "Оружие — набор безумца"; },
+    LEAVEMEALONE: function () { GAME.police.clearWanted(); return "Розыск снят"; },
+    YOUWONTTAKEMEALIVE: function () { GAME.police.setWanted(Math.min(GAME.police.MAX_STARS || 6, GAME.police.wanted + 2)); return "Уровень розыска повышен"; },
+    PANZER: function () { return ride('tank') ? "Танк" : null; },
+    GETTHEREFAST: function () { return ride('sports') ? "Быстрая машина" : null; },
+    GETTHEREAMAZINGLYFAST: function () { return ride('superbike') ? "Очень быстрый мотоцикл" : null; },
+    ROCKANDROLLCAR: function () { return ride('limo') ? "Лимузин" : null; },
+    RUBBISHCAR: function () { return ride('van') ? "Фургон" : null; },
+    BETTERTHANWALKING: function () { return ride('buggy') ? "Багги" : null; },
     BIGBANG: function () {
       var f = GAME.focus(), n = 0;
       GAME.world.cars.slice().forEach(function (c) {
@@ -39,13 +39,13 @@ GAME.cheats = (function () {
         if (U.dist2(c.pos.x, c.pos.z, f.x, f.z) > 90 * 90) return;
         GAME.vehicles.explodeCar(c, 'fire', true); n++;
       });
-      return n ? 'Everything nearby goes up' : 'Nothing nearby to go up';
+      return n ? "Всё рядом взлетает на воздух" : "Рядом нечего взрывать";
     },
-    ICANTTAKEITANYMORE: function () { if (GAME.godMode) return null; P().health = 0; GAME.playerWasted('cheat'); return 'Goodbye, cruel world'; },
-    ALOVELYDAY: function () { GAME.weather.setMode('clear'); return 'Sunny'; },
-    APLEASANTDAY: function () { GAME.weather.setMode('clear'); return 'Fine weather'; },
-    CATSANDDOGS: function () { GAME.weather.setMode('rain'); return 'Rain'; },
-    LIFEISPASSINGMEBY: function () { GAME.dayPhase = (GAME.dayPhase + 0.25) % 1; return 'Six hours later'; }
+    ICANTTAKEITANYMORE: function () { if (GAME.godMode) return null; P().health = 0; GAME.playerWasted('cheat'); return "Прощай, жестокий мир"; },
+    ALOVELYDAY: function () { GAME.weather.setMode('clear'); return "Ясно"; },
+    APLEASANTDAY: function () { GAME.weather.setMode('clear'); return "Хорошая погода"; },
+    CATSANDDOGS: function () { GAME.weather.setMode('rain'); return "Дождь"; },
+    LIFEISPASSINGMEBY: function () { GAME.dayPhase = (GAME.dayPhase + 0.25) % 1; return "Шесть часов спустя"; }
   };
   // Enter a code; what it did, or null for nothing
   function enter(text) {
@@ -58,7 +58,7 @@ GAME.cheats = (function () {
     GAME.prefs = GAME.prefs || {};
     GAME.prefs.cheats = (GAME.prefs.cheats || 0) + 1;
     GAME.audio.sting('win');
-    msg('CHEAT ACTIVATED — ' + said);
+    msg("ЧИТ АКТИВИРОВАН — " + said);
     if (GAME.track) GAME.track('cheat-' + code.toLowerCase());
     return said;
   }
@@ -82,7 +82,7 @@ GAME.cheats = (function () {
   }
   function submit() {
     var inp = $('cheat-input'), said = enter(inp.value);
-    $('cheat-said').textContent = said ? '✓ ' + said : 'Nothing happens.';
+    $('cheat-said').textContent = said ? '✓ ' + said : "Ничего не произошло.";
     inp.value = '';
     if (said) setTimeout(function () { close(); if (GAME.paused) GAME.togglePause(); }, 700);
   }

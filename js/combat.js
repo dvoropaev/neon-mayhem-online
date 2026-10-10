@@ -1,25 +1,25 @@
 var WEAPONS = {
-  fist: { name: 'FISTS', slot: 1, damage: 14, range: 2.0, rate: 0.42, auto: false },
-  pistol: { name: 'PISTOL', slot: 2, damage: 26, range: 60, rate: 0.34, auto: false, spread: 0.012 },
-  smg: { name: 'SMG', slot: 3, damage: 11, range: 48, rate: 0.085, auto: true, spread: 0.045, driveby: true },
-  shotgun: { name: 'SHOTGUN', slot: 4, damage: 11, range: 24, rate: 0.95, auto: false, spread: 0.085, pellets: 7 },
+  fist: { name: "КУЛАКИ", slot: 1, damage: 14, range: 2.0, rate: 0.42, auto: false },
+  pistol: { name: "ПИСТОЛЕТ", slot: 2, damage: 26, range: 60, rate: 0.34, auto: false, spread: 0.012 },
+  smg: { name: "ПИСТОЛЕТ-ПУЛЕМЁТ", slot: 3, damage: 11, range: 48, rate: 0.085, auto: true, spread: 0.045, driveby: true },
+  shotgun: { name: "ДРОБОВИК", slot: 4, damage: 11, range: 24, rate: 0.95, auto: false, spread: 0.085, pellets: 7 },
   // The world's only PICKUP for it sits on the observatory terrace on Isla
   // Verde — but the hardware counters sell it over the counter for $5,000
   // (with refills), and the all-25-jumps arsenal includes it. Scarce as a
   // find, not as a purchase.
-  rifle: { name: 'RIFLE', slot: 5, damage: 68, range: 150, rate: 0.85, auto: false, spread: 0.002 },
+  rifle: { name: "ВИНТОВКА", slot: 5, damage: 68, range: 150, rate: 0.85, auto: false, spread: 0.002 },
   // Hand-to-hand, one at a time (a new one replaces the old, as in Vice
   // City): `reach` in metres, and the chainsaw keeps cutting while held.
-  bat: { name: 'BASEBALL BAT', melee: true, damage: 26, reach: 2.2, rate: 0.62, swing: 'bat' },
-  knife: { name: 'KNIFE', melee: true, damage: 34, reach: 1.8, rate: 0.42, swing: 'knife', blood: true },
-  katana: { name: 'KATANA', melee: true, damage: 55, reach: 2.5, rate: 0.58, swing: 'katana', blood: true },
-  chainsaw: { name: 'CHAINSAW', melee: true, damage: 12, reach: 2.1, rate: 0.09, auto: true, swing: 'chainsaw', blood: true },
+  bat: { name: "БЕЙСБОЛЬНАЯ БИТА", melee: true, damage: 26, reach: 2.2, rate: 0.62, swing: 'bat' },
+  knife: { name: "НОЖ", melee: true, damage: 34, reach: 1.8, rate: 0.42, swing: 'knife', blood: true },
+  katana: { name: "КАТАНА", melee: true, damage: 55, reach: 2.5, rate: 0.58, swing: 'katana', blood: true },
+  chainsaw: { name: "БЕНЗОПИЛА", melee: true, damage: 12, reach: 2.1, rate: 0.09, auto: true, swing: 'chainsaw', blood: true },
   // thrown, one kind at a time, by the count (arsenal.js flies them)
-  grenade: { name: 'GRENADES', thrown: 'grenade', rate: 0.9 },
-  molotov: { name: 'MOLOTOVS', thrown: 'molotov', rate: 0.9 },
+  grenade: { name: "ГРАНАТЫ", thrown: 'grenade', rate: 0.9 },
+  molotov: { name: "КОКТЕЙЛИ МОЛОТОВА", thrown: 'molotov', rate: 0.9 },
   // the heavy end: a scoped rifle that drops anybody it hits, and a rocket
-  sniper: { name: 'SNIPER RIFLE', damage: 140, range: 280, rate: 1.25, auto: false, spread: 0, scope: true },
-  rocket: { name: 'ROCKET LAUNCHER', heavy: true, range: 200, rate: 1.5 }
+  sniper: { name: "СНАЙПЕРСКАЯ ВИНТОВКА", damage: 140, range: 280, rate: 1.25, auto: false, spread: 0, scope: true },
+  rocket: { name: "РАКЕТОМЁТ", heavy: true, range: 200, rate: 1.5 }
 };
 var WEAPON_ORDER = ['fist', 'bat', 'knife', 'katana', 'chainsaw', 'pistol', 'smg', 'shotgun', 'rifle', 'sniper', 'rocket', 'grenade', 'molotov'];
 // one of each of these at a time: a new one replaces whatever you had
@@ -309,7 +309,7 @@ GAME.combat = (function () {
     if (inv.ammo <= 0 && P.currentWeapon === w) {
       var next = fallbackFrom(w);
       P.currentWeapon = next;
-      GAME.hud.message('Out of ammo — ' + (next === 'fist' ? 'fists up.' : WEAPONS[next].name + ' up.'), 2);
+      GAME.hud.message("Патроны закончились — " + (next === 'fist' ? "в бой кулаками." : WEAPONS[next].name + " в руках."), 2);
     }
     refreshWeaponHud();
   }
@@ -501,7 +501,7 @@ GAME.combat = (function () {
           var nx = fallbackFrom(w);
           P.currentWeapon = nx;
           if (wd.thrown) inv2.have = false;
-          GAME.hud.message('Out of ' + wd.name.toLowerCase() + ' — ' + WEAPONS[nx].name + ' up.', 2);
+          GAME.hud.message("Закончилось: " + wd.name.toLowerCase() + ' — ' + WEAPONS[nx].name + " в руках.", 2);
         }
         refreshWeaponHud();
       } else {
@@ -605,23 +605,23 @@ GAME.combat = (function () {
 
   // ---------- pickups ----------
   var PICKUP_DEFS = {
-    health: { color: 0xff4d6a, label: 'HEALTH' },
-    armor: { color: 0x4a6cff, label: 'ARMOR' },   // the map's armour blue (hud.js PICKUP_BLIP)
-    pistol: { color: 0xd8d8e8, label: 'PISTOL AMMO' },
-    smg: { color: 0xffe14f, label: 'SMG AMMO' },
-    shotgun: { color: 0xff8a3d, label: 'SHOTGUN AMMO' },
-    rifle: { color: 0x8dffd8, label: 'RIFLE' },
-    cash: { color: 0x8dffd8, label: 'CASH' },
+    health: { color: 0xff4d6a, label: "ЗДОРОВЬЕ" },
+    armor: { color: 0x4a6cff, label: "БРОНЯ" },   // the map's armour blue (hud.js PICKUP_BLIP)
+    pistol: { color: 0xd8d8e8, label: "ПАТРОНЫ ДЛЯ ПИСТОЛЕТА" },
+    smg: { color: 0xffe14f, label: "ПАТРОНЫ ДЛЯ ПП" },
+    shotgun: { color: 0xff8a3d, label: "ПАТРОНЫ ДЛЯ ДРОБОВИКА" },
+    rifle: { color: 0x8dffd8, label: "ВИНТОВКА" },
+    cash: { color: 0x8dffd8, label: "ДЕНЬГИ" },
     // the rest of the arsenal (arsenal.js), out in the city: on corners,
     // for whoever looks
-    bat: { color: 0xffd24a, label: 'BASEBALL BAT' },
-    knife: { color: 0xffd24a, label: 'KNIFE' },
-    katana: { color: 0xffd24a, label: 'KATANA' },
-    chainsaw: { color: 0xffd24a, label: 'CHAINSAW' },
-    grenade: { color: 0xff8a3d, label: 'GRENADES' },
-    molotov: { color: 0xff8a3d, label: 'MOLOTOVS' },
-    sniper: { color: 0x8dffd8, label: 'SNIPER RIFLE' },
-    rocket: { color: 0xff6fb8, label: 'ROCKET LAUNCHER' }
+    bat: { color: 0xffd24a, label: "БЕЙСБОЛЬНАЯ БИТА" },
+    knife: { color: 0xffd24a, label: "НОЖ" },
+    katana: { color: 0xffd24a, label: "КАТАНА" },
+    chainsaw: { color: 0xffd24a, label: "БЕНЗОПИЛА" },
+    grenade: { color: 0xff8a3d, label: "ГРАНАТЫ" },
+    molotov: { color: 0xff8a3d, label: "КОКТЕЙЛИ МОЛОТОВА" },
+    sniper: { color: 0x8dffd8, label: "СНАЙПЕРСКАЯ ВИНТОВКА" },
+    rocket: { color: 0xff6fb8, label: "РАКЕТОМЁТ" }
   };
 
   // A shape, its halo and their materials are fixed by type and colour, so

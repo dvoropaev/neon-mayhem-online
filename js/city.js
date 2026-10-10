@@ -63,7 +63,7 @@ GAME.city = (function () {
   // ocean mesh, the drown check and the spawners without any of them knowing
   // there is more than one.
   city.islands = [{
-    id: 'costa', name: 'Isla Rosa', centre: { x: -70, z: 0 },
+    id: 'costa', name: "Исла-Роса", centre: { x: -70, z: 0 },
     contains: function (x, z) {
       return x <= city.shoreline(z) + 2 && x >= city.westShore(z) &&
         z >= city.northShore(x) && z <= city.southShore(x);
@@ -366,9 +366,9 @@ GAME.city = (function () {
 
   city.districtName = function (x, z) {
     if (GAME.isla && GAME.isla.contains(x, z)) return GAME.isla.districtName(x, z);
-    if (x > 340) return 'Ocean Strip';
+    if (x > 340) return "Океанский бульвар";
     var d = city.districtAt(x, z);
-    return d === 'strip' ? 'Ocean Strip' : d === 'harbor' ? 'Puerto Viejo' : d === 'downtown' ? 'Centro Alto' : 'Las Colinas';
+    return d === 'strip' ? "Океанский бульвар" : d === 'harbor' ? "Пуэрто-Вьехо" : d === 'downtown' ? "Сентро-Альто" : "Лас-Колинас";
   };
   city.nearestRoadPoint = function (x, z) {
     // each landmass answers for its own roads; asking the mainland grid where
@@ -647,27 +647,27 @@ GAME.city = (function () {
   }
   city.lamBlock = lamBlock;
 
-  var SIGN_TEXTS = ['CLUB FLAMINGO', 'HOTEL MIRAJE', "ROXY'S", 'EL DORADO', 'NEON PALMS', 'TIKI LOUNGE',
-    'LA SIRENA', 'STARDUST', 'CASA AZUL', 'VOLTAGE', 'PINK IGUANA', 'INFERNO ROOM',
-    'COCKTAILS', 'ARCADE', 'HOTEL RIVIERA', 'PALM COURT', 'DISCO 2000', 'MOTEL LUNA',
-    'RESPRAY', 'HOSPITAL', 'POLICE', 'AXIS TOWER', 'COSTA ROSA PIER', 'FUN FAIR',
+  var SIGN_TEXTS = ["КЛУБ «ФЛАМИНГО»", "ОТЕЛЬ «МИРАЖ»", "У РОКСИ", "ЭЛЬ-ДОРАДО", "НЕОНОВЫЕ ПАЛЬМЫ", "ТИКИ-БАР",
+    "ЛА-СИРЕНА", "ЗВЁЗДНАЯ ПЫЛЬ", "СИНИЙ ДОМ", "НАПРЯЖЕНИЕ", "РОЗОВАЯ ИГУАНА", "АДСКИЙ ЗАЛ",
+    "КОКТЕЙЛИ", "ИГРОВЫЕ АВТОМАТЫ", "ОТЕЛЬ «РИВЬЕРА»", "ПАЛЬМОВЫЙ ДВОР", "ДИСКО 2000", "МОТЕЛЬ «ЛУНА»",
+    "ПЕРЕКРАСКА", "БОЛЬНИЦА", "ПОЛИЦИЯ", "БАШНЯ «АКСИС»", "ПИРС КОСТА-РОСЫ", "ЛУНА-ПАРК",
     // Isla Verde keeps its own names; appended, so every index above still holds
-    'SUNNY SCOOPS', 'EL FARO', 'PUERTO DORADO', 'MARINA VERDE', 'MIRADOR',
-    'CASA DEL SOL', 'BAHIA CLUB', 'VERDE MOTORS',
+    "СОЛНЕЧНЫЕ ШАРИКИ", "ЭЛЬ-ФАРО", "ПУЭРТО-ДОРАДО", "МАРИНА ВЕРДЕ", "МИРАДОР",
+    "ДОМ СОЛНЦА", "КЛУБ «БАИЯ»", "ВЕРДЕ МОТОРС",
     // The two ends of the world, for the signs over the bridges. Costa Rosa
     // is the CITY — the whole map, both islands. The mainland is Isla Rosa,
     // the neon island; Isla Verde is the green one across the channel.
-    'ISLA VERDE', 'ISLA ROSA',
+    "ИСЛА-ВЕРДЕ", "ИСЛА-РОСА",
     // storefronts — the shops are real buildings with their names in lights
     // (slots consumed by js/shops.js; keep this order in sync with SIGN_SLOT there)
-    'ROSA HARDWARE', 'VERDE HARDWARE', 'THREADS', 'CORTES CUTS',
-    'GRAN ROSA MOTORS', 'THE LUCKY GULL', 'DOCKSIDE FLAT', 'STRIP CONDO', 'MARINA VILLA',
+    "ОРУЖЕЙНЫЙ «РОСА»", "ОРУЖЕЙНЫЙ «ВЕРДЕ»", "НИТКИ", "СТРИЖКИ КОРТЕСА",
+    "ГРАН-РОСА МОТОРС", "СЧАСТЛИВАЯ ЧАЙКА", "КВАРТИРА В ДОКАХ", "КВАРТИРА НА БУЛЬВАРЕ", "ВИЛЛА У МАРИНЫ",
     // civic lettering for the landmark dressing (43, 44)
-    'EMERGENCY', 'DEPARTURES',
+    "СКОРАЯ ПОМОЩЬ", "ВЫЛЕТЫ",
     // the bank on the strip (45: shops.js SIGN_SLOT)
-    'SAVINGS & LOAN',
+    "СБЕРЕГАТЕЛЬНЫЙ БАНК",
     // the cab firm on Isla Verde (46)
-    'VERDE CABS'];
+    "ВЕРДЕ-ТАКСИ"];
   var SIGN_COLORS = ['#ff4fa3', '#38e8ff', '#ffe14f', '#7dff6a', '#ff8a3d', '#c86bff', '#ff5d5d', '#59ffc8'];
   function signAtlas() {
     var cv = document.createElement('canvas');
@@ -684,8 +684,8 @@ GAME.city = (function () {
     for (var i = 0; i < SIGN_TEXTS.length; i++) {
       var col = i % 2, row = Math.floor(i / 2);
       var x = col * 512, y = row * ROW;
-      var color = SIGN_TEXTS[i] === 'HOSPITAL' || SIGN_TEXTS[i] === 'EMERGENCY' ? '#ff6a6a'
-        : SIGN_TEXTS[i] === 'POLICE' ? '#5aa0ff' : SIGN_COLORS[i % SIGN_COLORS.length];
+      var color = SIGN_TEXTS[i] === "БОЛЬНИЦА" || SIGN_TEXTS[i] === "СКОРАЯ ПОМОЩЬ" ? '#ff6a6a'
+        : SIGN_TEXTS[i] === "ПОЛИЦИЯ" ? '#5aa0ff' : SIGN_COLORS[i % SIGN_COLORS.length];
       g.save();
       g.font = 'italic 900 ' + FONT + 'px "Segoe UI", Arial, sans-serif';
       g.textAlign = 'center'; g.textBaseline = 'middle';

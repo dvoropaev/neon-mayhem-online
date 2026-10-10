@@ -107,7 +107,7 @@ GAME.streetlife = (function () {
       // the cruiser pulls up by it, lights going, and that is that
       if (cop && !cop.gone && cop.ai) { cop.ai.follow = null; cop.ai.desired = 0.01; ev.holdT = 8; }   // (0 reads as unset)
       if (mine) {
-        pay(250, "CITIZEN'S ARREST — the department thanks you.");
+        pay(250, "ГРАЖДАНСКИЙ АРЕСТ — полиция благодарит тебя.");
         if (GAME.herald) GAME.herald.front('hero', { what: 'getaway' });
       }
       ev.kind = 'chaseDone';
@@ -150,8 +150,8 @@ GAME.streetlife = (function () {
     GAME.audio.yelp(shop.at.x, shop.at.z);
     var stolen = B && B.owns(shop.id) ? B.robbed(shop.id) : 0;
     say(B && B.owns(shop.id)
-      ? '"STOP, THIEF!" — your place, ' + shop.name + ', has been held up' + (stolen ? ', and he has the till — $' + stolen.toLocaleString() + '.' : '.') + ' He\'s running for it.'
-      : '"STOP, THIEF!" — ' + shop.name + ' has been held up. The thief is running for it.', 4.5);
+      ? "«ДЕРЖИ ВОРА!» Ограблено твоё заведение: " + shop.name + "." + (stolen ? ". У него выручка — $" + stolen.toLocaleString('ru-RU') + '.' : '.') + " Он убегает."
+      : "«ДЕРЖИ ВОРА!» Ограблено заведение: " + shop.name + ". Вор убегает.", 4.5);
     ev = { kind: 'robbery', t: 0, thief: thief, shop: shop, near: false, stolen: stolen };
     return true;
   }
@@ -167,15 +167,15 @@ GAME.streetlife = (function () {
       GAME.combat.dropPickup(th.pos.x, th.pos.z, 'cash', amt);
       // yours, if it was you that put him down (a passing car is not a hero)
       if (th.byPlayer) {
-        say('Thief down — the takings are on the pavement.', 3.5);
+        say("Вор повержен — выручка на тротуаре.", 3.5);
         if (GAME.herald) GAME.herald.front('hero', { what: 'thief', shop: ev.shop.name });
-      } else if (ev.near) say('Somebody\'s stopped the thief — the bag is on the pavement.', 3);
+      } else if (ev.near) say("Кто-то остановил вора — сумка на тротуаре.", 3);
       end();
       return;
     }
     if (th.gone || d > 150 || ev.t > 55) {
-      if (ev.stolen) say('The thief got away with your takings — $' + ev.stolen.toLocaleString() + '.', 3);
-      else if (ev.near) say('The thief got away with it.', 2.5);
+      if (ev.stolen) say("Вор сбежал с твоей выручкой — $" + ev.stolen.toLocaleString('ru-RU') + '.', 3);
+      else if (ev.near) say("Вор сбежал с деньгами.", 2.5);
       end();
     }
   }
@@ -194,7 +194,7 @@ GAME.streetlife = (function () {
     van.hp = van.spec.hp * 3.5;
     van.armoured = true; van.keep = true;
     ev = { kind: 'van', t: 0, van: van, hp0: van.hp };
-    if (GAME.hud.pager) GAME.hud.pager('LOLA', 'There\'s a security van doing its rounds near you — grey, slow, heavy. I\'m not telling you to do anything. I\'m just telling you.');
+    if (GAME.hud.pager) GAME.hud.pager("ЛОЛА", "Рядом с тобой инкассаторский фургон. Серый, медленный, тяжёлый. Я ни на что не намекаю. Просто сообщаю.");
     return true;
   }
   function stepVan() {
@@ -208,7 +208,7 @@ GAME.streetlife = (function () {
         if (dr) GAME.peds.startFlee(dr, f.x, f.z, 12);
       }
       GAME.police.setWanted(Math.max(GAME.police.wanted, 3));
-      say('The back doors give — three bags on the road. Every cop in town heard that.', 4);
+      say("Задние двери раскрылись — три сумки на дороге. Это услышала вся полиция города.", 4);
       if (GAME.herald) GAME.herald.front('van', {});
       end();
       return;
@@ -331,7 +331,7 @@ GAME.streetlife = (function () {
       // crashed out mid-race: the flag is still up, and it is yours to take
       if (racer.state !== 'race') { dropRacer(); return; }
       racer.solo = true;
-      say('They\'ve crashed out — the flag is yours if you want it.', 3);
+      say("Они разбились. Флаг твой, если хочешь.", 3);
     }
     if (!p.inCar || !mine || mine.dead || p.state !== 'alive') { dropRacer(); return; }
     var c = r.controls;
@@ -347,7 +347,7 @@ GAME.streetlife = (function () {
       if (d < 2.2 && Math.abs(r.speed) < 1.2) {
         racer.state = 'rev'; racer.t = 0;
         GAME.vehicles.honk(r);
-        say('Somebody pulls up alongside and revs at you — floor it to race to the flag, ' + Math.round(RACE_LEN / 50) * 50 + ' m up the road. Or don\'t.', 4.5);
+        say("Кто-то подъехал и газует рядом. Жми на газ — гонка до флага через " + Math.round(RACE_LEN / 50) * 50 + " м по дороге. Или не жми.", 4.5);
         racer.marker = finishMarker(racer.fin[0], racer.fin[1]);
       }
       if (racer.t > 14 || Math.abs(mine.speed) > 3) dropRacer();
@@ -357,11 +357,11 @@ GAME.streetlife = (function () {
       c.throttle = 0; c.steer = 0; c.handbrake = true;
       if (mine.speed > 3 && mine.controls && mine.controls.throttle > 0.5) {
         racer.state = 'race'; racer.t = 0;
-        say('GO!', 1.2);
+        say("ВПЕРЁД!", 1.2);
         GAME.audio.pickup();
       } else if (racer.t > 6 || Math.abs(mine.speed) > 3) {
         // no takers: off they go
-        say('No? Suit yourself.', 2);
+        say("Не хочешь? Как скажешь.", 2);
         dropRacer();
       }
       return;
@@ -370,16 +370,16 @@ GAME.streetlife = (function () {
     if (!racer.solo) drive(r, racer.route, 30, dt);
     var f = racer.fin;
     if (U.dist2(mine.pos.x, mine.pos.z, f[0], f[1]) < FINISH_R * FINISH_R) {
-      pay(300, racer.solo ? 'You take the flag — they never made it.' : 'You take them at the flag.');
+      pay(300, racer.solo ? "Флаг твой — они не доехали." : "На финише ты их обошёл.");
       dropRacer(true);
       return;
     }
     if (!racer.solo && U.dist2(r.pos.x, r.pos.z, f[0], f[1]) < FINISH_R * FINISH_R) {
-      say('They take it by a length.', 3);
+      say("Они выиграли на корпус.", 3);
       dropRacer(true);
       return;
     }
-    if (racer.t > 70) { say('The race peters out.', 2); dropRacer(); }
+    if (racer.t > 70) { say("Гонка сошла на нет.", 2); dropRacer(); }
   }
 
   // ---------- the running order ----------

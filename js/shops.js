@@ -23,40 +23,40 @@ GAME.shops = (function () {
 
   // ---------- wardrobe ----------
   var SHIRTS = [
-    { id: 'white', name: 'Club White', hex: 0xf0f0f8 },
-    { id: 'flamingo', name: 'Flamingo Pink', hex: 0xf78ab8 },
-    { id: 'mint', name: 'Mint Breeze', hex: 0x9fe8d8 },
-    { id: 'banana', name: 'Banana Cream', hex: 0xf9d99a },
-    { id: 'skyline', name: 'Skyline Blue', hex: 0x8fd0f0 },
-    { id: 'violet', name: 'Violet Hour', hex: 0x8a6ae8 },
-    { id: 'ember', name: 'Ember Red', hex: 0xe86a5a },
-    { id: 'noir', name: 'Midnight Noir', hex: 0x23242e }
+    { id: 'white', name: "Клубный белый", hex: 0xf0f0f8 },
+    { id: 'flamingo', name: "Розовый фламинго", hex: 0xf78ab8 },
+    { id: 'mint', name: "Мятный бриз", hex: 0x9fe8d8 },
+    { id: 'banana', name: "Банановый крем", hex: 0xf9d99a },
+    { id: 'skyline', name: "Небесно-голубой", hex: 0x8fd0f0 },
+    { id: 'violet', name: "Фиолетовый час", hex: 0x8a6ae8 },
+    { id: 'ember', name: "Тлеющий красный", hex: 0xe86a5a },
+    { id: 'noir', name: "Полночный чёрный", hex: 0x23242e }
   ];
   var PANTS = [
-    { id: 'teal', name: 'Teal Classics', hex: 0x38b8c8 },
-    { id: 'navy', name: 'Navy Slacks', hex: 0x3a4a68 },
-    { id: 'sand', name: 'Sand Chinos', hex: 0xd8c8a8 },
-    { id: 'brick', name: 'Brick Cords', hex: 0x8a4a4a },
-    { id: 'charcoal', name: 'Charcoal', hex: 0x2a2a34 },
-    { id: 'lilac', name: 'Lilac Flares', hex: 0xb090d8 }
+    { id: 'teal', name: "Бирюзовая классика", hex: 0x38b8c8 },
+    { id: 'navy', name: "Тёмно-синие брюки", hex: 0x3a4a68 },
+    { id: 'sand', name: "Песочные чиносы", hex: 0xd8c8a8 },
+    { id: 'brick', name: "Кирпичный вельвет", hex: 0x8a4a4a },
+    { id: 'charcoal', name: "Угольный", hex: 0x2a2a34 },
+    { id: 'lilac', name: "Лиловый клёш", hex: 0xb090d8 }
   ];
   var HAIRSTYLES = [
-    { id: 'crew', name: 'Crew Cut' },
-    { id: 'flattop', name: 'Flattop' },
-    { id: 'pompadour', name: 'Pompadour' },
-    { id: 'mullet', name: 'Mullet' },
-    { id: 'afro', name: 'Afro' },
-    { id: 'ponytail', name: 'Ponytail' },
-    { id: 'mohawk', name: 'Mohawk' },
-    { id: 'buzz', name: 'Shaved (back to bald)' }
+    { id: 'crew', name: "Короткая стрижка" },
+    { id: 'flattop', name: "Площадка" },
+    { id: 'pompadour', name: "Помпадур" },
+    { id: 'mullet', name: "Маллет" },
+    { id: 'afro', name: "Афро" },
+    { id: 'ponytail', name: "Хвост" },
+    { id: 'mohawk', name: "Ирокез" },
+    { id: 'buzz', name: "Наголо" }
   ];
   var HAIRCOLORS = [
-    { id: 'black', name: 'Black', hex: 0x1c1a18 },
-    { id: 'brown', name: 'Brown', hex: 0x5a3c22 },
-    { id: 'blond', name: 'Blond', hex: 0xd8b86a },
-    { id: 'red', name: 'Copper Red', hex: 0xa8482a },
-    { id: 'pink', name: 'Hot Pink', hex: 0xf050a0 },
-    { id: 'cyan', name: 'Electric Cyan', hex: 0x38c8e8 }
+    { id: 'black', name: "Чёрный", hex: 0x1c1a18 },
+    { id: 'brown', name: "Каштановый", hex: 0x5a3c22 },
+    { id: 'blond', name: "Блонд", hex: 0xd8b86a },
+    { id: 'red', name: "Медно-рыжий", hex: 0xa8482a },
+    { id: 'pink', name: "Ярко-розовый", hex: 0xf050a0 },
+    { id: 'cyan', name: "Электрический голубой", hex: 0x38c8e8 }
   ];
 
   // The same skin palette the crowd draws from, named for the barber's
@@ -65,11 +65,11 @@ GAME.shops = (function () {
   // "my character changes between machines". A tone bought at the barber
   // (skinPicked) is a choice, and choices stick.
   var SKINTONES = [
-    { id: 'fair', name: 'Fair', hex: 0xeac8a8 },
-    { id: 'porcelain', name: 'Porcelain', hex: 0xf0d8c0 },
-    { id: 'tan', name: 'Tan', hex: 0xc89878 },
-    { id: 'bronze', name: 'Bronze', hex: 0x8a6848 },
-    { id: 'deep', name: 'Deep', hex: 0x6a4c34 }
+    { id: 'fair', name: "Светлый", hex: 0xeac8a8 },
+    { id: 'porcelain', name: "Фарфоровый", hex: 0xf0d8c0 },
+    { id: 'tan', name: "Загорелый", hex: 0xc89878 },
+    { id: 'bronze', name: "Бронзовый", hex: 0x8a6848 },
+    { id: 'deep', name: "Тёмный", hex: 0x6a4c34 }
   ];
   var DEFAULT_SKIN = 0xeac8a8;
   function outfit() {
@@ -108,9 +108,9 @@ GAME.shops = (function () {
 
   // ---------- safehouses ----------
   var SAFEHOUSES = [
-    { id: 'dock', name: 'DOCKSIDE FLAT', price: 6000, at: { x: -404, z: 64 }, tag: 'A cot over the harbor. It counts.' },
-    { id: 'condo', name: 'STRIP CONDO', price: 18000, at: { x: 337, z: 208 }, tag: 'Neon out every window.' },
-    { id: 'villa', name: 'MARINA VILLA', price: 45000, at: null, isla: true, tag: 'The good life, across the channel.' }
+    { id: 'dock', name: "КВАРТИРА В ДОКАХ", price: 6000, at: { x: -404, z: 64 }, tag: "Койка над портом. Уже жильё." },
+    { id: 'condo', name: "КВАРТИРА НА БУЛЬВАРЕ", price: 18000, at: { x: 337, z: 208 }, tag: "Неон за каждым окном." },
+    { id: 'villa', name: "ВИЛЛА У МАРИНЫ", price: 45000, at: null, isla: true, tag: "Красивая жизнь за проливом." }
   ];
   function ownedList() {
     GAME.prefs = GAME.prefs || {};
@@ -218,30 +218,30 @@ GAME.shops = (function () {
       var have = P.weapons[id] && P.weapons[id].have;
       // every jump in the city found: the counter refills your arsenal for
       // nothing; everything finished, there is nothing to refill
-      if (GAME.unlimitedAmmo && have) return { id: id, name: name + '  ·  ∞', ds: 'It never runs dry now.', price: 0, off: true };
-      if (GAME.jumpArsenal && have) return { id: id, name: name + '  ·  ammo +' + ammo, ds: 'On the house — you found every jump in the city.', price: 0 };
-      return { id: id, name: name + (have ? '  ·  ammo +' + ammo : ''), ds: ds, price: price };
+      if (GAME.unlimitedAmmo && have) return { id: id, name: name + '  ·  ∞', ds: "Теперь патроны не закончатся.", price: 0, off: true };
+      if (GAME.jumpArsenal && have) return { id: id, name: name + "  ·  патроны +" + ammo, ds: "За счёт заведения — все прыжки в городе пройдены.", price: 0 };
+      return { id: id, name: name + (have ? "  ·  патроны +" + ammo : ''), ds: ds, price: price };
     }
     // one hand-to-hand weapon at a time: buying another trades it in
     function blade(id, name, price, ds) {
       var have = P.weapons[id] && P.weapons[id].have;
-      return { id: id, name: name, ds: have ? 'In your hand already.' : ds, price: price, off: !!have };
+      return { id: id, name: name, ds: have ? "Уже у тебя в руках." : ds, price: price, off: !!have };
     }
     return [
-      gun('pistol', 'PISTOL', 400, 40, 'Reliable. Forty rounds in the box.'),
-      gun('smg', 'SMG', 2500, 120, 'Spray-friendly, drive-by approved.'),
-      gun('shotgun', 'SHOTGUN', 1500, 24, 'Ends conversations at close range.'),
-      gun('rifle', 'RIFLE', 5000, 30, 'The observatory special, over the counter.'),
-      gun('sniper', 'SNIPER RIFLE', 9000, 10, 'A scope you can count a man\'s change through.'),
-      gun('rocket', 'ROCKET LAUNCHER', 18000, 4, 'For the car that will not stop.'),
-      gun('grenade', 'GRENADES', 1200, 5, 'Pull, count, throw. In that order.'),
-      gun('molotov', 'MOLOTOVS', 700, 5, 'Bottles, rags, and a bad attitude.'),
-      blade('bat', 'BASEBALL BAT', 150, 'Little league, big league.'),
-      blade('knife', 'KNIFE', 250, 'Quiet. Close.'),
-      blade('katana', 'KATANA', 1800, 'Somebody\'s grandfather\'s. Sharp as the day.'),
-      blade('chainsaw', 'CHAINSAW', 3000, 'For the yard. Mostly.'),
-      { id: 'armor', name: 'BODY ARMOR', ds: 'Takes the hits so you don’t.', price: 800, off: P.armor >= 100 },
-      { id: 'medkit', name: 'FIRST-AID KIT', ds: 'Patches you back to full.', price: 150, off: P.health >= 100 }
+      gun('pistol', "ПИСТОЛЕТ", 400, 40, "Надёжный. Сорок патронов в коробке."),
+      gun('smg', "ПИСТОЛЕТ-ПУЛЕМЁТ", 2500, 120, "Для очередей и стрельбы из машины."),
+      gun('shotgun', "ДРОБОВИК", 1500, 24, "Заканчивает разговоры на близкой дистанции."),
+      gun('rifle', "ВИНТОВКА", 5000, 30, "Специальное предложение обсерватории."),
+      gun('sniper', "СНАЙПЕРСКАЯ ВИНТОВКА", 9000, 10, "Прицел, в котором можно пересчитать чужую мелочь."),
+      gun('rocket', "РАКЕТОМЁТ", 18000, 4, "Для машины, которая не хочет останавливаться."),
+      gun('grenade', "ГРАНАТЫ", 1200, 5, "Выдерни, посчитай, брось. Именно в таком порядке."),
+      gun('molotov', "КОКТЕЙЛИ МОЛОТОВА", 700, 5, "Бутылки, тряпки и дурной характер."),
+      blade('bat', "БЕЙСБОЛЬНАЯ БИТА", 150, "Для маленькой и большой лиги."),
+      blade('knife', "НОЖ", 250, "Тихо. Вблизи."),
+      blade('katana', "КАТАНА", 1800, "Чей-то дедовский меч. Всё ещё острый."),
+      blade('chainsaw', "БЕНЗОПИЛА", 3000, "Для сада. В основном."),
+      { id: 'armor', name: "БРОНЕЖИЛЕТ", ds: "Принимает удары вместо тебя.", price: 800, off: P.armor >= 100 },
+      { id: 'medkit', name: "АПТЕЧКА", ds: "Полностью восстанавливает здоровье.", price: 150, off: P.health >= 100 }
     ];
   }
   // What you own, as opposed to what you have on: two outfits from the
@@ -259,10 +259,10 @@ GAME.shops = (function () {
   function clothesRow(kind, s, o, c, forSale) {
     var shirt = kind === 'shirt', worn = shirt ? o.shirt === s.id : o.pants === s.id;
     var have = (shirt ? c.shirts : c.pants).indexOf(s.id) >= 0;
-    var row = { id: kind + '_' + s.id, name: (shirt ? 'SHIRT · ' : 'PANTS · ') + s.name, price: forSale && !have ? 150 : 0, sw: s.hex, owned: worn,
-      ds: worn ? (shirt ? 'Wearing it now.' : 'Wearing them now.') : have ? 'In your wardrobe — free to put on.' : '' };
-    if (worn) row.ownedLabel = 'WEARING';
-    else if (have) { row.noPrice = true; row.chip = 'WEAR'; row.idle = forSale ? 'OWNED' : ''; }
+    var row = { id: kind + '_' + s.id, name: (shirt ? "РУБАШКА · " : "БРЮКИ · ") + s.name, price: forSale && !have ? 150 : 0, sw: s.hex, owned: worn,
+      ds: worn ? (shirt ? "Сейчас на тебе." : "Сейчас на тебе.") : have ? "В твоём гардеробе — можно надеть бесплатно." : '' };
+    if (worn) row.ownedLabel = "НАДЕТО";
+    else if (have) { row.noPrice = true; row.chip = "НАДЕТЬ"; row.idle = forSale ? "КУПЛЕНО" : ''; }
     return row;
   }
   function dressItems() {
@@ -283,13 +283,13 @@ GAME.shops = (function () {
     // something it isn't
     var o = outfit(), rows = [];
     HAIRSTYLES.forEach(function (s) {
-      rows.push({ id: 'style_' + s.id, name: 'CUT · ' + s.name, price: 150, owned: o.hairStyle === s.id, ds: o.hairStyle === s.id ? 'Your current cut.' : '' });
+      rows.push({ id: 'style_' + s.id, name: "СТРИЖКА · " + s.name, price: 150, owned: o.hairStyle === s.id, ds: o.hairStyle === s.id ? "Твоя текущая стрижка." : '' });
     });
     HAIRCOLORS.forEach(function (s) {
-      rows.push({ id: 'color_' + s.id, name: 'HAIR COLOR · ' + s.name, price: 100, sw: s.hex, owned: o.hairColor === s.id, ds: o.hairColor === s.id ? 'Your current color.' : '' });
+      rows.push({ id: 'color_' + s.id, name: "ЦВЕТ ВОЛОС · " + s.name, price: 100, sw: s.hex, owned: o.hairColor === s.id, ds: o.hairColor === s.id ? "Твой текущий цвет." : '' });
     });
     SKINTONES.forEach(function (s) {
-      rows.push({ id: 'skin_' + s.id, name: 'SKIN TONE · ' + s.name, price: 100, sw: s.hex, owned: o.skin === s.hex, ds: o.skin === s.hex ? 'Your tone.' : '' });
+      rows.push({ id: 'skin_' + s.id, name: "ТОН КОЖИ · " + s.name, price: 100, sw: s.hex, owned: o.skin === s.hex, ds: o.skin === s.hex ? "Твой тон." : '' });
     });
     return rows;
   }
@@ -298,9 +298,9 @@ GAME.shops = (function () {
     if (owns(s.id)) {
       // your own bed is not merchandise: no price tag, no FREE, no BUY chip —
       // "the condo, FREE" read as a purchase you were about to make
-      return [{ id: 'rest', name: 'SLEEP IT OFF', ds: 'Eight hours pass. Health back, and the heat cools — all of it from three stars down; a four- or five-star manhunt only drops two.', price: 0, noPrice: true, chip: 'REST' }];
+      return [{ id: 'rest', name: "ПОСПАТЬ", ds: "Пройдёт восемь часов. Здоровье восстановится, розыск снизится: до трёх звёзд снимется полностью, при четырёх-пяти — на две звезды.", price: 0, noPrice: true, chip: "ОТДЫХ" }];
     }
-    return [{ id: 'buy', name: 'BUY ' + s.name, ds: s.tag + '  You’ll wake up here, gear intact.', price: s.price }];
+    return [{ id: 'buy', name: "КУПИТЬ · " + s.name, ds: s.tag + "  Будешь просыпаться здесь со всеми вещами.", price: s.price }];
   }
   // Money is the only gate: every machine is on the floor from day one.
   // Progression used to hold back the helicopter (bridges) and the gunship
@@ -309,16 +309,16 @@ GAME.shops = (function () {
     function row(id, name, ds, price) {
       var inGarage = garage().indexOf(id) >= 0;
       return { id: id, name: name, price: price,
-        owned: inGarage, ds: inGarage ? 'In your garage — one waits here and at every place you own.' : ds };
+        owned: inGarage, ds: inGarage ? "В твоём гараже — ждёт здесь и у каждого твоего дома." : ds };
     }
     return [
-      row('motorcycle', 'NEON STREAK', 'The bike. Fast, loud, unwise.', 4000),
-      row('superbike', 'CORMORÁN GT', 'Showroom exclusive. Nobody else rides one.', 20000),
-      row('buggy', 'DUNE BUGGY', 'Made for sand and bad decisions.', 9000),
-      row('limo', 'STRETCH LIMO', 'Arrive like you own the strip.', 18000),
-      row('monster', 'SLEDGEHAMMER', 'The monster truck, no stunt jumps required.', 35000),
-      row('helicopter', 'PELICANO', 'Your own bird, delivered outside.', 60000),
-      row('gunship', 'TALON', 'Army surplus. Guns live, rockets included.', 250000)
+      row('motorcycle', "НЕОНОВАЯ СТРЕЛА", "Мотоцикл. Быстрый, громкий, безрассудный.", 4000),
+      row('superbike', "БАКЛАН GT", "Эксклюзив автосалона. Ни у кого такого нет.", 20000),
+      row('buggy', "ДЮННЫЙ БАГГИ", "Создан для песка и плохих решений.", 9000),
+      row('limo', "ЛИМУЗИН", "Приезжай как хозяин бульвара.", 18000),
+      row('monster', "КУВАЛДА", "Монстр-трак без необходимости проходить прыжки.", 35000),
+      row('helicopter', "ПЕЛИКАН", "Личная птица. Доставим к выходу.", 60000),
+      row('gunship', "КОГОТЬ", "Армейские излишки. Пушки готовы, ракеты включены.", 250000)
     ];
   }
   function bribeItems() {
@@ -331,16 +331,16 @@ GAME.shops = (function () {
     // selling the identical favor at the identical price read as a bug.
     var ww = Math.max(1, w);
     return [
-      { id: 'star', name: 'LOSE ONE STAR', ds: w > 0 ? 'The sergeant looks away.' : 'You’re clean already.', price: 150 * ww, off: w <= 0 },
-      { id: 'slate', name: 'CLEAN SLATE', price: 75 * ww * (ww + 1), off: w <= 1,
-        ds: w > 1 ? 'All ' + w + ' stars, forgotten.' : w === 1 ? 'One star on the books — just lose it.' : 'Nothing on the books.' }
+      { id: 'star', name: "СНЯТЬ ОДНУ ЗВЕЗДУ", ds: w > 0 ? "Сержант смотрит в другую сторону." : "Ты уже чист.", price: 150 * ww, off: w <= 0 },
+      { id: 'slate', name: "ЧИСТЫЙ ЛИСТ", price: 75 * ww * (ww + 1), off: w <= 1,
+        ds: w > 1 ? "Все звёзды (" + w + ") забыты." : w === 1 ? "В деле одна звезда — просто сбрось её." : "В деле ничего нет." }
     ];
   }
   function casinoItems() {
     return [
-      { id: 'bet100', name: 'SPIN THE WHEEL · $100', ds: 'Mostly it eats your money. Mostly.', price: 100, verb: 'SPIN' },
-      { id: 'bet500', name: 'SPIN THE WHEEL · $500', ds: 'Now it’s interesting.', price: 500, verb: 'SPIN' },
-      { id: 'bet2000', name: 'SPIN THE WHEEL · $2,000', ds: 'The gull always wins. Probably.', price: 2000, verb: 'SPIN' }
+      { id: 'bet100', name: "КРУТИТЬ РУЛЕТКУ · $100", ds: "Обычно она съедает деньги. Обычно.", price: 100, verb: "КРУТИТЬ" },
+      { id: 'bet500', name: "КРУТИТЬ РУЛЕТКУ · $500", ds: "Теперь интереснее.", price: 500, verb: "КРУТИТЬ" },
+      { id: 'bet2000', name: "КРУТИТЬ РУЛЕТКУ · $2 000", ds: "Чайка всегда выигрывает. Наверное.", price: 2000, verb: "КРУТИТЬ" }
     ];
   }
 
@@ -351,12 +351,12 @@ GAME.shops = (function () {
   function barItems() {
     var P = GAME.player;
     var rows = [
-      { id: 'cuba', name: 'CUBA LIBRE', price: 40, ds: P.health >= 100 ? 'You’re fine — but it’s a nice drink.' : 'A good long swallow: +35 health.' },
-      { id: 'punch', name: 'NEON PUNCH', price: 120, ds: 'Back on your feet: health full.' },
-      { id: 'special', name: 'THE GULL SPECIAL', price: 400, ds: 'Health full and armor strapped on. Don’t ask what’s in it.' }
+      { id: 'cuba', name: "КУБА ЛИБРЕ", price: 40, ds: P.health >= 100 ? "Ты здоров, но напиток хороший." : "Большой глоток: +35 здоровья." },
+      { id: 'punch', name: "НЕОНОВЫЙ ПУНШ", price: 120, ds: "Снова на ногах: полное здоровье." },
+      { id: 'special', name: "ФИРМЕННЫЙ ОТ ЧАЙКИ", price: 400, ds: "Полное здоровье и броня. Не спрашивай, что внутри." }
     ];
     if (GAME.drunk && GAME.drunk.cutOff) {
-      rows.forEach(function (r) { r.off = true; r.ds = 'The bartender has cut you off. Come back when you can see straight.'; });
+      rows.forEach(function (r) { r.off = true; r.ds = "Бармен больше не наливает. Приходи, когда перестанет двоиться."; });
     }
     return rows;
   }
@@ -366,21 +366,21 @@ GAME.shops = (function () {
     else P.health = 100;
     if (id === 'special') P.armor = 100;
     var d = GAME.drunk ? GAME.drunk.drink(BAR_PROOF[id] || 1) : null;
-    note(!d || d.after === 0 ? (id === 'special' ? 'The bartender winks.' : 'Cheers.')
-      : d.after < 0.5 ? 'You feel that one.' : d.after < 1 ? 'The room has started to swim.'
-        : 'The bar is spinning, and everything is neon.');
+    note(!d || d.after === 0 ? (id === 'special' ? "Бармен подмигивает." : 'За здоровье!')
+      : d.after < 0.5 ? "Этот почувствовался." : d.after < 1 ? "Комната поплыла."
+        : "Бар кружится, и всё стало неоновым.");
     GAME.track('bar-drink');
   }
 
   // ---------- buying ----------
   function buyHardware(id) {
     var P = GAME.player;
-    if (id === 'armor') { P.armor = 100; note('Strapped in.'); }
-    else if (id === 'medkit') { P.health = 100; note('Good as new.'); }
+    if (id === 'armor') { P.armor = 100; note("Броня надета."); }
+    else if (id === 'medkit') { P.health = 100; note("Как новенький."); }
     else {
       var packs = { pistol: 40, smg: 120, shotgun: 24, rifle: 30, sniper: 10, rocket: 4, grenade: 5, molotov: 5 };
       GAME.combat.giveWeapon(id, packs[id]);
-      note('Bagged, no questions asked.');
+      note("Упаковано, без лишних вопросов.");
     }
     GAME.combat.refreshWeaponHud();
   }
@@ -390,7 +390,7 @@ GAME.shops = (function () {
     if (shirt) o.shirt = piece; else o.pants = piece;
     if (!had) (shirt ? c.shirts : c.pants).push(piece);   // it hangs in your wardrobe from now on
     applyOutfit(); GAME.save();
-    note(fromWardrobe || had ? 'Changed.' : 'Looking sharp — it\'s in your wardrobe now.');
+    note(fromWardrobe || had ? 'Готово.' : "Отлично выглядишь. Теперь это в твоём гардеробе.");
   }
   function buyBarber(id) {
     var o = outfit();
@@ -398,15 +398,15 @@ GAME.shops = (function () {
     else if (id.indexOf('skin_') === 0) { o.skin = byId(SKINTONES, id.slice(5)).hex; o.skinPicked = true; }
     else o.hairColor = id.slice(6);
     applyOutfit(); GAME.save();
-    note(id.indexOf('skin_') === 0 ? 'New tone, same you.'
-      : o.hairStyle === 'buzz' ? 'Clean down to the skin.' : 'Fresh off the chair.');
+    note(id.indexOf('skin_') === 0 ? "Новый тон, тот же ты."
+      : o.hairStyle === 'buzz' ? "Выбрито до кожи." : "Свежая стрижка.");
   }
   function buySafehouse(loc, id) {
     var P = GAME.player;
     if (id === 'rest') {
       // no sleeping on the clock: a fare in the back seat or a race half
       // run does not pause for a nap
-      if (GAME.missions && GAME.missions.active) { note('No sleeping on the clock.'); return; }
+      if (GAME.missions && GAME.missions.active) { note("Во время работы спать нельзя."); return; }
       GAME.prefs.lastHome = loc.sh.id;   // and the next load starts here (startSpawn)
       close();
       GAME.hud.fade(function () {
@@ -434,9 +434,9 @@ GAME.shops = (function () {
           if (p.taken && isFinite(p.respawnT)) p.respawnT -= GAME.DAY_SECONDS / 3;
         });
         GAME.hud.message((still
-          ? 'Eight hours later. Rested and good as new — but they have not stopped looking for you.'
-          : 'Eight hours later. Rested, forgotten by the law, good as new.')
-          + (unpinned ? ' The sky is back on the clock.' : ''), 5);
+          ? "Восемь часов спустя. Отдохнул, как новенький. Но тебя всё ещё ищут."
+          : "Восемь часов спустя. Отдохнул, полиция забыла о тебе, как новенький.")
+          + (unpinned ? " Небо снова живёт по часам." : ''), 5);
         GAME.track('safehouse-rest');
       });
       return;
@@ -447,7 +447,7 @@ GAME.shops = (function () {
     refreshGarageSpots();   // this lot joins the fleet's rounds
     GAME.track('safehouse-bought');
     if (GAME.lola) GAME.lola.first('home');
-    GAME.hud.message(loc.sh.name + ' is yours — you’ll wake up here from now on, weapons and all, with your garage parked outside.', 5);
+    GAME.hud.message(loc.sh.name + " — теперь твоё жильё. Здесь ты будешь просыпаться с оружием и вещами, а гараж ждёт снаружи.", 5);
     // The keys are yours, so in you go. The menu used to stay up and turn
     // straight into SLEEP IT OFF — the first thing a new owner saw of the
     // place was the offer of a nap on the pavement. The card comes once you
@@ -460,13 +460,13 @@ GAME.shops = (function () {
   function showDeedCard(loc) {
     GAME.share.show({
       slug: 'safehouse-' + loc.sh.id,
-      eyebrow: 'COSTA ROSA · 1986',
-      title: 'HOME SWEET HOME',
-      subtitle: loc.sh.name + ' — bought with honest-ish money',
+      eyebrow: "КОСТА-РОСА · 1986",
+      title: "ДОМ, МИЛЫЙ ДОМ",
+      subtitle: loc.sh.name + " — куплено на почти честные деньги",
       accent: '#8de8b0',
-      stats: [{ label: 'Property', value: loc.sh.name.split(' ')[0] },
-        { label: 'Paid', value: '$' + loc.sh.price.toLocaleString() },
-        { label: 'Perk', value: 'GEAR KEPT' }]
+      stats: [{ label: "Недвижимость", value: loc.sh.name.split(' ')[0] },
+        { label: "Уплачено", value: '$' + loc.sh.price.toLocaleString('ru-RU') },
+        { label: "Преимущество", value: "ВЕЩИ СОХРАНЯЮТСЯ" }]
     });
   }
   // ---------- the garage ----------
@@ -571,18 +571,18 @@ GAME.shops = (function () {
     GAME.haptics.win();
     GAME.track('showroom-' + id);
     var spec = GAME.vehicles.TYPES[id];
-    note('Keys in the ignition, right outside.');
-    GAME.hud.message('Delivered to the forecourt — and registered to your garage: a fresh one waits here' +
-      (ownsAny() ? ' and at every place you own' : '') + '.', 5);
+    note("Ключи в зажигании, машина у выхода.");
+    GAME.hud.message("Доставлено ко входу и добавлено в гараж. Новый экземпляр ждёт здесь" +
+      (ownsAny() ? " и у каждого твоего дома" : '') + '.', 5);
     GAME.share.show({
       slug: 'bought-' + id,
-      eyebrow: 'GRAN ROSA MOTORS · 1986',
+      eyebrow: "ГРАН-РОСА МОТОРС · 1986",
       title: (spec ? spec.label.toUpperCase() : id.toUpperCase()),
-      subtitle: 'Bought outright, registered to your garage',
+      subtitle: "Куплено и добавлено в твой гараж",
       accent: '#8dffd8',
-      stats: [{ label: 'Paid', value: '$' + (items(loc).filter(function (r) { return r.id === id; })[0] || { price: 0 }).price.toLocaleString() },
-        { label: 'Plate', value: 'ROSA-' + String(garage().length).padStart(2, '0') },
-        { label: 'Kept at', value: ownsAny() ? 'ALL YOUR LOTS' : 'SHOWROOM' }]
+      stats: [{ label: "Уплачено", value: '$' + (items(loc).filter(function (r) { return r.id === id; })[0] || { price: 0 }).price.toLocaleString('ru-RU') },
+        { label: "Номер", value: 'ROSA-' + String(garage().length).padStart(2, '0') },
+        { label: "Стоянка", value: ownsAny() ? "У ВСЕХ ТВОИХ ДОМОВ" : "АВТОСАЛОН" }]
     });
     return car;
   }
@@ -591,7 +591,7 @@ GAME.shops = (function () {
     if (id === 'star') GAME.police.setWanted(Math.max(0, w - 1));
     else GAME.police.clearWanted();
     GAME.track('bribe-paid');
-    note(GAME.police.wanted > 0 ? 'One star quietly shredded.' : 'The file is empty. What file?');
+    note(GAME.police.wanted > 0 ? "Одна звезда тихо уничтожена." : "Дело пустое. Какое дело?");
   }
   // The wheel is seen to spin before it pays. The outcome is decided up
   // front, but the counter ticks through the segments — fast, then slowing
@@ -601,19 +601,19 @@ GAME.shops = (function () {
   var spinning = false;
   function spinWheel(bet) {
     var r = Math.random(), mult, label;
-    if (r < 0.60) { mult = 0; label = 'THE GULL EATS IT.'; }
-    else if (r < 0.85) { mult = 1.5; label = 'SMALL WIN!'; }
-    else if (r < 0.95) { mult = 3; label = 'TRIPLE!'; }
-    else { mult = 5; label = 'JACKPOT!'; }
+    if (r < 0.60) { mult = 0; label = "ЧАЙКА СЪЕЛА СТАВКУ."; }
+    else if (r < 0.85) { mult = 1.5; label = "НЕБОЛЬШОЙ ВЫИГРЫШ!"; }
+    else if (r < 0.95) { mult = 3; label = "ТРОЙНОЙ!"; }
+    else { mult = 5; label = "ДЖЕКПОТ!"; }
     var win = Math.round(bet * mult);
-    var SEGS = ['🐦 GULL', '× 1.5', '🐦 GULL', '× 3', '🐦 GULL', '× 1.5', '★ JACKPOT ★', '🐦 GULL'];
+    var SEGS = ["🐦 ЧАЙКА", '× 1.5', "🐦 ЧАЙКА", '× 3', "🐦 ЧАЙКА", '× 1.5', "★ ДЖЕКПОТ ★", "🐦 ЧАЙКА"];
     spinning = true;
     var step = 0, steps = 14 + Math.floor(Math.random() * 5);
     function tick(delay) {
       setTimeout(function () {
         var inCasino = openShop && openShop.kind === 'casino';
         if (step < steps) {
-          if (inCasino) note('THE WHEEL SPINS…   ▸ ' + SEGS[step % SEGS.length]);
+          if (inCasino) note("РУЛЕТКА КРУТИТСЯ…   ▸ " + SEGS[step % SEGS.length]);
           GAME.audio.cashTick();
           step++;
           // each click takes longer than the last — the wheel is running down
@@ -624,7 +624,7 @@ GAME.shops = (function () {
           else { GAME.audio.crash(0.2); GAME.haptics.deny(); }
           GAME.track(win > 0 ? 'casino-win' : 'casino-loss');
           if (inCasino) {
-            note(label + (win > 0 ? '  +$' + win.toLocaleString() : '') + '  (stake included)');
+            note(label + (win > 0 ? '  +$' + win.toLocaleString('ru-RU') : '') + "  (с учётом ставки)");
             render();
           }
         }
@@ -641,23 +641,23 @@ GAME.shops = (function () {
       // all of them and the bank and a condo besides, five storefronts down
       // one block of beach and nothing to go anywhere else for. Tools on the
       // harbour road, clothes downtown, a neighbourhood barber up the hill.
-      { id: 'hardware0', kind: 'hardware', name: 'ROSA HARDWARE', tag: 'Tools for loud problems', at: clearSpot(-263, 220), color: 0xffd24a },
-      { id: 'dress0', kind: 'dress', name: 'THREADS', tag: 'The changing room is that way', at: clearSpot(-80, 37), color: 0xff8fd0 },
-      { id: 'barber0', kind: 'barber', name: 'CORTES CUTS', tag: 'Walk-ins welcome', at: clearSpot(80, 163), color: 0x8fd0ff },
+      { id: 'hardware0', kind: 'hardware', name: "ОРУЖЕЙНЫЙ «РОСА»", tag: "Инструменты для громких проблем", at: clearSpot(-263, 220), color: 0xffd24a },
+      { id: 'dress0', kind: 'dress', name: "НИТКИ", tag: "Примерочная в той стороне", at: clearSpot(-80, 37), color: 0xff8fd0 },
+      { id: 'barber0', kind: 'barber', name: "СТРИЖКИ КОРТЕСА", tag: "Заходите без записи", at: clearSpot(80, 163), color: 0x8fd0ff },
       // the bank, between the hardware store and the tailor: where the strip
       // keeps its money (and where Lola would like to: heist.js)
-      { id: 'bank0', kind: 'bank', name: 'SAVINGS & LOAN', tag: 'Costa Rosa\'s money, safe since 1952', at: clearSpot(337, 4), color: 0xe8c86a },
+      { id: 'bank0', kind: 'bank', name: "СБЕРЕГАТЕЛЬНЫЙ БАНК", tag: "Деньги Коста-Росы в безопасности с 1952 года", at: clearSpot(337, 4), color: 0xe8c86a },
       // the dealership sits on the southern arterial with room for a glass
       // hall and a forecourt — it used to squat at the airport's entry gate
-      { id: 'showroom0', kind: 'showroom', name: 'GRAN ROSA MOTORS', tag: 'Special orders, delivered outside', at: clearSpot(90, 378), forecourt: { x: 64, z: 384 }, heading: Math.PI / 2, color: 0x8dffd8 },
+      { id: 'showroom0', kind: 'showroom', name: "ГРАН-РОСА МОТОРС", tag: "Особые заказы доставляем к выходу", at: clearSpot(90, 378), forecourt: { x: 64, z: 384 }, heading: Math.PI / 2, color: 0x8dffd8 },
       // the casino stands on its own terrace off the pier's south rail —
       // planted mid-deck it was a wall across the way to the ferris wheel
-      { id: 'casino0', kind: 'casino', name: 'THE LUCKY GULL', tag: 'A wheel, a bird, your wallet', at: { x: 452, z: 255.3 }, face: { x: 0, z: 1 }, color: 0xffe14f }
+      { id: 'casino0', kind: 'casino', name: "СЧАСТЛИВАЯ ЧАЙКА", tag: "Рулетка, птица и твой кошелёк", at: { x: 452, z: 255.3 }, face: { x: 0, z: 1 }, color: 0xffe14f }
     ];
     // a bribe desk at every station, both sides of the channel
     stations.forEach(function (st, i) {
       locations.push({
-        id: 'bribe' + i, kind: 'bribe', name: 'DESK SERGEANT', tag: 'Certain paperwork can be lost',
+        id: 'bribe' + i, kind: 'bribe', name: "ДЕЖУРНЫЙ СЕРЖАНТ", tag: "Некоторые документы могут потеряться",
         at: clearSpot(st.spawn.x + 10, st.spawn.z + 6), isla: !!st.isla, color: 0x4da3ff
       });
     });
@@ -674,7 +674,7 @@ GAME.shops = (function () {
         s.at = clearSpot(s.at.x, s.at.z);
       }
       if (s.at) locations.push({
-        id: 'home_' + s.id, kind: 'safehouse', name: s.name, tag: owns(s.id) ? 'Yours' : 'For sale',
+        id: 'home_' + s.id, kind: 'safehouse', name: s.name, tag: owns(s.id) ? "Твоё" : "Продаётся",
         at: s.at, sh: s, isla: !!s.isla, color: 0x8de8b0
       });
     });
@@ -682,11 +682,11 @@ GAME.shops = (function () {
     // tool counter belongs. It used to stand at the ice cream factory's
     // gates, hard against the storefront on the same forecourt.
     if (GAME.isla) {
-      locations.push({ id: 'hardware1', kind: 'hardware', name: 'VERDE HARDWARE', tag: 'Tools for loud problems', at: clearSpot(935, 100), isla: true, color: 0xffd24a });
+      locations.push({ id: 'hardware1', kind: 'hardware', name: "ОРУЖЕЙНЫЙ «ВЕРДЕ»", tag: "Инструменты для громких проблем", at: clearSpot(935, 100), isla: true, color: 0xffd24a });
       // and the island's cab firm, a block up the Puerto Dorado grid from it,
       // with its cabs in the yard beside the office: for sale, and the more
       // fares you drive while it is yours the more it takes (business.js)
-      locations.push({ id: 'cabs0', kind: 'cabs', name: 'VERDE CABS', tag: 'Day or night, either island', at: clearSpot(922, 198), isla: true, color: 0xf0c020 });
+      locations.push({ id: 'cabs0', kind: 'cabs', name: "ВЕРДЕ-ТАКСИ", tag: "Днём и ночью, на обоих островах", at: clearSpot(922, 198), isla: true, color: 0xf0c020 });
     }
   }
 
@@ -1573,7 +1573,7 @@ GAME.shops = (function () {
     var c = {};
     for (var k in it) c[k] = it[k];
     c.price = 0;
-    c.ds = (it.ds ? it.ds + '  ' : '') + 'On the house — it\'s your shop.';
+    c.ds = (it.ds ? it.ds + '  ' : '') + "За счёт заведения — это твой магазин.";
     return c;
   }
   function tradeItems(loc) {
@@ -1588,10 +1588,10 @@ GAME.shops = (function () {
       case 'bar': return barItems();
       case 'wardrobe': return wardrobeItems();
       case 'derby': return GAME.derby.items();
-      case 'cabs': return [{ id: 'cabs_yard', name: 'THE GARAGE', noPrice: true, off: true, chip: ' ',
+      case 'cabs': return [{ id: 'cabs_yard', name: "ГАРАЖ", noPrice: true, off: true, chip: ' ',
         ds: GAME.business && GAME.business.owns('cabs0')
-          ? 'The cabs in the bays are yours to take — and the Tiger Cab in the middle one. Every fare you drive puts more on the board.'
-          : 'The cabs in the bays are the firm\'s; take one out and start a shift. Own the firm and the Tiger Cab is in the middle bay, and every fare you drive puts more on its board.' }];
+          ? "Такси в боксах твои — бери любое. В среднем боксе «Тигр-такси». Каждая поездка увеличивает выручку на табло."
+          : "Такси в боксах принадлежат фирме. Возьми любое и начни смену. После покупки фирмы в среднем боксе появится «Тигр-такси», а каждая поездка будет увеличивать выручку на табло." }];
     }
     return [];
   }
@@ -1602,22 +1602,22 @@ GAME.shops = (function () {
     // the boot-time tag goes stale the moment a safehouse changes hands, and
     // the hint with it — buying your condo mid-visit must not leave a footer
     // still promising a BUY that no longer exists. Both live here in render.
-    if (openShop.kind === 'safehouse') openShop.tag = owns(openShop.sh.id) ? 'Yours' : 'For sale';
+    if (openShop.kind === 'safehouse') openShop.tag = owns(openShop.sh.id) ? "Твоё" : "Продаётся";
     el.tag.textContent = openShop.tag || '';
     var hint = $('shop-hint');
     if (hint) hint.textContent =
       openShop.kind === 'wardrobe'
-        ? 'Click or W/S to see it on you  ·  WEAR (or Enter) puts it on  ·  Esc leave'
+        ? "Щелчок или W/S — примерить · «НАДЕТЬ» или Enter — надеть · Esc — выйти"
       : openShop.kind === 'derby'
-        ? GAME.derby.hint() + '  ·  Set your stake, pick a horse — BET asks before it takes it  ·  Esc leave'
+        ? GAME.derby.hint() + "  ·  Выбери ставку и лошадь · «СТАВКА» запросит подтверждение · Esc — выйти"
       : openShop.kind === 'dress' || openShop.kind === 'barber'
-        ? 'Click or W/S to try it on — the mirror is you, free of charge  ·  BUY asks before it charges  ·  Esc leave'
+        ? "Щелчок или W/S — примерить бесплатно · «КУПИТЬ» запросит подтверждение · Esc — выйти"
         : openShop.kind === 'showroom'
-          ? 'Click or W/S to put it on the turntable  ·  BUY asks before it charges  ·  Esc leave'
+          ? "Щелчок или W/S — показать на подиуме · «КУПИТЬ» запросит подтверждение · Esc — выйти"
           : openShop.kind === 'safehouse' && owns(openShop.sh.id)
-            ? 'Your place — Enter to sleep it off, nothing to buy here  ·  Esc leave'
-            : 'Click or W/S to select  ·  BUY (or Enter) asks before it charges  ·  Esc leave';
-    el.cash.textContent = '$' + P.cash.toLocaleString();
+            ? "Твой дом · Enter — поспать, покупать здесь нечего · Esc — выйти"
+            : "Щелчок или W/S — выбрать · «КУПИТЬ» или Enter — подтвердить покупку · Esc — выйти";
+    el.cash.textContent = '$' + P.cash.toLocaleString('ru-RU');
     el.items.innerHTML = '';
     sel = Math.max(0, Math.min(sel, list.length - 1));
     list.forEach(function (it, i) {
@@ -1633,10 +1633,10 @@ GAME.shops = (function () {
       var armed = i === sel && buyable;
       // noPrice rows are actions, not goods (sleeping in your own bed):
       // never print FREE or a BUY chip on them — that read as a purchase
-      var priceCell = it.owned ? (it.ownedLabel || 'YOURS')
-        : it.noPrice ? (armed ? (it.chip || 'GO') : (it.idle || ''))
-          : armed ? (it.verb || 'BUY') + ' · ' + (it.price > 0 ? '$' + it.price.toLocaleString() : 'FREE')
-            : it.price > 0 ? '$' + it.price.toLocaleString() : 'FREE';
+      var priceCell = it.owned ? (it.ownedLabel || "ТВОЁ")
+        : it.noPrice ? (armed ? (it.chip || "ВПЕРЁД") : (it.idle || ''))
+          : armed ? (it.verb || "КУПИТЬ") + ' · ' + (it.price > 0 ? '$' + it.price.toLocaleString('ru-RU') : "БЕСПЛАТНО")
+            : it.price > 0 ? '$' + it.price.toLocaleString('ru-RU') : "БЕСПЛАТНО";
       row.innerHTML = '<div><div class="nm">' + sw + it.name + '</div>' + (it.ds ? '<div class="ds">' + it.ds + '</div>' : '') + '</div>' +
         '<div class="pr' + (armed ? ' buychip' : '') + '">' + priceCell + '</div>';
       // the row only ever selects and previews. Money moves through the BUY
@@ -1834,7 +1834,7 @@ GAME.shops = (function () {
       // hovered row swapped in — this is exactly how you'd walk out
       var o = previewOutfit(it);
       var pkey = 'ped:' + o.shirt + '/' + o.pants + '/' + o.hairStyle + '/' + o.hairColor + '/' + o.skin;
-      if (tag) tag.textContent = 'YOU · wearing ' + it.name.replace(/^(SHIRT|PANTS|CUT|HAIR COLOR|SKIN TONE) · /, '');
+      if (tag) tag.textContent = "ВЫ · надето: " + it.name.replace(/^(SHIRT|PANTS|CUT|HAIR COLOR|SKIN TONE) · /, '');
       if (pkey === pv.key) return;
       pv.key = pkey;
       clearPvObj();
@@ -1864,15 +1864,15 @@ GAME.shops = (function () {
   // (or Enter while it's up) actually spends money, in every shop alike.
   function openConfirm(it) {
     if (!openShop || !it || it.owned || it.off) return;
-    if (spinning) { note('The wheel is still spinning…'); return; }
+    if (spinning) { note("Рулетка ещё крутится…"); return; }
     // no money moves on a noPrice action, so the gate would only ask
     // "buy this? Free" — the exact wording the condo bug shipped. Act directly.
     if (it.noPrice) { buy(it.id); return; }
     var P = GAME.player;
-    if (P.cash < it.price) { note('You’re $' + (it.price - P.cash).toLocaleString() + ' short.'); GAME.audio.crash(0.12); GAME.haptics.deny(); return; }
+    if (P.cash < it.price) { note("Не хватает $" + (it.price - P.cash).toLocaleString('ru-RU') + "."); GAME.audio.crash(0.12); GAME.haptics.deny(); return; }
     pendingBuy = it.id;
     $('shop-confirm-name').textContent = it.name;
-    $('shop-confirm-price').textContent = it.price > 0 ? (it.verb ? 'Stake: $' : 'Price: $') + it.price.toLocaleString() : 'Free';
+    $('shop-confirm-price').textContent = it.price > 0 ? (it.verb ? "Ставка: $" : "Цена: $") + it.price.toLocaleString('ru-RU') : "Бесплатно";
     $('shop-confirm').style.display = 'flex';
   }
   function cancelConfirm() {
@@ -1888,12 +1888,12 @@ GAME.shops = (function () {
 
   function buy(id) {
     if (!openShop) return false;
-    if (spinning) { note('The wheel is still spinning…'); return false; }
+    if (spinning) { note("Рулетка ещё крутится…"); return false; }
     var list = items(openShop), it = null;
     for (var i = 0; i < list.length; i++) if (list[i].id === id) { it = list[i]; break; }
     if (!it || it.owned || it.off) { render(); return false; }
     var P = GAME.player;
-    if (P.cash < it.price) { note('You’re $' + (it.price - P.cash).toLocaleString() + ' short.'); GAME.audio.crash(0.12); GAME.haptics.deny(); return false; }
+    if (P.cash < it.price) { note("Не хватает $" + (it.price - P.cash).toLocaleString('ru-RU') + "."); GAME.audio.crash(0.12); GAME.haptics.deny(); return false; }
     GAME.addCash(-it.price);
     // the place itself, or what is in its till (business.js)
     if (id.indexOf('biz_') === 0) {
@@ -1901,7 +1901,7 @@ GAME.shops = (function () {
       // the cab firm's: the Tiger Cab is in its bay as you sign
       if (id === 'biz_buy' && openShop && openShop.kind === 'cabs' && openShop.bays) {
         GAME.vehicles.fillSpot(openShop.bays[1]);
-        GAME.hud.message('And the Tiger Cab in the middle bay is yours — take it out.', 4);
+        GAME.hud.message("«Тигр-такси» в среднем боксе твой. Выезжай.", 4);
       }
       if (openShop) render();
       GAME.audio.pickup();
@@ -1919,7 +1919,7 @@ GAME.shops = (function () {
       case 'wardrobe': buyDress(id, true); break;
       case 'derby':
         // a horse: the stake is down, so off you go to watch it run
-        if (GAME.derby.choose(id) === 'bet') { close(); GAME.hud.message('Your money\'s down. Watch the screens!', 3); }
+        if (GAME.derby.choose(id) === 'bet') { close(); GAME.hud.message("Ставка принята. Смотри на экраны!", 3); }
         break;
     }
     if (openShop) render();   // a purchase can close the shop (share card) — guard
@@ -2085,7 +2085,7 @@ GAME.shops = (function () {
       GAME.track('showroom-hall');
       if (GAME.time - hallHello > 45) {
         hallHello = GAME.time;
-        GAME.hud.message('GRAN ROSA MOTORS — the sales desk is at the back. The stairs on the left go up to the roof and the helicopters.', 4);
+        GAME.hud.message("ГРАН-РОСА МОТОРС — стойка продажи в глубине. Лестница слева ведёт на крышу к вертолётам.", 4);
       }
     }
     inHall = inside;
@@ -2109,8 +2109,8 @@ GAME.shops = (function () {
     var forSale = best.kind === 'safehouse' && !owns(best.sh.id), inCar = GAME.player.inCar;
     if (best !== hintLoc || forSale !== hintForSale || inCar !== hintInCar) {
       hintLoc = best; hintForSale = forSale; hintInCar = inCar;
-      hintOut.text = best.name + (forSale ? ' · $' + best.sh.price.toLocaleString() : '') +
-        (best.kind === 'showroom' ? ' — walk in: the light is at the sales desk' : ' — step onto the light') + (inCar ? ' (on foot)' : '');
+      hintOut.text = best.name + (forSale ? ' · $' + best.sh.price.toLocaleString('ru-RU') : '') +
+        (best.kind === 'showroom' ? " — заходи: метка у стойки продажи" : " — встань на светящуюся метку") + (inCar ? " (пешком)" : '');
     }
     hintOut.d = bd;
     return hintOut;

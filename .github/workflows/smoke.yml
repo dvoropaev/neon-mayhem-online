@@ -16,4 +16,5 @@ jobs:
       - run: npm install --no-save playwright
       - run: npx playwright install --with-deps chromium
       - run: node test/smoke.js
+      - run: node test/localization.js
       - run: node test/regressions.js

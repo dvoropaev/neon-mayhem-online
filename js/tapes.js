@@ -164,7 +164,7 @@ GAME.tapes = (function () {
     GAME.audio.pickup();
     GAME.haptics.pickup();
     GAME.fx.spawn(t.x, t.y + 1, t.z, { count: 10, color: 0xff8fc8, spread: 2, vy: 2.5, life: 0.6, grav: -4, keep: true });
-    GAME.hud.message('LOST TAPE  ' + n + ' / ' + all + '   ·   +$250', 3.5);
+    GAME.hud.message("ПОТЕРЯННАЯ КАССЕТА  " + n + ' / ' + all + '   ·   +$250', 3.5);
     if (GAME.lola) GAME.lola.first('tape');
     GAME.track('tape-found');
     for (var i = 0; i < MILESTONES.length; i++) {
@@ -177,15 +177,15 @@ GAME.tapes = (function () {
         if (n >= all) {
           GAME.prefs = GAME.prefs || {};
           GAME.prefs.tapeDeck = true;
-          GAME.hud.message('ALL ' + all + ' LOST TAPES!  +$' + m[1].toLocaleString() + '  ·  the DJ is back on the air — TAPE DECK FM is on every car radio', 8);
+          GAME.hud.message("ВСЕ " + all + " ПОТЕРЯННЫХ КАССЕТ!  +$" + m[1].toLocaleString('ru-RU') + "  ·  диджей снова в эфире — «КАССЕТНИК FM» на каждом радио", 8);
           GAME.track('all-tapes');
           GAME.share.show({
-            slug: 'all-tapes', eyebrow: 'Costa Rosa · 1986', title: 'ALL ' + all + ' LOST TAPES',
-            subtitle: 'Every mixtape found — the pirate station is back', accent: '#ff4fa3',
-            stats: [{ label: 'Tapes', value: all + ' / ' + all }, { label: 'Payout', value: '$' + m[1].toLocaleString() }, { label: 'Unlocked', value: 'TAPE DECK FM' }]
+            slug: 'all-tapes', eyebrow: "Коста-Роса · 1986", title: "ВСЕ " + all + " ПОТЕРЯННЫХ КАССЕТ",
+            subtitle: "Все микстейпы найдены — пиратская станция вернулась", accent: '#ff4fa3',
+            stats: [{ label: "Кассеты", value: all + ' / ' + all }, { label: "Выплата", value: '$' + m[1].toLocaleString('ru-RU') }, { label: "Открыто", value: "КАССЕТНИК FM" }]
           });
         } else {
-          GAME.hud.message(at + ' LOST TAPES  ·  +$' + m[1].toLocaleString() + '  ·  ' + (all - n) + ' still out there', 5);
+          GAME.hud.message(at + " ПОТЕРЯННЫХ КАССЕТ  ·  +$" + m[1].toLocaleString('ru-RU') + '  ·  ' + (all - n) + " ещё осталось", 5);
         }
       }
     }

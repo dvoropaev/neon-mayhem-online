@@ -26,8 +26,8 @@ GAME.aircraft = (function () {
     if (GAME.time - warnT > 30) warnCount = 0;   // stayed clear: the log is wiped
     warnT = GAME.time;
     warnCount++;
-    if (warnCount === 1) GAME.hud.message('RESTRICTED AIRSPACE — turn back.', 2.5);
-    else if (warnCount === 2) GAME.hud.message('RESTRICTED AIRSPACE — FINAL WARNING. Turn back NOW.', 2.5);
+    if (warnCount === 1) GAME.hud.message("ЗАКРЫТОЕ ВОЗДУШНОЕ ПРОСТРАНСТВО — поверни назад.", 2.5);
+    else if (warnCount === 2) GAME.hud.message("ЗАКРЫТОЕ ВОЗДУШНОЕ ПРОСТРАНСТВО — ПОСЛЕДНЕЕ ПРЕДУПРЕЖДЕНИЕ. НЕМЕДЛЕННО назад.", 2.5);
     else if (GAME.police.airspaceStrike) GAME.police.airspaceStrike();
   }
   // The restriction starts at SEA LEVEL, not at altitude. The barrier gate
@@ -56,8 +56,8 @@ GAME.aircraft = (function () {
     if (pos.z > lim.maxZ) { pos.z = lim.maxZ; held = true; }
     if (held && !quiet && GAME.time - seaToldT > 6) {
       seaToldT = GAME.time;
-      GAME.hud.message(channel ? 'The channel is closed until the bridges open — turn back.'
-        : 'Nothing out there but open sea — turn back.', 2.5);
+      GAME.hud.message(channel ? "Пролив закрыт до открытия мостов. Поверни назад."
+        : "Впереди только открытое море. Поверни назад.", 2.5);
     }
     return held;
   }
@@ -85,14 +85,14 @@ GAME.aircraft = (function () {
     car.heading = U.angleLerp(car.heading, home, Math.min(1, pull * dt));
     if (GAME.time - edgeToldT > 8) {
       edgeToldT = GAME.time;
-      GAME.hud.message('Edge of the map — bringing you round.', 2.5);
+      GAME.hud.message("Край карты — разворачиваем тебя.", 2.5);
     }
     return true;
   }
   function ceilingTold() {
     if (GAME.time - ceilToldT > 10) {
       ceilToldT = GAME.time;
-      GAME.hud.message('The air is too thin up here — she won’t climb any higher.', 3);
+      GAME.hud.message("Здесь воздух слишком разрежённый — выше не подняться.", 3);
     }
   }
 
@@ -104,12 +104,12 @@ GAME.aircraft = (function () {
     var f = car.hp / car.spec.hp;
     if (f <= 0.2 && car.airframeWarn !== 2) {
       car.airframeWarn = 2;
-      GAME.hud.message('The airframe is coming apart — one more knock ends it.', 3.5);
+      GAME.hud.message("Корпус разваливается — ещё один удар станет последним.", 3.5);
       GAME.audio.sting('busted');
       GAME.haptics.onFire();
     } else if (f <= 0.45 && f > 0.2 && car.airframeWarn !== 1) {
       car.airframeWarn = 1;
-      GAME.hud.message('The airframe is damaged — land gently.', 3);
+      GAME.hud.message("Корпус повреждён — садись осторожно.", 3);
       GAME.haptics.smoking();
     }
   }
@@ -174,7 +174,7 @@ GAME.aircraft = (function () {
       car.pos.y = minY;
       // no floats on this airframe: set down on open water and it goes under
       if (GAME.city.isInWater(car.pos.x, car.pos.z, car.pos.y)) {
-        GAME.hud.message('The sea took it.', 3);
+        GAME.hud.message("Море забрало транспорт.", 3);
         GAME.vehicles.sinkCar(car);
         return;
       }
@@ -319,10 +319,10 @@ GAME.aircraft = (function () {
     if (onGround && GAME.city.isInWater(car.pos.x, car.pos.z, car.pos.y)) {
       if (car.speed > 20) {
         GAME.cameraShake = 1;
-        GAME.hud.message('You ditched it in the sea.', 3);
+        GAME.hud.message("Ты утопил транспорт в море.", 3);
         GAME.vehicles.explodeCar(car, 'water');
       } else {
-        GAME.hud.message('The sea took it.', 3);
+        GAME.hud.message("Море забрало транспорт.", 3);
         GAME.vehicles.sinkCar(car);
       }
       return;
@@ -405,7 +405,7 @@ GAME.aircraft = (function () {
     if (car.pos.y < GAME.city.surfaceY(nx, nz) - 0.8) {
       if (car.speed > 18) {
         GAME.cameraShake = 1;
-        GAME.hud.message('You flew it into a building.', 3);
+        GAME.hud.message("Ты врезался в здание.", 3);
         GAME.vehicles.explodeCar(car, 'wall');
         return;
       }
@@ -425,10 +425,10 @@ GAME.aircraft = (function () {
       if (GAME.city.isInWater(car.pos.x, car.pos.z, car.pos.y)) {
         if (car.speed > 20 || vy < -12) {
           GAME.cameraShake = 1;
-          GAME.hud.message('You ditched it in the sea.', 3);
+          GAME.hud.message("Ты утопил транспорт в море.", 3);
           GAME.vehicles.explodeCar(car, 'water');
         } else {
-          GAME.hud.message('The sea took it.', 3);
+          GAME.hud.message("Море забрало транспорт.", 3);
           GAME.vehicles.sinkCar(car);
         }
         return;
@@ -437,7 +437,7 @@ GAME.aircraft = (function () {
       var inverted = Math.abs(U.wrapPI(car.roll || 0)) > 1.1 || Math.abs(U.wrapPI(car.pitch)) > 1.2;
       if (vy < -18 || (vy < -6 && inverted)) {
         GAME.cameraShake = 1;
-        GAME.hud.message('Crash landing.', 3);
+        GAME.hud.message("Аварийная посадка.", 3);
         GAME.vehicles.explodeCar(car, 'wall');
         return;
       }
@@ -488,7 +488,7 @@ GAME.aircraft = (function () {
     if (rig) rig.visible = true;
     GAME.audio.engineState(false, 0);
     GAME.haptics.chuteOpen();
-    GAME.hud.message('Parachute out — ' + (GAME.controls && GAME.controls.usingPad() ? 'the stick' : 'WASD') + ' to steer, glide to the ground', 3.5);
+    GAME.hud.message("Парашют раскрыт — " + (GAME.controls && GAME.controls.usingPad() ? "стик" : 'WASD') + " для управления, планируй к земле", 3.5);
   }
 
   function updateParachute(dt) {
@@ -548,7 +548,7 @@ GAME.aircraft = (function () {
       // touchdown, not the other two ways out of a canopy: land() is also what
       // drowning and dying call, and neither of those is a landing
       GAME.haptics.chuteLand();
-      GAME.hud.message('Feet dry.', 1.5);
+      GAME.hud.message("Ноги на суше.", 1.5);
     }
   }
 

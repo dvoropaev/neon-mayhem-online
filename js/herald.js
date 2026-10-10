@@ -9,36 +9,36 @@
 GAME.herald = (function () {
   var SHOW = 9, COOLDOWN = 150;   // seconds on screen, and between front pages
   var lastT = -1e9, queue = [], showing = null, showT = 0, el = null, printed = [], total = 0;
-  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+  var DAYS = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
 
   // what each kind of story says, by how many times it has run before
   var STORIES = {
     manhunt: [
-      function (o) { return { head: 'MANHUNT ENDS IN THIN AIR', sub: 'A ' + o.stars + '-star search across the city is called off. "We had them, and then we didn\'t," says a captain who would rather not be named.' }; },
-      function (o) { return { head: 'POLICE LOSE SUSPECT — AGAIN', sub: 'Cruisers, roadblocks and a helicopter, and still no arrest. The department says it is "reviewing procedures."' }; },
-      function (o) { return { head: 'WHO IS THE GHOST OF COSTA ROSA?', sub: 'Another ' + o.stars + '-star chase, another empty street. Officers off the record admit they have no name and no face.' }; }
+      function (o) { return { head: "ОБЛАВА ЗАКОНЧИЛАСЬ НИЧЕМ", sub: "Розыск с уровнем " + o.stars + " звёзд по всему городу прекращён. «Он был у нас, а потом исчез», — говорит капитан, пожелавший остаться неизвестным." }; },
+      function (o) { return { head: "ПОЛИЦИЯ СНОВА УПУСТИЛА ПОДОЗРЕВАЕМОГО", sub: "Машины, блокпосты, вертолёт — и ни одного ареста. Управление «пересматривает процедуры»." }; },
+      function (o) { return { head: "КТО ТАКОЙ ПРИЗРАК КОСТА-РОСЫ?", sub: "Ещё одна погоня с уровнем " + o.stars + " звёзд, ещё одна пустая улица. Неофициально полицейские признаются: не знают ни имени, ни лица." }; }
     ],
     van: [
-      function () { return { head: 'ARMORED VAN HIT IN BROAD DAYLIGHT', sub: 'Guards shaken but unhurt as the takings vanish into thin air. Security firm "deeply embarrassed."' }; },
-      function () { return { head: 'ANOTHER VAN, ANOTHER HEIST', sub: 'Security firms double the guard on their rounds. Insurers ask whether that will be enough.' }; }
+      function () { return { head: "БРОНЕФУРГОН ОГРАБЛЕН СРЕДЬ БЕЛА ДНЯ", sub: "Выручка исчезла, охранники напуганы, но целы. Охранная фирма «крайне смущена»." }; },
+      function () { return { head: "НОВЫЙ ФУРГОН — НОВОЕ ОГРАБЛЕНИЕ", sub: "Охранные фирмы удваивают охрану. Страховщики сомневаются, что этого хватит." }; }
     ],
     hero: [
       function (o) { return o.what === 'thief'
-        ? { head: 'HAVE-A-GO HERO FOILS HOLD-UP', sub: 'A passer-by brings down a thief fleeing ' + (o.shop || 'a store') + ' with the takings. "Didn\'t think twice," says a witness.' }
-        : { head: 'GETAWAY ENDS IN A HEAP', sub: 'A fleeing car is run off the road by a bystander mid-chase. The department, in a statement, says thank you.' }; },
-      function (o) { return { head: 'CITY\'S MYSTERY CRIME-STOPPER STRIKES AGAIN', sub: 'Another collar, another stranger who would not leave a name. The police are grateful. Mostly.' }; }
+        ? { head: "ПРОХОЖИЙ СОРВАЛ ОГРАБЛЕНИЕ", sub: "Прохожий остановил вора, убегавшего из " + (o.shop || "магазина") + " с выручкой. «Он не раздумывал», — говорит очевидец." }
+        : { head: "ПОБЕГ ЗАКОНЧИЛСЯ ГРУДОЙ МЕТАЛЛА", sub: "Во время погони прохожий вытеснил машину беглеца с дороги. Полиция официально благодарит его." }; },
+      function (o) { return { head: "ТАИНСТВЕННЫЙ БОРЕЦ С ПРЕСТУПНОСТЬЮ СНОВА В ДЕЛЕ", sub: "Ещё один задержанный, ещё один незнакомец, не назвавший имени. Полиция благодарна. В основном." }; }
     ],
     samaritan: [
-      function () { return { head: 'THE STRANGER WHO HELPS STRANGERS', sub: 'A missed flight, a stolen bike, a lost dog, a date — Costa Rosa is full of people with a story about the same kind soul. Nobody got a name.' }; }
+      function () { return { head: "НЕЗНАКОМЕЦ, ПОМОГАЮЩИЙ НЕЗНАКОМЦАМ", sub: "Пропущенный рейс, украденный мотоцикл, потерянная собака, свидание. В Коста-Росе многие рассказывают об одном добром человеке. Имени никто не знает." }; }
     ],
     rico: [
-      function () { return { head: 'SALAZAR\'S LAST RIDE ENDS AT THE MARINA', sub: 'Rico Salazar, long said to run the harbour, is gone at high tide. The strip, they say, belongs to Lola Reyes now.' }; }
+      function () { return { head: "ПОСЛЕДНЯЯ ПОЕЗДКА САЛАЗАРА ОБОРВАЛАСЬ В МАРИНЕ", sub: "Рико Салазар, давно считавшийся хозяином порта, погиб во время прилива. Говорят, теперь бульвар принадлежит Лоле Рейес." }; }
     ],
     heist: [
-      function (o) { return { head: 'SAVINGS & LOAN CLEANED OUT', sub: o.alarm
-        ? 'The alarm was ringing, the street was full of police, and still the vault on the strip stands empty. "Professionals," says a detective, with something like respect.'
-        : 'Nobody heard a thing. The vault on the strip was opened like a tin of sardines, and the getaway car was a colour no witness can agree on.' }; }
+      function (o) { return { head: "СБЕРЕГАТЕЛЬНЫЙ БАНК ОПУСТОШЁН", sub: o.alarm
+        ? "Сигнализация звенела, улица была полна полиции, а сейф на бульваре всё равно пуст. «Профессионалы», — говорит детектив с оттенком уважения."
+        : "Никто ничего не слышал. Сейф на бульваре вскрыли как консервную банку, а цвет машины для побега свидетели описывают по-разному." }; }
     ]
   };
   var ONCE = { rico: true, samaritan: true, heist: true };
@@ -53,7 +53,7 @@ GAME.herald = (function () {
   // the camera's way with the date: today's, in 1986
   function dateline() {
     var now = new Date(), d = new Date(1986, now.getMonth(), now.getDate());
-    return DAYS[d.getDay()] + ', ' + MONTHS[d.getMonth()] + ' ' + d.getDate() + ', 1986';
+    return DAYS[d.getDay()] + ', ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + ' 1986';
   }
 
   function build() {
@@ -90,7 +90,7 @@ GAME.herald = (function () {
 
   function fill(page) {
     if (!el) return;
-    el.querySelector('.hd-date').textContent = page.date + '  ·  Final edition  ·  25¢';
+    el.querySelector('.hd-date').textContent = page.date + "  ·  Последний выпуск  ·  25¢";
     el.querySelector('.hd-head').textContent = page.head;
     el.querySelector('.hd-sub').textContent = page.sub;
     var ph = el.querySelector('.hd-photo');

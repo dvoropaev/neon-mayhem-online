@@ -100,42 +100,42 @@ GAME.strangers = (function () {
     walt: { shirt: 0x9fe8d8, pants: 0x684a3a, skin: 0xf0d8c0, hair: 'flattop', hairCol: 0x8a8a90 }
   };
   var DEFS = [
-    { id: 'ray', who: 'RAY', title: 'AIRPORT RUSH', pay: 400, where: [262, -40],
-      ask: 'My flight leaves in a couple of minutes and the cab never came. The airport — please! It\'s worth your while.',
+    { id: 'ray', who: "РЭЙ", title: "СРОЧНО В АЭРОПОРТ", pay: 400, where: [262, -40],
+      ask: "Мой рейс через пару минут, а такси так и не приехало. В аэропорт, пожалуйста! Я хорошо заплачу.",
       begin: rayBegin, step: rayStep },
-    { id: 'dani', who: 'DANI', title: 'FOLLOW THAT CAR', pay: 350, where: [60, -205],
-      ask: 'My husband says he\'s working late. That\'s his car — the white one. Follow him, and for God\'s sake don\'t let him see you.',
+    { id: 'dani', who: "ДАНИ", title: "СЛЕДИ ЗА МАШИНОЙ", pay: 350, where: [60, -205],
+      ask: "Муж говорит, что задерживается на работе. Вон его машина, белая. Проследи за ним и ради бога не попадись ему на глаза.",
       begin: daniBegin, step: daniStep },
-    { id: 'tito', who: 'TITO', title: 'STOLEN BIKE', pay: 300, where: [-250, 150],
-      ask: 'Some creep just took my bike — the red one! There he goes! Get it back for me? Please?',
+    { id: 'tito', who: "ТИТО", title: "УКРАДЕННЫЙ МОТОЦИКЛ", pay: 300, where: [-250, 150],
+      ask: "Какой-то гад только что украл мой мотоцикл! Красный! Вон он! Вернёшь мне его? Пожалуйста?",
       begin: titoBegin, step: titoStep },
-    { id: 'rosa', who: 'MRS. ALBESCU', title: 'BISCUIT', pay: 200, where: [-150, -300],
-      ask: 'Have you seen my Biscuit? Little brown dog, this high. He slipped his lead and ran off. He\'ll come to anybody kind.',
+    { id: 'rosa', who: "ГОСПОЖА АЛБЕСКУ", title: "БИСКВИТ", pay: 200, where: [-150, -300],
+      ask: "Вы не видели моего Бисквита? Маленький коричневый пёс, вот такой. Сорвался с поводка и убежал. К доброму человеку он сам подойдёт.",
       begin: rosaBegin, step: rosaStep },
-    { id: 'vince', who: 'VINCE', title: 'THE NO-SHOW', pay: 1200, where: [150, 250],
-      ask: 'Our driver never showed, and the job\'s on. The bank\'s round the corner. Wait outside with the engine running, then get us out of there.',
+    { id: 'vince', who: "ВИНС", title: "ВОДИТЕЛЬ НЕ ПРИШЁЛ", pay: 1200, where: [150, 250],
+      ask: "Наш водитель не явился, а дело уже началось. Банк за углом. Подожди с заведённым мотором, потом вывези нас оттуда.",
       begin: vinceBegin, step: vinceStep },
-    { id: 'marco', who: 'MARCO', title: 'A DATE IN STYLE', pay: 500, where: [340, 160],
-      ask: 'I\'ve a date with the girl of my dreams and my car\'s in the shop. Pick her up in something classy — a limo, something fast — and get her to the casino. Gently.',
+    { id: 'marco', who: "МАРКО", title: "СВИДАНИЕ С ШИКОМ", pay: 500, where: [340, 160],
+      ask: "У меня свидание с девушкой мечты, а машина в ремонте. Забери её на чём-нибудь роскошном — лимузине или спорткаре — и отвези в казино. Аккуратно.",
       begin: marcoBegin, step: marcoStep },
     // Isla Verde, once the bridges are open: placed off its own landmarks
-    { id: 'nina', who: 'NINA', title: 'THE LIGHTHOUSE SHOT', pay: 450, isla: true, near: function (I) { return [I.lighthouse.x - 70, I.lighthouse.z - 40]; },
-      ask: 'I\'m on assignment for a travel magazine and my camera\'s just died on me. You\'ve got one? Get me the lighthouse — the whole tower, in the frame. I\'ll buy it off you.',
+    { id: 'nina', who: "НИНА", title: "СНИМОК МАЯКА", pay: 450, isla: true, near: function (I) { return [I.lighthouse.x - 70, I.lighthouse.z - 40]; },
+      ask: "Я снимаю для журнала о путешествиях, но камера сломалась. У тебя есть? Сними маяк — вся башня должна быть в кадре. Я куплю снимок.",
       begin: ninaBegin, step: ninaStep },
-    { id: 'sal', who: 'SAL', title: 'STARGAZER', pay: 500, isla: true, near: function (I) { return [I.police.x + 30, I.police.z + 40]; },
-      ask: 'Forty years I\'ve waited for this comet and my bus broke down. The observatory, up the hill — it\'s low in the sky and sinking. Please.',
+    { id: 'sal', who: "СЭЛ", title: "ЗВЕЗДОЧЁТ", pay: 500, isla: true, near: function (I) { return [I.police.x + 30, I.police.z + 40]; },
+      ask: "Сорок лет ждал эту комету, а автобус сломался. В обсерваторию на холме! Она низко в небе и уже заходит. Пожалуйста.",
       begin: salBegin, step: salStep },
-    { id: 'cookie', who: 'COOKIE', title: 'MELTDOWN', pay: 400, isla: true, near: function (I) { return [I.factory.x - 40, I.factory.z - 30]; },
-      ask: 'The freezer van\'s dead and there\'s a beach full of kids at the cove waiting on this cooler. Get it there before it\'s soup — and gently, it\'s packed in ice.',
+    { id: 'cookie', who: "КУКИ", title: "ВСЁ ТАЕТ", pay: 400, isla: true, near: function (I) { return [I.factory.x - 40, I.factory.z - 30]; },
+      ask: "Рефрижератор сломался, а в бухте целый пляж детей ждёт этот холодильник. Довези, пока не превратилось в суп. И осторожно — всё во льду.",
       begin: cookieBegin, step: cookieStep },
-    { id: 'gus', who: 'GUS', title: 'MAN OVERBOARD', pay: 550, isla: true, near: function (I) { return [I.marina.x + 10, I.marina.z - 45]; },
-      ask: 'My brother took the dinghy out and the engine\'s quit on him — he\'s drifting out past the point. Take a boat off the jetty and bring him in?',
+    { id: 'gus', who: "ГАС", title: "ЧЕЛОВЕК ЗА БОРТОМ", pay: 550, isla: true, near: function (I) { return [I.marina.x + 10, I.marina.z - 45]; },
+      ask: "Брат ушёл на лодке, но мотор заглох. Его несёт за мыс. Возьмёшь катер с причала и вернёшь его?",
       begin: gusBegin, step: gusStep },
-    { id: 'lupe', who: 'LUPE', title: 'NO PICTURES', pay: 600, isla: true, near: function (I) { return [I.hospital.x - 40, I.hospital.z + 30]; },
-      ask: 'Don\'t look — that man with the camera has been on me since the marina. I\'m supposed to be on a set in Hollywood, not here. Drive me somewhere and lose him.',
+    { id: 'lupe', who: "ЛУПЕ", title: "БЕЗ ФОТОГРАФИЙ", pay: 600, isla: true, near: function (I) { return [I.hospital.x - 40, I.hospital.z + 30]; },
+      ask: "Не смотри. Мужчина с камерой преследует меня от марины. Я должна быть на съёмках в Голливуде, а не здесь. Увези меня и оторвись от него.",
       begin: lupeBegin, step: lupeStep },
-    { id: 'walt', who: 'WALT', title: 'WHAT HE OWES', pay: 450, isla: true, near: function (I) { return [I.container.x - 20, I.container.z + 55]; },
-      ask: 'A fella down at the container yard has owed me for a boat engine since spring. He\'ll run when he sees you coming. Bring me back my money.',
+    { id: 'walt', who: "УОЛТ", title: "СТАРЫЙ ДОЛГ", pay: 450, isla: true, near: function (I) { return [I.container.x - 20, I.container.z + 55]; },
+      ask: "Тип на контейнерной площадке с весны должен мне за лодочный мотор. Увидит тебя — побежит. Верни мои деньги.",
       begin: waltBegin, step: waltStep }
   ];
   function def(id) { for (var i = 0; i < DEFS.length; i++) if (DEFS[i].id === id) return DEFS[i]; return null; }
@@ -148,22 +148,22 @@ GAME.strangers = (function () {
   var PHONE = { dani: true, nina: true };
   // what they say when it is done
   var THANKS = {
-    ray: function () { return [['ray', 'The airport — with time to spare! I don\'t believe it.'], ['you', 'Go on. Run.'], ['ray', 'For the ride. And the driving — don\'t ever change.']]; },
+    ray: function () { return [['ray', "Аэропорт! И время ещё осталось! Не верю."], ['you', "Давай, беги."], ['ray', "За поездку. И за твоё вождение — никогда не меняйся."]]; },
     dani: function (j, line) {
       return /motel/i.test(line || '')
-        ? [['dani', 'Well? Where did he go?'], ['you', 'A motel. Off the boulevard.'], ['dani', 'Of course it\'s a motel. ... Thank you. Really. I\'ll wire you the money.']]
-        : [['dani', 'Well? Where did he go?'], ['you', 'Round in circles, mostly. Nowhere.'], ['dani', 'Nowhere. Well — that\'s a relief. I think. I\'ll wire you the money.']];
+        ? [['dani', "Ну? Куда он ездил?"], ['you', "В мотель. Рядом с бульваром."], ['dani', "Конечно, в мотель… Спасибо. Правда. Деньги переведу."]]
+        : [['dani', "Ну? Куда он ездил?"], ['you', "В основном по кругу. Никуда."], ['dani', "Никуда. Ну, отлегло. Наверное. Деньги переведу."]];
     },
-    tito: function () { return [['tito', 'My bike! Not a scratch on her — well, hardly.'], ['you', 'That creep won\'t be taking anything else today.'], ['tito', 'You\'re the best, man. Here — and I\'m buying a better lock.']]; },
-    rosa: function () { return [['rosa', 'Biscuit! Oh, you naughty, naughty boy.'], ['rosa', 'Thank you, dear. No, I insist — he\'d have been halfway to the harbour by now.']]; },
-    vince: function () { return [['vince', 'Clean as a whistle. You drive like you were born behind the wheel.'], ['you', 'Just don\'t ask me again.'], ['vince', 'Your cut. Same time next year?']]; },
-    marco: function () { return [['marco', 'There she is. Gina, you look — wow.'], ['marco', 'And you: not a scratch, right on time. I owe you one, friend.']]; },
-    nina: function () { return [['nina', 'I\'m looking at it now — the whole tower, the light just right.'], ['nina', 'That\'s the cover. The money\'s yours. If you ever want a job, call the magazine.']]; },
-    sal: function () { return [['sal', 'Look — there! Just over the ridge. Forty years.'], ['you', 'I see it.'], ['sal', 'Thank you, my friend. Thank you.']]; },
-    cookie: function () { return [['cookie', 'Still frozen! Listen to them — a beach full of happy kids.'], ['cookie', 'You\'re a hero to every one of them. Here — and a cone on me.']]; },
-    gus: function () { return [['gus', 'You brought him back! Soaked through and grinning like an idiot.'], ['gus', 'Thank you. I\'m keeping the dinghy keys myself from now on.']]; },
-    lupe: function () { return [['lupe', 'Gone. Not a single picture. Darling, you\'re wasted on this island.'], ['lupe', 'Something for your trouble. And if anybody asks — you never saw me.']]; },
-    walt: function () { return [['walt', 'Every cent? Let me count it. ... Every cent.'], ['walt', 'Been after that fella since spring. Your share — and then some.']]; }
+    tito: function () { return [['tito', "Мой мотоцикл! Ни царапины. Почти."], ['you', "Этот гад сегодня больше ничего не украдёт."], ['tito', "Ты лучший, друг. Держи. А я куплю замок получше."]]; },
+    rosa: function () { return [['rosa', "Бисквит! Ах ты негодник!"], ['rosa', "Спасибо, дорогой. Нет, я настаиваю. Он бы уже полпути до порта пробежал."]]; },
+    vince: function () { return [['vince', "Чистая работа. Будто родился за рулём."], ['you', "Только больше меня не проси."], ['vince', "Твоя доля. Через год в то же время?"]]; },
+    marco: function () { return [['marco', "Вот она. Джина, ты выглядишь… вау."], ['marco', "А ты — ни царапины, точно вовремя. Я твой должник, друг."]]; },
+    nina: function () { return [['nina', "Смотрю сейчас: вся башня, свет идеальный."], ['nina', "Это обложка. Деньги твои. Захочешь работу — звони в журнал."]]; },
+    sal: function () { return [['sal', "Смотри! Вон, над хребтом. Сорок лет."], ['you', "Вижу."], ['sal', "Спасибо, друг мой. Спасибо."]]; },
+    cookie: function () { return [['cookie', "Ещё заморожено! Слышишь? Целый пляж счастливых детей."], ['cookie', "Для них ты герой. Держи. И рожок за мой счёт."]]; },
+    gus: function () { return [['gus', "Ты вернул его! Мокрый насквозь и улыбается как дурак."], ['gus', "Спасибо. Теперь ключи от лодки будут у меня."]]; },
+    lupe: function () { return [['lupe', "Пропал. Ни одного снимка. Дорогой, твой талант пропадает на этом острове."], ['lupe', "За хлопоты. Если кто спросит — ты меня не видел."]]; },
+    walt: function () { return [['walt', "До цента? Дай пересчитаю… До цента."], ['walt', "С весны за ним гонялся. Твоя доля, и немного сверху."]]; }
   };
   // and then they go about their business
   var AFTER = {
@@ -315,10 +315,10 @@ GAME.strangers = (function () {
       face: d.id,
       say: d.ask,
       top: true,
-      escSays: 'to walk on',
+      escSays: "пройти мимо",
       list: [
-        { label: '✓ I\'LL DO IT', fn: function () { GAME.lola.close(); begin(q); } },
-        { label: '✗ NOT RIGHT NOW', fn: function () { GAME.lola.close(); } }
+        { label: "✓ Я ПОМОГУ", fn: function () { GAME.lola.close(); begin(q); } },
+        { label: "✗ НЕ СЕЙЧАС", fn: function () { GAME.lola.close(); } }
       ]
     });
   }
@@ -360,7 +360,7 @@ GAME.strangers = (function () {
     target(null);
     GAME.hud.missionTimer && GAME.hud.missionTimer(null);
     var set = PHONE[d.id] ? null : d.id === 'gus' ? spotSet(j.who.at.x, j.who.at.z) : 'here';
-    var ls = THANKS[d.id] ? THANKS[d.id](j, line) : [[d.id, 'Thank you.']];
+    var ls = THANKS[d.id] ? THANKS[d.id](j, line) : [[d.id, "Спасибо."]];
     face(d.id, set, ls, function () { paid(j, line); }, PHONE[d.id] ? [] : [j.who.ped, j.who.mark]);
   }
   function paid(j, line) {
@@ -372,7 +372,7 @@ GAME.strangers = (function () {
     GAME.addCash(d.pay);
     GAME.audio.sting('win');
     if (GAME.haptics && GAME.haptics.win) GAME.haptics.win();
-    say('FAVOUR DONE — ' + d.title + '  +$' + d.pay + (line ? '  ·  ' + line : '') + '  ·  strangers ' + doneCount() + ' of ' + reachable(), 5);
+    say("ПРОСЬБА ВЫПОЛНЕНА — " + d.title + '  +$' + d.pay + (line ? '  ·  ' + line : '') + "  ·  незнакомцы: " + doneCount() + " из " + reachable(), 5);
     if (GAME.track) GAME.track('stranger-done');
     GAME.save();
     tidy();
@@ -389,7 +389,7 @@ GAME.strangers = (function () {
     }
     if (j.away) j.who.hold = true;
     GAME.audio.sting('wasted');
-    say('FAVOUR FAILED — ' + reason + '  ·  they may ask again', 4);
+    say("ПРОСЬБА ПРОВАЛЕНА — " + reason + "  ·  они могут попросить снова", 4);
     var q = job.who;
     tidy();
     if (q) q.asked = true;   // (not again until you have walked off and come back)
@@ -397,7 +397,7 @@ GAME.strangers = (function () {
   function abandon() {
     if (!job) return false;
     abandonAsk = 0;
-    fail('you walked away from it');
+    fail("ты отказался");
     return true;
   }
 
@@ -463,11 +463,11 @@ GAME.strangers = (function () {
   var GATE = { x: -160, z: 396 };
   function rayBegin(j) {
     ferryBegin(j, { to: function () { return GATE; },
-      needCar: 'Get a car — Ray is coming with you.',
-      aboard: 'Ray piles in with his sample case. "The airport — step on it!"',
-      go: 'Get Ray to the airport gate before his flight goes.',
-      left: 'Ray grabbed a cab.', wreck: 'Ray is not getting in another wreck with you.',
-      late: 'He missed his flight.', there: 'Ray runs for the gate, case and all.' });
+      needCar: "Найди машину — Рэй едет с тобой.",
+      aboard: "Рэй садится с чемоданом образцов. «В аэропорт! Жми на газ!»",
+      go: "Отвези Рэя к воротам аэропорта до вылета.",
+      left: "Рэй поймал такси.", wreck: "Рэй больше не сядет в развалюху с тобой.",
+      late: "Он опоздал на рейс.", there: "Рэй бежит к воротам с чемоданом." });
   }
   function rayStep(j, dt) { ferryStep(j, dt); }
 
@@ -475,11 +475,11 @@ GAME.strangers = (function () {
   function obsGate() { var O = GAME.city.islaPois.observatory, rp = GAME.city.nearestRoadPoint(O.x, O.z); return { x: rp.x, z: rp.z }; }
   function salBegin(j) {
     ferryBegin(j, { to: obsGate, pace: 11,
-      needCar: 'Get a car — Sal is coming up the hill with you.',
-      aboard: 'Sal folds himself in with a telescope case. "Up! Up the hill!"',
-      go: 'Get Sal up to the observatory before the comet sets.',
-      left: 'Sal flags down a farm truck.', wreck: 'Sal walks. "Forty years. I can wait for the next one."',
-      late: 'The comet has set. Sal says it\'s fine. It isn\'t.', there: 'Sal is through the door before you stop. "Thank you, thank you!"' });
+      needCar: "Найди машину — Сэл едет с тобой на холм.",
+      aboard: "Сэл втискивается с футляром телескопа. «Наверх! На холм!»",
+      go: "Довези Сэла в обсерваторию до захода кометы.",
+      left: "Сэл остановил фермерский грузовик.", wreck: "Сэл идёт пешком. «Сорок лет. Подожду следующую».",
+      late: "Комета зашла. Сэл говорит, что всё в порядке. Это не так.", there: "Сэл вбегает в дверь ещё до остановки. «Спасибо, спасибо!»" });
   }
   function salStep(j, dt) { ferryStep(j, dt); }
 
@@ -487,12 +487,12 @@ GAME.strangers = (function () {
   function coveKiosk() { var V = GAME.city.islaPois.cove, rp = GAME.city.nearestRoadPoint(V.x, V.z); return { x: rp.x, z: rp.z }; }
   function cookieBegin(j) {
     ferryBegin(j, { to: coveKiosk, pace: 12, fragile: 0.2,
-      needCar: 'Get a car — Cookie will load the cooler.',
-      aboard: 'Cookie wedges the cooler in. "Smooth driving. It\'s melting as we speak."',
-      go: 'Get the cooler to the cove before it melts — and don\'t knock it about.',
-      left: 'Cookie hails a fruit lorry.', wreck: 'The cooler is everywhere. So is the ice cream.',
-      broke: 'You knocked it about. It\'s soup.', late: 'Too late. It\'s soup.',
-      there: 'A beach full of kids cheers the cooler in.' });
+      needCar: "Найди машину — Куки загрузит холодильник.",
+      aboard: "Куки заталкивает холодильник. «Без тряски. Уже тает».",
+      go: "Довези холодильник в бухту, пока всё не растаяло. Не тряси груз.",
+      left: "Куки ловит грузовик с фруктами.", wreck: "Холодильник разлетелся. Мороженое тоже.",
+      broke: "Слишком трясло. Теперь это суп.", late: "Поздно. Теперь это суп.",
+      there: "Дети на пляже радостно встречают холодильник." });
   }
   function cookieStep(j, dt) { ferryStep(j, dt); }
 
@@ -501,66 +501,66 @@ GAME.strangers = (function () {
     var at = j.who.at, rp = roadAway(at, 35, 70);
     // (a junction, not mid-block: making for a node, a driver gets there)
     var far = roadAway(at, 520, 720), to = far ? GAME.city.nearestNode(far.x, far.z) : null;
-    if (!rp || !to) return fail('He is nowhere to be seen.');
+    if (!rp || !to) return fail("Его нигде не видно.");
     var car = GAME.vehicles.spawnCar('sedan', rp.x, rp.z, roadHeading(rp), { occupied: 'ai', mission: true, color: 0xf0f0f4,
       ai: { mode: 'traffic', desired: 0.01, laneX: 0, laneZ: 0, toward: { x: to.x, z: to.z } } });
-    if (!car) return fail('He is nowhere to be seen.');
+    if (!car) return fail("Его нигде не видно.");
     j.husband = car; j.dest = to; j.bits.push({ kind: 'car', o: car });
     j.phase = 'car';
-    objective(inLand() ? 'Follow the white car — not too close.' : 'Get a car — he is about to pull out.');
+    objective(inLand() ? "Следи за белой машиной. Держи дистанцию." : "Найди машину — он вот-вот выедет.");
   }
   function daniStep(j, dt) {
     var h = j.husband, car = P().inCar ? P().car : null;
-    if (!h || h.gone || h.dead) return fail('Something happened to his car. Dani is not paying for that.');
+    if (!h || h.gone || h.dead) return fail("С его машиной что-то случилось. Дани за это не заплатит.");
     if (j.phase === 'car') {
       target(h.pos.x, h.pos.z);
-      if (car && !car.dead) { j.phase = 'tail'; h.ai.desired = 11; objective('Follow the white car — not too close.'); }
+      if (car && !car.dead) { j.phase = 'tail'; h.ai.desired = 11; objective("Следи за белой машиной. Держи дистанцию."); }
       return;
     }
     j.t += dt;
     target(null);
-    if (!car || car.dead) { j.outT = (j.outT || 0) + dt; if (j.outT > 8) return fail('You lost him.'); }
+    if (!car || car.dead) { j.outT = (j.outT || 0) + dt; if (j.outT > 8) return fail("Ты его потерял."); }
     else j.outT = 0;
     var at = car ? car.pos : P().pos, d = dist(at, h.pos.x, h.pos.z);
-    if (d < 14) { j.closeT = (j.closeT || 0) + dt; if (j.closeT > 3) return fail('He saw you. Dani will never hear the end of it.'); }
+    if (d < 14) { j.closeT = (j.closeT || 0) + dt; if (j.closeT > 3) return fail("Он тебя заметил. Дани этого не забудут."); }
     else j.closeT = Math.max(0, (j.closeT || 0) - dt);
-    if (d > 110) { j.farT = (j.farT || 0) + dt; if (j.farT > 5) return fail('You lost him.'); }
+    if (d > 110) { j.farT = (j.farT || 0) + dt; if (j.farT > 5) return fail("Ты его потерял."); }
     else j.farT = 0;
-    if (GAME.frame % 20 === 0) objective(d < 18 ? 'Too close — drop back!' : d > 80 ? 'You are losing him…' : 'Follow the white car — not too close.');
+    if (GAME.frame % 20 === 0) objective(d < 18 ? "Слишком близко! Отстань!" : d > 80 ? "Ты теряешь его…" : "Следи за белой машиной. Держи дистанцию.");
     // he gets where he is going, or goes nowhere in particular for long enough
     if (dist(h.pos, j.dest.x, j.dest.z) < 25) {
       h.ai.desired = 0.01;
       j.parkedT = (j.parkedT || 0) + dt;
-      if (j.parkedT > 2) win('A motel. Of course it is a motel.');
-    } else if (j.t > 150) win('He only drove round in circles. Dani is relieved — she thinks.');
+      if (j.parkedT > 2) win("Мотель. Ну конечно, мотель.");
+    } else if (j.t > 150) win("Он просто ездил кругами. Дани успокоилась. Наверное.");
   }
 
   // ---------- TITO: the stolen bike ----------
   function titoBegin(j) {
     var at = j.who.at, rp = roadAway(at, 45, 80), to = roadAway(at, 500, 700);
-    if (!rp || !to) return fail('The thief is long gone.');
+    if (!rp || !to) return fail("Вор давно скрылся.");
     var bike = GAME.vehicles.spawnCar('motorcycle', rp.x, rp.z, roadHeading(rp), { occupied: 'ai', mission: true, color: 0xe83838,
       ai: { mode: 'traffic', desired: 14, laneX: 0, laneZ: 0, reckless: true, toward: { x: to.x, z: to.z } } });
-    if (!bike) return fail('The thief is long gone.');
+    if (!bike) return fail("Вор давно скрылся.");
     bike.outlaw = true;
     j.bike = bike; j.bits.push({ kind: 'car', o: bike });
     j.phase = 'chase';
-    objective('Get Tito\'s red bike back off the thief.');
+    objective("Отбери у вора красный мотоцикл Тито.");
   }
   function titoStep(j) {
     var b = j.bike, p = P();
-    if (!b || b.gone) return fail('The thief got clean away.');
-    if (b.dead) return fail('The bike is wrecked.');
+    if (!b || b.gone) return fail("Вор сбежал.");
+    if (b.dead) return fail("Мотоцикл разбит.");
     if (j.phase === 'chase') {
       target(b.pos.x, b.pos.z);
-      if (b.occupied !== 'ai') { j.phase = 'back'; objective('Ride the bike back to Tito.'); say('He\'s off it! Now get it back to Tito.', 2.5); }
-      else if (U.dist2(b.pos.x, b.pos.z, GAME.focus().x, GAME.focus().z) > 320 * 320) return fail('The thief got clean away.');
+      if (b.occupied !== 'ai') { j.phase = 'back'; objective("Вернись на мотоцикле к Тито."); say("Он слез! Теперь верни мотоцикл Тито.", 2.5); }
+      else if (U.dist2(b.pos.x, b.pos.z, GAME.focus().x, GAME.focus().z) > 320 * 320) return fail("Вор сбежал.");
       return;
     }
     var at = j.who.at;
     if (p.inCar && p.car === b) {
       target(at.x, at.z);
-      if (dist(b.pos, at.x, at.z) < 9) win('Tito\'s grin is the size of the bay.');
+      if (dist(b.pos, at.x, at.z) < 9) win("Улыбка Тито шириной с залив.");
     } else target(b.pos.x, b.pos.z);
   }
 
@@ -588,7 +588,7 @@ GAME.strangers = (function () {
   }
   function rosaBegin(j) {
     var at = j.who.at, rp = roadAway(at, 110, 180);
-    if (!rp) return fail('Biscuit is nowhere about.');
+    if (!rp) return fail("Бисквита поблизости нет.");
     var spot = pavement(rp.x, rp.z);
     var dog = dogMesh();
     dog.position.set(spot.x, GAME.city.groundY(spot.x, spot.z), spot.z);
@@ -596,7 +596,7 @@ GAME.strangers = (function () {
     var a = Math.random() * Math.PI * 2, r = U.randRange(Math.random, 8, 26);
     j.area = [spot.x + Math.cos(a) * r, spot.z + Math.sin(a) * r];
     j.phase = 'find'; j.wagT = 0;
-    objective('Find Biscuit — somewhere round the marked spot. Walk up to him.');
+    objective("Найди Бисквита рядом с отметкой. Подойди к нему.");
     target(j.area[0], j.area[1]);
   }
   function rosaStep(j, dt) {
@@ -608,13 +608,13 @@ GAME.strangers = (function () {
       if (j.wagT <= 0) { j.wagT = U.randRange(Math.random, 1.5, 3.5); var a = Math.random() * Math.PI * 2; j.sniff = [j.home.x + Math.cos(a) * 4, j.home.z + Math.sin(a) * 4]; }
       if (j.sniff) { tx = j.sniff[0]; tz = j.sniff[1]; run = 1.4; }
       if (!p.inCar && dist(p.pos, dp.x, dp.z) < 5) {
-        j.phase = 'home'; say('Biscuit wags his whole back end and trots after you.', 3);
-        objective('Walk Biscuit home to Mrs. Albescu.');
+        j.phase = 'home'; say("Бисквит виляет всей задней частью и бежит за тобой.", 3);
+        objective("Отведи Бисквита домой к госпоже Албеску.");
         target(at.x, at.z);
       }
     } else {
       if (p.inCar) {
-        if (!j.toldCar) { j.toldCar = true; say('Biscuit won\'t get in a car — walk him home.', 3); }
+        if (!j.toldCar) { j.toldCar = true; say("Бисквит не сядет в машину. Отведи его пешком.", 3); }
       } else {
         // at your heel, a couple of metres back
         var bx = p.pos.x - Math.sin(p.heading) * 1.6, bz = p.pos.z - Math.cos(p.heading) * 1.6;
@@ -633,7 +633,7 @@ GAME.strangers = (function () {
           }
         } else j.stuckT = 0;
       }
-      if (dist(dp, at.x, at.z) < 6) return win('"Biscuit!" He licks her face all over.');
+      if (dist(dp, at.x, at.z) < 6) return win("«Бисквит!» Он облизывает ей всё лицо.");
     }
     var dx = tx - dp.x, dz = tz - dp.z, dd = Math.sqrt(dx * dx + dz * dz);
     var legs = dog.userData.legs;
@@ -653,17 +653,17 @@ GAME.strangers = (function () {
   // ---------- VINCE: the no-show ----------
   function vinceBegin(j) {
     var at = j.who.at, bank = roadAway(at, 150, 240), lock = roadAway(at, 420, 620);
-    if (!bank || !lock) return fail('The job is off.');
+    if (!bank || !lock) return fail("Дело отменено.");
     j.bank = bank; j.lock = lock;
     j.phase = 'car';
-    if (vinceCar()) vinceGo(j); else objective('Get a car — four doors, nothing on two wheels.');
+    if (vinceCar()) vinceGo(j); else objective("Найди четырёхдверную машину. Два колеса не подойдут.");
   }
   function vinceCar() { var c = inLand(); return c && !c.spec.bike ? c : null; }
   function vinceGo(j) {
     takeIn(j.who); j.away = true;
-    say('Vince and two friends climb in with a holdall. "The bank. Nice and easy."', 3);
+    say("Винс и двое друзей садятся с большой сумкой. «В банк. Спокойно и без спешки».", 3);
     j.phase = 'bank';
-    objective('Drive to the bank and stop outside.');
+    objective("Езжай к банку и остановись у входа.");
     target(j.bank.x, j.bank.z);
   }
   function vinceStep(j, dt) {
@@ -673,37 +673,37 @@ GAME.strangers = (function () {
       else target(j.who.at.x, j.who.at.z);
       return;
     }
-    if (!car) { j.outT = (j.outT || 0) + dt; if (j.outT > 4) return fail('The crew bolts on foot. No driver, no cut.'); }
+    if (!car) { j.outT = (j.outT || 0) + dt; if (j.outT > 4) return fail("Команда убегает пешком. Нет водителя — нет доли."); }
     else j.outT = 0;
     if (!car) return;
     if (j.phase === 'bank') {
       if (dist(car.pos, j.bank.x, j.bank.z) < 10 && Math.abs(car.speed) < 2) {
         j.phase = 'wait'; j.waitT = 8;
         target(null);
-        objective('Keep the engine running…');
-        say('They\'re in. Keep it running.', 2.5);
+        objective("Не глуши мотор…");
+        say("Они внутри. Мотор не глуши.", 2.5);
       }
       return;
     }
     if (j.phase === 'wait') {
       j.waitT -= dt;
       GAME.hud.missionTimer(j.waitT, false);
-      if (dist(car.pos, j.bank.x, j.bank.z) > 25) return fail('You left them behind. They will remember that.');
+      if (dist(car.pos, j.bank.x, j.bank.z) > 25) return fail("Ты их бросил. Они это запомнят.");
       if (j.waitT <= 0) {
         j.phase = 'run';
         GAME.police.setWanted(Math.max(GAME.police.wanted, 3));
-        say('"GO! GO! GO!" — the alarm is ringing down the street.', 3);
-        objective('Lose the heat, then get them to the lock-up.');
+        say("«ГАЗУ! ГАЗУ! ГАЗУ!» Сигнализацию слышно по всей улице.", 3);
+        objective("Сбрось розыск и отвези их в гараж.");
         target(j.lock.x, j.lock.z);
       }
       return;
     }
     // the getaway
     var hot = GAME.police.wanted > 0;
-    if (GAME.frame % 20 === 0) objective(hot ? 'Lose the heat, then get them to the lock-up.' : 'Clean. Now the lock-up.');
+    if (GAME.frame % 20 === 0) objective(hot ? "Сбрось розыск и отвези их в гараж." : "Чисто. Теперь в гараж.");
     if (dist(car.pos, j.lock.x, j.lock.z) < 12) {
-      if (hot) { if (!j.toldHot) { j.toldHot = true; say('Not with the cops on us! Lose them first.', 2.5); } }
-      else win('Vince counts out your cut. "Same time next year?"');
+      if (hot) { if (!j.toldHot) { j.toldHot = true; say("С полицией на хвосте нельзя! Сначала оторвись.", 2.5); } }
+      else win("Винс отсчитывает долю. «Через год в то же время?»");
     }
   }
 
@@ -713,7 +713,7 @@ GAME.strangers = (function () {
   function marcoCar() { var c = inLand(); return c && CLASSY[c.type] ? c : null; }
   function marcoBegin(j) {
     var her = roadAway(j.who.at, 150, 240);
-    if (!her) return fail('She cancelled.');
+    if (!her) return fail("Она отменила свидание.");
     j.her = pavement(her.x, her.z);
     var gina = GAME.peds.spawnPed(j.her.x, j.her.z, { look: GINA });
     if (gina) { gina.jobPed = true; gina.state = 'wait'; gina.speed = 0; j.gina = gina; j.bits.push({ kind: 'ped', o: gina }); }
@@ -722,8 +722,8 @@ GAME.strangers = (function () {
   }
   function marcoNext(j) {
     if (j.phase === 'car' && marcoCar()) j.phase = 'pick';
-    if (j.phase === 'car') { objective('Find something classy — a limo or a sports car.'); target(null); }
-    else if (j.phase === 'pick') { objective('Pick up Gina.'); target(j.her.x, j.her.z); }
+    if (j.phase === 'car') { objective("Найди роскошный транспорт — лимузин или спорткар."); target(null); }
+    else if (j.phase === 'pick') { objective("Забери Джину."); target(j.her.x, j.her.z); }
   }
   function marcoStep(j, dt) {
     var car = marcoCar();
@@ -735,17 +735,17 @@ GAME.strangers = (function () {
         if (j.gina && !j.gina.gone) GAME.peds.removePed(j.gina);
         j.gina = null;
         j.phase = 'drive'; j.hp0 = car.hp; j.car = car; j.heat0 = GAME.police.wanted;
-        say('Gina slides in. "Marco sent a car? Classy."', 3);
-        objective('Get Gina to the casino — smoothly.');
+        say("Джина садится. «Марко прислал машину? Шикарно».", 3);
+        objective("Отвези Джину в казино. Плавно.");
         target(CASINO.x, CASINO.z);
       }
       return;
     }
     var c = P().inCar ? P().car : null;
-    if (c !== j.car) return fail('Gina is not walking anywhere in those heels.');
-    if (c.dead || c.hp < j.hp0 - c.spec.hp * 0.15) return fail('She has had enough of your driving and gets out.');
-    if (GAME.police.wanted > j.heat0) return fail('Cops? On a first date? She gets out at the lights.');
-    if (dist(c.pos, CASINO.x, CASINO.z) < 12 && Math.abs(c.speed) < 3) win('She\'s smiling. Marco owes you.');
+    if (c !== j.car) return fail("Джина в этих каблуках никуда пешком не пойдёт.");
+    if (c.dead || c.hp < j.hp0 - c.spec.hp * 0.15) return fail("Ей надоело твоё вождение. Она выходит.");
+    if (GAME.police.wanted > j.heat0) return fail("Полиция? На первом свидании? Она выходит на светофоре.");
+    if (dist(c.pos, CASINO.x, CASINO.z) < 12 && Math.abs(c.speed) < 3) win("Она улыбается. Марко твой должник.");
   }
 
   // ---------- NINA: the lighthouse, in the frame ----------
@@ -756,7 +756,7 @@ GAME.strangers = (function () {
     j.tower = { x: L.x, z: L.z, y: GAME.city.groundY(L.x, L.z) + 8 };
     j.snap0 = GAME.photo ? GAME.photo.lastSnap : 0;
     j.phase = 'shoot';
-    objective('Take a photo with the lighthouse in it (' + (GAME.isTouch ? '📷' : GAME.controls ? GAME.controls.label('KeyC') : 'C') + ') — from close enough to count.');
+    objective("Сфотографируй маяк (" + (GAME.isTouch ? '📷' : GAME.controls ? GAME.controls.label('KeyC') : 'C') + ") с достаточно близкого расстояния.");
     target(L.x, L.z);
   }
   function ninaStep(j) {
@@ -764,13 +764,13 @@ GAME.strangers = (function () {
     if (snap === j.snap0) return;
     j.snap0 = snap;
     var t = j.tower, f = GAME.focus(), d = dist(f, t.x, t.z);
-    if (d > 170) { say('Too far — she wants the tower, not a speck.', 2.5); return; }
+    if (d > 170) { say("Слишком далеко. Ей нужна башня, а не точка.", 2.5); return; }
     // (looked at a few metres in front of it: a line to its middle runs
     // into the tower itself, which hides nothing)
     var cam = GAME.cameraObj.position, cd = Math.max(1, dist(cam, t.x, t.z));
     var ax = t.x + (cam.x - t.x) / cd * 7, az = t.z + (cam.z - t.z) / cd * 7;
-    if (!GAME.inPlainView(ax, t.y, az)) { say('No lighthouse in that one. Try again.', 2.5); return; }
-    win('"That\'s the cover," says Nina.');
+    if (!GAME.inPlainView(ax, t.y, az)) { say("Маяка в кадре нет. Попробуй снова.", 2.5); return; }
+    win("«Это обложка», — говорит Нина.");
   }
 
   // ---------- GUS: his brother, adrift ----------
@@ -782,19 +782,19 @@ GAME.strangers = (function () {
       var x = M.x + Math.cos(a) * r, z = M.z + Math.sin(a) * r;
       if (SL && SL.roomy(x, z, 14)) spot = { x: x, z: z };
     }
-    if (!spot) return fail('The coastguard got to him first.');
+    if (!spot) return fail("Береговая охрана добралась первой.");
     var dinghy = GAME.vehicles.spawnCar('boat', spot.x, spot.z, Math.random() * 6.28, { occupied: 'ai', mission: true, color: 0x2a2e3a, ai: { mode: 'parked' } });
-    if (!dinghy) return fail('The coastguard got to him first.');
+    if (!dinghy) return fail("Береговая охрана добралась первой.");
     dinghy.pos.y = GAME.city.seaY(spot.x, spot.z);
     j.dinghy = dinghy; j.bits.push({ kind: 'car', o: dinghy });
     j.home = { x: M.x, z: M.z };
     j.phase = 'out';
-    objective('Take a boat and get out to the dinghy.');
+    objective("Возьми лодку и доберись до дрейфующей шлюпки.");
     target(spot.x, spot.z);
   }
   function gusStep(j) {
     var p = P(), boat = p.inCar && p.car && p.car.spec.boat ? p.car : null, dg = j.dinghy;
-    if (!dg || dg.gone) return fail('The dinghy has gone under.');
+    if (!dg || dg.gone) return fail("Шлюпка затонула.");
     if (j.phase === 'out') {
       target(dg.pos.x, dg.pos.z);
       if (boat && dist(boat.pos, dg.pos.x, dg.pos.z) < 12) {
@@ -802,13 +802,13 @@ GAME.strangers = (function () {
         if (dg.riderMesh) { dg.mesh.remove(dg.riderMesh); disposeTree(dg.riderMesh); dg.riderMesh = null; }
         dg.occupied = null; dg.ai = null;
         j.phase = 'back';
-        say('He scrambles across, soaked. "Thought I was a goner."', 3);
-        objective('Bring him back in to the marina.');
+        say("Он перебирается к тебе, мокрый насквозь. «Думал, мне конец».", 3);
+        objective("Отвези его обратно в марину.");
         target(j.home.x, j.home.z);
       }
       return;
     }
-    if (boat && dist(boat.pos, j.home.x, j.home.z) < 45) win('Gus hugs his brother, then cuffs him round the ear.');
+    if (boat && dist(boat.pos, j.home.x, j.home.z) < 45) win("Гас обнимает брата, потом даёт ему подзатыльник.");
   }
 
   // ---------- LUPE: no pictures ----------
@@ -817,7 +817,7 @@ GAME.strangers = (function () {
   function lupeBegin(j) {
     j.phase = 'car';
     if (inLand()) lupeGo(j);
-    else objective('Get a car — Lupe is coming with you.');
+    else objective("Найди машину — Лупе едет с тобой.");
   }
   function lupeGo(j) {
     var car = inLand(), C = GAME.city;
@@ -826,11 +826,11 @@ GAME.strangers = (function () {
     var rp = C.nearestRoadPoint(car.pos.x - fx * 45, car.pos.z - fz * 45);
     var pap = GAME.vehicles.spawnCar('motorcycle', rp.x, rp.z, car.heading, { occupied: 'ai', mission: true, color: 0xf0f0f4,
       ai: { mode: 'traffic', desired: 21, laneX: 0, laneZ: 0, reckless: true, follow: car } });
-    if (!pap) return fail('He has gone. Lupe is almost disappointed.');
+    if (!pap) return fail("Он пропал. Лупе почти разочарована.");
     j.pap = pap; j.bits.push({ kind: 'car', o: pap });
     j.phase = 'lose'; j.timer = 120; j.awayT = 0; j.closeT = 0;
-    say('Lupe ducks in behind her sunglasses. "Him — on the moped. Lose him."', 3);
-    objective('Lose the photographer.');
+    say("Лупе прячется за очками. «Вон тот, на мопеде. Оторвись от него».", 3);
+    objective("Оторвись от фотографа.");
     target(null);
   }
   function lupeStep(j, dt) {
@@ -841,8 +841,8 @@ GAME.strangers = (function () {
       return;
     }
     var pap = j.pap;
-    if (!pap || pap.gone || pap.dead || pap.occupied !== 'ai') return win('Not a single picture. Lupe blows you a kiss.');
-    if (!car) { j.outT = (j.outT || 0) + dt; if (j.outT > 5) return fail('You left her in the car — he got his picture.'); }
+    if (!pap || pap.gone || pap.dead || pap.occupied !== 'ai') return win("Ни одного снимка. Лупе шлёт воздушный поцелуй.");
+    if (!car) { j.outT = (j.outT || 0) + dt; if (j.outT > 5) return fail("Ты оставил её в машине. Он сделал снимок."); }
     else j.outT = 0;
     j.timer -= dt;
     GAME.hud.missionTimer(j.timer, true);
@@ -857,12 +857,12 @@ GAME.strangers = (function () {
     } else if (pap.ai.mode !== 'traffic') {
       pap.ai = { mode: 'traffic', desired: 21, laneX: 0, laneZ: 0, reckless: true, follow: car };
     } else if (car) pap.ai.follow = car;
-    if (d < 12 && Math.abs((car ? car.speed : 0)) < 6) { j.closeT += dt; if (j.closeT > 4) return fail('He got his picture.'); }
+    if (d < 12 && Math.abs((car ? car.speed : 0)) < 6) { j.closeT += dt; if (j.closeT > 4) return fail("Он сделал снимок."); }
     else j.closeT = Math.max(0, j.closeT - dt);
-    if (d > 160) { j.awayT += dt; if (j.awayT > 4 || d > 240) return win('Not a single picture. Lupe blows you a kiss.'); }
+    if (d > 160) { j.awayT += dt; if (j.awayT > 4 || d > 240) return win("Ни одного снимка. Лупе шлёт воздушный поцелуй."); }
     else j.awayT = 0;
-    if (GAME.frame % 20 === 0) objective(d < 40 ? 'Lose the photographer — he\'s right behind you!' : 'Lose the photographer — keep going…');
-    if (j.timer <= 0) return fail('He hung on long enough. Tomorrow\'s papers, page three.');
+    if (GAME.frame % 20 === 0) objective(d < 40 ? "Оторвись от фотографа — он прямо за тобой!" : "Оторвись от фотографа — продолжай ехать…");
+    if (j.timer <= 0) return fail("Он продержался достаточно. Завтрашние газеты, третья полоса.");
   }
 
   // ride at somebody's left shoulder: steer for the spot, at their pace
@@ -883,35 +883,35 @@ GAME.strangers = (function () {
   function waltBegin(j) {
     var K = GAME.city.islaPois.container, spot = pavement(K.x + 20, K.z - 20);
     var man = GAME.peds.spawnPed(spot.x, spot.z, { look: { shirt: 0x684a3a, pants: 0x2a2a34, skin: 0xc89878, hair: 'mullet', hairCol: 0x5a3c22 } });
-    if (!man) return fail('He has skipped the island.');
+    if (!man) return fail("Он сбежал с острова.");
     man.jobPed = true; man.state = 'wait'; man.speed = 0; man.outlaw = true; man.hp0 = man.hp;
     j.man = man; j.bits.push({ kind: 'ped', o: man });
     j.phase = 'find';
-    objective('Find the man at the container yard. He will run.');
+    objective("Найди человека на контейнерной площадке. Он побежит.");
     target(spot.x, spot.z);
   }
   function waltStep(j) {
     var m = j.man, f = GAME.focus();
     if (j.phase === 'find') {
-      if (!m || m.gone) return fail('He has skipped the island.');
+      if (!m || m.gone) return fail("Он сбежал с острова.");
       target(m.pos.x, m.pos.z);
       if (dist(m.pos, f.x, f.z) < 25 && m.state === 'wait') {
         m.jobPed = false;
         GAME.peds.startFlee(m, f.x, f.z, 40);
-        say('He sees you coming and bolts!', 2);
-        objective('Catch him.');
+        say("Он видит тебя и бросается бежать!", 2);
+        objective("Поймай его.");
       }
       if (m.dead || (m.knockT || 0) > 0 || m.hp < (m.hp0 || 30) * 0.6) {
         j.phase = 'back';
-        say('He coughs up — a roll of notes, damp with sweat.', 3);
-        objective('Take the money back to Walt.');
+        say("Он раскошеливается — пачка купюр, влажных от пота.", 3);
+        objective("Верни деньги Уолту.");
         target(j.who.at.x, j.who.at.z);
         return;
       }
-      if (m.state !== 'wait' && dist(m.pos, f.x, f.z) > 150) return fail('He got away into the yard.');
+      if (m.state !== 'wait' && dist(m.pos, f.x, f.z) > 150) return fail("Он скрылся на площадке.");
       return;
     }
-    if (dist(f, j.who.at.x, j.who.at.z) < 8) win('Walt counts it twice. "Every cent."');
+    if (dist(f, j.who.at.x, j.who.at.z) < 8) win("Уолт пересчитывает дважды. «До цента».");
   }
 
   // ---------- face to face ----------
@@ -1015,12 +1015,12 @@ GAME.strangers = (function () {
     if (job.ending) return;
     var p = P();
     job.t0 = (job.t0 || 0) + dt;
-    if (p.state !== 'alive') return fail(p.state === 'busted' ? 'you got busted' : 'you went down');
+    if (p.state !== 'alive') return fail(p.state === 'busted' ? "тебя арестовали" : "ты погиб");
     // X twice walks away from it, as from any job
     if (GAME.keyPressed('KeyX')) {
       if (GAME.time < abandonAsk) { abandon(); return; }
       abandonAsk = GAME.time + 3;
-      say((GAME.controls ? GAME.controls.label('KeyX') : 'X') + ' again to walk away from ' + job.def.title, 3);
+      say((GAME.controls ? GAME.controls.label('KeyX') : 'X') + " ещё раз, чтобы отказаться от " + job.def.title, 3);
     }
     job.def.step(job, dt);
     if (!job) return;

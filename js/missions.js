@@ -66,8 +66,8 @@ GAME.stunts = (function () {
     GAME.audio.sting('win');
     GAME.haptics.win();
     var left = total - n;
-    GAME.hud.message('UNIQUE STUNT JUMP  ' + n + ' / ' + total + '   ·   +$' + bonus +
-      (left > 0 ? '   —   ' + left + ' more for a special reward' : ''), 4.5);
+    GAME.hud.message("УНИКАЛЬНЫЙ ПРЫЖОК  " + n + ' / ' + total + '   ·   +$' + bonus +
+      (left > 0 ? '   —   ' + left + " до особой награды" : ''), 4.5);
     GAME.track('stunt-jump-found');
     if (GAME.lola) GAME.lola.first('stunt');
     if (n >= total && !rewarded) grantReward();
@@ -84,15 +84,15 @@ GAME.stunts = (function () {
     GAME.audio.sting('win');
     GAME.haptics.win();
     var left = all - n;
-    GAME.hud.message('ISLA VERDE STUNT JUMP  ' + n + ' / ' + all + '   ·   +$' + bonus +
-      (left > 0 ? '   —   ' + left + ' more on the island' : ''), 4.5);
+    GAME.hud.message("ПРЫЖОК НА ИСЛА-ВЕРДЕ  " + n + ' / ' + all + '   ·   +$' + bonus +
+      (left > 0 ? '   —   ' + left + " осталось на острове" : ''), 4.5);
     GAME.track('isla-stunt-jump-found');
     if (GAME.lola) GAME.lola.first('islaJump');
     if (n >= all && !islaRewarded) {
       islaRewarded = true;
       GAME.addCash(ISLA_PRIZE);
       if (GAME.shops && GAME.shops.grantVehicle) GAME.shops.grantVehicle('buggy');
-      GAME.hud.message('ALL ' + all + ' ISLA VERDE JUMPS!  +$' + ISLA_PRIZE.toLocaleString() + '  ·  a DUNE HOPPER joins your garage', 8);
+      GAME.hud.message("ВСЕ " + all + " ПРЫЖКОВ НА ИСЛА-ВЕРДЕ!  +$" + ISLA_PRIZE.toLocaleString('ru-RU') + "  ·  «ДЮННЫЙ ПРЫГУН» добавлен в гараж", 8);
       GAME.track('all-isla-stunt-jumps');
     }
     save();
@@ -106,18 +106,18 @@ GAME.stunts = (function () {
     GAME.combat.giveAllWeapons(GAME.combat.FULL_LOAD);
     GAME.addCash(50000);
     GAME.city.unlockMonsterTruck();
-    GAME.hud.message('ALL ' + total + ' STUNT JUMPS!  +$50,000  ·  every weapon, yours to keep, with free refills at the hardware counter  ·  MONSTER TRUCK unlocked at the airport', 8);
+    GAME.hud.message("ВСЕ " + total + " УНИКАЛЬНЫХ ПРЫЖКОВ!  +$50 000  ·  всё оружие навсегда и бесплатные патроны в оружейном магазине  ·  МОНСТР-ТРАК доступен в аэропорту", 8);
     GAME.share.show({
       slug: 'all-stunt-jumps',
-      eyebrow: 'Costa Rosa · 1986',
-      title: 'ALL ' + total + ' STUNT JUMPS',
-      subtitle: 'Every ramp in the city, found and cleared',
+      eyebrow: "Коста-Роса · 1986",
+      title: "ВСЕ " + total + " УНИКАЛЬНЫХ ПРЫЖКОВ",
+      subtitle: "Все трамплины города найдены и пройдены",
       accent: '#ffb03a',
       stats: [
-        { label: 'Jumps', value: total + ' / ' + total },
-        { label: 'Payout', value: '$50,000' },
-        { label: 'Unlocked', value: 'MONSTER TRUCK' },
-        { label: 'Arsenal', value: 'KEPT · FREE REFILLS' }
+        { label: "Прыжки", value: total + ' / ' + total },
+        { label: "Выплата", value: '$50,000' },
+        { label: "Открыто", value: "МОНСТР-ТРАК" },
+        { label: "Арсенал", value: "НАВСЕГДА · ПАТРОНЫ БЕСПЛАТНО" }
       ]
     });
     // clearing every jump is the other way across the channel
@@ -143,15 +143,15 @@ GAME.stunts = (function () {
 GAME.missions = (function () {
   var DEFS = [
     {
-      id: 'race0', type: 'race', name: 'STRIP SPRINT', reward: 500, start: { x: 350, z: -350 },
+      id: 'race0', type: 'race', name: "СПРИНТ ПО БУЛЬВАРУ", reward: 500, start: { x: 350, z: -350 },
       cps: [[350, -150], [350, 50], [350, 250], [250, 350], [150, 250], [150, 50]]
     },
     {
-      id: 'race1', type: 'race', name: 'HARBOR LOOP', reward: 550, start: { x: -450, z: -100 },
+      id: 'race1', type: 'race', name: "ПОРТОВОЕ КОЛЬЦО", reward: 550, start: { x: -450, z: -100 },
       cps: [[-450, 150], [-350, 250], [-250, 350], [-150, 250], [-150, 50], [-250, -50], [-350, -50]]
     },
     {
-      id: 'race2', type: 'race', name: 'DOWNTOWN DASH', reward: 600, start: { x: 50, z: 250 },
+      id: 'race2', type: 'race', name: "РЫВОК ЧЕРЕЗ ЦЕНТР", reward: 600, start: { x: 50, z: 250 },
       cps: [[50, 50], [150, -50], [50, -250], [-50, -350], [-150, -250], [-150, -50], [-50, 50]]
     },
     // courier drops are generated fresh each run (see rollCourierStops)
@@ -160,16 +160,16 @@ GAME.missions = (function () {
     // "competitive" means on these streets, so each clock is that drive plus
     // a fifth for traffic and corners. A flat-out clean run beats them
     // narrowly; a stroll does not finish.
-    { id: 'courier0', type: 'courier', name: 'HOT PLATES', reward: 300, time: 130, start: { x: 158.4, z: 41.6 }, drops: 4, legMin: 330, legMax: 720 },
-    { id: 'courier1', type: 'courier', name: 'NIGHT MAIL', reward: 320, time: 130, start: { x: -241.6, z: -41.6 }, drops: 4, legMin: 360, legMax: 780 },
+    { id: 'courier0', type: 'courier', name: "ГОРЯЧИЕ НОМЕРА", reward: 300, time: 130, start: { x: 158.4, z: 41.6 }, drops: 4, legMin: 330, legMax: 720 },
+    { id: 'courier1', type: 'courier', name: "НОЧНАЯ ПОЧТА", reward: 320, time: 130, start: { x: -241.6, z: -41.6 }, drops: 4, legMin: 360, legMax: 780 },
     // (BEACH RUN is the first job Lola shows a new player, and it sat sixty
     // metres from where a new game starts: in and out of the ring before the
     // first drive was a drive. It waits a few blocks in off the strip, by
     // the Neon Tide, now — the best part of half a kilometre and three turns.)
-    { id: 'courier2', type: 'courier', name: 'BEACH RUN', reward: 340, time: 115, start: { x: 204, z: 225 }, drops: 4, legMin: 300, legMax: 660 },
-    { id: 'rampage0', type: 'rampage', name: 'STRIP HAVOC', reward: 400, time: 30, target: 3000, weapon: 'smg', ammo: 160, start: { x: 241.6, z: -258.4 } },
-    { id: 'rampage1', type: 'rampage', name: 'HARBOR HAVOC', reward: 450, time: 30, target: 3500, weapon: 'shotgun', ammo: 30, start: { x: -341.6, z: 258.4 } },
-    { id: 'rampage2', type: 'rampage', name: 'UPTOWN HAVOC', reward: 400, time: 30, target: 2500, weapon: 'smg', ammo: 160, start: { x: 41.6, z: -341.6 } },
+    { id: 'courier2', type: 'courier', name: "ПЛЯЖНЫЙ РЕЙС", reward: 340, time: 115, start: { x: 204, z: 225 }, drops: 4, legMin: 300, legMax: 660 },
+    { id: 'rampage0', type: 'rampage', name: "ПОГРОМ НА БУЛЬВАРЕ", reward: 400, time: 30, target: 3000, weapon: 'smg', ammo: 160, start: { x: 241.6, z: -258.4 } },
+    { id: 'rampage1', type: 'rampage', name: "ПОГРОМ В ПОРТУ", reward: 450, time: 30, target: 3500, weapon: 'shotgun', ammo: 30, start: { x: -341.6, z: 258.4 } },
+    { id: 'rampage2', type: 'rampage', name: "ПОГРОМ В ВЕРХНЕМ ГОРОДЕ", reward: 400, time: 30, target: 2500, weapon: 'smg', ammo: 160, start: { x: 41.6, z: -341.6 } },
     // On the water, in the bay between the beach and the channel: both start
     // beside a mooring where a boat waits, and both are run in one.
     //   BAY REGATTA — out under both bridges (through the gaps between their
@@ -179,17 +179,17 @@ GAME.missions = (function () {
     //   coastguard came by, bobbing about the bay: fish them out and bring
     //   them in to the pier before the clock runs out. Fresh spots each run.
     {
-      id: 'boat0', type: 'race', boat: true, name: 'BAY REGATTA', reward: 700, start: { x: 515, z: 215 },
+      id: 'boat0', type: 'race', boat: true, name: "РЕГАТА В ЗАЛИВЕ", reward: 700, start: { x: 515, z: 215 },
       cps: [[518, 150], [520, 0], [500, -180], [499, -340], [520, -440], [545, -340], [530, -180], [530, 0], [518, 150], [530, 230]]
     },
-    { id: 'boat1', type: 'courier', boat: true, name: 'CONTRABAND', reward: 520, time: 120, start: { x: 472, z: -150 }, drops: 3, legMin: 200, legMax: 380 },
+    { id: 'boat1', type: 'courier', boat: true, name: "КОНТРАБАНДА", reward: 520, time: 120, start: { x: 472, z: -150 }, drops: 3, legMin: 200, legMax: 380 },
     // Isla Verde's own work, and it stays over here — every checkpoint, drop
     // and target is on the island, so nothing ever asks you to cross mid-run.
     // Coordinates come from the island itself once it has registered.
-    { id: 'race3', type: 'race', name: 'ALTA VERDE CLIMB', reward: 750, isla: 'climb', start: null, cps: null },
-    { id: 'race4', type: 'race', name: 'MIRADOR RUN', reward: 800, isla: 'mirador', start: null, cps: null },
-    { id: 'courier3', type: 'courier', name: 'COLD CHAIN', reward: 420, time: 180, isla: 'port', start: null, drops: 4, legMin: 330, legMax: 720 },
-    { id: 'rampage3', type: 'rampage', name: 'DORADO HAVOC', reward: 550, time: 30, target: 3200, weapon: 'smg', ammo: 160, isla: 'dorado', start: null },
+    { id: 'race3', type: 'race', name: "ПОДЪЁМ НА АЛЬТА-ВЕРДЕ", reward: 750, isla: 'climb', start: null, cps: null },
+    { id: 'race4', type: 'race', name: "ГОНКА ПО МИРАДОРУ", reward: 800, isla: 'mirador', start: null, cps: null },
+    { id: 'courier3', type: 'courier', name: "ХОЛОДНАЯ ЦЕПЬ", reward: 420, time: 180, isla: 'port', start: null, drops: 4, legMin: 330, legMax: 720 },
+    { id: 'rampage3', type: 'rampage', name: "ПОГРОМ В ДОРАДО", reward: 550, time: 30, target: 3200, weapon: 'smg', ammo: 160, isla: 'dorado', start: null },
     // Takedowns: somebody in a car, somewhere out in the traffic, who has to
     // stop being a problem before the clock runs out. They drive about until
     // they see you, then run — and some of them shoot back.
@@ -202,9 +202,9 @@ GAME.missions = (function () {
     // The car is locked while he is in it, and nobody hands it over: wreck it
     // or knock it about till he bails — and then he comes at you with a gun.
     // The job is done when HE is.
-    { id: 'hit0', type: 'takedown', name: 'THE COLLECTOR', reward: 1200, time: 150, car: 'limo', armor: 2.15, flee: 19, shoots: true, early: false, foot: 70, start: { x: 250, z: 350 } },
-    { id: 'hit1', type: 'takedown', name: 'LOOSE ENDS', reward: 1000, time: 110, car: 'sports', armor: 1.15, flee: 24, shoots: 'hurt', early: true, foot: 45, ledger: true, start: { x: -50, z: -150 } },
-    { id: 'hit2', type: 'takedown', name: 'HIGH TIDE', reward: 2000, time: 160, car: 'pickup', armor: 2.85, flee: 21, shoots: true, early: false, foot: 100, isla: 'marina', start: null, flees: true }
+    { id: 'hit0', type: 'takedown', name: "СБОРЩИК", reward: 1200, time: 150, car: 'limo', armor: 2.15, flee: 19, shoots: true, early: false, foot: 70, start: { x: 250, z: 350 } },
+    { id: 'hit1', type: 'takedown', name: "КОНЦЫ В ВОДУ", reward: 1000, time: 110, car: 'sports', armor: 1.15, flee: 24, shoots: 'hurt', early: true, foot: 45, ledger: true, start: { x: -50, z: -150 } },
+    { id: 'hit2', type: 'takedown', name: "ПРИЛИВ", reward: 2000, time: 160, car: 'pickup', armor: 2.85, flee: 21, shoots: true, early: false, foot: 100, isla: 'marina', start: null, flees: true }
   ];
 
   // Lola Reyes runs the strip, and she is who the rings on your map are
@@ -212,45 +212,45 @@ GAME.missions = (function () {
   // first time, and the story of the two islands strung between them —
   // Rico Salazar's crew pushing in on her harbour, and pushed back out.
   var LOLA = {
-    boat0: ['The yacht club thinks the bay is theirs. Take one of the boats by the pier and show them whose it is.',
-      'Sailing types don\'t lose gracefully. Enjoy it.'],
-    boat1: ['A crew dumped a cargo of mine over the side when the coastguard came sniffing. Fish it out of the bay before it drifts.',
-      'Every package, dry enough to sell. You\'re handy on the water, kid.'],
-    race0: ['New in town? Then nobody knows your name. The strip racers will — win this and they stop laughing.',
-      'Not bad, kid. People are asking who you are. Let\'s give them more to talk about.'],
-    race1: ['The harbour crews run a loop past the warehouses every night. Beat them on their own turf.',
-      'The harbour\'s buzzing about you. The Salazar boys aren\'t happy. Good.'],
-    race2: ['Downtown money likes a show. Give them one — first past the last gate.',
-      'Now the suits know your face too. That cuts both ways, so be careful.'],
-    courier0: ['A friend needs some plates moved before the cops run them. Every stop, against the clock.',
-      'Plates gone, friend happy, you richer. That\'s how this works.'],
-    courier1: ['Envelopes. Don\'t open them. Don\'t be late.',
-      'Not one envelope opened. I knew I liked you.'],
-    courier2: ['The beach bars need their "supplies" before the lunch crowd. Drive.',
-      'Every bar on the sand pays me now — and so, a little, you.'],
-    rampage0: ['Somebody\'s selling on my strip without asking. Make a mess they\'ll remember.',
-      'Message received, I\'d say. Nobody\'s selling there tonight.'],
-    rampage1: ['Rico Salazar\'s people moved into my warehouses. Show them what that costs.',
-      'The Salazars are packing. The harbour\'s quiet again.'],
-    rampage2: ['Uptown thinks it\'s above all this. Remind them.',
-      'Uptown remembers now.'],
-    hit0: ['Rico\'s collector drives a black limo round MY strip, picking up MY money. Put him out of business — he shoots back.',
-      'No more collections. Rico will be furious, and furious men make mistakes.'],
-    hit1: ['A Salazar bookkeeper is skipping town with my ledger, in something fast. He already knows you\'re coming, and he\'s scared enough to shoot. Stop him and bring me that book.',
-      'The ledger\'s home. Rico has nothing left on the mainland — he\'s run for Isla Verde.'],
-    race3: ['Isla Verde\'s rich kids race the Alta Verde switchbacks. Beat them to the top and the island hears your name.',
-      'Top of the hill. Rico heard that one.'],
-    race4: ['The Mirador loop: fast, blind, and a long way down. Win it.',
-      'Still in one piece? Then you won. Nicely done.'],
-    courier3: ['The ice cream factory moves more than ice cream. Keep it cold and keep it moving.',
-      'Delivered cold. The factory belongs to us now.'],
-    rampage3: ['Rico\'s holed up in Puerto Dorado. Shake his new home until it falls on him.',
-      'He\'s out of friends over there. Not out of boats.'],
-    hit2: ['Rico himself, in a black pickup, heading for the marina and a boat out at high tide. This ends today.',
-      'It\'s over. Costa Rosa\'s ours, kid — both islands. Enjoy the view.']
+    boat0: ["Яхт-клуб считает залив своим. Возьми лодку у пирса и покажи, кто здесь хозяин.",
+      "Яхтсмены не умеют проигрывать. Наслаждайся."],
+    boat1: ["Моя команда сбросила груз за борт, когда нагрянула береговая охрана. Вылови его из залива, пока не унесло.",
+      "Все посылки на месте и достаточно сухие для продажи. На воде ты молодец, парень."],
+    race0: ["Новенький в городе? Тогда твоего имени ещё никто не знает. Гонщики с бульвара узнают — выиграй, и смеяться перестанут.",
+      "Неплохо, парень. Люди спрашивают, кто ты. Дадим им ещё повод для разговоров."],
+    race1: ["Портовые гонщики каждую ночь наматывают круги у складов. Обойди их на их же территории.",
+      "Весь порт о тебе говорит. Парни Салазара недовольны. Отлично."],
+    race2: ["Другу нужно перевезти номера, пока их не пробила полиция. Все точки — на время.",
+      "Номера исчезли, друг доволен, ты стал богаче. Вот так это работает."],
+    courier0: ["Конверты. Не открывай. Не опаздывай.",
+      "Ни одного вскрытого конверта. Я знала, что ты мне понравишься."],
+    courier1: ["Пляжным барам нужны «припасы» до обеденного наплыва. Поехали.",
+      "Теперь каждый бар на пляже платит мне. И немного тебе."],
+    courier2: ["Кто-то торгует на моём бульваре без разрешения. Устрой погром, который запомнят.",
+      "Думаю, послание дошло. Сегодня там никто не торгует."],
+    rampage0: ["Люди Рико Салазара заняли мои склады. Покажи им цену такой наглости.",
+      "Салазары пакуют вещи. В порту снова тихо."],
+    rampage1: ["Верхний город думает, что всё это его не касается. Напомни им.",
+      "Теперь Верхний город помнит."],
+    rampage2: ["Сборщик Рико ездит на чёрном лимузине по МОЕМУ бульвару и собирает МОИ деньги. Покончи с его бизнесом. Он отстреливается.",
+      "Сборы закончились. Рико будет в ярости, а люди в ярости совершают ошибки."],
+    hit0: ["Бухгалтер Салазара удирает из города на быстрой машине с моей бухгалтерской книгой. Он знает, что ты идёшь, и от страха готов стрелять. Останови его и верни книгу.",
+      "Книга дома. На материке у Рико больше ничего нет — он сбежал на Исла-Верде."],
+    hit1: ["Богатые детки с Исла-Верде гоняются по серпантинам Альта-Верде. Обгони их до вершины — и весь остров узнает твоё имя.",
+      "Вершина взята. Рико об этом услышал."],
+    race3: ["Кольцо Мирадора: скорость, слепые повороты и пропасть внизу. Выиграй.",
+      "Всё ещё цел? Значит, победил. Отличная работа."],
+    race4: ["Фабрика мороженого перевозит не только мороженое. Держи груз в холоде и не тормози.",
+      "Доставлено холодным. Теперь фабрика наша."],
+    courier3: ["Рико засел в Пуэрто-Дорадо. Тряси его новый дом, пока тот не рухнет ему на голову.",
+      "Друзья у него закончились. Лодки ещё нет."],
+    rampage3: ["Сам Рико, чёрный пикап, едет в марину к лодке, чтобы уйти с приливом. Сегодня всё закончится.",
+      "Всё кончено. Коста-Роса наша, парень. Оба острова. Наслаждайся видом."],
+    hit2: ["Сам Рико, чёрный пикап, едет в марину к лодке, чтобы уйти с приливом. Сегодня всё закончится.",
+      "Всё кончено. Коста-Роса наша, парень. Оба острова. Наслаждайся видом."]
   };
-  function lola(text, dur) { if (text && GAME.hud.pager) GAME.hud.pager('LOLA', text, dur); }
-  function rico(text, dur) { if (text && GAME.hud.pager) GAME.hud.pager('RICO', text, dur); }
+  function lola(text, dur) { if (text && GAME.hud.pager) GAME.hud.pager("ЛОЛА", text, dur); }
+  function rico(text, dur) { if (text && GAME.hud.pager) GAME.hud.pager("РИКО", text, dur); }
 
   // And the same story told face to face (scenes.js): the cut to Lola's
   // lock-up before a job you have not done yet, her and you at the roll-up
@@ -259,72 +259,72 @@ GAME.missions = (function () {
   // of them start with the scenes switched off. Rico gets his own cut to the
   // marina on Isla Verde, once he has run there.
   var SCENES = {
-    race0: [['lola', 'New in town? Then nobody knows your name yet.'],
-      ['you', 'Is that a problem?'],
-      ['lola', 'It\'s an opportunity. The strip racers meet tonight — win, and they stop laughing.']],
-    race1: [['lola', 'The harbour crews run a loop past the warehouses every night.'],
-      ['you', 'Whose crews?'],
-      ['lola', 'Rico Salazar\'s. Beat them on their own turf, kid, and let him hear about it.']],
-    race2: [['lola', 'Downtown money likes a show. The suits bet on these races like it\'s the stock market.'],
-      ['you', 'And you?'],
-      ['lola', 'I bet on you. First past the last gate — don\'t make me look stupid.']],
-    courier0: [['lola', 'A friend needs some plates moved before the cops run them.'],
-      ['you', 'How many stops?'],
-      ['lola', 'All of them, against the clock. Don\'t sightsee.']],
-    courier1: [['lola', 'Envelopes. Don\'t open them.'],
-      ['you', 'What\'s in them?'],
-      ['lola', 'That was opening them, kid. And don\'t be late.']],
-    courier2: [['lola', 'The beach bars need their "supplies" before the lunch crowd.'],
-      ['you', 'Supplies.'],
-      ['lola', 'Ice. Limes. Napkins. Whatever helps you sleep — just drive.']],
-    rampage0: [['lola', 'Somebody\'s selling on my strip without asking.'],
-      ['you', 'Want me to ask them to stop?'],
-      ['lola', 'Make a mess they\'ll remember. That IS asking, round here.']],
-    rampage1: [['lola', 'Rico Salazar\'s people moved into my warehouses last night. Walked in like they had the keys.'],
-      ['you', 'Did they?'],
-      ['lola', 'They had bolt cutters. Show them what that costs.']],
-    rampage2: [['lola', 'Uptown thinks it\'s above all this. Doormen, tennis clubs, private security.'],
-      ['you', 'And?'],
-      ['lola', 'And they buy from the same people everybody does. Remind them.']],
-    boat0: [['lola', 'The yacht club thinks the bay is theirs.'],
-      ['you', 'I\'ve never sailed.'],
-      ['lola', 'Neither have they — they pay people. Take a boat off the pier and show them whose bay it is.']],
-    boat1: [['lola', 'A crew of mine dumped a cargo over the side when the coastguard came sniffing.'],
-      ['you', 'And it floats?'],
-      ['lola', 'Wrapped tight, it floats. Fish it out of the bay before it drifts to Havana.']],
-    hit0: [['lola', 'Rico\'s collector drives a black limo round MY strip, picking up MY money.'],
-      ['you', 'You want it back?'],
-      ['lola', 'I want him out of business. Careful, kid — he shoots back.']],
-    hit1: [['lola', 'A Salazar bookkeeper is skipping town with my ledger. Names, numbers — everybody I pay.'],
-      ['you', 'Skipping in what?'],
-      ['lola', 'Something fast. He knows you\'re coming and he\'s scared enough to shoot. Stop him and bring me that book.']],
-    race3: [['lola', 'Isla Verde\'s rich kids race the Alta Verde switchbacks.'],
-      ['you', 'On Rico\'s island.'],
-      ['lola', 'For now. Beat them to the top and the whole island hears your name.']],
-    race4: [['lola', 'The Mirador loop. Fast, blind, and a long way down.'],
-      ['you', 'Any advice?'],
-      ['lola', 'Win it. Second place is a long fall.']],
-    courier3: [['lola', 'The ice cream factory moves more than ice cream.'],
-      ['you', 'I figured.'],
-      ['lola', 'Then figure this: it melts. Keep it cold and keep it moving.']],
+    race0: [['lola', "Новенький в городе? Тогда твоего имени ещё никто не знает."],
+      ['you', "И это проблема?"],
+      ['lola', "Это возможность. Сегодня гонщики собираются на бульваре. Выиграй — и смеяться перестанут."]],
+    race1: [['lola', "Портовые гонщики каждую ночь наматывают круги у складов."],
+      ['you', "Чьи гонщики?"],
+      ['lola', "Рико Салазара. Обойди их на их же территории, парень. Пусть он услышит."]],
+    race2: [['lola', "В центре богатые любят зрелища. Деловые люди ставят на гонки, как на бирже."],
+      ['you', "А ты?"],
+      ['lola', "Я ставлю на тебя. Первым через последние ворота. Не выставь меня дурой."]],
+    courier0: [['lola', "Другу нужно перевезти номера, пока их не пробила полиция."],
+      ['you', "Сколько остановок?"],
+      ['lola', "Все, и на время. Без экскурсий."]],
+    courier1: [['lola', "Конверты. Не открывай."],
+      ['you', "Что в них?"],
+      ['lola', "Это почти как открыть, парень. И не опаздывай."]],
+    courier2: [['lola', "Пляжным барам нужны «припасы» до обеденного наплыва."],
+      ['you', 'Припасы.'],
+      ['lola', "Лёд. Лаймы. Салфетки. Считай как хочешь, только езжай."]],
+    rampage0: [['lola', "Кто-то торгует на моём бульваре без разрешения."],
+      ['you', "Попросить их прекратить?"],
+      ['lola', "Устрой погром, который запомнят. Здесь это и значит «попросить»."]],
+    rampage1: [['lola', "Люди Рико Салазара вчера заняли мои склады. Вошли, будто у них были ключи."],
+      ['you', "А были?"],
+      ['lola', "Были болторезы. Покажи им цену такой наглости."]],
+    rampage2: [['lola', "Верхний город считает себя выше всего этого. Швейцары, теннисные клубы, частная охрана."],
+      ['you', 'И что?'],
+      ['lola', "А покупают у тех же, что и все. Напомни им."]],
+    boat0: [['lola', "Яхт-клуб считает залив своим."],
+      ['you', "Я никогда не ходил под парусом."],
+      ['lola', "Они тоже. Нанимают людей. Возьми лодку у пирса и покажи, чей это залив."]],
+    boat1: [['lola', "Моя команда сбросила груз за борт, когда нагрянула береговая охрана."],
+      ['you', "Он хоть плавает?"],
+      ['lola', "Упакован плотно — плавает. Вылови его, пока до Гаваны не унесло."]],
+    hit0: [['lola', "Сборщик Рико ездит на чёрном лимузине по МОЕМУ бульвару и собирает МОИ деньги."],
+      ['you', "Хочешь вернуть?"],
+      ['lola', "Хочу закрыть его бизнес. Осторожно, парень, он отстреливается."]],
+    hit1: [['lola', "Бухгалтер Салазара удирает из города с моей книгой. Имена, суммы — все, кому я плачу."],
+      ['you', "На чём удирает?"],
+      ['lola', "На чём-то быстром. Знает, что ты идёшь, и от страха готов стрелять. Останови его и верни книгу."]],
+    race3: [['lola', "Богатые детки с Исла-Верде гоняются по серпантинам Альта-Верде."],
+      ['you', "На острове Рико."],
+      ['lola', "Пока что. Обгони их до вершины — и весь остров узнает твоё имя."]],
+    race4: [['lola', "Кольцо Мирадора. Скорость, слепые повороты, пропасть внизу."],
+      ['you', "Советы будут?"],
+      ['lola', "Выиграй. Второе место — долгий полёт вниз."]],
+    courier3: [['lola', "Фабрика мороженого перевозит не только мороженое."],
+      ['you', "Я догадался."],
+      ['lola', "Тогда пойми и это: оно тает. Держи в холоде и не тормози."]],
     rampage3: { shots: [
       { set: 'marina', cast: ['rico', 'manny'], lines: [
-        ['rico', 'She sends a kid. Lola Reyes sends a KID to take my island.'],
-        ['manny', 'He took the hill, boss. And the factory.'],
-        ['rico', 'Then Puerto Dorado is where he stops. Tell the boys.']] },
+        ['rico', "Она прислала мальчишку. Лола Рейес прислала МАЛЬЧИШКУ отнимать мой остров."],
+        ['manny', "Он взял холм, босс. И фабрику."],
+        ['rico', "Значит, Пуэрто-Дорадо станет его последней остановкой. Передай парням."]] },
       { set: 'lockup', cast: ['lola', 'you'], lines: [
-        ['lola', 'Rico\'s holed up in Puerto Dorado, and he thinks it\'s a fortress.'],
-        ['you', 'Is it?'],
-        ['lola', 'Shake it and find out. Bring it down on him.']] }] },
+        ['lola', "Рико засел в Пуэрто-Дорадо и считает его крепостью."],
+        ['you', "А это крепость?"],
+        ['lola', "Потряси и узнаешь. Обрушь всё ему на голову."]] }] },
     hit2: { shots: [
       { set: 'marina', cast: ['rico', 'manny'], lines: [
-        ['manny', 'Boat\'s fuelled, boss. Tide turns at six.'],
-        ['rico', 'Load the pickup. Costa Rosa can keep its sunshine.'],
-        ['rico', 'And if the kid shows up — he doesn\'t leave the marina.']] },
+        ['manny', "Лодка заправлена, босс. Прилив в шесть."],
+        ['rico', "Грузите пикап. Пусть Коста-Роса оставит себе своё солнце."],
+        ['rico', "А если явится мальчишка — из марины он не уйдёт."]] },
       { set: 'lockup', cast: ['lola', 'you'], lines: [
-        ['lola', 'Rico\'s running. A black pickup, heading for the marina and a boat out at high tide.'],
-        ['you', 'Then I\'d better be early.'],
-        ['lola', 'This ends today, kid. Both islands.']] }] }
+        ['lola', "Рико бежит. Чёрный пикап, едет в марину к лодке, чтобы уйти с приливом."],
+        ['you', "Тогда мне лучше приехать пораньше."],
+        ['lola', "Сегодня всё закончится, парень. Оба острова."]] }] }
   };
   for (var sk in SCENES) SCENES[sk].id = sk;
   // What comes after each job's own part (see "the acts after the job"
@@ -337,48 +337,48 @@ GAME.missions = (function () {
     return M ? { x: M.x + 10, z: M.z - 4 } : { x: active.def.start.x, z: active.def.start.z };
   }
   var ACTS = {
-    race1: [{ kind: 'heavies', time: 150, say: 'The harbour boys don\'t lose quietly — a black sedan is coming for you.',
-      lola: 'Salazar\'s racers want their pride back. Don\'t give it to them.', obj: 'Wreck the sore losers', late: 'They lost you — and they\'ll tell it differently.' }],
-    race2: [{ kind: 'heat', stars: 2, say: 'Somebody downtown called it in.',
-      lola: 'Cops at the finish — some suit lost his shirt on you. Lose them.', obj: 'Lose the cops' }],
-    courier0: [{ kind: 'heat', stars: 2, say: 'The last stop was being watched — the plates were hot.', obj: 'Lose the cops' }],
-    courier1: [{ kind: 'heavies', time: 150, say: 'One of those envelopes was Rico\'s. His men want it back.',
-      lola: 'You opened one, didn\'t you? No? Then Rico\'s men are just rude. Deal with them.', obj: 'Rico\'s men want their envelope' }],
-    courier2: [{ kind: 'deliver', time: 150, say: 'The bars paid up.', lola: 'Bring me the takings at the lock-up, kid. All of them.',
-      obj: 'The takings to Lola\'s lock-up', late: 'Out of time — Lola counts that as stealing.' }],
-    rampage0: [{ kind: 'heavies', time: 150, say: 'The seller had friends, and they\'re on their way.', obj: 'His friends — put them down' }],
+    race1: [{ kind: 'heavies', time: 150, say: "Портовые парни проигрывать не любят — за тобой едет чёрный седан.",
+      lola: "Гонщики Салазара хотят вернуть гордость. Не дай им.", obj: "Разберись с обиженными гонщиками", late: "Они тебя потеряли. Но расскажут всё иначе." }],
+    race2: [{ kind: 'heat', stars: 2, say: "Кто-то в центре вызвал полицию.",
+      lola: "Полиция на финише. Какой-то богач проиграл на тебе всё. Оторвись от них.", obj: "Оторвись от полиции" }],
+    courier0: [{ kind: 'heat', stars: 2, say: "Последнюю точку пасли — номера были в розыске.", obj: "Оторвись от полиции" }],
+    courier1: [{ kind: 'heavies', time: 150, say: "Один из конвертов принадлежал Рико. Его люди хотят вернуть его.",
+      lola: "Ты всё-таки открыл конверт? Нет? Тогда люди Рико просто хамы. Разберись с ними.", obj: "Люди Рико хотят вернуть конверт" }],
+    courier2: [{ kind: 'deliver', time: 150, say: "Бары заплатили.", lola: "Привези выручку в гараж, парень. Всю.",
+      obj: "Доставь выручку в гараж Лолы", late: "Время вышло. Лола считает это кражей." }],
+    rampage0: [{ kind: 'heavies', time: 150, say: "У продавца были друзья. Они уже едут.", obj: "Устрани его друзей" }],
     rampage1: [{ kind: 'crew', at: 'start', men: 3, boss: 'foreman', bossLook: { shirt: 0xd8c070, pants: 0x3a3a44, skin: 0xb98260, hair: 'mullet', hairCol: 0x2a1a10 }, bossHp: 110,
-      time: 180, say: 'Salazar\'s foreman is still in the warehouse office.', lola: 'The foreman stayed. Make him wish he hadn\'t.',
-      obj: 'The foreman and his crew', lost: 'The foreman slipped out the back.' }],
-    rampage2: [{ kind: 'heat', stars: 3, say: 'Uptown has the police on speed dial.', obj: 'Lose the cops' }],
-    boat1: [{ kind: 'heat', stars: 2, say: 'The coastguard is back — and this time they saw you.', obj: 'Lose the harbour patrol' }],
-    hit0: [{ kind: 'grab', at: 'here', color: 0x2a2a30, say: 'He dropped the collection bag.', obj: 'Take back the bag', got: 'Lola\'s money — every envelope he picked up.' },
-      { kind: 'deliver', time: 150, heavies: true, heavyT: 10, lola: 'That\'s my money. The lock-up, kid, before Rico sends somebody for it.',
-        obj: 'The bag to Lola\'s lock-up', late: 'Out of time — the money never made it.' }],
-    race3: [{ kind: 'heavies', time: 150, rico: 'Told you. My boys were waiting at the top.', obj: 'Rico\'s boys, at the top of the hill' }],
-    courier3: [{ kind: 'heat', stars: 2, say: 'The port police want to see inside the van.', obj: 'Lose the port police' }],
+      time: 180, say: "Бригадир Салазара всё ещё в офисе склада.", lola: "Бригадир остался. Пусть пожалеет об этом.",
+      obj: "Бригадир и его люди", lost: "Бригадир ушёл через чёрный ход." }],
+    rampage2: [{ kind: 'heat', stars: 3, say: "В Верхнем городе полиция на быстром наборе.", obj: "Оторвись от полиции" }],
+    boat1: [{ kind: 'heat', stars: 2, say: "Береговая охрана вернулась. Теперь тебя заметили.", obj: "Оторвись от портового патруля" }],
+    hit0: [{ kind: 'grab', at: 'here', color: 0x2a2a30, say: "Он выронил сумку с деньгами.", obj: "Верни сумку", got: "Деньги Лолы — все собранные конверты." },
+      { kind: 'deliver', time: 150, heavies: true, heavyT: 10, lola: "Это мои деньги. В гараж, парень, пока Рико не послал за ними людей.",
+        obj: "Доставь сумку в гараж Лолы", late: "Время вышло. Деньги так и не добрались." }],
+    race3: [{ kind: 'heavies', time: 150, rico: "Я говорил. Мои парни ждали наверху.", obj: "Парни Рико на вершине холма" }],
+    courier3: [{ kind: 'heat', stars: 2, say: "Портовая полиция хочет заглянуть в фургон.", obj: "Оторвись от портовой полиции" }],
     rampage3: [{ kind: 'crew', at: 'start', men: 4, boss: 'lieutenant', bossLook: { shirt: 0x8a1a2a, pants: 0x1a1a22, skin: 0x9a6a48, hair: 'pompadour', hairCol: 0x0e0c0c }, bossHp: 140,
-      time: 200, rico: 'You want Dorado, kid? My lieutenant says come and take it.', obj: 'Rico\'s lieutenant and his men', lost: 'The lieutenant got away.' }],
+      time: 200, rico: "Хочешь Дорадо, парень? Мой помощник предлагает прийти и забрать.", obj: "Помощник Рико и его люди", lost: "Помощник сбежал." }],
     hit2: [
       { kind: 'scene', script: function () {
         return active.ricoDead
-          ? { id: 'hightide-manny', shots: [{ set: null, lines: [['manny', 'The boss is gone! Everybody — the marina, now!']] }] }
-          : { id: 'hightide-run', shots: [{ set: null, lines: [['rico', 'Manny! Start the boat!'], ['manny', 'The marina, boss — go, go!'], ['you', 'Not on this tide.']] }] };
+          ? { id: 'hightide-manny', shots: [{ set: null, lines: [['manny', "Босс погиб! Все в марину, немедленно!"]] }] }
+          : { id: 'hightide-run', shots: [{ set: null, lines: [['rico', "Мэнни! Заводи лодку!"], ['manny', "В марину, босс! Давай, давай!"], ['you', "Не с этим приливом."]] }] };
       } },
       { kind: 'crew', at: marinaQuay, boss: function () { return active.ricoDead ? null : 'rico'; }, second: 'manny', men: 3, bossHp: 180,
-        time: 200, say: 'Rico\'s making his stand on the marina.', obj: 'Rico and his crew, on the marina', lost: 'Rico got out on the tide.' },
+        time: 200, say: "Рико держит оборону в марине.", obj: "Рико и его люди в марине", lost: "Рико ушёл с приливом." },
       { kind: 'scene', script: { id: 'hightide-end', shots: [{ set: 'lockup', cast: ['lola', 'you'], lines: [
-        ['lola', 'So that\'s Rico Salazar. Gone on his own marina.'],
-        ['you', 'He should have taken the boat earlier.'],
-        ['lola', 'Both islands are ours, kid. Go and enjoy the view — you earned it.']] }] } }
+        ['lola', "Вот и всё с Рико Салазаром. Погиб в собственной марине."],
+        ['you', "Надо было ему раньше сесть в лодку."],
+        ['lola', "Оба острова наши, парень. Наслаждайся видом — заслужил."]] }] } }
     ]
   };
   DEFS.forEach(function (d) { if (ACTS[d.id]) d.then = ACTS[d.id]; });
   // Rico has his say too, by pager, the first time a job of yours costs him
   var RICO = {
-    rampage1: 'Those were MY warehouses for one night. Enjoy them while you can, kid.',
-    hit0: 'My collector. You took my collector. I\'ll remember your face — I\'m very good with faces.',
-    race3: 'You like my hills? Come up them again. My boys will be waiting at the top.'
+    rampage1: "Одну ночь это были МОИ склады. Наслаждайся, пока можешь, парень.",
+    hit0: "Мой сборщик. Ты убрал моего сборщика. Я запомню твоё лицо — лица я помню отлично.",
+    race3: "Нравятся мои холмы? Поднимись ещё раз. Мои парни будут ждать наверху."
   };
 
   // Island mission anchors, resolved after the island registers. A race's
@@ -516,14 +516,14 @@ GAME.missions = (function () {
     b.name = name || ''; b.done = !!done;
     blipList[blipN++] = b;
   }
-  var TYPE_LABEL = { race: 'STREET RACE', courier: 'COURIER RUN', rampage: 'RAMPAGE', takedown: 'TAKEDOWN' };
-  var BOAT_LABEL = { race: 'BOAT RACE', courier: 'SEA RUN' };
+  var TYPE_LABEL = { race: "УЛИЧНАЯ ГОНКА", courier: "КУРЬЕРСКИЙ РЕЙС", rampage: "ПОГРОМ", takedown: "УСТРАНЕНИЕ" };
+  var BOAT_LABEL = { race: "ЛОДОЧНАЯ ГОНКА", courier: "МОРСКОЙ РЕЙС" };
   function typeLabel(d) { return (d.boat && BOAT_LABEL[d.type]) || TYPE_LABEL[d.type]; }
   // the POI line's words for a marker (kind 1) or a respray door (kind 2),
   // made again only when what is nearest, or its note, changes
-  var HINT_NOTES = ['', '   —   lose the heat first', '   —   come back in a vehicle',
-    '   —   not in an aircraft', '   —   starting…', '   —   pull up in the ring to start',
-    '   —   leave the ring to go again', '   —   come back in a boat'];
+  var HINT_NOTES = ['', "   —   сначала сбрось розыск", "   —   вернись на транспорте",
+    "   —   самолёт не подойдёт", "   —   начинаем…", "   —   остановись в кольце для старта",
+    "   —   выедь из кольца, чтобы повторить", "   —   вернись на лодке"];
   // A car mission starts when you pull up in its ring, not when you drive
   // through it: race starts sit on the road, so cruising the Strip pulled
   // people into BEACH RUN at 25 m/s with no way to say no.
@@ -538,7 +538,7 @@ GAME.missions = (function () {
     if (k !== hintK || o !== hintO || n !== hintN) {
       hintK = k; hintO = o; hintN = n;
       hintText = k === 1 ? typeLabel(o) + ' · ' + o.name + HINT_NOTES[n]
-        : 'RESPRAY · $100 — repairs your ride; fresh paint clears up to two stars' + (n ? '' : '   —   drive in');
+        : "ПЕРЕКРАСКА · $100 — ремонт и новый цвет снимают до двух звёзд" + (n ? '' : "   —   заезжай");
     }
     return hintText;
   }
@@ -745,7 +745,7 @@ GAME.missions = (function () {
     GAME.track('job-started-icecream');
     clearIceServed();   // belt and braces: a fresh shift owes nobody history
     active = {
-      def: { type: 'icecream', name: 'ICE CREAM ROUND', id: 'icecream', job: true },
+      def: { type: 'icecream', name: "ПРОДАЖА МОРОЖЕНОГО", id: 'icecream', job: true },
       state: 'run', t: 0, cpIndex: 0, score: 0, racers: [],
       phase: 'sell', level: 1, sales: 0, quota: 4, jobCount: 0, earned: 0,
       targets: [], timeLeft: 60, callT: 0, routeCp: null
@@ -753,8 +753,8 @@ GAME.missions = (function () {
     setMarkersVisible(false);
     updateCp();
     GAME.hud.missionStart(active.def.name, objectiveText());
-    GAME.hud.message('Round 1 — sell 4 before the clock runs out. Pull up where there are people on the pavement and sound the horn (' + hornKey() +
-      '): the chimes bring them to the hatch. Leave the truck to clock off.', 6);
+    GAME.hud.message("Раунд 1: продай 4 порции до конца отсчёта. Остановись у людей на тротуаре и посигналь (" + hornKey() +
+      "): мелодия позовёт их к окошку. Выйди из фургона, чтобы закончить смену.", 6);
     GAME.audio.pickup();
   }
 
@@ -812,12 +812,12 @@ GAME.missions = (function () {
   // F at his window. The handle does not give, and he does not sit there to
   // find out what you meant by it: he backs off you and goes.
   function rattled(car) {
-    if (!active || active.def.type !== 'takedown' || active.perp !== car) { GAME.hud.message('Locked.', 1.5); return; }
+    if (!active || active.def.type !== 'takedown' || active.perp !== car) { GAME.hud.message('Заперто.', 1.5); return; }
     GAME.audio.horn(car.pos.x, car.pos.z, false);
     if (!active.fleeing) runFor(car, active.def);
     if (Math.abs(car.speed) < 3) { car.reverseT = 0.9; car.unstickT = 0; }
-    GAME.hud.message(active.rattles++ ? 'Locked. Wreck it — or hurt it till he gives it up.'
-      : 'Locked — he\'s not opening up for you. He\'s going!', 2.6);
+    GAME.hud.message(active.rattles++ ? "Заперто. Разбей машину или повреди её, чтобы он вышел."
+      : "Заперто. Он тебе не откроет. Уезжает!", 2.6);
   }
   // Out of the car, one way or another: on his feet with a pistol, and he
   // would rather it was you than him. Whoever he was in the traffic, he is
@@ -844,7 +844,7 @@ GAME.missions = (function () {
     active.phase = 'foot'; active.foot = ped;
     armUp(ped, d.foot || 50);
     active.timeLeft = Math.max(active.timeLeft, 45);
-    GAME.hud.message('He\'s out of it — and he\'s pulled a gun. Put him down.', 3);
+    GAME.hud.message("Он вышел и достал оружие. Устрани его.", 3);
   }
   // whoever climbed out of this car (vehicles.js remembers which, by serial)
   function outOf(car) {
@@ -859,7 +859,7 @@ GAME.missions = (function () {
     active.timeLeft -= dt;
     if (active.phase === 'foot') { updateTargetOnFoot(dt, P); return; }
     if (active.phase === 'ledger' || active.phase === 'deliver') { updateLedger(dt, P); return; }
-    if (!p || p.gone) { finish(false, 'The target got away.'); return; }
+    if (!p || p.gone) { finish(false, "Цель скрылась."); return; }
     // wrecked, or the driver out of it one way or another: whoever got out
     // is the job now, and one who went up with it was the end of it
     if (p.dead || p.occupied !== 'ai') {
@@ -875,20 +875,20 @@ GAME.missions = (function () {
       targetDown(p.pos.x, p.pos.z);
       return;
     }
-    if (active.timeLeft <= 0) { finish(false, 'Out of time — the target got away.'); return; }
+    if (active.timeLeft <= 0) { finish(false, "Время вышло — цель скрылась."); return; }
     var f = GAME.focus();
     var dist = Math.sqrt(U.dist2(f.x, f.z, p.pos.x, p.pos.z));
-    if (dist > TARGET_LOST_R) { finish(false, 'You lost the target.'); return; }
+    if (dist > TARGET_LOST_R) { finish(false, "Ты потерял цель."); return; }
     if (!active.fleeing && dist < TARGET_SPOT_R) {
       runFor(p, d);
-      GAME.hud.message('They have made you — they are running!', 2.5);
+      GAME.hud.message("Тебя заметили — они удирают!", 2.5);
     }
     // the ones who shoot back do it once they are running and you are close —
     // and a frightened man once you have put a few dents in him
     var shoots = d.shoots === true || (d.shoots === 'hurt' && p.hp < active.maxHp * HURT_SHOOTS);
     if (shoots && d.shoots === 'hurt' && !active.armed) {
       active.armed = true;
-      GAME.hud.message('He\'s shooting back out of the window!', 2.5);
+      GAME.hud.message("Он стреляет из окна!", 2.5);
     }
     if (shoots && active.fleeing && dist < TARGET_SHOOT_R && !GAME.godMode) {
       active.shootT -= dt;
@@ -908,11 +908,11 @@ GAME.missions = (function () {
   // and has it out with you, for as long as it takes.
   function updateTargetOnFoot(dt, P) {
     var ped = active.foot, f = GAME.focus();
-    if (!ped || ped.gone) { finish(false, 'He got away on foot.'); return; }
+    if (!ped || ped.gone) { finish(false, "Он сбежал пешком."); return; }
     if (ped.dead) { targetDown(ped.pos.x, ped.pos.z); return; }
-    if (active.timeLeft <= 0) { finish(false, 'Out of time — he got away.'); return; }
+    if (active.timeLeft <= 0) { finish(false, "Время вышло — он сбежал."); return; }
     var dist = Math.sqrt(U.dist2(f.x, f.z, ped.pos.x, ped.pos.z));
-    if (dist > FOOT_LOST_R) { finish(false, 'You lost him.'); return; }
+    if (dist > FOOT_LOST_R) { finish(false, "Ты его потерял."); return; }
     keepFighting(ped, dist, P);
     active.routeT = (active.routeT || 0) - dt;
     if (active.routeT <= 0) { active.routeT = 1; active.courierRoute = roadRoute(f.x, f.z, ped.pos.x, ped.pos.z); }
@@ -932,7 +932,7 @@ GAME.missions = (function () {
     active.phase = 'ledger';
     active.foot = null;
     dropLedger(x, z);
-    GAME.hud.message('He\'s down. The ledger\'s on him — take it.', 3);
+    GAME.hud.message("Он повержен. Книга у него — забери.", 3);
     updateCp();
     GAME.hud.missionObjective(objectiveText());
   }
@@ -962,7 +962,7 @@ GAME.missions = (function () {
   }
   function updateLedger(dt, P) {
     var L = active.ledger, f = GAME.focus();
-    if (active.timeLeft <= 0) { finish(false, L && L.held ? 'Out of time — the ledger never made it.' : 'Out of time — the ledger\'s gone.'); return; }
+    if (active.timeLeft <= 0) { finish(false, L && L.held ? "Время вышло — книгу не доставили." : "Время вышло — книга пропала."); return; }
     if (!L.held) {
       L.mesh.rotation.y += dt * 2.2;
       L.mesh.position.y = GAME.city.groundY(L.x, L.z) + 0.45 + Math.sin(GAME.time * 3) * 0.08;
@@ -992,8 +992,8 @@ GAME.missions = (function () {
     active.timeLeft = Math.max(active.timeLeft, 90);
     active.heavies = null; active.heavyT = 4;   // they are a few seconds behind the news
     GAME.audio.pickup();
-    GAME.hud.message('Got the ledger. Get it to Lola\'s lock-up on the harbour road.', 3.5);
-    lola('That\'s my book. Rico\'s boys will know you have it before you\'re round the corner — bring it to the lock-up, and don\'t stop for anybody.', 7);
+    GAME.hud.message("Книга у тебя. Отвези её в гараж Лолы на портовой дороге.", 3.5);
+    lola("Это моя книга. Парни Рико узнают, что она у тебя, раньше, чем ты свернёшь за угол. Вези в гараж и ни для кого не останавливайся.", 7);
     updateCp();
     GAME.hud.missionObjective(objectiveText());
   }
@@ -1016,7 +1016,7 @@ GAME.missions = (function () {
     car.hp = car.spec.hp * 1.6;
     car.heavy = true; car.locked = true;
     active.heavies = { car: car, maxHp: car.hp, shootT: 2, men: [], out: false, bestD: 1e9, stallT: 0 };
-    GAME.hud.message('Rico\'s men are on you — a black sedan. Don\'t let them take it back.', 3.2);
+    GAME.hud.message("Люди Рико на хвосте — чёрный седан. Не дай отобрать книгу.", 3.2);
     GAME.audio.yelp();
     return true;
   }
@@ -1030,7 +1030,7 @@ GAME.missions = (function () {
     if (second) hv.men.push(second);
     hv.men.forEach(function (m) { armUp(m, 50); });
     car.heavy = false; car.locked = false;
-    GAME.hud.message('They\'re out and coming for you!', 2.2);
+    GAME.hud.message("Они вышли и идут за тобой!", 2.2);
   }
   function updateHeavies(dt, P) {
     if (!active.heavies) {
@@ -1309,7 +1309,7 @@ GAME.missions = (function () {
     if (a.time) {
       active.timeLeft -= dt;
       GAME.hud.missionTimer(active.timeLeft, true);
-      if (active.timeLeft <= 0) { finish(false, a.late || 'Out of time.'); return; }
+      if (active.timeLeft <= 0) { finish(false, a.late || "Время вышло."); return; }
     } else GAME.hud.missionTimer(null);
     if (s.kind === 'grab') {
       var it = s.item;
@@ -1349,7 +1349,7 @@ GAME.missions = (function () {
         s.left = left;
         if (!left) { nextAct(); return; }
       }
-      if (d2 > CREW_LOST_R && s.woke) { finish(false, a.lost || 'They got away.'); return; }
+      if (d2 > CREW_LOST_R && s.woke) { finish(false, a.lost || "Они сбежали."); return; }
     }
     active.routeT = (active.routeT || 0) - dt;
     if (active.routeT <= 0) {
@@ -1379,31 +1379,31 @@ GAME.missions = (function () {
   }
   function actText() {
     var s = active.stage, a = s.a || {}, f = GAME.focus(), cp = actCp();
-    var m = cp ? '  ·  ' + Math.round(Math.sqrt(U.dist2(f.x, f.z, cp[0], cp[1]))) + ' m' : '';
-    if (s.kind === 'grab') return (a.obj || 'Pick it up') + m;
+    var m = cp ? '  ·  ' + Math.round(Math.sqrt(U.dist2(f.x, f.z, cp[0], cp[1]))) + " м" : '';
+    if (s.kind === 'grab') return (a.obj || "Подбери") + m;
     if (s.kind === 'deliver') {
-      if (s.needCar) return 'Get a car';
+      if (s.needCar) return "Найди машину";
       var hv = active.heavies, chased = hv && (!hv.out ? !hv.car.dead : hv.men.some(function (x) { return !x.dead && !x.gone; }));
-      return (a.obj || 'To Lola\'s lock-up') + m + (chased ? '  ·  Rico\'s men on you' : '');
+      return (a.obj || "В гараж Лолы") + m + (chased ? "  ·  люди Рико на хвосте" : '');
     }
-    if (s.kind === 'heavies') return (a.obj || 'Deal with Rico\'s men') + m;
-    if (s.kind === 'heat') return (a.obj || 'Lose the heat') + '  ·  ' + GAME.police.wanted + '★';
-    if (s.kind === 'crew') return (a.obj || 'Take them down') + (s.spawned ? '  ·  ' + (s.left === undefined ? s.men.length : s.left) + ' left' : '') + m;
+    if (s.kind === 'heavies') return (a.obj || "Разберись с людьми Рико") + m;
+    if (s.kind === 'heat') return (a.obj || "Сбрось розыск") + '  ·  ' + GAME.police.wanted + '★';
+    if (s.kind === 'crew') return (a.obj || "Устрани их") + (s.spawned ? '  ·  ' + (s.left === undefined ? s.men.length : s.left) + " осталось" : '') + m;
     return '';
   }
 
   function startVigilante() {
     GAME.track('job-started-vigilante');
     active = {
-      def: { type: 'vigilante', name: 'VIGILANTE', id: 'vigilante', job: true },
+      def: { type: 'vigilante', name: "ЛИНЧЕВАТЕЛЬ", id: 'vigilante', job: true },
       state: 'run', t: 0, cpIndex: 0, score: 0, racers: [], level: 1,
       jobCount: 0, earned: 0, targets: [], timeLeft: PERP_TIME, perp: null, fleeing: false,
       routeCp: null, routeT: 0, courierRoute: null
     };
     setMarkersVisible(false);
-    if (!spawnPerp()) { GAME.hud.message('Dispatch has nothing for you here.', 2.5); cleanup(); return; }
+    if (!spawnPerp()) { GAME.hud.message("У диспетчера здесь нет вызовов для тебя.", 2.5); cleanup(); return; }
     GAME.hud.missionStart(active.def.name, objectiveText());
-    GAME.hud.message('Level 1 — a suspect is marked on your radar. Run them down: wreck the car or make them give it up. Leave the cruiser to clock off.', 6);
+    GAME.hud.message("Уровень 1: подозреваемый отмечен на радаре. Догони его, разбей машину или заставь выйти. Выйди из полицейской машины, чтобы закончить смену.", 6);
     GAME.audio.pickup();
   }
   function spawnPerp() {
@@ -1434,27 +1434,27 @@ GAME.missions = (function () {
     if (w > 0) GAME.police.setWanted(w - 1);
     GAME.audio.sting('win');
     GAME.haptics.win();
-    GAME.hud.message('SUSPECT DOWN  +$' + pay + (w > 0 ? '  ·  one star off your own record' : '') + '  ·  next call coming in', 4);
+    GAME.hud.message("ПОДОЗРЕВАЕМЫЙ УСТРАНЁН  +$" + pay + (w > 0 ? "  ·  одна звезда снята с твоего розыска" : '') + "  ·  следующий вызов уже поступает", 4);
     var p = active.perp;
     if (p && !p.gone) { p.perp = false; p.mission = false; }
     active.level++;
     active.perp = null;
-    if (!spawnPerp()) endJob('no more calls');
+    if (!spawnPerp()) endJob("больше нет вызовов");
   }
   function updateVigilante(dt, P) {
-    if (!P.inCar || !P.car || P.car.type !== 'police') { endJob('clocked off'); return; }
-    if (P.car.dead) { endJob('cruiser totalled'); return; }
+    if (!P.inCar || !P.car || P.car.type !== 'police') { endJob("смена закончена"); return; }
+    if (P.car.dead) { endJob("полицейская машина разбита"); return; }
     active.timeLeft -= dt;
     var p = active.perp;
-    if (!p || p.gone) { endJob('the suspect got away'); return; }
-    if (active.timeLeft <= 0) { endJob('the suspect got away'); return; }
+    if (!p || p.gone) { endJob("подозреваемый сбежал"); return; }
+    if (active.timeLeft <= 0) { endJob("подозреваемый сбежал"); return; }
     var f = GAME.focus();
     var d = Math.sqrt(U.dist2(f.x, f.z, p.pos.x, p.pos.z));
     // they run once they have seen you coming
     if (!active.fleeing && d < PERP_SPOT_R) {
       active.fleeing = true;
       if (p.ai) p.ai.desired = 17 + Math.min(active.level, 6) * 1.5;
-      GAME.hud.message('They have made you — they are running!', 2.5);
+      GAME.hud.message("Тебя заметили — они удирают!", 2.5);
     }
     // taken: wrecked, or knocked about until the driver gives it up and bails
     if (p.dead || p.occupied !== 'ai') { perpTaken(); return; }
@@ -1490,11 +1490,11 @@ GAME.missions = (function () {
       active.sales = 0;
       active.quota += 2;
       active.timeLeft += 30;
-      GAME.hud.message('ROUND ' + active.level + ' — +30s, sell ' + active.quota + '  ·  +$' + pay, 3.4);
+      GAME.hud.message("РАУНД " + active.level + " — +30 с, продай " + active.quota + '  ·  +$' + pay, 3.4);
       GAME.audio.sting('win');
       GAME.haptics.win();
     } else {
-      GAME.hud.message('Sold — +$' + pay + '  ·  ' + active.sales + ' / ' + active.quota, 2);
+      GAME.hud.message("Продано — +$" + pay + '  ·  ' + active.sales + ' / ' + active.quota, 2);
     }
     GAME.hud.missionObjective(objectiveText());
     active.routeCp = null;
@@ -1511,10 +1511,10 @@ GAME.missions = (function () {
     active.walkUpT = Math.min(active.walkUpT || 0, 0.4);
   }
   function updateIceCream(dt, P) {
-    if (!P.inCar || !P.car || P.car.type !== 'icecream') { endJob('clocked off'); return; }
-    if (P.car.dead) { endJob('truck totalled'); return; }
+    if (!P.inCar || !P.car || P.car.type !== 'icecream') { endJob("смена закончена"); return; }
+    if (P.car.dead) { endJob("фургон разбит"); return; }
     active.timeLeft -= dt;
-    if (active.timeLeft <= 0) { endJob('out of time'); return; }
+    if (active.timeLeft <= 0) { endJob("время вышло"); return; }
     var f = GAME.focus();
     // No marker, no route, no "crowd" pin — you roam, and you play the
     // chimes where there are people. The map pointing at a spot made it a
@@ -1556,7 +1556,7 @@ GAME.missions = (function () {
     if (kind === 'vigilante') { startVigilante(); return; }
     GAME.track('job-started-' + kind);
     active = {
-      def: { type: kind, name: kind === 'ambulance' ? 'PARAMEDIC' : 'TAXI DRIVER', id: kind, job: true },
+      def: { type: kind, name: kind === 'ambulance' ? "ПАРАМЕДИК" : "ТАКСИСТ", id: kind, job: true },
       state: 'run', t: 0, cpIndex: 0, score: 0, racers: [],
       phase: 'pickup', pickup: null, dropoff: null,
       // an ambulance fills up before running to the hospital; a cab takes one fare
@@ -1577,8 +1577,8 @@ GAME.missions = (function () {
     updateCp();
     GAME.hud.missionStart(active.def.name, objectiveText());
     GAME.hud.message(kind === 'ambulance'
-      ? 'Level 1 — collect the patient and run them to a hospital. Each level adds more patients, further out. Leave the ambulance to clock off.'
-      : 'Level 1 — pick up your fare and drive them to the drop-off. Fares get further out each level. Leave the cab to clock off.', 5);
+      ? "Уровень 1: забери пациента и отвези в больницу. Каждый уровень добавляет пациентов и увеличивает расстояния. Выйди из скорой, чтобы закончить смену."
+      : "Уровень 1: забери пассажира и отвези к месту назначения. На каждом уровне поездки длиннее. Выйди из такси, чтобы закончить смену.", 5);
     GAME.audio.pickup();
   }
 
@@ -1799,8 +1799,8 @@ GAME.missions = (function () {
       active.routeCp = null;
       updateCp();
       GAME.hud.message(kind === 'ambulance'
-        ? 'You lost that patient — a new call is marked.'
-        : 'That fare is gone — a new pickup is marked.', 3);
+        ? "Ты потерял пациента — новый вызов отмечен."
+        : "Пассажир ушёл — новая точка посадки отмечена.", 3);
     }
   }
 
@@ -1923,18 +1923,18 @@ GAME.missions = (function () {
     GAME.audio.pickup();
     GAME.haptics.pickup();
     var kind = active.def.id;
-    var who = kind === 'ambulance' ? 'Patient' : 'Fare';
+    var who = kind === 'ambulance' ? "Пациент" : "Пассажир";
     // head for the drop-off once we're full or there's nobody else left
     if (active.aboard >= active.capacity || !active.targets.length) {
       active.phase = 'dropoff';
       var db = dropBand();
       active.dropoff = kind === 'ambulance' ? hospitalDropoff(GAME.focus())
         : randomRoadPoint(GAME.focus().x, GAME.focus().z, db[0], db[1]);
-      GAME.hud.message(who + ' aboard (' + active.aboard + '/' + active.capacity + ') — ' +
-        (kind === 'ambulance' ? 'get to the hospital!' : 'to the drop-off!'), 2.6);
+      GAME.hud.message(who + " на борту (" + active.aboard + '/' + active.capacity + ') — ' +
+        (kind === 'ambulance' ? "езжай в больницу!" : "к месту назначения!"), 2.6);
     } else {
-      GAME.hud.message(who + ' aboard (' + active.aboard + '/' + active.capacity + ') — ' +
-        active.targets.length + ' more waiting', 2.6);
+      GAME.hud.message(who + " на борту (" + active.aboard + '/' + active.capacity + ') — ' +
+        active.targets.length + " ещё ждут", 2.6);
     }
     active.routeCp = null;
     updateCp();
@@ -1964,7 +1964,7 @@ GAME.missions = (function () {
       else { out.state = 'flee'; out.fleeT = 3.5; out.fleeX = f.x; out.fleeZ = f.z; }
     }
     active.aboard = 0;
-    var word = kind === 'ambulance' ? (n > 1 ? n + ' patients delivered' : 'Patient delivered') : 'Fare dropped';
+    var word = kind === 'ambulance' ? (n > 1 ? n + " пациентов доставлено" : "Пациент доставлен") : "Пассажир доставлен";
     var msg = word + '! +$' + fare;
     // Each fare buys the next call and loose change at best — measured, not
     // guessed: a fare's legs route 0.8-1.4 km, 40-60 s at the pace the race
@@ -1978,22 +1978,22 @@ GAME.missions = (function () {
     if (active.targets.length) {
       // still people waiting on this level — go back out for them
       active.phase = 'pickup';
-      GAME.hud.message(msg + '  ·  ' + active.targets.length + ' still waiting — go back', 3.4);
+      GAME.hud.message(msg + '  ·  ' + active.targets.length + " ещё ждут — возвращайся", 3.4);
     } else {
       active.level++;
       var bonus = 100 * (active.level - 1);
       GAME.addCash(bonus); active.earned += bonus;
-      msg += '   —   LEVEL ' + active.level + '!  bonus +$' + bonus;
+      msg += "   —   УРОВЕНЬ " + active.level + "!  бонус +$" + bonus;
       if (active.level % 5 === 0) {
         var streak = 250 * (active.level / 5);
         GAME.addCash(streak); active.earned += streak;
-        msg += '  ·  STREAK +$' + streak;
+        msg += "  ·  СЕРИЯ +$" + streak;
       }
       // any stars at all and dispatch holds the next round: the drop you just
       // made was the last call until you're clean (the shift stays alive)
       if (GAME.police.wanted > 0) {
         active.holdHeat = true;
-        msg += '   —   dispatch holds the next ' + (kind === 'ambulance' ? 'patients' : 'fares') + ' until the heat is off';
+        msg += "   —   диспетчер откладывает следующий вызов: " + (kind === 'ambulance' ? 'пациенты' : 'пассажиры') + ", пока не снят розыск";
         GAME.hud.message(msg, 4.5);
       } else {
         GAME.hud.message(msg, 4);
@@ -2018,7 +2018,8 @@ GAME.missions = (function () {
   function endJob(reason) {
     if (active.def.id === 'icecream') clearIceServed();
     var count = active.jobCount, earned = active.earned, lv = active.level;
-    var unit = active.def.id === 'ambulance' ? 'patient' : active.def.id === 'icecream' ? 'sale' : active.def.id === 'vigilante' ? 'suspect' : 'fare';
+    var forms = active.def.id === 'ambulance' ? ['пациент', 'пациента', 'пациентов'] : active.def.id === 'icecream' ? ['продажа', 'продажи', 'продаж'] : active.def.id === 'vigilante' ? ['подозреваемый', 'подозреваемых', 'подозреваемых'] : ['поездка', 'поездки', 'поездок'];
+    var unit = U.ruPlural(count, forms);
     // send any waiting people home with the shift. Someone who only wandered
     // over for an ice cream was an ordinary passer-by a minute ago, so they get
     // to carry on being one rather than vanishing off the pavement.
@@ -2032,27 +2033,27 @@ GAME.missions = (function () {
     if (count > 0) {
       GAME.audio.sting('win');
       GAME.haptics.win();
-      GAME.hud.message('SHIFT OVER — level ' + lv + ', ' + count + ' ' + unit + (count === 1 ? '' : 's') +
-        ', $' + earned + ' earned' + (reason ? '  (' + reason + ')' : ''), 4.5);
+      GAME.hud.message("СМЕНА ОКОНЧЕНА — уровень " + lv + ', ' + count + ' ' + unit +
+        ', $' + earned + " заработано" + (reason ? '  (' + reason + ')' : ''), 4.5);
       var id = active.def.id;
       var CARD = {
-        ambulance: { slug: 'paramedic-shift', eyebrow: 'PARAMEDIC', sub: 'Costa Rosa General — patients delivered', accent: '#ff4d6a', unit: 'Patients' },
-        taxifare: { slug: 'taxi-shift', eyebrow: 'TAXI DRIVER', sub: 'Costa Rosa cabs — fares run', accent: '#f0c020', unit: 'Fares' },
-        icecream: { slug: 'icecream-round', eyebrow: 'ICE CREAM ROUND', sub: 'Isla Verde — the chimes did their work', accent: '#ffd7e4', unit: 'Sales' },
-        vigilante: { slug: 'vigilante-shift', eyebrow: 'VIGILANTE', sub: 'Costa Rosa — suspects taken off the street', accent: '#5aa0ff', unit: 'Suspects' }
-      }[id] || { slug: id, eyebrow: 'SHIFT', sub: '', accent: '#38e8ff', unit: 'Jobs' };
+        ambulance: { slug: 'paramedic-shift', eyebrow: "ПАРАМЕДИК", sub: "Больница Коста-Росы — пациенты доставлены", accent: '#ff4d6a', unit: "Пациенты" },
+        taxifare: { slug: 'taxi-shift', eyebrow: "ТАКСИСТ", sub: "Такси Коста-Росы — поездки выполнены", accent: '#f0c020', unit: "Поездки" },
+        icecream: { slug: 'icecream-round', eyebrow: "ПРОДАЖА МОРОЖЕНОГО", sub: "Исла-Верде — мелодия сделала своё дело", accent: '#ffd7e4', unit: "Продажи" },
+        vigilante: { slug: 'vigilante-shift', eyebrow: "ЛИНЧЕВАТЕЛЬ", sub: "Коста-Роса — улицы очищены от подозреваемых", accent: '#5aa0ff', unit: "Подозреваемые" }
+      }[id] || { slug: id, eyebrow: "СМЕНА", sub: '', accent: '#38e8ff', unit: "Задания" };
       GAME.track('job-completed-' + id);
       GAME.share.show({
-        slug: CARD.slug, eyebrow: CARD.eyebrow, title: 'SHIFT OVER', subtitle: CARD.sub,
+        slug: CARD.slug, eyebrow: CARD.eyebrow, title: "СМЕНА ОКОНЧЕНА", subtitle: CARD.sub,
         accent: CARD.accent,
         stats: [
-          { label: 'Level', value: String(lv) },
+          { label: "Уровень", value: String(lv) },
           { label: CARD.unit, value: String(count) },
-          { label: 'Earned', value: '$' + earned }
+          { label: "Заработано", value: '$' + earned }
         ]
       });
     } else {
-      GAME.hud.message('Shift over.' + (reason ? ' ' + reason.charAt(0).toUpperCase() + reason.slice(1) + '.' : ''), 2.5);
+      GAME.hud.message("Смена окончена." + (reason ? ' ' + reason.charAt(0).toUpperCase() + reason.slice(1) + '.' : ''), 2.5);
     }
     cleanup();
   }
@@ -2128,7 +2129,7 @@ GAME.missions = (function () {
       if (def.type === 'race' && (!P.inCar || !P.car)) {
         // stepped out of the car during the blackout: scratch the start
         cleanup();
-        GAME.hud.message('Race scratched — you left your ride.', 2.5);
+        GAME.hud.message("Гонка отменена — ты оставил транспорт.", 2.5);
         return;
       }
       if (first) faceToward(first[0], first[1]);
@@ -2176,15 +2177,15 @@ GAME.missions = (function () {
           GAME.combat.giveWeapon(def.weapon, def.ammo);
           active.topupT = 0;
           spawnRampageTargets(14, 6);
-          GAME.hud.message('Cause $' + def.target + ' of mayhem! Wreck cars and crowds.', 3.5);
+          GAME.hud.message("Нанеси ущерб на $" + def.target + "! Громи машины и толпы.", 3.5);
         };
       } else if (def.type === 'takedown') {
         active.goSetup = function () {
-          if (!spawnTarget(def)) { finish(false, 'The target is nowhere to be found.'); return; }
-          GAME.hud.message(def.early ? 'The target is running — catch and wreck them!' : 'The target is marked. Wreck the car — or make the driver give it up.', 3.5);
+          if (!spawnTarget(def)) { finish(false, "Цель нигде не найти."); return; }
+          GAME.hud.message(def.early ? "Цель удирает — догони и останови!" : "Цель отмечена. Разбей машину или заставь водителя выйти.", 3.5);
         };
       } else {
-        active.goSetup = function () { GAME.hud.message(def.boat ? 'First package is marked — it\'s floating out in the bay.' : 'First delivery is marked.', 3); };
+        active.goSetup = function () { GAME.hud.message(def.boat ? "Первая посылка отмечена — она плавает в заливе." : "Первая доставка отмечена.", 3); };
       }
       active.state = 'countdown';
       GAME.hud.missionObjective(objectiveText());
@@ -2223,7 +2224,7 @@ GAME.missions = (function () {
     }
     return place;
   }
-  function ordinal(n) { return n + (n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th'); }
+  function ordinal(n) { return n + '-е'; }
 
   function objectiveText() {
     if (!active) return '';
@@ -2231,45 +2232,45 @@ GAME.missions = (function () {
     if (active.stage) return actText();
     if (d.type === 'race') {
       var field = 1 + active.racers.filter(inRace).length;
-      return ordinal(racePosition()) + ' / ' + field + '   ·   Checkpoint ' + (active.cpIndex + 1) + ' / ' + d.cps.length;
+      return ordinal(racePosition()) + ' / ' + field + "   ·   Контрольная точка " + (active.cpIndex + 1) + ' / ' + d.cps.length;
     }
     if (d.type === 'courier' && d.boat) {
       var pk = active.stops.length - 1;
-      return active.cpIndex < pk ? 'Package ' + (active.cpIndex + 1) + ' / ' + pk : 'Bring them in to the pier';
+      return active.cpIndex < pk ? "Посылка " + (active.cpIndex + 1) + ' / ' + pk : "Привези их на пирс";
     }
-    if (d.type === 'courier') return 'Delivery ' + (active.cpIndex + 1) + ' / ' + active.stops.length;
+    if (d.type === 'courier') return "Доставка " + (active.cpIndex + 1) + ' / ' + active.stops.length;
     if (d.type === 'icecream') {
-      return 'Round ' + active.level + '  ·  sold ' + active.sales + ' / ' + active.quota +
-        '  ·  $' + active.earned + ' taken' + (active.callT > 0 ? '' : '  ·  ' + hornKey() + ' plays the chimes');
+      return "Раунд " + active.level + "  ·  продано " + active.sales + ' / ' + active.quota +
+        '  ·  $' + active.earned + " собрано" + (active.callT > 0 ? '' : '  ·  ' + hornKey() + " включает мелодию");
     }
     if (d.type === 'vigilante') {
       var pp = active.perp, ff = GAME.focus();
       var dm = pp && !pp.gone ? Math.round(Math.sqrt(U.dist2(ff.x, ff.z, pp.pos.x, pp.pos.z))) : 0;
-      return 'Lv ' + active.level + '  ·  ' + (active.fleeing ? 'Stop the suspect' : 'Find the suspect') +
-        '  ·  ' + dm + ' m  ·  ' + active.jobCount + ' down';
+      return "Ур. " + active.level + '  ·  ' + (active.fleeing ? "Останови подозреваемого" : "Найди подозреваемого") +
+        '  ·  ' + dm + " м  ·  " + active.jobCount + " устранено";
     }
     if (d.type === 'takedown' && active.phase && active.phase !== 'car') {
       var pt = currentCp(), pf = GAME.focus();
       var pm = pt ? Math.round(Math.sqrt(U.dist2(pf.x, pf.z, pt[0], pt[1]))) : 0;
-      if (active.phase === 'foot') return 'Put him down  ·  ' + pm + ' m';
-      if (active.phase === 'ledger') return 'Take the ledger off him  ·  ' + pm + ' m';
+      if (active.phase === 'foot') return "Устрани его  ·  " + pm + " м";
+      if (active.phase === 'ledger') return "Забери у него книгу  ·  " + pm + " м";
       var hv = active.heavies, chased = hv && !hv.out ? !hv.car.dead : hv && hv.men.some(function (m) { return !m.dead && !m.gone; });
-      return 'The ledger to Lola\'s lock-up  ·  ' + pm + ' m' + (chased ? '  ·  Rico\'s men on you' : '');
+      return "Книгу в гараж Лолы  ·  " + pm + " м" + (chased ? "  ·  люди Рико на хвосте" : '');
     }
     if (d.type === 'takedown') {
       var tg = active.perp, tf = GAME.focus();
-      if (!tg) return 'Find the target';
+      if (!tg) return "Найди цель";
       var tm = Math.round(Math.sqrt(U.dist2(tf.x, tf.z, tg.pos.x, tg.pos.z)));
       var arm = Math.max(0, Math.round(100 * (tg.hp - active.maxHp * TARGET_GIVE_UP) / (active.maxHp * (1 - TARGET_GIVE_UP))));
-      return (active.fleeing ? 'Stop the target' : 'Find the target') + '  ·  ' + tm + ' m  ·  ' + arm + '% left in it';
+      return (active.fleeing ? "Останови цель" : "Найди цель") + '  ·  ' + tm + " м  ·  " + arm + "% прочности";
     }
     if (d.type === 'taxifare' || d.type === 'ambulance') {
       var amb = d.type === 'ambulance';
       var head = active.phase === 'pickup'
-        ? (amb ? 'Collect patient' : 'Pick up the fare') + (active.targets.length > 1 ? ' (' + active.targets.length + ' waiting)' : '')
-        : (amb ? 'To the hospital' : 'To the drop-off');
-      var load = active.capacity > 1 ? '  ·  aboard ' + active.aboard + '/' + active.capacity : '';
-      return 'Lv ' + active.level + '  ·  ' + head + load + '  ·  ' + active.jobCount + ' done';
+        ? (amb ? "Забери пациента" : "Забери пассажира") + (active.targets.length > 1 ? ' (' + active.targets.length + " ждут)" : '')
+        : (amb ? "В больницу" : "К месту назначения");
+      var load = active.capacity > 1 ? "  ·  на борту " + active.aboard + '/' + active.capacity : '';
+      return "Ур. " + active.level + '  ·  ' + head + load + '  ·  ' + active.jobCount + " выполнено";
     }
     return '$' + Math.floor(active.score) + ' / $' + d.target;
   }
@@ -2328,11 +2329,11 @@ GAME.missions = (function () {
       var opened = GAME.isla && GAME.isla.checkUnlock();
       GAME.audio.sting('win');
       GAME.haptics.win();
-      var head = d.job ? 'JOB DONE! +$' : 'MISSION PASSED! +$';
+      var head = d.job ? "РАБОТА ВЫПОЛНЕНА! +$" : "МИССИЯ ПРОЙДЕНА! +$";
       // races report the finishing place and time alongside the payout
       if (d.type === 'race') {
         var field = active.field || 1 + active.racers.length;
-        head = 'RACE WON — 1st / ' + field + '  ·  ' + value.toFixed(1) + 's  ·  +$';
+        head = "ГОНКА ВЫИГРАНА — 1-е / " + field + '  ·  ' + value.toFixed(1).replace('.', ',') + " с  ·  +$";
       }
       // A rampage won is paid for with the heat it raised: twenty bodies
       // walked you up to four stars, and the pass took the gun straight back
@@ -2340,39 +2341,39 @@ GAME.missions = (function () {
       // the job up makes the worst of it go away; two stars is still yours.
       var cooled = d.type === 'rampage' && GAME.police.wanted > RAMPAGE_HEAT_LEFT;
       if (cooled) GAME.police.setWanted(RAMPAGE_HEAT_LEFT);
-      GAME.hud.message(head + reward + (isBest ? '  ·  NEW BEST!' : '') +
-        (cooled ? '  ·  your people cooled it down to two stars' : ''), 4.5);
+      GAME.hud.message(head + reward + (isBest ? "  ·  НОВЫЙ РЕКОРД!" : '') +
+        (cooled ? "  ·  твои люди снизили розыск до двух звёзд" : ''), 4.5);
       // what it counts toward, while the channel is still shut — said only on
       // the title and pause screens before, never in play
       if (!d.job && !opened && GAME.isla && !GAME.isla.isOpen()) {
         var up = GAME.isla.unlockProgress();
-        GAME.hud.message(up.done + ' of ' + up.need + ' missions toward the bridges to Isla Verde', 4.5);
+        GAME.hud.message(up.done + " из " + up.need + " заданий для открытия мостов на Исла-Верде", 4.5);
       }
       GAME.track('mission-completed-' + d.type);
       // a finished run is worth showing off — the card carries the numbers
-      var cardStats = [{ label: 'Reward', value: '$' + reward }];
+      var cardStats = [{ label: "Награда", value: '$' + reward }];
       if (d.type === 'race') {
-        cardStats.unshift({ label: 'Place', value: '1st / ' + (active.field || 1 + active.racers.length) });
-        cardStats.push({ label: 'Time', value: value.toFixed(1) + 's' });
+        cardStats.unshift({ label: "Место", value: "1-е / " + (active.field || 1 + active.racers.length) });
+        cardStats.push({ label: "Время", value: value.toFixed(1).replace('.', ',') + ' с' });
       } else if (d.type === 'rampage') {
-        cardStats.push({ label: 'Mayhem', value: '$' + value });
+        cardStats.push({ label: "Ущерб", value: '$' + value });
       } else {
-        cardStats.push({ label: 'Time', value: value.toFixed(1) + 's' });
+        cardStats.push({ label: "Время", value: value.toFixed(1).replace('.', ',') + ' с' });
       }
-      if (isBest) cardStats.push({ label: 'Result', value: 'NEW BEST' });
+      if (isBest) cardStats.push({ label: "Результат", value: "НОВЫЙ РЕКОРД" });
       // Lola's word on it, the first time — and the next chapter when the
       // bridges open, or the last when there is no work of hers left
       if (prev === undefined && LOLA[d.id]) lola(LOLA[d.id][1]);
       if (prev === undefined && RICO[d.id]) rico(RICO[d.id], 7);
-      if (opened) lola('The bridges east are open. Isla Verde is waiting for you — and so is Rico. Find my rings over there.', 7);
+      if (opened) lola("Мосты на востоке открыты. Исла-Верде ждёт тебя. И Рико тоже. Ищи мои кольца там.", 7);
       else if (prev === undefined && !d.job && namedDone() === DEFS.length) {
-        lola('That\'s every job I had. The town is yours to enjoy — and somebody told me about tapes hidden all over it…', 8);
+        lola("Все мои задания закончились. Наслаждайся городом. Кстати, говорят, по всему городу спрятаны кассеты…", 8);
       }
       if (opened) return cleanup();     // the bridges card takes the screen
       GAME.share.show({
         slug: d.id,
-        eyebrow: typeLabel(d) || 'COSTA ROSA · 1986',
-        title: d.type === 'race' ? 'RACE WON' : 'MISSION PASSED',
+        eyebrow: typeLabel(d) || "КОСТА-РОСА · 1986",
+        title: d.type === 'race' ? "ГОНКА ВЫИГРАНА" : "МИССИЯ ПРОЙДЕНА",
         subtitle: d.name,
         accent: d.type === 'race' ? '#ff8a3d' : d.type === 'rampage' ? '#ff4fa3' : d.type === 'takedown' ? '#ff3b3b' : '#38e8ff',
         stats: cardStats
@@ -2384,13 +2385,13 @@ GAME.missions = (function () {
         var f2 = 1 + active.racers.length;
         // abandoning the car is a DNF — don't credit a position you walked away from
         tail = (GAME.player.inCar && GAME.player.car && !GAME.player.car.dead)
-          ? '  ·  finished ' + ordinal(racePosition()) + ' / ' + f2
-          : '  ·  DNF';
+          ? "  ·  финиш: " + ordinal(racePosition()) + ' / ' + f2
+          : "  ·  НЕ ФИНИШИРОВАЛ";
       }
       // a death or an arrest offers it once you are back on your feet
       var down = GAME.player.state !== 'alive';
       if (!d.job) retry = { def: d, carType: active.carType, until: GAME.time + RETRY_WINDOW, waitRespawn: down };
-      GAME.hud.message((quit ? 'MISSION ABANDONED' : 'MISSION FAILED — ' + reason) + tail + (retry && !down ? '  ·  ' + retryHint() : ''), 4);
+      GAME.hud.message((quit ? "МИССИЯ ОТМЕНЕНА" : "МИССИЯ ПРОВАЛЕНА — " + reason) + tail + (retry && !down ? '  ·  ' + retryHint() : ''), 4);
     }
     cleanup();
   }
@@ -2402,7 +2403,7 @@ GAME.missions = (function () {
   // heat still closes every start line, this one included.
   var RETRY_WINDOW = 12;
   // the retry key as it is bound, or the pad's button while on the pad
-  function retryHint() { return (GAME.controls ? GAME.controls.label('KeyY') : 'Y') + ' to retry'; }
+  function retryHint() { return (GAME.controls ? GAME.controls.label('KeyY') : 'Y') + ", чтобы повторить"; }
   var retry = null;
   function stepRetry(dt, P, hot) {
     if (retry.fadeT !== undefined) {
@@ -2419,7 +2420,7 @@ GAME.missions = (function () {
     if (GAME.keyPressed('KeyY') || GAME.input.touch.retry) {
       GAME.input.touch.retry = false;
       if (hot) {
-        GAME.hud.message('Lose the stars first — nobody starts a run with the heat on you.', 2.5);
+        GAME.hud.message("Сначала сбрось розыск. С полицией на хвосте заезды не начинают.", 2.5);
         return true;
       }
       retry.fadeT = 0.45;
@@ -2510,7 +2511,7 @@ GAME.missions = (function () {
     abandonAsk = 0;
     if (!active) return (GAME.strangers && GAME.strangers.abandon()) || (GAME.heist ? GAME.heist.abandon() : false);
     GAME.track('mission-abandoned');
-    if (active.def.job) endJob('clocked off');
+    if (active.def.job) endJob("смена закончена");
     else finish(false, ABANDONED);
     return true;
   }
@@ -2656,7 +2657,7 @@ GAME.missions = (function () {
     GAME.save();
     // a brand new save: she offers to show you around instead (guide.js)
     if (GAME.guide && GAME.guide.offer()) return;
-    lola('Welcome to Costa Rosa, kid. I\'m Lola — I run the strip. You need work, I have work: the rings on your map are mine. Start with a race, and win it.', 9);
+    lola("Добро пожаловать в Коста-Росу, парень. Я Лола, бульвар мой. Нужна работа? Она у меня есть. Кольца на карте — мои задания. Начни с гонки и выиграй.", 9);
   }
 
   function update(dt) {
@@ -2703,7 +2704,7 @@ GAME.missions = (function () {
       if (jobKind && (GAME.keyPressed('KeyJ') || GAME.input.touch.job)) {
         GAME.input.touch.job = false;
         if (jobHot) {
-          GAME.hud.message('Nobody rides with the heat on you — lose the stars first.', 2.5);
+          GAME.hud.message("С полицией на хвосте никто не сядет. Сначала сбрось розыск.", 2.5);
           return;
         }
         startJob(jobKind);
@@ -2775,7 +2776,7 @@ GAME.missions = (function () {
     // J (or the JOB button) again clocks off an ongoing shift
     if (active.def.job && (GAME.keyPressed('KeyJ') || GAME.input.touch.job)) {
       GAME.input.touch.job = false;
-      endJob('clocked off');
+      endJob("смена закончена");
       return;
     }
     // X walks away from it. There was no way out of a run you had gone off
@@ -2786,7 +2787,7 @@ GAME.missions = (function () {
       if (GAME.time < abandonAsk) { abandon(); return; }
       abandonAsk = GAME.time + ABANDON_CONFIRM;
       var xk = GAME.controls ? GAME.controls.label('KeyX') : 'X';
-      GAME.hud.message(xk + ' again to ' + (active.def.job ? 'clock off' : 'abandon ' + active.def.name), ABANDON_CONFIRM);
+      GAME.hud.message(xk + " ещё раз, чтобы " + (active.def.job ? "закончить смену" : "отменить " + active.def.name), ABANDON_CONFIRM);
     }
 
     // active mission
@@ -2809,7 +2810,7 @@ GAME.missions = (function () {
         active.countdown -= dt;
         if (active.countdown <= 0) {
           active.state = 'run'; active.t = 0;
-          GAME.hud.bigCount('GO!');
+          GAME.hud.bigCount("ВПЕРЁД!");
           GAME.audio.pickup();
           GAME.haptics.checkpoint();
           if (active.goSetup) { active.goSetup(); active.goSetup = null; }
@@ -2818,8 +2819,8 @@ GAME.missions = (function () {
             GAME.prefs.abandonTold = true;
             GAME.save();
             var padNow = GAME.controls && GAME.controls.usingPad();
-            GAME.hud.message(GAME.isTouch || padNow ? 'Changed your mind? Pause' + (padNow ? ' (START)' : '') + ' → ABANDON MISSION walks away from a run.'
-              : 'Changed your mind? ' + (GAME.controls ? GAME.controls.label('KeyX') : 'X') + ' twice walks away from a run.', 4);
+            GAME.hud.message(GAME.isTouch || padNow ? "Передумал? Пауза" + (padNow ? " (START)" : '') + " → «ОТМЕНИТЬ МИССИЮ», чтобы отказаться от задания."
+              : "Передумал? Нажми " + (GAME.controls ? GAME.controls.label('KeyX') : 'X') + " дважды, чтобы отказаться от задания.", 4);
           }
         } else {
           var num = Math.max(1, Math.ceil(active.countdown));
@@ -2833,12 +2834,12 @@ GAME.missions = (function () {
     if (active.stage) {
       updateAct(dt, P);
     } else if (d2.type === 'race') {
-      if (!P.inCar || !P.car || P.car.dead) { finish(false, 'You lost your ride.'); return; }
+      if (!P.inCar || !P.car || P.car.dead) { finish(false, "Ты потерял транспорт."); return; }
       for (var r = 0; r < active.racers.length; r++) {
         var rc = active.racers[r];
         if (!inRace(rc)) continue;
         var ctl = racerControls(rc, dt);
-        if (ctl === null) { finish(false, 'A rival finished first.'); return; }
+        if (ctl === null) { finish(false, "Соперник финишировал первым."); return; }
         rc.controls = ctl;
       }
       var cp = currentCp();
@@ -2877,7 +2878,7 @@ GAME.missions = (function () {
       GAME.hud.missionTimer(active.t, false);
     } else if (d2.type === 'courier') {
       active.timeLeft -= dt;
-      if (active.timeLeft <= 0) { finish(false, 'Out of time.'); return; }
+      if (active.timeLeft <= 0) { finish(false, "Время вышло."); return; }
       var px2 = P.inCar ? P.car.pos.x : P.pos.x, pz2 = P.inCar ? P.car.pos.z : P.pos.z;
       var stop = currentCp();
       bobCrate();
@@ -2886,9 +2887,9 @@ GAME.missions = (function () {
         GAME.audio.pickup();
         GAME.haptics.checkpoint();
         if (active.cpIndex >= active.stops.length) { finish(true); return; }
-        GAME.hud.message(!d2.boat ? 'Delivered! Next stop is marked.'
-          : active.cpIndex < active.stops.length - 1 ? 'Package aboard! The next one is marked.'
-            : 'Got them all — bring them in to the pier!', 2);
+        GAME.hud.message(!d2.boat ? "Доставлено! Следующая остановка отмечена."
+          : active.cpIndex < active.stops.length - 1 ? "Посылка на борту! Следующая отмечена."
+            : "Всё собрано. Вези на пирс!", 2);
         GAME.hud.missionObjective(objectiveText());
         active.routeCp = -1; // force route recompute for the new stop
         updateCp();
@@ -2917,7 +2918,7 @@ GAME.missions = (function () {
         if (near < 8) spawnRampageTargets(9, 3);
       }
       if (active.score >= d2.target) { finish(true); return; }
-      if (active.timeLeft <= 0) { finish(false, 'Time up — $' + Math.floor(active.score) + ' of $' + d2.target); return; }
+      if (active.timeLeft <= 0) { finish(false, "Время вышло — $" + Math.floor(active.score) + " из $" + d2.target); return; }
     } else if (d2.type === 'icecream') {
       updateIceCream(dt, P);
     } else if (d2.type === 'vigilante') {
@@ -2926,10 +2927,10 @@ GAME.missions = (function () {
       updateTakedown(dt, P);
     } else if (d2.type === 'taxifare' || d2.type === 'ambulance') {
       // clock off simply by leaving the vehicle; the shift also ends if it's totalled
-      if (!P.inCar || !P.car) { endJob('clocked off'); return; }
-      if (P.car.dead) { endJob('vehicle totalled'); return; }
+      if (!P.inCar || !P.car) { endJob("смена закончена"); return; }
+      if (P.car.dead) { endJob("транспорт разбит"); return; }
       active.timeLeft -= dt;
-      if (active.timeLeft <= 0) { endJob('out of time'); return; }
+      if (active.timeLeft <= 0) { endJob("время вышло"); return; }
       var f = GAME.focus(), tgt = currentCp();
       var amb = d2.type === 'ambulance';
       // --- the heat ladder for shifts. One or two stars: the run in progress
@@ -2937,7 +2938,7 @@ GAME.missions = (function () {
       // at the kerb — the shift itself survives. Four or five: nobody works
       // through a war zone; the shift ends on the spot, earnings kept.
       var w = GAME.police.wanted;
-      if (w >= 4) { endJob('dispatch cut you off — too hot'); return; }
+      if (w >= 4) { endJob("диспетчер отключил тебя — слишком высокий розыск"); return; }
       if (w >= 3 && active.aboard > 0) {
         var nb = active.aboard;
         for (var bi = 0; bi < nb; bi++) {
@@ -2951,8 +2952,8 @@ GAME.missions = (function () {
         if (!active.targets.length) active.holdHeat = true;
         updateCp();
         GAME.hud.message(amb
-          ? 'Your patients scramble out — three stars is no stretcher run.'
-          : 'Your fare bails out — nobody rides through three stars.', 3.5);
+          ? "Пациенты выскакивают — три звезды для скорой перебор."
+          : "Пассажир сбежал — никто не поедет с тремя звёздами.", 3.5);
         GAME.hud.missionObjective(objectiveText());
       }
       // dispatch resumes the moment the heat is gone
@@ -2961,7 +2962,7 @@ GAME.missions = (function () {
         startRound();
         active.routeCp = null;
         updateCp();
-        GAME.hud.message('Heat’s off — dispatch calls in new ' + (amb ? 'patients' : 'fares') + '.', 3);
+        GAME.hud.message("Розыск снят — диспетчер сообщает о новых вызовах: " + (amb ? 'пациенты' : 'пассажиры') + '.', 3);
         GAME.hud.missionObjective(objectiveText());
       }
       if (active.phase === 'pickup') {
@@ -2974,11 +2975,11 @@ GAME.missions = (function () {
             active.noBoardHintT = (active.noBoardHintT || 0) - dt;
             if (active.noBoardHintT <= 0) {
               active.noBoardHintT = 5;
-              GAME.hud.message('Nobody gets in with three stars on you — lose the heat.', 2.5);
+              GAME.hud.message("Никто не сядет при трёх звёздах. Сбрось розыск.", 2.5);
             }
           } else {
             near.boarding = true;
-            GAME.hud.message(amb ? 'Patient is coming — hold still.' : 'Your fare is coming over.', 2);
+            GAME.hud.message(amb ? "Пациент идёт — стой на месте." : "Пассажир подходит.", 2);
           }
         }
         stepBoarding(dt, f, P);
@@ -3040,9 +3041,9 @@ GAME.missions = (function () {
     GAME.audio.sting('win');
     GAME.haptics.win();
     GAME.hud.dialog({
-      title: 'COSTA ROSA, COMPLETE',
-      body: 'Every mission, every race, every jump, every lost tape — both islands.\nThe TALON is warming up on the mainland helipad (guns live, rockets loaded), the showroom will sell you spares, every gun you carry will never run dry again, and there is a million dollars in your pocket that was not there this morning.',
-      ok: 'CARRY ON', cancel: false
+      title: "КОСТА-РОСА: ВСЁ ПРОЙДЕНО",
+      body: "Все миссии, гонки, прыжки и потерянные кассеты — на обоих островах.\n«КОГОТЬ» уже прогревается на материковой вертолётной площадке: пушки готовы, ракеты заряжены. В автосалоне можно купить запасной, патроны больше никогда не закончатся, а в кармане появился миллион долларов, которого утром ещё не было.",
+      ok: "ПРОДОЛЖИТЬ", cancel: false
     });
     return true;
   }
@@ -3063,7 +3064,7 @@ GAME.missions = (function () {
     }
     if (!near) return;
     if (P.cash < 100) {
-      GAME.hud.message('Respray costs $100 — you\'re short.', 2.5);
+      GAME.hud.message("Перекраска стоит $100 — у тебя не хватает денег.", 2.5);
       resprayCooldown = 4;
       return;
     }
@@ -3098,8 +3099,8 @@ GAME.missions = (function () {
     GAME.fx.flash(car.pos.x, 1.5, car.pos.z, 4);
     GAME.audio.pickup();
     GAME.hud.message(w >= 3
-      ? 'Resprayed & fully repaired — but three stars is past paint. They know your face.'
-      : 'Resprayed & fully repaired — the heat is off.', 3);
+      ? "Перекрашено и полностью отремонтировано. Но при трёх звёздах краска не поможет — тебя знают в лицо."
+      : "Перекрашено и полностью отремонтировано. Розыск снят.", 3);
     GAME.track('respray-used');
     resprayCooldown = 8;
   }

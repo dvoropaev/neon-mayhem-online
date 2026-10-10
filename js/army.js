@@ -91,7 +91,7 @@ GAME.army = (function () {
       crush(car, dt);
       if (P.inCar && P.car === car) {
         // yours: the turret follows the camera, LMB (or FIRE) is the gun
-        if (!told) { told = true; GAME.hud.message('MASTODON — the turret follows your aim, ' + (GAME.isTouch ? 'FIRE' : 'LMB') + ' fires the cannon.', 4); }
+        if (!told) { told = true; GAME.hud.message("МАСТОДОНТ — башня следует за прицелом, " + (GAME.isTouch ? "ОГОНЬ" : "ЛКМ") + " стреляет из пушки.", 4); }
         turretTo(car, GAME.cam.yaw, dt);
         var pull = (inp.lmbPressed || inp.lmb || T.fire);
         inp.lmbPressed = false;

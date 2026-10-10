@@ -13,7 +13,7 @@
 // some way nobody predicted, one press puts it back.
 GAME.chaos = (function () {
   var KEY = 'nm_chaos';
-  var NAMES = ['OFF', 'CALM', 'NORMAL', 'LIVELY', 'MAYHEM'];
+  var NAMES = ['ВЫКЛ.', 'СПОКОЙНЫЙ', 'ОБЫЧНЫЙ', 'ОЖИВЛЁННЫЙ', 'ХАОС'];
 
   // One row per level. Rates are per-second-per-candidate unless noted; the
   // chances are rolled once per provocation.

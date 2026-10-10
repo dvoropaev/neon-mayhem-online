@@ -15,19 +15,19 @@
 // and open where you would walk or drive in.
 GAME.landmarks = (function () {
   var SITES = [
-    { id: 'tide', name: 'THE NEON TIDE', x: 196, z: 418, lot: 56 },
-    { id: 'stadium', name: 'MEMORIAL STADIUM', x: 98, z: 450, lot: 58 },
-    { id: 'pictures', name: 'ROSA PICTURES', x: 18, z: 18, lot: 42 },
-    { id: 'villa', name: 'VILLA SALAZAR', x: -14, z: -298, lot: 42 }
+    { id: 'tide', name: "НЕОНОВЫЙ ПРИЛИВ", x: 196, z: 418, lot: 56 },
+    { id: 'stadium', name: "МЕМОРИАЛЬНЫЙ СТАДИОН", x: 98, z: 450, lot: 58 },
+    { id: 'pictures', name: "РОСА ПИКЧЕРЗ", x: 18, z: 18, lot: 42 },
+    { id: 'villa', name: "ВИЛЛА САЛАЗАРА", x: -14, z: -298, lot: 42 }
   ];
   var built = false, signTex = null, list = [];
 
   // ---------- the signs: one canvas, a row each ----------
   var SIGN_ROWS = [
-    { text: 'THE NEON TIDE', col: '#ff4fa3', font: 'italic 900 50px "Segoe UI", Arial, sans-serif' },
-    { text: 'MEMORIAL STADIUM', col: '#38e8ff', font: '900 40px "Segoe UI", Arial, sans-serif' },
-    { text: 'ROSA PICTURES', col: '#ffe14f', font: 'italic 900 44px Georgia, serif' },
-    { text: 'VILLA SALAZAR', col: '#f4f1e8', font: '700 40px Georgia, serif' }
+    { text: "НЕОНОВЫЙ ПРИЛИВ", col: '#ff4fa3', font: 'italic 900 50px "Segoe UI", Arial, sans-serif' },
+    { text: "МЕМОРИАЛЬНЫЙ СТАДИОН", col: '#38e8ff', font: '900 40px "Segoe UI", Arial, sans-serif' },
+    { text: "РОСА ПИКЧЕРЗ", col: '#ffe14f', font: 'italic 900 44px Georgia, serif' },
+    { text: "ВИЛЛА САЛАЗАРА", col: '#f4f1e8', font: '700 40px Georgia, serif' }
   ];
   function signs() {
     if (signTex) return signTex;
